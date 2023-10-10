@@ -93,43 +93,40 @@ The `prompt_params` dictionary contains the following parameters:
 
 The `experiment_params` dictionary contains the following parameters:
 
-- `use_min` &mdash; Append minute of experiment start time into the experiment ID (default &mdash; true).
-- `use_sec` &mdash; Append seconds of experiment start time into the experiment ID (default &mdash; true).
-- `use_microsec` &mdash; Append microseconds of experiment start time into the experiment ID (default &mdash; false).
+- `use_min` &mdash; Append minute of experiment start time into the experiment ID (default &mdash; true)
+- `use_sec` &mdash; Append seconds of experiment start time into the experiment ID (default &mdash; true)
+- `use_microsec` &mdash; Append microseconds of experiment start time into the experiment ID (default &mdash; false)
 
 ### Evaluating Faithfulness
 
-##### Lime Parameters
+To evaluate explanations from a given LLM, run the following command:
 
-The `lime_params` dictionary contains the following parameters:
-
-- `kernel_width` &mdash; Width of LIME kernel (default &mdash; 0.75).
-- `variance` &mdash; Variance of perturbations used (default &mdash; 0.1).
-- `mode` &mdash; Data mode (default &mdash; "tabular").
-- `sample_around_instance` &mdash; Determines how samples are produced (default &mdash; true).
-- `n_samples` &mdash; Number of perturbations to use in LIME (default &mdash; 4000).
-- `discretize_continuous` &mdash; Discretize continuous features (default &mdash; false).
-- `categorical_features` &mdash; Indices of categorical/one-hot features. Default value is specific to COMPAS (default &mdash; [3, 4, 5]).
+```
+python3 FaithfulnessPipeline.py
+```
 
 ##### Faithfulness Analysis
 
-The parameters used for evaluating faithfulness metrics are From within these file, users have the ability to control the following parameters:
-- `SEED` &mdash; seed value for reproducibility (default: 0).
-- `data_name` &mdash; name of dataset to use, e.g., "compas", "adult", etc. (default: "compas").
-- `feature_types` &mdash; list of feature types, where "c" represents continuous and "d" represents discrete (e.g. ["c", "c", "c", "d", "d", "d"]).
-- `data_scaler` &mdash; data scaler method, e.g., "minmax" (default: "minmax").
-- `model_name` &mdash; name of the model to use, e.g., "lr" (default: "lr").
-- `model_file_name` &mdash; file name of the saved model (e.g. "<model_name>.pt").
-- `model_dir` &mdash; directory of the saved model (default: "models/LR/").
-- `LLM_topks_path` &mdash; path to the LLM top-Ks file (e.g.: "./outputs/LLM_QueryAndReply/<experiment_ID>/<LLM_topk>.pkl").
-- `output_dir` &mdash; directory to save LLM results to (e.g.: "./outputs/LLM_QueryAndReply/<experiment_ID>/").
-- `eval_min_idx` &mdash; the minimum index for evaluation (default: 0).
-- `eval_max_idx` &mdash; the maximum index for evaluation (default: 400).
-- `perturbation_mean` &mdash; mean of the perturbation (default: 0.0).
-- `perturbation_std` &mdash; standard deviation of the perturbation (default: 0.05).
-- `perturbation_flip_percentage` &mdash; percentage of perturbed samples with flipped features (default: 0.05).
-- `perturbation_max_distance` &mdash; maximum distance for perturbation (default: 0.4).
-- `perturb_num_samples` &mdash; number of perturbed samples (default: 100).
+The parameters used for evaluating faithfulness metrics are as follows:
+- `SEED` &mdash; seed value for reproducibility (default &mdash; 0)
+- `data_name` &mdash; name of dataset to use, e.g., "compas", "adult", etc. (default &mdash; "adult")
+- `data_scaler` &mdash; data scaler method, e.g., "minmax" (default &mdash; "minmax")
+- `model_name` &mdash; name of the model to use, e.g., "lr" (default &mdash; "lr")
+- `base_model_dir` &mdash; directory of the saved model (default &mdash; "./models/ClassWeighted_scale_minmax/")
+- `output_dir` &mdash; directory to read LLM results from (default &mdash; "./outputs/LLM_QueryAndReply/<experiment_ID>/")
+- `LLM_topks_file_name` &mdash; path to the LLM top-Ks file (default &mdash; "_.pkl")
+- `save_results` &mdash; save faithfulness evaluations (default &mdash; true)
+- `eval_min_idx` &mdash; the minimum index for evaluation (default &mdash; 0)
+- `eval_max_idx` &mdash; the maximum index for evaluation (default &mdash; 100)
+- `eval_topk_k` &mdash;
+- `LLM_top_k` &mdash;
+- `load_reply_strategy` &mdash;
+- `calculateAUC` &mdash;
+- `experiment_section` &mdash;
+- `perturbation_mean` &mdash; mean of the perturbation (default &mdash; 0.0)
+- `perturbation_std` &mdash; standard deviation of the perturbation (default &mdash; 0.05)
+- `perturbation_max_distance` &mdash; maximum distance for perturbation (default &mdash; 0.4)
+- `perturb_num_samples` &mdash; number of perturbed samples to sub-select from (default &mdash; 10000)
 
 ### Combined Pipelines
 
