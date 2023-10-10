@@ -1,13 +1,21 @@
-# LM_Explainer 
-Codebase for LM based Post Hoc Explanation. 
+# LLM_Explainer 
+Codebase for the paper [Are Large Language Models Post Hoc Explainers?](https://arxiv.org/abs/2310.05797)
+
+REFACTOR:
+
+data: datasets (Blood, COMPAS, Credit, Adult)
+llms: icl/prompt/query/response
+models
+notebooks
 
 Data and models are drawn from the *openxai* folder
+
 
 Prompt class, answer processing classes, API details, etc, are drawn from the *llms* folder
 
 NOTE: llm_predictor and llm_tutorial have not yet been refactored. Consider them redundant for now.
 
-![pipeline](https://github.com/AI4LIFE-GROUP/LM_Explainer/assets/35569862/15dad9fc-4548-4348-a30b-8fa08c598b8f)
+![LLM_framework_pages-to-jpg-0001](https://github.com/AI4LIFE-GROUP/LLM_Explainer/assets/35569862/ecee3472-6537-4761-a489-ed1d2b5399a3)
 
 # Pipeline Instructions
 
