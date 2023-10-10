@@ -43,14 +43,19 @@ The parameters used are located in the config file ```LLM_pipeline_config.json``
 - `max_test_samples` &mdash; A hard limit on the number of test samples to evaluate (default &mdash; 100)
 - `SEED` &mdash; Seed value for reproducibility (default &mdash; 0)
 - `n_shot` &mdash; The number of examples used for in-context learning (ICL) the model (default &mdash; 16)
-- `icl_params' &mdash; parameters for controlling the generation of ICL examples, see below
-- `sampling_params` &mdash; Parameters for the different sampling strategies
+- `icl_params` &mdash; parameters for controlling the generation of ICL examples, see below
+- `sampling_params` &mdash; Parameters for the different sampling strategies, see below
 - `prompt_params` &mdash; parameters for controlling the prompt of the model, see below
 - `experiment_params` &mdash; parameters used to identify the experiment, see below
 
-The prompts for querying the LLM are stored in the appropriate config file (default &mdash; ```prompts.json```). From within these file, users have the ability to control the following parameters:
+The prompts for querying the LLM are stored in the appropriate config file (default &mdash; ```prompts.json```). From within this file, users have the ability to control the following parameters:
 
-### Additional Parameters
+##### ICL Parameters
+
+- `icl_seed` &mdash; The seed used to generate ICL samples (default &mdash; 0)
+- `sampling_scheme` &mdash; ICL sampling strategy, see below (default &mdash; "most_confident_preds")
+
+##### Sampling Parameters
 
 The `sampling_params` dictionary contains the following schemes:
 
@@ -58,12 +63,7 @@ The `sampling_params` dictionary contains the following schemes:
 - `lime_sample` &mdash; Empty dictionary
 - `most_confident_preds`&mdash; Empty dictionary
 
-#### ICL Parameters
-
-- `icl_seed` &mdash; The seed used to generate ICL samples (default &mdash; 0)
-- `sampling_scheme` &mdash; ICL sampling strategy, see below (default &mdash; "most_confident_preds")
-
-#### Prompt Parameters
+##### Prompt Parameters
 
 The `prompt_params` dictionary contains the following parameters:
 
@@ -79,7 +79,17 @@ The `prompt_params` dictionary contains the following parameters:
 - `prompt_ID` &mdash; The ID of the prompt (default &mdash; "simple_0")
 - `n_round` &mdash; Number of decimal places to round floats to in the prompt (default &mdash; 5)
 
-#### Lime Parameters
+##### Experiment Parameters
+
+The `experiment_params` dictionary contains the following parameters:
+
+- `use_min` &mdash; Append minute of experiment start time into the experiment ID (default &mdash; true).
+- `use_sec` &mdash; Append seconds of experiment start time into the experiment ID (default &mdash; true).
+- `use_microsec` &mdash; Append microseconds of experiment start time into the experiment ID (default &mdash; false).
+
+### Faithfulness Pipeline
+
+##### Lime Parameters
 
 The `lime_params` dictionary contains the following parameters:
 
@@ -91,15 +101,7 @@ The `lime_params` dictionary contains the following parameters:
 - `discretize_continuous` &mdash; Boolean to discretize continuous features (default &mdash; false).
 - `categorical_features` &mdash; Indices of categorical/one-hot features. Default value is specific to COMPAS (default &mdash; [3, 4, 5]).
 
-#### Experiment Parameters
-
-The `experiment_params` dictionary contains the following parameters:
-
-- `use_min` &mdash; Append minute of experiment start time into the experiment ID (default &mdash; true).
-- `use_sec` &mdash; Append seconds of experiment start time into the experiment ID (default &mdash; true).
-- `use_microsec` &mdash; Append microseconds of experiment start time into the experiment ID (default &mdash; false).
-
-### Faithfulness Analysis
+##### Faithfulness Analysis
 
 The parameters used for evaluating faithfulness metrics are From within these file, users have the ability to control the following parameters:
 - `SEED` &mdash; seed value for reproducibility (default: 0).
@@ -119,3 +121,6 @@ The parameters used for evaluating faithfulness metrics are From within these fi
 - `perturbation_max_distance` &mdash; maximum distance for perturbation (default: 0.4).
 - `perturb_num_samples` &mdash; number of perturbed samples (default: 100).
 
+### Combined Pipelines
+
+Description of `LLM_pipeline_wrapper_experiments.py`
