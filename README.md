@@ -3,15 +3,15 @@ Codebase for the paper [Are Large Language Models Post Hoc Explainers?](https://
 
 The repository is organized as follows:
 
-The ```data``` folder contains our pre-processed Blood, COMPAS, Credit and Adult datasets.
-llms: icl/prompt/query/response
-models
-notebooks
+The ```data``` folder contains the pre-processed Blood, COMPAS, Credit and Adult datasets.
 
-Data and models are drawn from the *openxai* folder
+The ```llms``` folder contains code for prompt generation, LLM API calls, and response processing.
 
+The ```models``` folder contains pre-trained Logistic Regression (LR) and Large Artificial Neural Network (ANN-L) classifiers.
 
-Prompt class, answer processing classes, API details, etc, are drawn from the *llms* folder
+The ```openxai``` folder contains code from [Agarwal et al. 2022](https://arxiv.org/abs/2206.11104), used to generate post-hoc explanations, perturbations around test samples, and faithfulness scores.
+
+The ```notebooks``` folder contains demonstrations such as model training, and the ```outputs``` folder stores results from a) post-hoc explainers and b) LLM explainers.
 
 Our pipelines 
 
