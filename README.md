@@ -15,7 +15,9 @@ The ```models``` folder contains pre-trained Logistic Regression (LR) and Large 
 
 The ```openxai``` folder contains code from [Agarwal et al. 2022](https://arxiv.org/abs/2206.11104), used to generate post-hoc explanations, perturbations around test samples, and faithfulness scores.
 
-The ```notebooks``` folder contains demonstrations such as model training, and the ```outputs``` folder stores results from a) post-hoc explainers and b) LLM explainers.
+The ```notebooks``` folder contains demonstrations such as model training and model inspection.
+
+The ```outputs``` folder stores results from a) post-hoc explainers and b) LLM explainers.
 
 # Pipeline Instructions
 
