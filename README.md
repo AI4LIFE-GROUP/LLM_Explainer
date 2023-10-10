@@ -19,7 +19,7 @@ The ```outputs``` folder stores results from a) post-hoc explainers and b) LLM e
 
 # Pipeline Instructions
 
-### LLM Explanations
+### Generating LLM Explanations
 
 To generate explanations from a given LLM, run the following command:
 
@@ -73,12 +73,12 @@ The `prompt_params` dictionary contains the following parameters:
 
 - `prompt_ID` &mdash; The ID of the prompt in `prompts.json` (default &mdash; "pfpe2-topk")
 - `k` &mdash; The number of top-K features to request from the LLM. Use -1 for all features (default &mdash; 5)
-- `hide_feature_details` &mdash; Boolean controlling whether or not feature names and suffixes (e.g., Age is 27 years vs A is 27) are hidden (default &mdash; true)
+- `hide_feature_details` &mdash; Controls whether or not feature names and suffixes (e.g., Age is 27 years vs A is 27) are hidden (default &mdash; true)
 - `hide_feature_IDs` &mdash; 
-- `hide_test_sample` &mdash; 
+- `hide_test_sample` &mdash; Hides the test sample being explained, showing only neighborhood perturbations (default &mdash; true)
 - `hide_last_pred` &mdash; Hides the last ICL example's prediction, used in Prediction-Based ICL (default &mdash; true)
-- `use_soft_preds` &mdash; 
-- `rescale_soft_preds` &mdash; 
+- `use_soft_preds` &mdash; Sets predictions to probability scores rather than labels (default &mdash; false)
+- `rescale_soft_preds` &mdash; If using soft predictions, rescales all predictions in the ICL to a 0-1 range (default &mdash; false)
 - `n_round` &mdash; Number of decimal places to round floats to in the prompt (default &mdash; 3)
 - `input_str` &mdash; String to prepend to each ICL input (default &mdash; "\nChange in Input: ")
 - `output_str` &mdash; String or list to prepend to each ICL output. For strings, use e.g., "Output &mdash; " (default &mdash; "\nChange in Output: ")
@@ -86,8 +86,8 @@ The `prompt_params` dictionary contains the following parameters:
 - `output_sep` &mdash; Separator between ICL inputs and ICL outputs (default &mdash; "")
 - `feature_sep` &mdash; Separator between blocks of <feature_name, feature_value> pairs (default &mdash; ", ")
 - `value_sep` &mdash; Separator between feature name and feature value (default &mdash; ": ")
-- `add_explanation` &mdash; 
-- `num_explanations` &mdash; 
+- `add_explanation` &mdash; Flag for adding explanations in the ICL prompt for Explanation-Based ICL (default &mdash; false)
+- `num_explanations` &mdash; Number of explanations to use for Explanation-Based ICL (default &mdash; 200)
 
 ##### Experiment Parameters
 
@@ -97,7 +97,7 @@ The `experiment_params` dictionary contains the following parameters:
 - `use_sec` &mdash; Append seconds of experiment start time into the experiment ID (default &mdash; true).
 - `use_microsec` &mdash; Append microseconds of experiment start time into the experiment ID (default &mdash; false).
 
-### Explanation Faithfulness
+### Evaluating Faithfulness
 
 ##### Lime Parameters
 
@@ -106,9 +106,9 @@ The `lime_params` dictionary contains the following parameters:
 - `kernel_width` &mdash; Width of LIME kernel (default &mdash; 0.75).
 - `variance` &mdash; Variance of perturbations used (default &mdash; 0.1).
 - `mode` &mdash; Data mode (default &mdash; "tabular").
-- `sample_around_instance` &mdash; Boolean to determine how samples are produced (default &mdash; true).
+- `sample_around_instance` &mdash; Determines how samples are produced (default &mdash; true).
 - `n_samples` &mdash; Number of perturbations to use in LIME (default &mdash; 4000).
-- `discretize_continuous` &mdash; Boolean to discretize continuous features (default &mdash; false).
+- `discretize_continuous` &mdash; Discretize continuous features (default &mdash; false).
 - `categorical_features` &mdash; Indices of categorical/one-hot features. Default value is specific to COMPAS (default &mdash; [3, 4, 5]).
 
 ##### Faithfulness Analysis
@@ -133,4 +133,4 @@ The parameters used for evaluating faithfulness metrics are From within these fi
 
 ### Combined Pipelines
 
-Description of `LLM_pipeline_wrapper_experiments.py`
+Description of `LLM_pipeline_wrapper_experiments.py` and `FaithfulnessPipeline_batch_experiments.py`
