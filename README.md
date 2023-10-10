@@ -129,4 +129,8 @@ The parameters used for evaluating faithfulness metrics are as follows:
 
 ### Combined Pipelines
 
-Description of `LLM_pipeline_wrapper_experiments.py` and `FaithfulnessPipeline_batch_experiments.py`
+To automatically faithfulness scores after generating LLM explanations, set the appropriate parameters in the `LLM_pipeline_wrapper_experiments.py` file, and run the following command:
+
+```
+python3 LLM_pipeline_wrapper_experiments.py
+```
