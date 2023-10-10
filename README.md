@@ -3,7 +3,7 @@ Codebase for the paper [Are Large Language Models Post Hoc Explainers?](https://
 
 ![LLM_framework_pages-to-jpg-0001](https://github.com/AI4LIFE-GROUP/LLM_Explainer/assets/35569862/ecee3472-6537-4761-a489-ed1d2b5399a3)
 
-The repository is organized as follows:
+**This repository is organized as follows:**
 
 The ```data``` folder contains the pre-processed Blood, COMPAS, Credit and Adult datasets.
 
@@ -118,16 +118,19 @@ The parameters used for evaluating faithfulness metrics are as follows:
 - `save_results` &mdash; save faithfulness evaluations (default &mdash; true)
 - `eval_min_idx` &mdash; the minimum index for evaluation (default &mdash; 0)
 - `eval_max_idx` &mdash; the maximum index for evaluation (default &mdash; 100)
-- `eval_topk_k` &mdash;
-- `LLM_top_k` &mdash;
-- `load_reply_strategy` &mdash;
-- `calculateAUC` &mdash;
-- `experiment_section` &mdash;
+- `eval_topk_k` &mdash; the number of top-K features to evaluate faithfulness on (default &mdash; 5)
+- `LLM_top_k` &mdash; the number of top-K features in the LLM's explanations (default &mdash; 5)
+- `load_reply_strategy` &mdash; file extension of replies (default &mdash; "txt")
+- `calculateAUC` &mdash; calculates AUC across all top-K scores, rather than for individual scores (default &mdash; true)
+- `experiment_section` &mdash; set to "3.2" in order to parse LLM predictions as well as top-K values (default &mdash; "3.1")
 - `perturbation_mean` &mdash; mean of the perturbation (default &mdash; 0.0)
-- `perturbation_std` &mdash; standard deviation of the perturbation (default &mdash; 0.05)
-- `perturbation_max_distance` &mdash; maximum distance for perturbation (default &mdash; 0.4)
+- `perturbation_std` &mdash; standard deviation of the perturbation (default &mdash; 0.1)
 - `perturb_num_samples` &mdash; number of perturbed samples to sub-select from (default &mdash; 10000)
 
 ### Combined Pipelines
 
-Description of `LLM_pipeline_wrapper_experiments.py` and `FaithfulnessPipeline_batch_experiments.py`
+To automatically faithfulness scores after generating LLM explanations, set the appropriate parameters in the `LLM_pipeline_wrapper_experiments.py` file, and run the following command:
+
+```
+python3 LLM_pipeline_wrapper_experiments.py
+```
