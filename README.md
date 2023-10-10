@@ -1,9 +1,9 @@
 # LLM_Explainer 
 Codebase for the paper [Are Large Language Models Post Hoc Explainers?](https://arxiv.org/abs/2310.05797)
 
-REFACTOR:
+The repository is organized as follows:
 
-data: datasets (Blood, COMPAS, Credit, Adult)
+The ```data``` folder contains our pre-processed Blood, COMPAS, Credit and Adult datasets.
 llms: icl/prompt/query/response
 models
 notebooks
@@ -13,43 +13,45 @@ Data and models are drawn from the *openxai* folder
 
 Prompt class, answer processing classes, API details, etc, are drawn from the *llms* folder
 
-NOTE: llm_predictor and llm_tutorial have not yet been refactored. Consider them redundant for now.
+Our pipelines 
+
+LLM_PostHocPipeline.py <-- LLM_pipeline_config.json
+FaithfulnessPipeline.py <-- faithfulness_config.json
+Extra: FaithfulnessPipeline_batch_experiments.py, LLM_pipeline_wrapper_experiments.py
+
 
 ![LLM_framework_pages-to-jpg-0001](https://github.com/AI4LIFE-GROUP/LLM_Explainer/assets/35569862/ecee3472-6537-4761-a489-ed1d2b5399a3)
 
 # Pipeline Instructions
 
-### LM Explanations
+### LLM Explanations
 
 To generate explanations from a given LLM, run the following command:
 
 ```
-python3 LLM_PostHocPipeline.py --config <LLM_CONFIG_FILE> --prompts <PROMPTS_FILE>
-python3 FaithfulnessPipeline.py --config <FAITHFULNESS_CONFIG_FILE>
+python3 LLM_PostHocPipeline.py
 ```
 
-The parameters used for each run are located in the appropriate config file (default &mdash; ```pipeline_config.json```). The prompts for querying the LLM are stored in the appropriate config file (default &mdash; ```prompts.json```). From within these file, users have the ability to control the following parameters:
-- `data_name` &mdash; Name of the dataset to use, e.g., "compas", "adult", etc. (default &mdash; "compas")
-- `data_scaler` &mdash; Scaler for the data (default &mdash; "minmax")
-- `model_name` &mdash; Name of the model to use, e.g., "lr", "ann_s", etc. (default &mdash; "lr")
-- `model_file_name` &mdash; File name of the saved model (e.g. "<model_name>.pt")
-- `model_dir` &mdash; Directory of the saved model (e.g. "models/LR/")
-- `output_dir` &mdash; Directory to save LLM results to (default &mdash; "outputs/LLM_QueryAndReply/")
-- `openai_api_key_file_path` &mdash; File path to your OpenAI API key (default &mdash; "<file_path>/openai_api_key.txt")
-- `LLM_name` &mdash; Name of the LLM model (default &mdash; "gpt-3.5-turbo-0613")
+The parameters used are located in the config file ```LLM_pipeline_config.json```.
+- `data_name` &mdash; Name of the dataset to use: "blood", "compas", "credit" or "adult" (default &mdash; "adult")
+- `data_scaler` &mdash; Scaler for the data: "minmax", "standard" or "none" (default &mdash; "minmax")
+- `model_name` &mdash; Name of the model to use, e.g., "lr", "ann_l", etc. (default &mdash; "lr")
+- `base_model_dir` &mdash; Directory of the saved model (default &mdash; "./models/ClassWeighted_scale_minmax/")
+- `output_dir` &mdash; Directory to save LLM results to (default &mdash; "./outputs/LLM_QueryAndReply/")
+- `openai_api_key_file_path` &mdash; File path to your OpenAI API key (default &mdash; "./openai_api_key.txt")
+- `LLM_name` &mdash; Name of the LLM model (default &mdash; "gpt-4")
 - `temperature` &mdash; Parameter controlling the randomness of the LLM's output (default &mdash; 0)
-- `eval_min_idx` &mdash; The minimum index for evaluation (default &mdash; 0)
-- `eval_max_idx` &mdash; The maximum index for evaluation (default &mdash; 10)
-- `n_shot` &mdash; The number of examples used for in-context learning (ICL) the model (default &mdash; 16)
-- `icl_seed` &mdash; The seed used to generate ICL samples (default &mdash; 0)
+- `eval_min_idx` &mdash; The minimum test sample index for evaluation (default &mdash; 0)
+- `eval_max_idx` &mdash; The maximum test sample index for evaluation (default &mdash; 100)
+- `max_test_samples` &mdash; A hard limit on the number of test samples to evaluate (default &mdash; 100)
 - `SEED` &mdash; Seed value for reproducibility (default &mdash; 0)
-- `n_round` &mdash; Number of decimal places to round floats to in the prompt (default &mdash; 5)
-- `sampling_scheme` &mdash; ICL sampling strategy, see below (default &mdash; "most_confident_preds")
-- `prompt_params` &mdash; parameters for controlling the prompt of the model, see below.
+- `n_shot` &mdash; The number of examples used for in-context learning (ICL) the model (default &mdash; 16)
+- `icl_params' &mdash; parameters for controlling the generation of ICL examples, see below
 - `sampling_params` &mdash; Parameters for the different sampling strategies
-- `prompt_params` &mdash; Parameters for controlling the prompt of the model, see below
-- `lime_params` &mdash; Parameters for the LIME algorithm, see below
-- `experiment_params` &mdash; Parameters used to identify the experiment, see below 
+- `prompt_params` &mdash; parameters for controlling the prompt of the model, see below
+- `experiment_params` &mdash; parameters used to identify the experiment, see below
+
+The prompts for querying the LLM are stored in the appropriate config file (default &mdash; ```prompts.json```). From within these file, users have the ability to control the following parameters:
 
 ### Additional Parameters
 
@@ -59,20 +61,26 @@ The `sampling_params` dictionary contains the following schemes:
 - `lime_sample` &mdash; Empty dictionary
 - `most_confident_preds`&mdash; Empty dictionary
 
+#### ICL Parameters
+
+- `icl_seed` &mdash; The seed used to generate ICL samples (default &mdash; 0)
+- `sampling_scheme` &mdash; ICL sampling strategy, see below (default &mdash; "most_confident_preds")
+
 #### Prompt Parameters
 
 The `prompt_params` dictionary contains the following parameters:
 
-- `k` &mdash; The number of top-K features to request from the LLM. Use -1 for all features (default &mdash; -1).
-- `hide_feature_details` &mdash; Boolean controlling whether or not feature names and suffixes (e.g., Age is 27 years vs A is 27) are hidden (default &mdash; true).
-- `input_str` &mdash; String to prepend to each ICL input (default &mdash; "").
-- `output_str` &mdash; String or list to prepend to each ICL output. For strings, use e.g., "Output &mdash; " (default &mdash; ["Output &mdash; 0.", "Output &mdash; 1."]).
-- `input_sep` &mdash; Separator between blocks of ICL inputs (default &mdash; "\n").
-- `output_sep` &mdash; Separator between ICL inputs and ICL outputs (default &mdash; ". ").
-- `feature_sep` &mdash; Separator between blocks of <feature_name, feature_value> pairs (default &mdash; ", ").
-- `value_sep` &mdash; Separator between feature name and feature value (default &mdash; "is").
-- `test_sep` &mdash; Separator between ICL samples and test input (default &mdash; "\nThe last sample &mdash;\n").
-- `prompt_ID` &mdash; The ID of the prompt (default &mdash; "simple_0").
+- `k` &mdash; The number of top-K features to request from the LLM. Use -1 for all features (default &mdash; -1)
+- `hide_feature_details` &mdash; Boolean controlling whether or not feature names and suffixes (e.g., Age is 27 years vs A is 27) are hidden (default &mdash; true)
+- `input_str` &mdash; String to prepend to each ICL input (default &mdash; "")
+- `output_str` &mdash; String or list to prepend to each ICL output. For strings, use e.g., "Output &mdash; " (default &mdash; ["Output &mdash; 0.", "Output &mdash; 1."])
+- `input_sep` &mdash; Separator between blocks of ICL inputs (default &mdash; "\n")
+- `output_sep` &mdash; Separator between ICL inputs and ICL outputs (default &mdash; ". ")
+- `feature_sep` &mdash; Separator between blocks of <feature_name, feature_value> pairs (default &mdash; ", ")
+- `value_sep` &mdash; Separator between feature name and feature value (default &mdash; "is")
+- `test_sep` &mdash; Separator between ICL samples and test input (default &mdash; "\nThe last sample &mdash;\n")
+- `prompt_ID` &mdash; The ID of the prompt (default &mdash; "simple_0")
+- `n_round` &mdash; Number of decimal places to round floats to in the prompt (default &mdash; 5)
 
 #### Lime Parameters
 
