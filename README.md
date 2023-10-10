@@ -1,4 +1,4 @@
-# LLM_Explainer 
+# LLM Explainer 
 Codebase for the paper [Are Large Language Models Post Hoc Explainers?](https://arxiv.org/abs/2310.05797)
 
 ![LLM_framework_pages-to-jpg-0001](https://github.com/AI4LIFE-GROUP/LLM_Explainer/assets/35569862/ecee3472-6537-4761-a489-ed1d2b5399a3)
@@ -87,7 +87,7 @@ The `experiment_params` dictionary contains the following parameters:
 - `use_sec` &mdash; Append seconds of experiment start time into the experiment ID (default &mdash; true).
 - `use_microsec` &mdash; Append microseconds of experiment start time into the experiment ID (default &mdash; false).
 
-### Faithfulness Pipeline
+### Explanation Faithfulness
 
 ##### Lime Parameters
 
