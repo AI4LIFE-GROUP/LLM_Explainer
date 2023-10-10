@@ -43,41 +43,53 @@ The parameters used are located in the config file ```LLM_pipeline_config.json``
 - `max_test_samples` &mdash; A hard limit on the number of test samples to evaluate (default &mdash; 100)
 - `SEED` &mdash; Seed value for reproducibility (default &mdash; 0)
 - `n_shot` &mdash; The number of examples used for in-context learning (ICL) the model (default &mdash; 16)
-- `icl_params` &mdash; parameters for controlling the generation of ICL examples, see below
+- `icl_params` &mdash; Parameters for controlling the generation of ICL examples, see below
 - `sampling_params` &mdash; Parameters for the different sampling strategies, see below
-- `prompt_params` &mdash; parameters for controlling the prompt of the model, see below
-- `experiment_params` &mdash; parameters used to identify the experiment, see below
+- `prompt_params` &mdash; Parameters for controlling the prompt of the model, see below
+- `experiment_params` &mdash; Parameters used to identify the experiment, see below
 
-The prompts for querying the LLM are stored in the appropriate config file (default &mdash; ```prompts.json```). From within this file, users have the ability to control the following parameters:
+The prompts for querying the LLM are stored in the appropriate config file (default &mdash; ```prompts.json```).
 
 ##### ICL Parameters
 
+The `icl_params` dictionary contains the following parameters:
+
+- `use_most_confident` &mdash; Boolean controlling whether to use random perturbations vs perturbations with the most confident predictions (default &mdash; true)
+- `use_class_balancing` &mdash; Boolean controlling whether or not to balance class labels when selecting perturbations (default &mdash; true)
 - `icl_seed` &mdash; The seed used to generate ICL samples (default &mdash; 0)
-- `sampling_scheme` &mdash; ICL sampling strategy, see below (default &mdash; "most_confident_preds")
+- `sorting` &mdash; The order of ICL examples: "alternate" (alternate between class 0 and class 1) or "shuffle" (random shuffle) (default &mdash; "shuffle")
+- `sampling_scheme` &mdash; ICL sampling strategy, see below (default &mdash; "perturb")
+- `explanation_method` &mdash; Type of post-hoc explanation to use for Explanation-Based ICL (default &mdash; "lime")
+- `explanation_sampling` &mdash; Sampling method for Explanation-Based ICL (default &mdash; "balanced")
 
 ##### Sampling Parameters
 
 The `sampling_params` dictionary contains the following schemes:
 
-- `constant_icl` &mdash; Empty dictionary
-- `lime_sample` &mdash; Empty dictionary
-- `most_confident_preds`&mdash; Empty dictionary
+- `perturb` &mdash; This dictionary contains the standard deviation, number of samples, and seed for Gaussian perturbations around test samples (defaults  &mdash; `std = 0.1`, `n_samples = 10000`, `perturb_seed = 'eval'`). Note that setting `perturb_seed` to 'eval' will select the test point's index as the perturbation seed
+- `constant` &mdash; Empty dictionary (no parameters in current implementation) to cover the case of fixed ICL samples for all test points
 
 ##### Prompt Parameters
 
 The `prompt_params` dictionary contains the following parameters:
 
-- `k` &mdash; The number of top-K features to request from the LLM. Use -1 for all features (default &mdash; -1)
+- `prompt_ID` &mdash; The ID of the prompt in `prompts.json` (default &mdash; "pfpe2-topk")
+- `k` &mdash; The number of top-K features to request from the LLM. Use -1 for all features (default &mdash; 5)
 - `hide_feature_details` &mdash; Boolean controlling whether or not feature names and suffixes (e.g., Age is 27 years vs A is 27) are hidden (default &mdash; true)
-- `input_str` &mdash; String to prepend to each ICL input (default &mdash; "")
-- `output_str` &mdash; String or list to prepend to each ICL output. For strings, use e.g., "Output &mdash; " (default &mdash; ["Output &mdash; 0.", "Output &mdash; 1."])
+- `hide_feature_IDs` &mdash; 
+- `hide_test_sample` &mdash; 
+- `hide_last_pred` &mdash; Hides the last ICL example's prediction, used in Prediction-Based ICL (default &mdash; true)
+- `use_soft_preds` &mdash; 
+- `rescale_soft_preds` &mdash; 
+- `n_round` &mdash; Number of decimal places to round floats to in the prompt (default &mdash; 3)
+- `input_str` &mdash; String to prepend to each ICL input (default &mdash; "\nChange in Input: ")
+- `output_str` &mdash; String or list to prepend to each ICL output. For strings, use e.g., "Output &mdash; " (default &mdash; "\nChange in Output: ")
 - `input_sep` &mdash; Separator between blocks of ICL inputs (default &mdash; "\n")
-- `output_sep` &mdash; Separator between ICL inputs and ICL outputs (default &mdash; ". ")
+- `output_sep` &mdash; Separator between ICL inputs and ICL outputs (default &mdash; "")
 - `feature_sep` &mdash; Separator between blocks of <feature_name, feature_value> pairs (default &mdash; ", ")
-- `value_sep` &mdash; Separator between feature name and feature value (default &mdash; "is")
-- `test_sep` &mdash; Separator between ICL samples and test input (default &mdash; "\nThe last sample &mdash;\n")
-- `prompt_ID` &mdash; The ID of the prompt (default &mdash; "simple_0")
-- `n_round` &mdash; Number of decimal places to round floats to in the prompt (default &mdash; 5)
+- `value_sep` &mdash; Separator between feature name and feature value (default &mdash; ": ")
+- `add_explanation` &mdash; 
+- `num_explanations` &mdash; 
 
 ##### Experiment Parameters
 
