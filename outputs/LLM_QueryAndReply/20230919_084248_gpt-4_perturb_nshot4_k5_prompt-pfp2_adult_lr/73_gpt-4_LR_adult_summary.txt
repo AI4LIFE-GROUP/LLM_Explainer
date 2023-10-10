@@ -1,0 +1,119 @@
+73_gpt-4_LR_adult_summary
+temperature:		0
+n_shot:			4
+explanation_mode:	perturb
+eval_idx:		73
+LLM:			gpt-4
+k:			5
+
+MESSAGE:
+[{'role': 'user', 'content': "We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'M' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.\n\nDataset:\n```\nChange in Input: A: -0.031, B: -0.086, C: 0.025, D: 0.392, E: -0.059, F: 0.072, G: -0.019, H: -0.057, I: -0.038, J: -0.051, K: 0.077, L: -0.063, M: 0.021 \nChange in Output: 1\n\nChange in Input: A: -0.052, B: 0.131, C: 0.007, D: 0.387, E: 0.064, F: 0.126, G: -0.026, H: -0.118, I: 0.025, J: 0.080, K: 0.070, L: 0.052, M: 0.018 \nChange in Output: 1\n\nChange in Input: A: -0.079, B: 0.086, C: -0.085, D: -0.374, E: -0.082, F: -0.208, G: 0.093, H: -0.005, I: 0.060, J: 0.004, K: -0.025, L: 0.078, M: -0.043 \nChange in Output: 0\n\nChange in Input: A: -0.201, B: -0.031, C: -0.184, D: -0.319, E: -0.096, F: -0.153, G: 0.030, H: 0.124, I: -0.030, J: -0.130, K: -0.011, L: -0.059, M: -0.117 \nChange in Output: 0\n```\n\nFor each feature, starting with 'A' and continuing to 'M':\n\n1. Analyze the feature in question:\na. Compare instances where its changes are positive to where its changes are negative and explain how this difference correlates with the change in output.\nb. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'M' are ranked.\n\nUpon completion of all analyses, provide the final rank of features from 'A' to 'M' on the last line.\n\nAvoid providing general methodologies or suggesting tools. Justify your findings as you go. Do not provide the same importance for any two features."}]
+
+
+PROMPT_TEXT:
+We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'M' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.
+
+Dataset:
+```
+Change in Input: A: -0.031, B: -0.086, C: 0.025, D: 0.392, E: -0.059, F: 0.072, G: -0.019, H: -0.057, I: -0.038, J: -0.051, K: 0.077, L: -0.063, M: 0.021 
+Change in Output: 1
+
+Change in Input: A: -0.052, B: 0.131, C: 0.007, D: 0.387, E: 0.064, F: 0.126, G: -0.026, H: -0.118, I: 0.025, J: 0.080, K: 0.070, L: 0.052, M: 0.018 
+Change in Output: 1
+
+Change in Input: A: -0.079, B: 0.086, C: -0.085, D: -0.374, E: -0.082, F: -0.208, G: 0.093, H: -0.005, I: 0.060, J: 0.004, K: -0.025, L: 0.078, M: -0.043 
+Change in Output: 0
+
+Change in Input: A: -0.201, B: -0.031, C: -0.184, D: -0.319, E: -0.096, F: -0.153, G: 0.030, H: 0.124, I: -0.030, J: -0.130, K: -0.011, L: -0.059, M: -0.117 
+Change in Output: 0
+```
+
+For each feature, starting with 'A' and continuing to 'M':
+
+1. Analyze the feature in question:
+a. Compare instances where its changes are positive to where its changes are negative and explain how this difference correlates with the change in output.
+b. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'M' are ranked.
+
+Upon completion of all analyses, provide the final rank of features from 'A' to 'M' on the last line.
+
+Avoid providing general methodologies or suggesting tools. Justify your findings as you go. Do not provide the same importance for any two features.
+
+
+REPLY:
+1. Feature 'A':
+a. When 'A' decreases, the output is 1 in two instances and 0 in two instances. There is no clear correlation between the change in 'A' and the output.
+b. Importance: 10
+
+2. Feature 'B':
+a. When 'B' decreases, the output is 1. When 'B' increases, the output is 1 in one instance and 0 in one instance. There is a slight positive correlation between the increase in 'B' and the output.
+b. Importance: 20
+
+Rank: BA
+
+3. Feature 'C':
+a. When 'C' decreases, the output is 0 in both instances. When 'C' increases, the output is 1 in both instances. There is a strong positive correlation between the change in 'C' and the output.
+b. Importance: 50
+
+Rank: CBA
+
+4. Feature 'D':
+a. When 'D' decreases, the output is 0 in both instances. When 'D' increases, the output is 1 in both instances. There is a strong positive correlation between the change in 'D' and the output.
+b. Importance: 60
+
+Rank: DCBA
+
+5. Feature 'E':
+a. When 'E' decreases, the output is 1 in two instances and 0 in one instance. When 'E' increases, the output is 1. There is no clear correlation between the change in 'E' and the output.
+b. Importance: 15
+
+Rank: DCBAE
+
+6. Feature 'F':
+a. When 'F' decreases, the output is 0 in both instances. When 'F' increases, the output is 1 in both instances. There is a strong positive correlation between the change in 'F' and the output.
+b. Importance: 55
+
+Rank: DFCBAE
+
+7. Feature 'G':
+a. When 'G' decreases, the output is 1 in both instances. When 'G' increases, the output is 0. There is a strong negative correlation between the change in 'G' and the output.
+b. Importance: 40
+
+Rank: DFCGBAE
+
+8. Feature 'H':
+a. When 'H' decreases, the output is 1 in two instances and 0 in one instance. When 'H' increases, the output is 0. There is a slight negative correlation between the change in 'H' and the output.
+b. Importance: 30
+
+Rank: DFCGBHAE
+
+9. Feature 'I':
+a. When 'I' decreases, the output is 1 in one instance and 0 in one instance. When 'I' increases, the output is 1 in one instance and 0 in one instance. There is no clear correlation between the change in 'I' and the output.
+b. Importance: 5
+
+Rank: DFCGBHAEI
+
+10. Feature 'J':
+a. When 'J' decreases, the output is 0. When 'J' increases, the output is 1 in one instance and 0 in one instance. There is no clear correlation between the change in 'J' and the output.
+b. Importance: 5
+
+Rank: DFCGBHAEIJ
+
+11. Feature 'K':
+a. When 'K' decreases, the output is 0. When 'K' increases, the output is 1 in two instances. There is a slight positive correlation between the change in 'K' and the output.
+b. Importance: 25
+
+Rank: DFCGBKHAEIJ
+
+12. Feature 'L':
+a. When 'L' decreases, the output is 1 in one instance and 0 in one instance. When 'L' increases, the output is 1 in one instance and 0 in one instance. There is no clear correlation between the change in 'L' and the output.
+b. Importance: 10
+
+Rank: DFCGBKHAEIJL
+
+13. Feature 'M':
+a. When 'M' decreases, the output is 0. When 'M' increases, the output is 1 in two instances. There is a slight positive correlation between the change in 'M' and the output.
+b. Importance: 35
+
+Final Rank: DFCGBMKHAEIJL

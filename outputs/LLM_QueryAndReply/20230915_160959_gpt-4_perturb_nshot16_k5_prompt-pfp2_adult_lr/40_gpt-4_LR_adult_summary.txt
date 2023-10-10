@@ -1,0 +1,157 @@
+40_gpt-4_LR_adult_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		40
+LLM:			gpt-4
+k:			5
+
+MESSAGE:
+[{'role': 'user', 'content': "We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'M' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.\n\nDataset:\n```\nChange in Input: A: -0.023, B: -0.013, C: -0.180, D: -0.315, E: 0.082, F: -0.127, G: 0.111, H: -0.028, I: -0.173, J: 0.030, K: 0.049, L: -0.065, M: 0.062 \nChange in Output: -1\n\nChange in Input: A: 0.094, B: -0.053, C: -0.014, D: -0.326, E: -0.064, F: -0.096, G: -0.212, H: 0.018, I: -0.137, J: 0.056, K: -0.013, L: 0.129, M: 0.023 \nChange in Output: -1\n\nChange in Input: A: 0.011, B: 0.122, C: 0.088, D: 0.338, E: -0.038, F: 0.217, G: 0.217, H: -0.227, I: -0.125, J: -0.141, K: 0.127, L: 0.036, M: -0.019 \nChange in Output: 0\n\nChange in Input: A: -0.027, B: 0.069, C: 0.070, D: 0.282, E: 0.178, F: 0.140, G: -0.028, H: 0.058, I: -0.087, J: -0.055, K: -0.116, L: -0.109, M: -0.102 \nChange in Output: 0\n\nChange in Input: A: 0.013, B: -0.194, C: 0.023, D: 0.341, E: -0.003, F: -0.080, G: -0.270, H: -0.097, I: 0.070, J: -0.159, K: -0.016, L: -0.065, M: -0.148 \nChange in Output: 0\n\nChange in Input: A: 0.179, B: -0.009, C: 0.023, D: -0.341, E: -0.175, F: 0.189, G: 0.106, H: -0.049, I: 0.093, J: 0.020, K: 0.121, L: 0.027, M: 0.060 \nChange in Output: -1\n\nChange in Input: A: 0.074, B: -0.057, C: -0.207, D: -0.302, E: 0.002, F: -0.042, G: 0.067, H: 0.116, I: 0.002, J: -0.007, K: -0.003, L: 0.078, M: -0.106 \nChange in Output: -1\n\nChange in Input: A: 0.107, B: 0.036, C: -0.087, D: 0.384, E: -0.026, F: -0.018, G: 0.035, H: 0.106, I: -0.099, J: -0.136, K: -0.121, L: 0.110, M: 0.122 \nChange in Output: 0\n\nChange in Input: A: 0.104, B: 0.044, C: 0.332, D: 0.266, E: -0.047, F: 0.049, G: -0.003, H: 0.222, I: 0.038, J: -0.108, K: -0.133, L: -0.074, M: -0.006 \nChange in Output: 0\n\nChange in Input: A: -0.001, B: -0.050, C: -0.000, D: -0.311, E: -0.064, F: 0.051, G: 0.038, H: -0.059, I: 0.074, J: 0.198, K: 0.000, L: 0.036, M: 0.069 \nChange in Output: -1\n\nChange in Input: A: -0.063, B: -0.036, C: 0.237, D: 0.325, E: -0.170, F: 0.029, G: 0.076, H: -0.044, I: -0.104, J: 0.179, K: 0.084, L: 0.073, M: 0.075 \nChange in Output: 0\n\nChange in Input: A: 0.023, B: -0.266, C: 0.032, D: 0.383, E: 0.081, F: 0.111, G: 0.070, H: 0.108, I: 0.079, J: 0.017, K: 0.052, L: -0.128, M: -0.002 \nChange in Output: 0\n\nChange in Input: A: -0.226, B: -0.033, C: -0.082, D: -0.280, E: 0.060, F: 0.099, G: 0.069, H: -0.035, I: 0.153, J: 0.045, K: -0.151, L: 0.100, M: -0.036 \nChange in Output: -1\n\nChange in Input: A: -0.019, B: -0.003, C: -0.312, D: -0.282, E: 0.003, F: 0.180, G: 0.006, H: 0.043, I: -0.038, J: -0.091, K: -0.041, L: 0.010, M: 0.056 \nChange in Output: -1\n\nChange in Input: A: -0.158, B: 0.048, C: -0.140, D: -0.319, E: -0.091, F: -0.105, G: -0.093, H: 0.094, I: -0.148, J: 0.028, K: 0.001, L: -0.268, M: 0.062 \nChange in Output: -1\n\nChange in Input: A: 0.109, B: -0.078, C: -0.144, D: 0.342, E: 0.124, F: 0.115, G: 0.165, H: -0.117, I: 0.051, J: -0.083, K: 0.110, L: 0.005, M: -0.173 \nChange in Output: 0\n```\n\nFor each feature, starting with 'A' and continuing to 'M':\n\n1. Analyze the feature in question:\na. Compare instances where its changes are positive to where its changes are negative and explain how this difference correlates with the change in output.\nb. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'M' are ranked.\n\nUpon completion of all analyses, provide the final rank of features from 'A' to 'M' on the last line.\n\nAvoid providing general methodologies or suggesting tools. Justify your findings as you go."}]
+
+
+PROMPT_TEXT:
+We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'M' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.
+
+Dataset:
+```
+Change in Input: A: -0.023, B: -0.013, C: -0.180, D: -0.315, E: 0.082, F: -0.127, G: 0.111, H: -0.028, I: -0.173, J: 0.030, K: 0.049, L: -0.065, M: 0.062 
+Change in Output: -1
+
+Change in Input: A: 0.094, B: -0.053, C: -0.014, D: -0.326, E: -0.064, F: -0.096, G: -0.212, H: 0.018, I: -0.137, J: 0.056, K: -0.013, L: 0.129, M: 0.023 
+Change in Output: -1
+
+Change in Input: A: 0.011, B: 0.122, C: 0.088, D: 0.338, E: -0.038, F: 0.217, G: 0.217, H: -0.227, I: -0.125, J: -0.141, K: 0.127, L: 0.036, M: -0.019 
+Change in Output: 0
+
+Change in Input: A: -0.027, B: 0.069, C: 0.070, D: 0.282, E: 0.178, F: 0.140, G: -0.028, H: 0.058, I: -0.087, J: -0.055, K: -0.116, L: -0.109, M: -0.102 
+Change in Output: 0
+
+Change in Input: A: 0.013, B: -0.194, C: 0.023, D: 0.341, E: -0.003, F: -0.080, G: -0.270, H: -0.097, I: 0.070, J: -0.159, K: -0.016, L: -0.065, M: -0.148 
+Change in Output: 0
+
+Change in Input: A: 0.179, B: -0.009, C: 0.023, D: -0.341, E: -0.175, F: 0.189, G: 0.106, H: -0.049, I: 0.093, J: 0.020, K: 0.121, L: 0.027, M: 0.060 
+Change in Output: -1
+
+Change in Input: A: 0.074, B: -0.057, C: -0.207, D: -0.302, E: 0.002, F: -0.042, G: 0.067, H: 0.116, I: 0.002, J: -0.007, K: -0.003, L: 0.078, M: -0.106 
+Change in Output: -1
+
+Change in Input: A: 0.107, B: 0.036, C: -0.087, D: 0.384, E: -0.026, F: -0.018, G: 0.035, H: 0.106, I: -0.099, J: -0.136, K: -0.121, L: 0.110, M: 0.122 
+Change in Output: 0
+
+Change in Input: A: 0.104, B: 0.044, C: 0.332, D: 0.266, E: -0.047, F: 0.049, G: -0.003, H: 0.222, I: 0.038, J: -0.108, K: -0.133, L: -0.074, M: -0.006 
+Change in Output: 0
+
+Change in Input: A: -0.001, B: -0.050, C: -0.000, D: -0.311, E: -0.064, F: 0.051, G: 0.038, H: -0.059, I: 0.074, J: 0.198, K: 0.000, L: 0.036, M: 0.069 
+Change in Output: -1
+
+Change in Input: A: -0.063, B: -0.036, C: 0.237, D: 0.325, E: -0.170, F: 0.029, G: 0.076, H: -0.044, I: -0.104, J: 0.179, K: 0.084, L: 0.073, M: 0.075 
+Change in Output: 0
+
+Change in Input: A: 0.023, B: -0.266, C: 0.032, D: 0.383, E: 0.081, F: 0.111, G: 0.070, H: 0.108, I: 0.079, J: 0.017, K: 0.052, L: -0.128, M: -0.002 
+Change in Output: 0
+
+Change in Input: A: -0.226, B: -0.033, C: -0.082, D: -0.280, E: 0.060, F: 0.099, G: 0.069, H: -0.035, I: 0.153, J: 0.045, K: -0.151, L: 0.100, M: -0.036 
+Change in Output: -1
+
+Change in Input: A: -0.019, B: -0.003, C: -0.312, D: -0.282, E: 0.003, F: 0.180, G: 0.006, H: 0.043, I: -0.038, J: -0.091, K: -0.041, L: 0.010, M: 0.056 
+Change in Output: -1
+
+Change in Input: A: -0.158, B: 0.048, C: -0.140, D: -0.319, E: -0.091, F: -0.105, G: -0.093, H: 0.094, I: -0.148, J: 0.028, K: 0.001, L: -0.268, M: 0.062 
+Change in Output: -1
+
+Change in Input: A: 0.109, B: -0.078, C: -0.144, D: 0.342, E: 0.124, F: 0.115, G: 0.165, H: -0.117, I: 0.051, J: -0.083, K: 0.110, L: 0.005, M: -0.173 
+Change in Output: 0
+```
+
+For each feature, starting with 'A' and continuing to 'M':
+
+1. Analyze the feature in question:
+a. Compare instances where its changes are positive to where its changes are negative and explain how this difference correlates with the change in output.
+b. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'M' are ranked.
+
+Upon completion of all analyses, provide the final rank of features from 'A' to 'M' on the last line.
+
+Avoid providing general methodologies or suggesting tools. Justify your findings as you go.
+
+
+REPLY:
+1. Feature 'A':
+a. When 'A' increases, the output is -1 four times and 0 four times. When 'A' decreases, the output is -1 four times and 0 twice. There is no clear correlation between the change in 'A' and the output.
+b. Importance: 50/100. The feature 'A' seems to have a moderate influence on the output, but it's not very clear.
+
+Rank: A
+
+2. Feature 'B':
+a. When 'B' increases, the output is 0 three times. When 'B' decreases, the output is -1 seven times and 0 four times. There seems to be a negative correlation between 'B' and the output.
+b. Importance: 70/100. The feature 'B' seems to have a stronger influence on the output than 'A'.
+
+Rank: BA
+
+3. Feature 'C':
+a. When 'C' increases, the output is 0 five times. When 'C' decreases, the output is -1 six times and 0 once. There seems to be a strong negative correlation between 'C' and the output.
+b. Importance: 80/100. The feature 'C' seems to have a stronger influence on the output than 'A' and 'B'.
+
+Rank: CBA
+
+4. Feature 'D':
+a. When 'D' increases, the output is 0 six times. When 'D' decreases, the output is -1 seven times. There seems to be a strong negative correlation between 'D' and the output.
+b. Importance: 85/100. The feature 'D' seems to have a stronger influence on the output than 'A', 'B', and 'C'.
+
+Rank: DCBA
+
+5. Feature 'E':
+a. When 'E' increases, the output is -1 twice and 0 three times. When 'E' decreases, the output is -1 six times and 0 three times. There seems to be a negative correlation between 'E' and the output.
+b. Importance: 75/100. The feature 'E' seems to have a stronger influence on the output than 'A' and 'B', but less than 'C' and 'D'.
+
+Rank: DCEBA
+
+6. Feature 'F':
+a. When 'F' increases, the output is -1 twice and 0 five times. When 'F' decreases, the output is -1 six times and 0 once. There seems to be a negative correlation between 'F' and the output.
+b. Importance: 80/100. The feature 'F' seems to have a stronger influence on the output than 'A', 'B', and 'E', but less than 'C' and 'D'.
+
+Rank: DCFEBA
+
+7. Feature 'G':
+a. When 'G' increases, the output is -1 three times and 0 four times. When 'G' decreases, the output is -1 five times and 0 once. There seems to be a negative correlation between 'G' and the output.
+b. Importance: 70/100. The feature 'G' seems to have a stronger influence on the output than 'A' and 'B', but less than 'C', 'D', 'E', and 'F'.
+
+Rank: DCFEBGA
+
+8. Feature 'H':
+a. When 'H' increases, the output is -1 once and 0 five times. When 'H' decreases, the output is -1 seven times and 0 once. There seems to be a strong negative correlation between 'H' and the output.
+b. Importance: 85/100. The feature 'H' seems to have a stronger influence on the output than 'A', 'B', 'E', 'G', and 'F', but less than 'C' and 'D'.
+
+Rank: DCHFEBGA
+
+9. Feature 'I':
+a. When 'I' increases, the output is -1 three times and 0 twice. When 'I' decreases, the output is -1 five times and 0 four times. There seems to be a negative correlation between 'I' and the output.
+b. Importance: 70/100. The feature 'I' seems to have a stronger influence on the output than 'A', 'B', and 'G', but less than 'C', 'D', 'E', 'F', and 'H'.
+
+Rank: DCHFEBGIA
+
+10. Feature 'J':
+a. When 'J' increases, the output is -1 three times and 0 three times. When 'J' decreases, the output is -1 five times and 0 three times. There seems to be a negative correlation between 'J' and the output.
+b. Importance: 70/100. The feature 'J' seems to have a stronger influence on the output than 'A', 'B', and 'G', but less than 'C', 'D', 'E', 'F', 'H', and 'I'.
+
+Rank: DCHFEBGIAJ
+
+11. Feature 'K':
+a. When 'K' increases, the output is -1 twice and 0 four times. When 'K' decreases, the output is -1 six times and 0 two times. There seems to be a negative correlation between 'K' and the output.
+b. Importance: 75/100. The feature 'K' seems to have a stronger influence on the output than 'A', 'B', 'G', 'I', and 'J', but less than 'C', 'D', 'E', 'F', and 'H'.
+
+Rank: DCHFEBKGIAJ
+
+12. Feature 'L':
+a. When 'L' increases, the output is -1 three times and 0 three times. When 'L' decreases, the output is -1 five times and 0 three times. There seems to be a negative correlation between 'L' and the output.
+b. Importance: 70/100. The feature 'L' seems to have a stronger influence on the output than 'A', 'B', 'G', 'I', and 'J', but less than 'C', 'D', 'E', 'F', 'H', and 'K'.
+
+Rank: DCHFEBKGIALJ
+
+13. Feature 'M':
+a. When 'M' increases, the output is -1 four times and 0 three times. When 'M' decreases, the output is -1 four times and 0 three times. There is no clear correlation between the change in 'M' and the output.
+b. Importance: 50/100. The feature 'M' seems to have a moderate influence on the output, but it's not very clear.
+
+Final Rank: DCHFEBKGIALJM

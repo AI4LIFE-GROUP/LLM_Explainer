@@ -1,0 +1,303 @@
+70_gpt-4_LR_adult_summary
+temperature:		0
+n_shot:			64
+explanation_mode:	perturb
+eval_idx:		70
+LLM:			gpt-4
+k:			5
+
+MESSAGE:
+[{'role': 'user', 'content': "We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'M' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.\n\nDataset:\n```\nChange in Input: A: 0.040, B: -0.018, C: 0.137, D: 0.231, E: 0.209, F: -0.007, G: -0.080, H: 0.103, I: 0.025, J: 0.008, K: 0.002, L: 0.127, M: -0.096 \nChange in Output: 0\n\nChange in Input: A: 0.010, B: 0.180, C: 0.100, D: -0.321, E: -0.050, F: -0.086, G: -0.092, H: 0.013, I: -0.101, J: -0.023, K: 0.158, L: 0.073, M: 0.020 \nChange in Output: -1\n\nChange in Input: A: -0.165, B: -0.005, C: 0.086, D: 0.292, E: -0.140, F: -0.107, G: 0.013, H: 0.019, I: -0.159, J: 0.148, K: 0.081, L: -0.009, M: 0.065 \nChange in Output: 0\n\nChange in Input: A: -0.064, B: 0.048, C: -0.040, D: 0.292, E: -0.015, F: 0.162, G: -0.018, H: -0.291, I: -0.128, J: 0.006, K: 0.085, L: 0.097, M: -0.170 \nChange in Output: 0\n\nChange in Input: A: -0.036, B: -0.056, C: 0.268, D: 0.251, E: -0.129, F: 0.184, G: -0.033, H: -0.076, I: 0.142, J: -0.220, K: -0.005, L: -0.140, M: -0.101 \nChange in Output: 0\n\nChange in Input: A: -0.005, B: -0.118, C: 0.063, D: 0.279, E: 0.004, F: 0.185, G: -0.065, H: -0.011, I: 0.029, J: -0.125, K: -0.055, L: 0.012, M: -0.028 \nChange in Output: 0\n\nChange in Input: A: 0.045, B: 0.083, C: -0.075, D: -0.306, E: -0.071, F: 0.092, G: -0.067, H: 0.003, I: 0.089, J: 0.040, K: -0.046, L: 0.049, M: -0.060 \nChange in Output: -1\n\nChange in Input: A: -0.056, B: 0.165, C: -0.007, D: 0.322, E: -0.043, F: 0.105, G: -0.058, H: 0.108, I: 0.065, J: 0.062, K: 0.108, L: 0.103, M: -0.023 \nChange in Output: 0\n\nChange in Input: A: -0.176, B: 0.085, C: -0.058, D: -0.233, E: -0.134, F: -0.096, G: 0.042, H: 0.018, I: 0.072, J: 0.077, K: 0.149, L: 0.187, M: -0.139 \nChange in Output: -1\n\nChange in Input: A: -0.003, B: -0.068, C: -0.003, D: 0.300, E: -0.070, F: 0.034, G: -0.266, H: 0.021, I: -0.116, J: 0.033, K: 0.036, L: 0.006, M: -0.097 \nChange in Output: 0\n\nChange in Input: A: -0.102, B: 0.098, C: 0.006, D: -0.259, E: -0.071, F: -0.098, G: 0.268, H: 0.005, I: 0.063, J: 0.098, K: -0.118, L: 0.166, M: 0.071 \nChange in Output: -1\n\nChange in Input: A: -0.035, B: -0.002, C: 0.020, D: -0.314, E: 0.033, F: -0.075, G: -0.030, H: 0.108, I: 0.099, J: -0.015, K: -0.047, L: 0.008, M: 0.008 \nChange in Output: -1\n\nChange in Input: A: 0.139, B: 0.108, C: -0.044, D: -0.371, E: 0.162, F: 0.028, G: -0.206, H: 0.034, I: 0.011, J: -0.042, K: 0.051, L: 0.020, M: -0.102 \nChange in Output: -1\n\nChange in Input: A: 0.025, B: 0.152, C: -0.039, D: -0.388, E: 0.020, F: 0.086, G: 0.138, H: 0.156, I: 0.033, J: 0.003, K: 0.004, L: -0.097, M: -0.053 \nChange in Output: -1\n\nChange in Input: A: 0.019, B: -0.055, C: 0.169, D: 0.295, E: 0.044, F: 0.053, G: -0.077, H: -0.068, I: -0.084, J: -0.002, K: 0.129, L: -0.153, M: -0.210 \nChange in Output: 0\n\nChange in Input: A: -0.014, B: 0.036, C: -0.014, D: -0.302, E: 0.076, F: -0.033, G: -0.254, H: -0.197, I: 0.153, J: -0.032, K: -0.040, L: 0.129, M: 0.119 \nChange in Output: -1\n\nChange in Input: A: 0.066, B: -0.039, C: -0.083, D: -0.314, E: 0.065, F: 0.033, G: -0.084, H: -0.086, I: -0.139, J: -0.017, K: -0.099, L: -0.129, M: 0.200 \nChange in Output: -1\n\nChange in Input: A: 0.179, B: -0.022, C: -0.003, D: 0.255, E: 0.026, F: 0.101, G: 0.092, H: 0.105, I: 0.019, J: 0.129, K: 0.044, L: 0.007, M: 0.183 \nChange in Output: 0\n\nChange in Input: A: 0.024, B: 0.022, C: 0.163, D: 0.257, E: -0.109, F: -0.046, G: 0.034, H: -0.176, I: -0.037, J: -0.047, K: 0.148, L: -0.135, M: -0.291 \nChange in Output: 0\n\nChange in Input: A: 0.339, B: -0.054, C: 0.183, D: 0.322, E: -0.073, F: -0.041, G: -0.052, H: -0.019, I: 0.082, J: -0.065, K: 0.057, L: 0.084, M: -0.018 \nChange in Output: 0\n\nChange in Input: A: -0.126, B: -0.127, C: -0.070, D: -0.287, E: 0.068, F: -0.106, G: 0.018, H: 0.055, I: 0.090, J: 0.072, K: -0.146, L: 0.023, M: -0.012 \nChange in Output: -1\n\nChange in Input: A: 0.138, B: -0.016, C: 0.084, D: -0.300, E: 0.041, F: -0.252, G: 0.148, H: 0.118, I: 0.040, J: 0.079, K: 0.153, L: -0.002, M: -0.194 \nChange in Output: -1\n\nChange in Input: A: 0.078, B: 0.040, C: -0.208, D: -0.225, E: -0.095, F: -0.165, G: 0.233, H: 0.048, I: 0.045, J: 0.005, K: 0.032, L: -0.031, M: -0.054 \nChange in Output: -1\n\nChange in Input: A: -0.165, B: 0.148, C: -0.131, D: -0.301, E: -0.183, F: -0.023, G: 0.029, H: -0.294, I: -0.101, J: 0.087, K: -0.017, L: -0.101, M: -0.066 \nChange in Output: -1\n\nChange in Input: A: -0.001, B: 0.008, C: 0.169, D: 0.224, E: 0.014, F: 0.102, G: 0.039, H: -0.038, I: -0.171, J: -0.172, K: -0.015, L: -0.039, M: -0.045 \nChange in Output: 0\n\nChange in Input: A: -0.027, B: 0.022, C: 0.048, D: 0.300, E: -0.073, F: 0.004, G: -0.102, H: 0.076, I: -0.093, J: -0.004, K: 0.132, L: -0.154, M: 0.040 \nChange in Output: 0\n\nChange in Input: A: 0.132, B: -0.017, C: 0.022, D: 0.324, E: -0.191, F: -0.002, G: 0.115, H: -0.227, I: 0.152, J: 0.104, K: 0.166, L: 0.003, M: -0.167 \nChange in Output: 0\n\nChange in Input: A: -0.070, B: 0.051, C: 0.200, D: 0.271, E: 0.071, F: 0.205, G: -0.120, H: -0.066, I: 0.016, J: -0.085, K: 0.064, L: 0.016, M: -0.053 \nChange in Output: 0\n\nChange in Input: A: 0.107, B: 0.029, C: -0.013, D: 0.324, E: 0.214, F: -0.098, G: 0.040, H: -0.025, I: 0.018, J: -0.041, K: 0.099, L: -0.251, M: 0.063 \nChange in Output: 0\n\nChange in Input: A: 0.081, B: 0.057, C: -0.014, D: -0.277, E: -0.018, F: -0.075, G: 0.158, H: 0.215, I: 0.106, J: -0.029, K: -0.123, L: 0.031, M: -0.134 \nChange in Output: -1\n\nChange in Input: A: 0.129, B: -0.022, C: -0.102, D: 0.260, E: 0.230, F: -0.021, G: -0.115, H: 0.046, I: -0.053, J: 0.154, K: -0.164, L: 0.009, M: -0.174 \nChange in Output: 0\n\nChange in Input: A: 0.022, B: -0.008, C: 0.047, D: 0.268, E: 0.008, F: -0.014, G: 0.152, H: -0.039, I: -0.121, J: -0.121, K: -0.021, L: -0.238, M: 0.004 \nChange in Output: 0\n\nChange in Input: A: -0.133, B: -0.014, C: -0.193, D: -0.229, E: -0.213, F: -0.051, G: 0.008, H: -0.117, I: -0.127, J: 0.036, K: -0.103, L: -0.120, M: 0.250 \nChange in Output: -1\n\nChange in Input: A: 0.022, B: 0.004, C: -0.106, D: -0.275, E: -0.103, F: -0.026, G: 0.032, H: 0.029, I: 0.112, J: 0.124, K: 0.127, L: -0.046, M: -0.027 \nChange in Output: -1\n\nChange in Input: A: -0.114, B: -0.021, C: -0.293, D: -0.216, E: -0.059, F: -0.109, G: 0.100, H: -0.049, I: -0.052, J: 0.095, K: 0.129, L: -0.066, M: 0.031 \nChange in Output: -1\n\nChange in Input: A: -0.195, B: 0.011, C: -0.020, D: -0.330, E: 0.100, F: -0.130, G: -0.043, H: -0.014, I: -0.018, J: -0.040, K: 0.072, L: -0.023, M: 0.212 \nChange in Output: -1\n\nChange in Input: A: -0.053, B: 0.059, C: -0.126, D: 0.289, E: 0.169, F: -0.095, G: -0.055, H: -0.035, I: -0.139, J: -0.086, K: -0.006, L: -0.022, M: -0.036 \nChange in Output: 0\n\nChange in Input: A: 0.175, B: -0.149, C: -0.093, D: -0.306, E: 0.127, F: -0.106, G: 0.155, H: -0.033, I: 0.071, J: 0.029, K: 0.123, L: -0.081, M: 0.046 \nChange in Output: -1\n\nChange in Input: A: -0.208, B: -0.073, C: -0.205, D: -0.230, E: -0.265, F: -0.136, G: 0.127, H: 0.032, I: -0.019, J: -0.063, K: 0.010, L: 0.008, M: 0.143 \nChange in Output: -1\n\nChange in Input: A: 0.050, B: -0.064, C: 0.020, D: -0.293, E: -0.185, F: -0.101, G: -0.060, H: 0.040, I: 0.106, J: 0.106, K: 0.071, L: 0.008, M: -0.028 \nChange in Output: -1\n\nChange in Input: A: 0.172, B: -0.003, C: 0.010, D: 0.261, E: 0.140, F: 0.103, G: 0.058, H: -0.168, I: 0.041, J: -0.031, K: 0.015, L: 0.057, M: -0.094 \nChange in Output: 0\n\nChange in Input: A: 0.130, B: 0.101, C: -0.014, D: -0.371, E: -0.113, F: 0.028, G: 0.106, H: 0.203, I: 0.031, J: 0.195, K: 0.114, L: 0.081, M: 0.032 \nChange in Output: -1\n\nChange in Input: A: -0.161, B: 0.078, C: 0.050, D: 0.285, E: 0.103, F: 0.031, G: -0.095, H: -0.043, I: -0.144, J: 0.017, K: 0.018, L: 0.034, M: -0.148 \nChange in Output: 0\n\nChange in Input: A: 0.139, B: -0.155, C: -0.009, D: 0.252, E: 0.061, F: 0.141, G: 0.177, H: -0.005, I: 0.040, J: 0.033, K: -0.044, L: -0.003, M: -0.105 \nChange in Output: 0\n\nChange in Input: A: -0.090, B: -0.002, C: 0.121, D: 0.270, E: -0.003, F: 0.103, G: 0.078, H: 0.182, I: 0.133, J: -0.021, K: 0.201, L: 0.142, M: -0.021 \nChange in Output: 0\n\nChange in Input: A: 0.077, B: 0.107, C: 0.154, D: 0.311, E: 0.049, F: 0.064, G: 0.038, H: 0.125, I: 0.093, J: -0.108, K: 0.020, L: 0.006, M: 0.029 \nChange in Output: 0\n\nChange in Input: A: 0.009, B: 0.012, C: -0.086, D: -0.265, E: -0.083, F: -0.131, G: 0.052, H: -0.031, I: -0.030, J: -0.025, K: 0.254, L: -0.245, M: 0.072 \nChange in Output: -1\n\nChange in Input: A: -0.054, B: -0.005, C: 0.004, D: -0.296, E: -0.059, F: 0.002, G: -0.092, H: 0.135, I: 0.112, J: -0.119, K: 0.089, L: -0.038, M: 0.195 \nChange in Output: -1\n\nChange in Input: A: 0.021, B: 0.049, C: 0.122, D: 0.239, E: 0.006, F: 0.115, G: -0.009, H: -0.176, I: -0.013, J: 0.089, K: 0.037, L: 0.065, M: 0.092 \nChange in Output: 0\n\nChange in Input: A: 0.100, B: -0.081, C: -0.052, D: -0.290, E: -0.081, F: -0.065, G: -0.068, H: 0.079, I: 0.146, J: 0.115, K: -0.084, L: -0.096, M: 0.063 \nChange in Output: -1\n\nChange in Input: A: 0.039, B: 0.130, C: -0.019, D: -0.274, E: -0.199, F: 0.079, G: 0.030, H: 0.075, I: 0.068, J: -0.168, K: -0.238, L: 0.097, M: 0.129 \nChange in Output: -1\n\nChange in Input: A: 0.081, B: -0.190, C: 0.016, D: -0.273, E: -0.226, F: -0.127, G: -0.115, H: -0.021, I: 0.131, J: -0.019, K: 0.108, L: 0.034, M: 0.165 \nChange in Output: -1\n\nChange in Input: A: 0.090, B: -0.014, C: -0.138, D: 0.304, E: -0.015, F: 0.215, G: 0.098, H: 0.089, I: 0.010, J: -0.141, K: -0.053, L: -0.183, M: 0.091 \nChange in Output: 0\n\nChange in Input: A: -0.089, B: -0.077, C: 0.028, D: 0.361, E: 0.178, F: -0.014, G: -0.117, H: 0.065, I: -0.080, J: 0.070, K: -0.119, L: 0.086, M: 0.095 \nChange in Output: 0\n\nChange in Input: A: 0.043, B: 0.011, C: -0.280, D: -0.257, E: -0.055, F: -0.116, G: 0.100, H: -0.013, I: -0.062, J: -0.216, K: -0.217, L: -0.175, M: 0.136 \nChange in Output: -1\n\nChange in Input: A: -0.089, B: -0.060, C: -0.135, D: -0.299, E: 0.025, F: -0.190, G: 0.103, H: 0.194, I: -0.095, J: 0.035, K: 0.079, L: -0.032, M: 0.093 \nChange in Output: -1\n\nChange in Input: A: 0.084, B: -0.138, C: -0.172, D: -0.251, E: -0.130, F: -0.092, G: -0.076, H: -0.077, I: 0.176, J: 0.124, K: 0.143, L: -0.324, M: -0.011 \nChange in Output: -1\n\nChange in Input: A: 0.116, B: 0.060, C: 0.120, D: 0.311, E: -0.158, F: 0.101, G: -0.044, H: 0.049, I: -0.101, J: 0.028, K: 0.127, L: 0.045, M: 0.076 \nChange in Output: 0\n\nChange in Input: A: 0.024, B: 0.018, C: 0.034, D: 0.239, E: 0.168, F: 0.060, G: -0.075, H: -0.021, I: -0.047, J: -0.046, K: -0.043, L: 0.011, M: 0.034 \nChange in Output: 0\n\nChange in Input: A: -0.040, B: -0.047, C: -0.126, D: -0.309, E: -0.148, F: -0.036, G: -0.031, H: -0.094, I: 0.114, J: 0.045, K: -0.015, L: 0.071, M: -0.046 \nChange in Output: -1\n\nChange in Input: A: -0.043, B: -0.078, C: -0.103, D: -0.290, E: -0.070, F: 0.177, G: -0.083, H: 0.007, I: 0.158, J: 0.135, K: -0.101, L: -0.246, M: 0.171 \nChange in Output: -1\n\nChange in Input: A: 0.055, B: 0.031, C: 0.131, D: 0.270, E: 0.037, F: 0.039, G: -0.029, H: -0.123, I: 0.029, J: -0.012, K: -0.001, L: -0.099, M: -0.063 \nChange in Output: 0\n\nChange in Input: A: -0.113, B: 0.064, C: 0.129, D: 0.298, E: -0.139, F: 0.227, G: 0.066, H: 0.102, I: -0.131, J: -0.143, K: 0.051, L: 0.238, M: -0.020 \nChange in Output: 0\n\nChange in Input: A: 0.137, B: -0.005, C: 0.051, D: 0.260, E: 0.021, F: 0.149, G: -0.044, H: 0.194, I: -0.047, J: 0.025, K: 0.010, L: 0.160, M: -0.147 \nChange in Output: 0\n```\n\nFor each feature, starting with 'A' and continuing to 'M':\n\n1. Analyze the feature in question:\na. Compare instances where its changes are positive to where its changes are negative and explain how this difference correlates with the change in output.\nb. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'M' are ranked.\n\nUpon completion of all analyses, provide the final rank of features from 'A' to 'M' on the last line.\n\nAvoid providing general methodologies or suggesting tools. Justify your findings as you go."}]
+
+
+PROMPT_TEXT:
+We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'M' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.
+
+Dataset:
+```
+Change in Input: A: 0.040, B: -0.018, C: 0.137, D: 0.231, E: 0.209, F: -0.007, G: -0.080, H: 0.103, I: 0.025, J: 0.008, K: 0.002, L: 0.127, M: -0.096 
+Change in Output: 0
+
+Change in Input: A: 0.010, B: 0.180, C: 0.100, D: -0.321, E: -0.050, F: -0.086, G: -0.092, H: 0.013, I: -0.101, J: -0.023, K: 0.158, L: 0.073, M: 0.020 
+Change in Output: -1
+
+Change in Input: A: -0.165, B: -0.005, C: 0.086, D: 0.292, E: -0.140, F: -0.107, G: 0.013, H: 0.019, I: -0.159, J: 0.148, K: 0.081, L: -0.009, M: 0.065 
+Change in Output: 0
+
+Change in Input: A: -0.064, B: 0.048, C: -0.040, D: 0.292, E: -0.015, F: 0.162, G: -0.018, H: -0.291, I: -0.128, J: 0.006, K: 0.085, L: 0.097, M: -0.170 
+Change in Output: 0
+
+Change in Input: A: -0.036, B: -0.056, C: 0.268, D: 0.251, E: -0.129, F: 0.184, G: -0.033, H: -0.076, I: 0.142, J: -0.220, K: -0.005, L: -0.140, M: -0.101 
+Change in Output: 0
+
+Change in Input: A: -0.005, B: -0.118, C: 0.063, D: 0.279, E: 0.004, F: 0.185, G: -0.065, H: -0.011, I: 0.029, J: -0.125, K: -0.055, L: 0.012, M: -0.028 
+Change in Output: 0
+
+Change in Input: A: 0.045, B: 0.083, C: -0.075, D: -0.306, E: -0.071, F: 0.092, G: -0.067, H: 0.003, I: 0.089, J: 0.040, K: -0.046, L: 0.049, M: -0.060 
+Change in Output: -1
+
+Change in Input: A: -0.056, B: 0.165, C: -0.007, D: 0.322, E: -0.043, F: 0.105, G: -0.058, H: 0.108, I: 0.065, J: 0.062, K: 0.108, L: 0.103, M: -0.023 
+Change in Output: 0
+
+Change in Input: A: -0.176, B: 0.085, C: -0.058, D: -0.233, E: -0.134, F: -0.096, G: 0.042, H: 0.018, I: 0.072, J: 0.077, K: 0.149, L: 0.187, M: -0.139 
+Change in Output: -1
+
+Change in Input: A: -0.003, B: -0.068, C: -0.003, D: 0.300, E: -0.070, F: 0.034, G: -0.266, H: 0.021, I: -0.116, J: 0.033, K: 0.036, L: 0.006, M: -0.097 
+Change in Output: 0
+
+Change in Input: A: -0.102, B: 0.098, C: 0.006, D: -0.259, E: -0.071, F: -0.098, G: 0.268, H: 0.005, I: 0.063, J: 0.098, K: -0.118, L: 0.166, M: 0.071 
+Change in Output: -1
+
+Change in Input: A: -0.035, B: -0.002, C: 0.020, D: -0.314, E: 0.033, F: -0.075, G: -0.030, H: 0.108, I: 0.099, J: -0.015, K: -0.047, L: 0.008, M: 0.008 
+Change in Output: -1
+
+Change in Input: A: 0.139, B: 0.108, C: -0.044, D: -0.371, E: 0.162, F: 0.028, G: -0.206, H: 0.034, I: 0.011, J: -0.042, K: 0.051, L: 0.020, M: -0.102 
+Change in Output: -1
+
+Change in Input: A: 0.025, B: 0.152, C: -0.039, D: -0.388, E: 0.020, F: 0.086, G: 0.138, H: 0.156, I: 0.033, J: 0.003, K: 0.004, L: -0.097, M: -0.053 
+Change in Output: -1
+
+Change in Input: A: 0.019, B: -0.055, C: 0.169, D: 0.295, E: 0.044, F: 0.053, G: -0.077, H: -0.068, I: -0.084, J: -0.002, K: 0.129, L: -0.153, M: -0.210 
+Change in Output: 0
+
+Change in Input: A: -0.014, B: 0.036, C: -0.014, D: -0.302, E: 0.076, F: -0.033, G: -0.254, H: -0.197, I: 0.153, J: -0.032, K: -0.040, L: 0.129, M: 0.119 
+Change in Output: -1
+
+Change in Input: A: 0.066, B: -0.039, C: -0.083, D: -0.314, E: 0.065, F: 0.033, G: -0.084, H: -0.086, I: -0.139, J: -0.017, K: -0.099, L: -0.129, M: 0.200 
+Change in Output: -1
+
+Change in Input: A: 0.179, B: -0.022, C: -0.003, D: 0.255, E: 0.026, F: 0.101, G: 0.092, H: 0.105, I: 0.019, J: 0.129, K: 0.044, L: 0.007, M: 0.183 
+Change in Output: 0
+
+Change in Input: A: 0.024, B: 0.022, C: 0.163, D: 0.257, E: -0.109, F: -0.046, G: 0.034, H: -0.176, I: -0.037, J: -0.047, K: 0.148, L: -0.135, M: -0.291 
+Change in Output: 0
+
+Change in Input: A: 0.339, B: -0.054, C: 0.183, D: 0.322, E: -0.073, F: -0.041, G: -0.052, H: -0.019, I: 0.082, J: -0.065, K: 0.057, L: 0.084, M: -0.018 
+Change in Output: 0
+
+Change in Input: A: -0.126, B: -0.127, C: -0.070, D: -0.287, E: 0.068, F: -0.106, G: 0.018, H: 0.055, I: 0.090, J: 0.072, K: -0.146, L: 0.023, M: -0.012 
+Change in Output: -1
+
+Change in Input: A: 0.138, B: -0.016, C: 0.084, D: -0.300, E: 0.041, F: -0.252, G: 0.148, H: 0.118, I: 0.040, J: 0.079, K: 0.153, L: -0.002, M: -0.194 
+Change in Output: -1
+
+Change in Input: A: 0.078, B: 0.040, C: -0.208, D: -0.225, E: -0.095, F: -0.165, G: 0.233, H: 0.048, I: 0.045, J: 0.005, K: 0.032, L: -0.031, M: -0.054 
+Change in Output: -1
+
+Change in Input: A: -0.165, B: 0.148, C: -0.131, D: -0.301, E: -0.183, F: -0.023, G: 0.029, H: -0.294, I: -0.101, J: 0.087, K: -0.017, L: -0.101, M: -0.066 
+Change in Output: -1
+
+Change in Input: A: -0.001, B: 0.008, C: 0.169, D: 0.224, E: 0.014, F: 0.102, G: 0.039, H: -0.038, I: -0.171, J: -0.172, K: -0.015, L: -0.039, M: -0.045 
+Change in Output: 0
+
+Change in Input: A: -0.027, B: 0.022, C: 0.048, D: 0.300, E: -0.073, F: 0.004, G: -0.102, H: 0.076, I: -0.093, J: -0.004, K: 0.132, L: -0.154, M: 0.040 
+Change in Output: 0
+
+Change in Input: A: 0.132, B: -0.017, C: 0.022, D: 0.324, E: -0.191, F: -0.002, G: 0.115, H: -0.227, I: 0.152, J: 0.104, K: 0.166, L: 0.003, M: -0.167 
+Change in Output: 0
+
+Change in Input: A: -0.070, B: 0.051, C: 0.200, D: 0.271, E: 0.071, F: 0.205, G: -0.120, H: -0.066, I: 0.016, J: -0.085, K: 0.064, L: 0.016, M: -0.053 
+Change in Output: 0
+
+Change in Input: A: 0.107, B: 0.029, C: -0.013, D: 0.324, E: 0.214, F: -0.098, G: 0.040, H: -0.025, I: 0.018, J: -0.041, K: 0.099, L: -0.251, M: 0.063 
+Change in Output: 0
+
+Change in Input: A: 0.081, B: 0.057, C: -0.014, D: -0.277, E: -0.018, F: -0.075, G: 0.158, H: 0.215, I: 0.106, J: -0.029, K: -0.123, L: 0.031, M: -0.134 
+Change in Output: -1
+
+Change in Input: A: 0.129, B: -0.022, C: -0.102, D: 0.260, E: 0.230, F: -0.021, G: -0.115, H: 0.046, I: -0.053, J: 0.154, K: -0.164, L: 0.009, M: -0.174 
+Change in Output: 0
+
+Change in Input: A: 0.022, B: -0.008, C: 0.047, D: 0.268, E: 0.008, F: -0.014, G: 0.152, H: -0.039, I: -0.121, J: -0.121, K: -0.021, L: -0.238, M: 0.004 
+Change in Output: 0
+
+Change in Input: A: -0.133, B: -0.014, C: -0.193, D: -0.229, E: -0.213, F: -0.051, G: 0.008, H: -0.117, I: -0.127, J: 0.036, K: -0.103, L: -0.120, M: 0.250 
+Change in Output: -1
+
+Change in Input: A: 0.022, B: 0.004, C: -0.106, D: -0.275, E: -0.103, F: -0.026, G: 0.032, H: 0.029, I: 0.112, J: 0.124, K: 0.127, L: -0.046, M: -0.027 
+Change in Output: -1
+
+Change in Input: A: -0.114, B: -0.021, C: -0.293, D: -0.216, E: -0.059, F: -0.109, G: 0.100, H: -0.049, I: -0.052, J: 0.095, K: 0.129, L: -0.066, M: 0.031 
+Change in Output: -1
+
+Change in Input: A: -0.195, B: 0.011, C: -0.020, D: -0.330, E: 0.100, F: -0.130, G: -0.043, H: -0.014, I: -0.018, J: -0.040, K: 0.072, L: -0.023, M: 0.212 
+Change in Output: -1
+
+Change in Input: A: -0.053, B: 0.059, C: -0.126, D: 0.289, E: 0.169, F: -0.095, G: -0.055, H: -0.035, I: -0.139, J: -0.086, K: -0.006, L: -0.022, M: -0.036 
+Change in Output: 0
+
+Change in Input: A: 0.175, B: -0.149, C: -0.093, D: -0.306, E: 0.127, F: -0.106, G: 0.155, H: -0.033, I: 0.071, J: 0.029, K: 0.123, L: -0.081, M: 0.046 
+Change in Output: -1
+
+Change in Input: A: -0.208, B: -0.073, C: -0.205, D: -0.230, E: -0.265, F: -0.136, G: 0.127, H: 0.032, I: -0.019, J: -0.063, K: 0.010, L: 0.008, M: 0.143 
+Change in Output: -1
+
+Change in Input: A: 0.050, B: -0.064, C: 0.020, D: -0.293, E: -0.185, F: -0.101, G: -0.060, H: 0.040, I: 0.106, J: 0.106, K: 0.071, L: 0.008, M: -0.028 
+Change in Output: -1
+
+Change in Input: A: 0.172, B: -0.003, C: 0.010, D: 0.261, E: 0.140, F: 0.103, G: 0.058, H: -0.168, I: 0.041, J: -0.031, K: 0.015, L: 0.057, M: -0.094 
+Change in Output: 0
+
+Change in Input: A: 0.130, B: 0.101, C: -0.014, D: -0.371, E: -0.113, F: 0.028, G: 0.106, H: 0.203, I: 0.031, J: 0.195, K: 0.114, L: 0.081, M: 0.032 
+Change in Output: -1
+
+Change in Input: A: -0.161, B: 0.078, C: 0.050, D: 0.285, E: 0.103, F: 0.031, G: -0.095, H: -0.043, I: -0.144, J: 0.017, K: 0.018, L: 0.034, M: -0.148 
+Change in Output: 0
+
+Change in Input: A: 0.139, B: -0.155, C: -0.009, D: 0.252, E: 0.061, F: 0.141, G: 0.177, H: -0.005, I: 0.040, J: 0.033, K: -0.044, L: -0.003, M: -0.105 
+Change in Output: 0
+
+Change in Input: A: -0.090, B: -0.002, C: 0.121, D: 0.270, E: -0.003, F: 0.103, G: 0.078, H: 0.182, I: 0.133, J: -0.021, K: 0.201, L: 0.142, M: -0.021 
+Change in Output: 0
+
+Change in Input: A: 0.077, B: 0.107, C: 0.154, D: 0.311, E: 0.049, F: 0.064, G: 0.038, H: 0.125, I: 0.093, J: -0.108, K: 0.020, L: 0.006, M: 0.029 
+Change in Output: 0
+
+Change in Input: A: 0.009, B: 0.012, C: -0.086, D: -0.265, E: -0.083, F: -0.131, G: 0.052, H: -0.031, I: -0.030, J: -0.025, K: 0.254, L: -0.245, M: 0.072 
+Change in Output: -1
+
+Change in Input: A: -0.054, B: -0.005, C: 0.004, D: -0.296, E: -0.059, F: 0.002, G: -0.092, H: 0.135, I: 0.112, J: -0.119, K: 0.089, L: -0.038, M: 0.195 
+Change in Output: -1
+
+Change in Input: A: 0.021, B: 0.049, C: 0.122, D: 0.239, E: 0.006, F: 0.115, G: -0.009, H: -0.176, I: -0.013, J: 0.089, K: 0.037, L: 0.065, M: 0.092 
+Change in Output: 0
+
+Change in Input: A: 0.100, B: -0.081, C: -0.052, D: -0.290, E: -0.081, F: -0.065, G: -0.068, H: 0.079, I: 0.146, J: 0.115, K: -0.084, L: -0.096, M: 0.063 
+Change in Output: -1
+
+Change in Input: A: 0.039, B: 0.130, C: -0.019, D: -0.274, E: -0.199, F: 0.079, G: 0.030, H: 0.075, I: 0.068, J: -0.168, K: -0.238, L: 0.097, M: 0.129 
+Change in Output: -1
+
+Change in Input: A: 0.081, B: -0.190, C: 0.016, D: -0.273, E: -0.226, F: -0.127, G: -0.115, H: -0.021, I: 0.131, J: -0.019, K: 0.108, L: 0.034, M: 0.165 
+Change in Output: -1
+
+Change in Input: A: 0.090, B: -0.014, C: -0.138, D: 0.304, E: -0.015, F: 0.215, G: 0.098, H: 0.089, I: 0.010, J: -0.141, K: -0.053, L: -0.183, M: 0.091 
+Change in Output: 0
+
+Change in Input: A: -0.089, B: -0.077, C: 0.028, D: 0.361, E: 0.178, F: -0.014, G: -0.117, H: 0.065, I: -0.080, J: 0.070, K: -0.119, L: 0.086, M: 0.095 
+Change in Output: 0
+
+Change in Input: A: 0.043, B: 0.011, C: -0.280, D: -0.257, E: -0.055, F: -0.116, G: 0.100, H: -0.013, I: -0.062, J: -0.216, K: -0.217, L: -0.175, M: 0.136 
+Change in Output: -1
+
+Change in Input: A: -0.089, B: -0.060, C: -0.135, D: -0.299, E: 0.025, F: -0.190, G: 0.103, H: 0.194, I: -0.095, J: 0.035, K: 0.079, L: -0.032, M: 0.093 
+Change in Output: -1
+
+Change in Input: A: 0.084, B: -0.138, C: -0.172, D: -0.251, E: -0.130, F: -0.092, G: -0.076, H: -0.077, I: 0.176, J: 0.124, K: 0.143, L: -0.324, M: -0.011 
+Change in Output: -1
+
+Change in Input: A: 0.116, B: 0.060, C: 0.120, D: 0.311, E: -0.158, F: 0.101, G: -0.044, H: 0.049, I: -0.101, J: 0.028, K: 0.127, L: 0.045, M: 0.076 
+Change in Output: 0
+
+Change in Input: A: 0.024, B: 0.018, C: 0.034, D: 0.239, E: 0.168, F: 0.060, G: -0.075, H: -0.021, I: -0.047, J: -0.046, K: -0.043, L: 0.011, M: 0.034 
+Change in Output: 0
+
+Change in Input: A: -0.040, B: -0.047, C: -0.126, D: -0.309, E: -0.148, F: -0.036, G: -0.031, H: -0.094, I: 0.114, J: 0.045, K: -0.015, L: 0.071, M: -0.046 
+Change in Output: -1
+
+Change in Input: A: -0.043, B: -0.078, C: -0.103, D: -0.290, E: -0.070, F: 0.177, G: -0.083, H: 0.007, I: 0.158, J: 0.135, K: -0.101, L: -0.246, M: 0.171 
+Change in Output: -1
+
+Change in Input: A: 0.055, B: 0.031, C: 0.131, D: 0.270, E: 0.037, F: 0.039, G: -0.029, H: -0.123, I: 0.029, J: -0.012, K: -0.001, L: -0.099, M: -0.063 
+Change in Output: 0
+
+Change in Input: A: -0.113, B: 0.064, C: 0.129, D: 0.298, E: -0.139, F: 0.227, G: 0.066, H: 0.102, I: -0.131, J: -0.143, K: 0.051, L: 0.238, M: -0.020 
+Change in Output: 0
+
+Change in Input: A: 0.137, B: -0.005, C: 0.051, D: 0.260, E: 0.021, F: 0.149, G: -0.044, H: 0.194, I: -0.047, J: 0.025, K: 0.010, L: 0.160, M: -0.147 
+Change in Output: 0
+```
+
+For each feature, starting with 'A' and continuing to 'M':
+
+1. Analyze the feature in question:
+a. Compare instances where its changes are positive to where its changes are negative and explain how this difference correlates with the change in output.
+b. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'M' are ranked.
+
+Upon completion of all analyses, provide the final rank of features from 'A' to 'M' on the last line.
+
+Avoid providing general methodologies or suggesting tools. Justify your findings as you go.
+
+
+REPLY:
+Analyzing the dataset, it's clear that the model's output is not influenced by a single feature but rather a combination of them. However, we can still try to understand the influence of each feature individually.
+
+1. Feature 'A':
+a. Positive changes in 'A' seem to have no consistent correlation with the output. Negative changes in 'A' also show no consistent correlation with the output. 
+b. Importance: 50/100. 'A' seems to have a moderate influence on the output, but it's not consistent.
+
+Rank: A
+
+2. Feature 'B':
+a. Positive changes in 'B' seem to correlate with a decrease in output, while negative changes in 'B' also correlate with a decrease in output. 
+b. Importance: 60/100. 'B' seems to have a slightly stronger influence on the output than 'A', but it's still not very consistent.
+
+Rank: BA
+
+3. Feature 'C':
+a. Positive changes in 'C' seem to have no consistent correlation with the output. Negative changes in 'C' seem to correlate with a decrease in output.
+b. Importance: 55/100. 'C' seems to have a similar influence on the output as 'A' and 'B', but it's still not very consistent.
+
+Rank: BCA
+
+4. Feature 'D':
+a. Positive changes in 'D' seem to have no consistent correlation with the output. Negative changes in 'D' seem to correlate with a decrease in output.
+b. Importance: 60/100. 'D' seems to have a similar influence on the output as 'B', but it's still not very consistent.
+
+Rank: BDCA
+
+5. Feature 'E':
+a. Positive changes in 'E' seem to have no consistent correlation with the output. Negative changes in 'E' seem to correlate with a decrease in output.
+b. Importance: 55/100. 'E' seems to have a similar influence on the output as 'A' and 'C', but it's still not very consistent.
+
+Rank: BDECA
+
+6. Feature 'F':
+a. Positive changes in 'F' seem to have no consistent correlation with the output. Negative changes in 'F' seem to correlate with a decrease in output.
+b. Importance: 55/100. 'F' seems to have a similar influence on the output as 'A', 'C', and 'E', but it's still not very consistent.
+
+Rank: BDEFCA
+
+7. Feature 'G':
+a. Positive changes in 'G' seem to have no consistent correlation with the output. Negative changes in 'G' seem to correlate with a decrease in output.
+b. Importance: 55/100. 'G' seems to have a similar influence on the output as 'A', 'C', 'E', and 'F', but it's still not very consistent.
+
+Rank: BDEFGCA
+
+8. Feature 'H':
+a. Positive changes in 'H' seem to have no consistent correlation with the output. Negative changes in 'H' seem to correlate with a decrease in output.
+b. Importance: 55/100. 'H' seems to have a similar influence on the output as 'A', 'C', 'E', 'F', and 'G', but it's still not very consistent.
+
+Rank: BDEFGHCA
+
+9. Feature 'I':
+a. Positive changes in 'I' seem to have no consistent correlation with the output. Negative changes in 'I' seem to correlate with a decrease in output.
+b. Importance: 55/100. 'I' seems to have a similar influence on the output as 'A', 'C', 'E', 'F', 'G', and 'H', but it's still not very consistent.
+
+Rank: BDEFGIHCA
+
+10. Feature 'J':
+a. Positive changes in 'J' seem to have no consistent correlation with the output. Negative changes in 'J' seem to correlate with a decrease in output.
+b. Importance: 55/100. 'J' seems to have a similar influence on the output as 'A', 'C', 'E', 'F', 'G', 'H', and 'I', but it's still not very consistent.
+
+Rank: BDEFGIJHCA
+
+11. Feature 'K':
+a. Positive changes in 'K' seem to have no consistent correlation with the output. Negative changes in 'K' seem to correlate with a decrease in output.
+b. Importance: 55/100. 'K' seems to have a similar influence on the output as 'A', 'C', 'E', 'F', 'G', 'H', 'I', and 'J', but it's still not very consistent.
+
+Rank: BDEFGIJKHCA
+
+12. Feature 'L':
+a. Positive changes in 'L' seem to have no consistent correlation with the output. Negative changes in 'L' seem to correlate with a decrease in output.
+b. Importance: 55/100. 'L' seems to have a similar influence on the output as 'A', 'C', 'E', 'F', 'G', 'H', 'I', 'J', and 'K', but it's still not very consistent.
+
+Rank: BDEFGIJKLHCA
+
+13. Feature 'M':
+a. Positive changes in 'M' seem to have no consistent correlation with the output. Negative changes in 'M' seem to correlate with a decrease in output.
+b. Importance: 55/100. 'M' seems to have a similar influence on the output as 'A', 'C', 'E', 'F', 'G', 'H', 'I', 'J', 'K', and 'L', but it's still not very consistent.
+
+Final Rank: BDEFGIJKLMHCA

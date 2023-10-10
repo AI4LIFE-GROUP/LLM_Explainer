@@ -1,0 +1,113 @@
+3_gpt-4_LR_compas_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		3
+LLM:			gpt-4
+k:			5
+
+MESSAGE:
+[{'role': 'user', 'content': "We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'F' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.\n\nDataset:\n```\nChange in Input: A: -0.280, B: 0.190, C: 0.131, D: -0.026, E: -0.079, F: 0.219 \nChange in Output: -1\n\nChange in Input: A: -0.229, B: 0.142, C: 0.205, D: 0.143, E: -0.017, F: 0.012 \nChange in Output: -1\n\nChange in Input: A: 0.248, B: -0.051, C: -0.375, D: -0.149, E: 0.052, F: 0.052 \nChange in Output: 0\n\nChange in Input: A: 0.218, B: -0.092, C: -0.255, D: -0.205, E: 0.304, F: -0.007 \nChange in Output: 0\n\nChange in Input: A: 0.239, B: -0.275, C: 0.025, D: -0.024, E: 0.020, F: -0.091 \nChange in Output: 0\n\nChange in Input: A: -0.161, B: 0.336, C: 0.090, D: 0.085, E: 0.151, F: -0.038 \nChange in Output: -1\n\nChange in Input: A: -0.322, B: 0.197, C: 0.170, D: -0.090, E: -0.032, F: 0.090 \nChange in Output: -1\n\nChange in Input: A: 0.242, B: -0.154, C: -0.196, D: -0.062, E: 0.168, F: -0.071 \nChange in Output: 0\n\nChange in Input: A: 0.252, B: -0.083, C: -0.272, D: -0.081, E: 0.051, F: 0.052 \nChange in Output: 0\n\nChange in Input: A: -0.185, B: 0.259, C: 0.149, D: -0.127, E: -0.239, F: 0.005 \nChange in Output: -1\n\nChange in Input: A: 0.128, B: -0.277, C: -0.179, D: -0.093, E: -0.044, F: -0.044 \nChange in Output: 0\n\nChange in Input: A: 0.246, B: -0.214, C: -0.190, D: 0.032, E: 0.191, F: 0.066 \nChange in Output: 0\n\nChange in Input: A: -0.232, B: 0.344, C: -0.064, D: 0.032, E: 0.160, F: 0.035 \nChange in Output: -1\n\nChange in Input: A: -0.192, B: 0.260, C: 0.105, D: 0.045, E: -0.008, F: -0.008 \nChange in Output: -1\n\nChange in Input: A: -0.082, B: 0.423, C: 0.176, D: 0.251, E: 0.011, F: -0.033 \nChange in Output: -1\n\nChange in Input: A: 0.354, B: -0.196, C: -0.026, D: -0.091, E: -0.041, F: 0.132 \nChange in Output: 0\n```\n\nFor each feature, starting with 'A' and continuing to 'F':\n\n1. Analyze the feature in question:\na. Compare instances where its changes are positive to where its changes are negative and explain how this difference correlates with the change in output.\nb. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'F' are ranked.\n\nUpon completion of all analyses, provide the final rank of features from 'A' to 'F' on the last line.\n\nAvoid providing general methodologies or suggesting tools. Justify your findings as you go."}]
+
+
+PROMPT_TEXT:
+We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'F' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.
+
+Dataset:
+```
+Change in Input: A: -0.280, B: 0.190, C: 0.131, D: -0.026, E: -0.079, F: 0.219 
+Change in Output: -1
+
+Change in Input: A: -0.229, B: 0.142, C: 0.205, D: 0.143, E: -0.017, F: 0.012 
+Change in Output: -1
+
+Change in Input: A: 0.248, B: -0.051, C: -0.375, D: -0.149, E: 0.052, F: 0.052 
+Change in Output: 0
+
+Change in Input: A: 0.218, B: -0.092, C: -0.255, D: -0.205, E: 0.304, F: -0.007 
+Change in Output: 0
+
+Change in Input: A: 0.239, B: -0.275, C: 0.025, D: -0.024, E: 0.020, F: -0.091 
+Change in Output: 0
+
+Change in Input: A: -0.161, B: 0.336, C: 0.090, D: 0.085, E: 0.151, F: -0.038 
+Change in Output: -1
+
+Change in Input: A: -0.322, B: 0.197, C: 0.170, D: -0.090, E: -0.032, F: 0.090 
+Change in Output: -1
+
+Change in Input: A: 0.242, B: -0.154, C: -0.196, D: -0.062, E: 0.168, F: -0.071 
+Change in Output: 0
+
+Change in Input: A: 0.252, B: -0.083, C: -0.272, D: -0.081, E: 0.051, F: 0.052 
+Change in Output: 0
+
+Change in Input: A: -0.185, B: 0.259, C: 0.149, D: -0.127, E: -0.239, F: 0.005 
+Change in Output: -1
+
+Change in Input: A: 0.128, B: -0.277, C: -0.179, D: -0.093, E: -0.044, F: -0.044 
+Change in Output: 0
+
+Change in Input: A: 0.246, B: -0.214, C: -0.190, D: 0.032, E: 0.191, F: 0.066 
+Change in Output: 0
+
+Change in Input: A: -0.232, B: 0.344, C: -0.064, D: 0.032, E: 0.160, F: 0.035 
+Change in Output: -1
+
+Change in Input: A: -0.192, B: 0.260, C: 0.105, D: 0.045, E: -0.008, F: -0.008 
+Change in Output: -1
+
+Change in Input: A: -0.082, B: 0.423, C: 0.176, D: 0.251, E: 0.011, F: -0.033 
+Change in Output: -1
+
+Change in Input: A: 0.354, B: -0.196, C: -0.026, D: -0.091, E: -0.041, F: 0.132 
+Change in Output: 0
+```
+
+For each feature, starting with 'A' and continuing to 'F':
+
+1. Analyze the feature in question:
+a. Compare instances where its changes are positive to where its changes are negative and explain how this difference correlates with the change in output.
+b. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'F' are ranked.
+
+Upon completion of all analyses, provide the final rank of features from 'A' to 'F' on the last line.
+
+Avoid providing general methodologies or suggesting tools. Justify your findings as you go.
+
+
+REPLY:
+1. Feature 'A':
+a. When 'A' increases, the output tends to stay the same (0). When 'A' decreases, the output tends to decrease (-1). This suggests a negative correlation between 'A' and the output.
+b. Importance: 70. 'A' seems to have a significant influence on the output, especially when it decreases.
+
+2. Feature 'B':
+a. When 'B' increases, the output tends to decrease (-1). When 'B' decreases, the output tends to stay the same (0). This suggests a negative correlation between 'B' and the output.
+b. Importance: 80. 'B' seems to have a stronger influence on the output than 'A', especially when it increases.
+
+Rank after 'B': BA
+
+3. Feature 'C':
+a. When 'C' increases, the output tends to decrease (-1). When 'C' decreases, the output tends to stay the same (0). This suggests a negative correlation between 'C' and the output.
+b. Importance: 60. 'C' seems to have a less significant influence on the output than 'A' and 'B'.
+
+Rank after 'C': BAC
+
+4. Feature 'D':
+a. When 'D' increases, the output tends to decrease (-1). When 'D' decreases, the output tends to stay the same (0). This suggests a negative correlation between 'D' and the output.
+b. Importance: 50. 'D' seems to have a less significant influence on the output than 'A', 'B', and 'C'.
+
+Rank after 'D': BACD
+
+5. Feature 'E':
+a. When 'E' increases, the output tends to stay the same (0). When 'E' decreases, the output tends to decrease (-1). This suggests a negative correlation between 'E' and the output.
+b. Importance: 40. 'E' seems to have a less significant influence on the output than 'A', 'B', 'C', and 'D'.
+
+Rank after 'E': BACDE
+
+6. Feature 'F':
+a. When 'F' increases, the output tends to decrease (-1). When 'F' decreases, the output tends to stay the same (0). This suggests a negative correlation between 'F' and the output.
+b. Importance: 30. 'F' seems to have the least significant influence on the output among all features.
+
+Final Rank: BACDEF

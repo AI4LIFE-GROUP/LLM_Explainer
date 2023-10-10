@@ -1,0 +1,145 @@
+35_gpt-4_LR_adult_summary
+temperature:		0
+n_shot:			12
+explanation_mode:	perturb
+eval_idx:		35
+LLM:			gpt-4
+k:			5
+
+MESSAGE:
+[{'role': 'user', 'content': "We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'M' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.\n\nDataset:\n```\nChange in Input: A: -0.063, B: 0.083, C: 0.051, D: 0.320, E: 0.404, F: 0.014, G: 0.220, H: -0.086, I: -0.137, J: 0.081, K: -0.098, L: 0.088, M: -0.058 \nChange in Output: 1\n\nChange in Input: A: -0.047, B: -0.032, C: 0.115, D: 0.346, E: 0.092, F: -0.116, G: -0.063, H: 0.173, I: 0.011, J: 0.074, K: -0.015, L: 0.027, M: -0.086 \nChange in Output: 1\n\nChange in Input: A: -0.186, B: -0.022, C: 0.048, D: -0.308, E: -0.007, F: -0.228, G: -0.061, H: -0.061, I: 0.065, J: 0.070, K: -0.049, L: 0.122, M: 0.066 \nChange in Output: 0\n\nChange in Input: A: 0.078, B: 0.027, C: 0.057, D: 0.272, E: 0.100, F: 0.129, G: -0.122, H: -0.041, I: -0.065, J: -0.041, K: -0.104, L: -0.024, M: -0.057 \nChange in Output: 1\n\nChange in Input: A: 0.076, B: -0.079, C: -0.032, D: -0.358, E: 0.081, F: 0.042, G: -0.057, H: -0.050, I: 0.050, J: -0.153, K: -0.114, L: 0.100, M: 0.022 \nChange in Output: 0\n\nChange in Input: A: 0.076, B: 0.143, C: 0.105, D: 0.266, E: 0.129, F: 0.008, G: -0.034, H: -0.004, I: -0.204, J: 0.036, K: -0.072, L: 0.051, M: -0.025 \nChange in Output: 1\n\nChange in Input: A: -0.106, B: 0.026, C: 0.122, D: -0.386, E: 0.144, F: -0.091, G: 0.019, H: -0.157, I: -0.195, J: -0.091, K: 0.141, L: -0.082, M: -0.105 \nChange in Output: 0\n\nChange in Input: A: -0.081, B: -0.054, C: -0.034, D: 0.323, E: 0.069, F: 0.037, G: -0.101, H: 0.037, I: -0.125, J: -0.173, K: -0.070, L: 0.095, M: 0.009 \nChange in Output: 1\n\nChange in Input: A: 0.059, B: -0.023, C: -0.079, D: 0.333, E: 0.007, F: 0.092, G: -0.047, H: -0.069, I: -0.167, J: 0.123, K: -0.148, L: 0.011, M: -0.025 \nChange in Output: 1\n\nChange in Input: A: -0.033, B: -0.022, C: 0.109, D: -0.330, E: -0.049, F: -0.212, G: 0.023, H: 0.085, I: -0.020, J: -0.077, K: 0.008, L: 0.021, M: -0.024 \nChange in Output: 0\n\nChange in Input: A: -0.087, B: -0.052, C: 0.082, D: -0.313, E: -0.108, F: -0.109, G: 0.026, H: -0.048, I: -0.006, J: -0.003, K: 0.037, L: -0.077, M: 0.275 \nChange in Output: 0\n\nChange in Input: A: 0.060, B: 0.022, C: 0.004, D: -0.324, E: 0.009, F: -0.020, G: -0.050, H: 0.119, I: 0.061, J: 0.025, K: -0.043, L: -0.091, M: 0.111 \nChange in Output: 0\n```\n\nFor each feature, starting with 'A' and continuing to 'M':\n\n1. Analyze the feature in question:\na. Compare instances where its changes are positive to where its changes are negative and explain how this difference correlates with the change in output.\nb. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'M' are ranked.\n\nUpon completion of all analyses, provide the final rank of features from 'A' to 'M' on the last line.\n\nAvoid providing general methodologies or suggesting tools. Justify your findings as you go. Do not provide the same importance for any two features."}]
+
+
+PROMPT_TEXT:
+We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'M' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.
+
+Dataset:
+```
+Change in Input: A: -0.063, B: 0.083, C: 0.051, D: 0.320, E: 0.404, F: 0.014, G: 0.220, H: -0.086, I: -0.137, J: 0.081, K: -0.098, L: 0.088, M: -0.058 
+Change in Output: 1
+
+Change in Input: A: -0.047, B: -0.032, C: 0.115, D: 0.346, E: 0.092, F: -0.116, G: -0.063, H: 0.173, I: 0.011, J: 0.074, K: -0.015, L: 0.027, M: -0.086 
+Change in Output: 1
+
+Change in Input: A: -0.186, B: -0.022, C: 0.048, D: -0.308, E: -0.007, F: -0.228, G: -0.061, H: -0.061, I: 0.065, J: 0.070, K: -0.049, L: 0.122, M: 0.066 
+Change in Output: 0
+
+Change in Input: A: 0.078, B: 0.027, C: 0.057, D: 0.272, E: 0.100, F: 0.129, G: -0.122, H: -0.041, I: -0.065, J: -0.041, K: -0.104, L: -0.024, M: -0.057 
+Change in Output: 1
+
+Change in Input: A: 0.076, B: -0.079, C: -0.032, D: -0.358, E: 0.081, F: 0.042, G: -0.057, H: -0.050, I: 0.050, J: -0.153, K: -0.114, L: 0.100, M: 0.022 
+Change in Output: 0
+
+Change in Input: A: 0.076, B: 0.143, C: 0.105, D: 0.266, E: 0.129, F: 0.008, G: -0.034, H: -0.004, I: -0.204, J: 0.036, K: -0.072, L: 0.051, M: -0.025 
+Change in Output: 1
+
+Change in Input: A: -0.106, B: 0.026, C: 0.122, D: -0.386, E: 0.144, F: -0.091, G: 0.019, H: -0.157, I: -0.195, J: -0.091, K: 0.141, L: -0.082, M: -0.105 
+Change in Output: 0
+
+Change in Input: A: -0.081, B: -0.054, C: -0.034, D: 0.323, E: 0.069, F: 0.037, G: -0.101, H: 0.037, I: -0.125, J: -0.173, K: -0.070, L: 0.095, M: 0.009 
+Change in Output: 1
+
+Change in Input: A: 0.059, B: -0.023, C: -0.079, D: 0.333, E: 0.007, F: 0.092, G: -0.047, H: -0.069, I: -0.167, J: 0.123, K: -0.148, L: 0.011, M: -0.025 
+Change in Output: 1
+
+Change in Input: A: -0.033, B: -0.022, C: 0.109, D: -0.330, E: -0.049, F: -0.212, G: 0.023, H: 0.085, I: -0.020, J: -0.077, K: 0.008, L: 0.021, M: -0.024 
+Change in Output: 0
+
+Change in Input: A: -0.087, B: -0.052, C: 0.082, D: -0.313, E: -0.108, F: -0.109, G: 0.026, H: -0.048, I: -0.006, J: -0.003, K: 0.037, L: -0.077, M: 0.275 
+Change in Output: 0
+
+Change in Input: A: 0.060, B: 0.022, C: 0.004, D: -0.324, E: 0.009, F: -0.020, G: -0.050, H: 0.119, I: 0.061, J: 0.025, K: -0.043, L: -0.091, M: 0.111 
+Change in Output: 0
+```
+
+For each feature, starting with 'A' and continuing to 'M':
+
+1. Analyze the feature in question:
+a. Compare instances where its changes are positive to where its changes are negative and explain how this difference correlates with the change in output.
+b. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'M' are ranked.
+
+Upon completion of all analyses, provide the final rank of features from 'A' to 'M' on the last line.
+
+Avoid providing general methodologies or suggesting tools. Justify your findings as you go. Do not provide the same importance for any two features.
+
+
+REPLY:
+1. Feature 'A':
+a. Positive changes in 'A' are associated with both positive (3 instances) and negative (1 instance) changes in output. Negative changes in 'A' are also associated with both positive (2 instances) and negative (6 instances) changes in output. However, negative changes in 'A' are more frequently associated with negative changes in output.
+b. Importance: 60. 'A' seems to have a moderate influence on the output, with negative changes in 'A' more frequently associated with negative changes in output.
+
+Rank: A
+
+2. Feature 'B':
+a. Positive changes in 'B' are associated with both positive (4 instances) and negative (1 instance) changes in output. Negative changes in 'B' are also associated with both positive (2 instances) and negative (5 instances) changes in output. However, negative changes in 'B' are more frequently associated with negative changes in output.
+b. Importance: 65. 'B' seems to have a slightly higher influence on the output than 'A', with negative changes in 'B' more frequently associated with negative changes in output.
+
+Rank: BA
+
+3. Feature 'C':
+a. Positive changes in 'C' are associated with both positive (6 instances) and negative (3 instances) changes in output. Negative changes in 'C' are associated with both positive (1 instance) and negative (2 instances) changes in output. However, positive changes in 'C' are more frequently associated with positive changes in output.
+b. Importance: 70. 'C' seems to have a higher influence on the output than 'A' and 'B', with positive changes in 'C' more frequently associated with positive changes in output.
+
+Rank: CBA
+
+4. Feature 'D':
+a. Positive changes in 'D' are associated with positive changes in output (6 instances). Negative changes in 'D' are associated with negative changes in output (6 instances).
+b. Importance: 100. 'D' seems to have a very strong influence on the output, with positive changes in 'D' always associated with positive changes in output and negative changes in 'D' always associated with negative changes in output.
+
+Rank: DCBA
+
+5. Feature 'E':
+a. Positive changes in 'E' are associated with both positive (7 instances) and negative (3 instances) changes in output. Negative changes in 'E' are associated with negative changes in output (2 instances).
+b. Importance: 80. 'E' seems to have a higher influence on the output than 'A', 'B', and 'C', with positive changes in 'E' more frequently associated with positive changes in output.
+
+Rank: DECBA
+
+6. Feature 'F':
+a. Positive changes in 'F' are associated with both positive (4 instances) and negative (1 instance) changes in output. Negative changes in 'F' are associated with negative changes in output (5 instances).
+b. Importance: 75. 'F' seems to have a higher influence on the output than 'A', 'B', and 'C', but less than 'D' and 'E', with negative changes in 'F' more frequently associated with negative changes in output.
+
+Rank: DEFBCA
+
+7. Feature 'G':
+a. Positive changes in 'G' are associated with negative changes in output (2 instances). Negative changes in 'G' are associated with both positive (6 instances) and negative (4 instances) changes in output.
+b. Importance: 55. 'G' seems to have a moderate influence on the output, with negative changes in 'G' more frequently associated with positive changes in output.
+
+Rank: DEFGBCA
+
+8. Feature 'H':
+a. Positive changes in 'H' are associated with both positive (2 instances) and negative (2 instances) changes in output. Negative changes in 'H' are associated with both positive (5 instances) and negative (3 instances) changes in output.
+b. Importance: 50. 'H' seems to have a moderate influence on the output, with no clear pattern of association.
+
+Rank: DEFGHBCA
+
+9. Feature 'I':
+a. Positive changes in 'I' are associated with both positive (1 instance) and negative (3 instances) changes in output. Negative changes in 'I' are associated with positive changes in output (6 instances).
+b. Importance: 45. 'I' seems to have a moderate influence on the output, with negative changes in 'I' more frequently associated with positive changes in output.
+
+Rank: DEFGIHBCA
+
+10. Feature 'J':
+a. Positive changes in 'J' are associated with both positive (4 instances) and negative (1 instance) changes in output. Negative changes in 'J' are associated with both positive (2 instances) and negative (5 instances) changes in output.
+b. Importance: 60. 'J' seems to have a moderate influence on the output, with negative changes in 'J' more frequently associated with negative changes in output.
+
+Rank: DEFGJIHBCA
+
+11. Feature 'K':
+a. Positive changes in 'K' are associated with negative changes in output (2 instances). Negative changes in 'K' are associated with both positive (6 instances) and negative (4 instances) changes in output.
+b. Importance: 55. 'K' seems to have a moderate influence on the output, with negative changes in 'K' more frequently associated with positive changes in output.
+
+Rank: DEFGJKIHBCA
+
+12. Feature 'L':
+a. Positive changes in 'L' are associated with both positive (5 instances) and negative (2 instances) changes in output. Negative changes in 'L' are associated with both positive (1 instance) and negative (4 instances) changes in output.
+b. Importance: 65. 'L' seems to have a moderate influence on the output, with positive changes in 'L' more frequently associated with positive changes in output.
+
+Rank: DEFGJLIKHBCA
+
+13. Feature 'M':
+a. Positive changes in 'M' are associated with negative changes in output (3 instances). Negative changes in 'M' are associated with both positive (6 instances) and negative (3 instances) changes in output.
+b. Importance: 55. 'M' seems to have a moderate influence on the output, with negative changes in 'M' more frequently associated with positive changes in output.
+
+Final Rank: DEFGJLIKMHBAC

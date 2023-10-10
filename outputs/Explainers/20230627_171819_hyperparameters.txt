@@ -1,0 +1,76 @@
+SEED = 0
+
+eval_min_idx          = 0
+eval_max_idx          = 200
+algos                 = ['lime', 'grad', 'sg', 'ig', 'shap', 'itg']
+data_names            = ['compas', 'adult', 'german', 'heloc', 'credit']
+model_names           = ['lr', 'ann_s', 'ann_m', 'ann_l']
+model_dirs            = ['./models/LR/', './models/ANN_S/', './models/ANN_M/', './models/ANN_L/']
+model_file_names_data = {
+    'compas':
+        {'lr': '20230602_1946_2__compas_lr_0.002_acc_0.82.pt',
+         'ann_s': '20230602_1945_16_2__compas_ann_s_0.002_acc_0.82.pt',
+         'ann_m': '20230602_1945_32_16_2__compas_ann_m_0.002_acc_0.83.pt',
+         'ann_l': '20230602_1946_64_32_16_2__compas_ann_l_0.002_acc_0.83.pt'},
+    'adult':
+        {'lr': '20230602_1941_2__adult_lr_0.002_acc_0.84.pt',
+         'ann_s': '20230602_1929_16_2__adult_ann_s_0.002_acc_0.85.pt',
+         'ann_m': '20230602_1934_32_16_2__adult_ann_m_0.002_acc_0.85.pt',
+         'ann_l': '20230602_1937_64_32_16_2__adult_ann_l_0.002_acc_0.85.pt'},
+    'german':
+        {'lr': '20230602_1947_2__german_lr_0.002_acc_0.76.pt',
+         'ann_s': '20230602_1947_16_2__german_ann_s_0.002_acc_0.77.pt',
+        'ann_m': '20230602_1947_32_16_2__german_ann_m_0.002_acc_0.77.pt',
+        'ann_l': '20230602_1947_64_32_16_2__german_ann_l_0.002_acc_0.76.pt'},
+    'heloc':
+        {'lr': '20230602_1950_2__heloc_lr_0.002_acc_0.73.pt',
+         'ann_s': '20230602_1947_16_2__heloc_ann_s_0.002_acc_0.75.pt',
+         'ann_m': '20230602_1948_32_16_2__heloc_ann_m_0.002_acc_0.76.pt',
+         'ann_l': '20230602_1949_64_32_16_2__heloc_ann_l_0.002_acc_0.75.pt'},
+    'credit':
+        {'lr': '20230605_1326_2__credit_lr_0.002_acc_0.95.pt',
+         'ann_s': '20230602_1951_16_2__credit_ann_s_0.002_acc_0.95.pt',
+         'ann_m': '20230602_1959_32_16_2__credit_ann_m_0.002_acc_0.95.pt',
+         'ann_l': '20230602_2007_64_32_16_2__credit_ann_l_0.002_acc_0.95.pt'}
+}
+
+
+## Faithfulness metric perturbation class parameters
+perturbation_mean            = 0.0
+perturbation_std             = 0.1
+perturbation_flip_percentage = np.sqrt((2/np.pi))*perturbation_std 
+perturbation_max_distance    = None #not used for normal perurbations
+perturb_num_samples          = 5000
+categorical_features = {
+    'compas': [3, 4, 5],
+    'adult': [6, 7, 8, 9, 10, 11, 12],
+    'german': list(np.arange(6, 60)),
+    'heloc': [],
+    'credit': []
+}
+
+# Make explanations
+param_dict_lime = dict()
+param_dict_lime['dataset_tensor']         = train_data_tensor
+param_dict_lime['kernel_width']           = 0.75
+param_dict_lime['std']                    = 0.1
+param_dict_lime['mode']                   = 'tabular'
+param_dict_lime['sample_around_instance'] = True
+param_dict_lime['n_samples']              = 5000
+param_dict_lime['discretize_continuous']  = False
+param_dict_lime['categorical_features']   = [3,4,5]
+
+param_dict_grad                   = dict()
+param_dict_grad['absolute_value'] = True
+
+param_dict_sg                       = dict()
+param_dict_sg['n_samples']          = 100
+param_dict_sg['standard_deviation'] = 0.005
+
+param_dict_ig                       = dict()
+param_dict_ig['method']             = 'gausslegendre'
+param_dict_ig['multiply_by_inputs'] = False
+param_dict_ig['baseline']           = torch.mean(train_data_tensor, dim=0).reshape(1, -1).float()
+
+param_dict_shap                = dict()
+param_dict_shap['subset_size'] = 500

@@ -1,0 +1,75 @@
+80_gpt-4_LR_blood_summary
+temperature:		1
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		80
+LLM:			gpt-4
+k:			4
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model\'s output. The dataset below contains the change in features \'A\' through \'D\' (with negative values denoting a decrease in a feature\'s value) and the corresponding change in outputs.\n\nDataset:\n```\nChange in Input: A: 0.307, B: 0.026, C: -0.107, D: -0.071 \nChange in Output: -1\n\nChange in Input: A: 0.364, B: -0.024, C: 0.103, D: -0.174 \nChange in Output: -1\n\nChange in Input: A: -0.298, B: 0.002, C: 0.172, D: 0.038 \nChange in Output: 0\n\nChange in Input: A: -0.295, B: -0.023, C: 0.159, D: -0.008 \nChange in Output: 0\n\nChange in Input: A: -0.332, B: -0.074, C: 0.114, D: -0.080 \nChange in Output: 0\n\nChange in Input: A: 0.319, B: -0.060, C: -0.063, D: 0.039 \nChange in Output: -1\n\nChange in Input: A: 0.233, B: 0.018, C: -0.280, D: -0.093 \nChange in Output: -1\n\nChange in Input: A: -0.322, B: 0.044, C: 0.074, D: 0.122 \nChange in Output: 0\n\nChange in Input: A: -0.318, B: 0.026, C: 0.104, D: -0.089 \nChange in Output: 0\n\nChange in Input: A: 0.301, B: 0.064, C: -0.119, D: -0.056 \nChange in Output: -1\n\nChange in Input: A: -0.392, B: 0.110, C: -0.084, D: -0.042 \nChange in Output: 0\n\nChange in Input: A: -0.371, B: 0.188, C: 0.128, D: -0.160 \nChange in Output: 0\n\nChange in Input: A: 0.276, B: 0.059, C: -0.159, D: -0.028 \nChange in Output: -1\n\nChange in Input: A: 0.308, B: -0.057, C: -0.023, D: -0.099 \nChange in Output: -1\n\nChange in Input: A: 0.362, B: 0.140, C: -0.036, D: -0.129 \nChange in Output: -1\n\nChange in Input: A: -0.329, B: 0.037, C: 0.084, D: -0.055 \nChange in Output: 0\n```\n\nQuestion: "Based on the model\'s predictions and the given dataset, what appears to be the top four most important features in determining the model\'s prediction?"\n\nInstructions: "Think about the question. After explaining your reasoning, provide your answer as the top four most important features ranked from most important to least important, in descending order. Only provide the feature names on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'D' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.
+
+Dataset:
+```
+Change in Input: A: 0.307, B: 0.026, C: -0.107, D: -0.071 
+Change in Output: -1
+
+Change in Input: A: 0.364, B: -0.024, C: 0.103, D: -0.174 
+Change in Output: -1
+
+Change in Input: A: -0.298, B: 0.002, C: 0.172, D: 0.038 
+Change in Output: 0
+
+Change in Input: A: -0.295, B: -0.023, C: 0.159, D: -0.008 
+Change in Output: 0
+
+Change in Input: A: -0.332, B: -0.074, C: 0.114, D: -0.080 
+Change in Output: 0
+
+Change in Input: A: 0.319, B: -0.060, C: -0.063, D: 0.039 
+Change in Output: -1
+
+Change in Input: A: 0.233, B: 0.018, C: -0.280, D: -0.093 
+Change in Output: -1
+
+Change in Input: A: -0.322, B: 0.044, C: 0.074, D: 0.122 
+Change in Output: 0
+
+Change in Input: A: -0.318, B: 0.026, C: 0.104, D: -0.089 
+Change in Output: 0
+
+Change in Input: A: 0.301, B: 0.064, C: -0.119, D: -0.056 
+Change in Output: -1
+
+Change in Input: A: -0.392, B: 0.110, C: -0.084, D: -0.042 
+Change in Output: 0
+
+Change in Input: A: -0.371, B: 0.188, C: 0.128, D: -0.160 
+Change in Output: 0
+
+Change in Input: A: 0.276, B: 0.059, C: -0.159, D: -0.028 
+Change in Output: -1
+
+Change in Input: A: 0.308, B: -0.057, C: -0.023, D: -0.099 
+Change in Output: -1
+
+Change in Input: A: 0.362, B: 0.140, C: -0.036, D: -0.129 
+Change in Output: -1
+
+Change in Input: A: -0.329, B: 0.037, C: 0.084, D: -0.055 
+Change in Output: 0
+```
+
+Question: "Based on the model's predictions and the given dataset, what appears to be the top four most important features in determining the model's prediction?"
+
+Instructions: "Think about the question. After explaining your reasoning, provide your answer as the top four most important features ranked from most important to least important, in descending order. Only provide the feature names on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+Looking at the data, whenever there's a noticeable increase in feature A or decrease in feature C and D, the output tends to decrease (-1). In contrast, for the opposite changes (decrease in feature A, increase in feature C and D), the output remains the same (0), which may imply no impact. Feature B seems to have the smallest magnitude changes and the changes seem to have discontinuous effects on output change indicating perhaps B is least important. Thus, it seems to indicate that the change in A has a leading role on whether the output will decrease or remain the same. Similarly, changes in C and D also appear to have significant effects on output. However, A seems to be a stronger predictor than both C and D. Based on this, the importance of features in predicting the output of model seems to rank in this order: A, C, D, B.
+
+A, C, D, B

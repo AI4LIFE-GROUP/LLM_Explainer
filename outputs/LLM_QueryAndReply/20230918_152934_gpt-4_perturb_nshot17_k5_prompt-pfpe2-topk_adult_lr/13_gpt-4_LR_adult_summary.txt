@@ -1,0 +1,86 @@
+13_gpt-4_LR_adult_summary
+temperature:		0
+n_shot:			17
+explanation_mode:	perturb
+eval_idx:		13
+LLM:			gpt-4
+k:			5
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model\'s output. The dataset below contains the change in features \'A\' through \'M\' (with negative values denoting a decrease in a feature\'s value) and the corresponding change in outputs.\n\nDataset:\n```\nChange in Input: A: -0.084, B: 0.001, C: -0.010, D: -0.378, E: 0.227, F: 0.154, G: -0.076, H: 0.079, I: 0.187, J: -0.004, K: -0.004, L: -0.111, M: 0.067 \nChange in Output: 0\n\nChange in Input: A: -0.082, B: 0.066, C: -0.200, D: -0.251, E: -0.186, F: -0.143, G: 0.090, H: -0.020, I: 0.043, J: 0.117, K: -0.047, L: 0.026, M: 0.131 \nChange in Output: 0\n\nChange in Input: A: 0.013, B: -0.080, C: 0.113, D: 0.311, E: 0.082, F: -0.007, G: -0.130, H: 0.141, I: 0.006, J: -0.134, K: -0.085, L: 0.005, M: -0.091 \nChange in Output: 1\n\nChange in Input: A: 0.018, B: 0.029, C: 0.077, D: 0.307, E: 0.031, F: 0.015, G: -0.017, H: -0.079, I: 0.065, J: 0.022, K: 0.079, L: -0.029, M: 0.128 \nChange in Output: 1\n\nChange in Input: A: 0.084, B: 0.024, C: 0.147, D: 0.269, E: 0.061, F: 0.129, G: -0.050, H: 0.044, I: -0.113, J: 0.020, K: 0.016, L: -0.082, M: 0.078 \nChange in Output: 1\n\nChange in Input: A: 0.049, B: 0.052, C: 0.053, D: -0.382, E: 0.161, F: -0.090, G: -0.057, H: -0.042, I: -0.024, J: -0.129, K: -0.023, L: -0.033, M: -0.281 \nChange in Output: 0\n\nChange in Input: A: -0.013, B: -0.269, C: -0.073, D: -0.354, E: -0.071, F: -0.123, G: 0.083, H: 0.089, I: -0.092, J: -0.092, K: -0.312, L: 0.054, M: -0.191 \nChange in Output: 0\n\nChange in Input: A: 0.005, B: -0.056, C: 0.104, D: 0.314, E: -0.026, F: -0.049, G: -0.132, H: 0.197, I: 0.043, J: -0.013, K: -0.103, L: 0.035, M: 0.031 \nChange in Output: 1\n\nChange in Input: A: -0.063, B: 0.149, C: 0.022, D: 0.325, E: -0.026, F: 0.061, G: 0.069, H: -0.017, I: 0.061, J: 0.012, K: 0.131, L: 0.031, M: -0.062 \nChange in Output: 1\n\nChange in Input: A: 0.012, B: 0.011, C: -0.137, D: -0.322, E: 0.004, F: -0.021, G: -0.092, H: 0.093, I: -0.020, J: 0.005, K: -0.025, L: -0.104, M: 0.146 \nChange in Output: 0\n\nChange in Input: A: 0.074, B: 0.186, C: 0.030, D: 0.285, E: 0.171, F: 0.160, G: -0.056, H: -0.126, I: 0.029, J: -0.111, K: 0.176, L: 0.166, M: -0.116 \nChange in Output: 1\n\nChange in Input: A: -0.018, B: 0.051, C: -0.020, D: 0.313, E: 0.060, F: -0.058, G: 0.154, H: 0.029, I: -0.148, J: 0.016, K: -0.124, L: 0.111, M: -0.034 \nChange in Output: 1\n\nChange in Input: A: -0.075, B: -0.026, C: -0.111, D: -0.290, E: -0.096, F: 0.065, G: 0.166, H: -0.025, I: 0.197, J: -0.122, K: 0.168, L: 0.056, M: 0.093 \nChange in Output: 0\n\nChange in Input: A: 0.102, B: 0.136, C: -0.314, D: -0.255, E: -0.169, F: 0.012, G: -0.023, H: -0.043, I: 0.074, J: 0.137, K: 0.048, L: -0.001, M: -0.249 \nChange in Output: 0\n\nChange in Input: A: -0.023, B: 0.114, C: 0.083, D: -0.408, E: -0.010, F: -0.087, G: 0.040, H: -0.077, I: 0.001, J: -0.108, K: 0.012, L: -0.090, M: 0.000 \nChange in Output: 0\n\nChange in Input: A: 0.050, B: 0.063, C: 0.009, D: 0.285, E: 0.137, F: -0.025, G: 0.004, H: 0.071, I: -0.148, J: 0.186, K: -0.076, L: 0.050, M: -0.034 \nChange in Output: 1\n\nChange in Input: A: -0.020, B: -0.035, C: 0.168, D: 0.331, E: 0.089, F: 0.015, G: 0.074, H: -0.041, I: 0.040, J: 0.067, K: 0.024, L: -0.229, M: 0.235 \nChange in Output: \n```\n\nQuestion: "Based on the model\'s predictions and the given dataset, estimate the change in output for the final change in input."\n\nInstructions: "Think about the question. After explaining your reasoning provide your answer as:\n\na) on the penultimate line, the estimated change in output\n\nb) on the last line, the top five most important features ranked from most important to least important, in descending order.\n\nOnly provide the change in output and the feature names on the last two lines. Do not provide any further details on the last two lines."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'M' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.
+
+Dataset:
+```
+Change in Input: A: -0.084, B: 0.001, C: -0.010, D: -0.378, E: 0.227, F: 0.154, G: -0.076, H: 0.079, I: 0.187, J: -0.004, K: -0.004, L: -0.111, M: 0.067 
+Change in Output: 0
+
+Change in Input: A: -0.082, B: 0.066, C: -0.200, D: -0.251, E: -0.186, F: -0.143, G: 0.090, H: -0.020, I: 0.043, J: 0.117, K: -0.047, L: 0.026, M: 0.131 
+Change in Output: 0
+
+Change in Input: A: 0.013, B: -0.080, C: 0.113, D: 0.311, E: 0.082, F: -0.007, G: -0.130, H: 0.141, I: 0.006, J: -0.134, K: -0.085, L: 0.005, M: -0.091 
+Change in Output: 1
+
+Change in Input: A: 0.018, B: 0.029, C: 0.077, D: 0.307, E: 0.031, F: 0.015, G: -0.017, H: -0.079, I: 0.065, J: 0.022, K: 0.079, L: -0.029, M: 0.128 
+Change in Output: 1
+
+Change in Input: A: 0.084, B: 0.024, C: 0.147, D: 0.269, E: 0.061, F: 0.129, G: -0.050, H: 0.044, I: -0.113, J: 0.020, K: 0.016, L: -0.082, M: 0.078 
+Change in Output: 1
+
+Change in Input: A: 0.049, B: 0.052, C: 0.053, D: -0.382, E: 0.161, F: -0.090, G: -0.057, H: -0.042, I: -0.024, J: -0.129, K: -0.023, L: -0.033, M: -0.281 
+Change in Output: 0
+
+Change in Input: A: -0.013, B: -0.269, C: -0.073, D: -0.354, E: -0.071, F: -0.123, G: 0.083, H: 0.089, I: -0.092, J: -0.092, K: -0.312, L: 0.054, M: -0.191 
+Change in Output: 0
+
+Change in Input: A: 0.005, B: -0.056, C: 0.104, D: 0.314, E: -0.026, F: -0.049, G: -0.132, H: 0.197, I: 0.043, J: -0.013, K: -0.103, L: 0.035, M: 0.031 
+Change in Output: 1
+
+Change in Input: A: -0.063, B: 0.149, C: 0.022, D: 0.325, E: -0.026, F: 0.061, G: 0.069, H: -0.017, I: 0.061, J: 0.012, K: 0.131, L: 0.031, M: -0.062 
+Change in Output: 1
+
+Change in Input: A: 0.012, B: 0.011, C: -0.137, D: -0.322, E: 0.004, F: -0.021, G: -0.092, H: 0.093, I: -0.020, J: 0.005, K: -0.025, L: -0.104, M: 0.146 
+Change in Output: 0
+
+Change in Input: A: 0.074, B: 0.186, C: 0.030, D: 0.285, E: 0.171, F: 0.160, G: -0.056, H: -0.126, I: 0.029, J: -0.111, K: 0.176, L: 0.166, M: -0.116 
+Change in Output: 1
+
+Change in Input: A: -0.018, B: 0.051, C: -0.020, D: 0.313, E: 0.060, F: -0.058, G: 0.154, H: 0.029, I: -0.148, J: 0.016, K: -0.124, L: 0.111, M: -0.034 
+Change in Output: 1
+
+Change in Input: A: -0.075, B: -0.026, C: -0.111, D: -0.290, E: -0.096, F: 0.065, G: 0.166, H: -0.025, I: 0.197, J: -0.122, K: 0.168, L: 0.056, M: 0.093 
+Change in Output: 0
+
+Change in Input: A: 0.102, B: 0.136, C: -0.314, D: -0.255, E: -0.169, F: 0.012, G: -0.023, H: -0.043, I: 0.074, J: 0.137, K: 0.048, L: -0.001, M: -0.249 
+Change in Output: 0
+
+Change in Input: A: -0.023, B: 0.114, C: 0.083, D: -0.408, E: -0.010, F: -0.087, G: 0.040, H: -0.077, I: 0.001, J: -0.108, K: 0.012, L: -0.090, M: 0.000 
+Change in Output: 0
+
+Change in Input: A: 0.050, B: 0.063, C: 0.009, D: 0.285, E: 0.137, F: -0.025, G: 0.004, H: 0.071, I: -0.148, J: 0.186, K: -0.076, L: 0.050, M: -0.034 
+Change in Output: 1
+
+Change in Input: A: -0.020, B: -0.035, C: 0.168, D: 0.331, E: 0.089, F: 0.015, G: 0.074, H: -0.041, I: 0.040, J: 0.067, K: 0.024, L: -0.229, M: 0.235 
+Change in Output: 
+```
+
+Question: "Based on the model's predictions and the given dataset, estimate the change in output for the final change in input."
+
+Instructions: "Think about the question. After explaining your reasoning provide your answer as:
+
+a) on the penultimate line, the estimated change in output
+
+b) on the last line, the top five most important features ranked from most important to least important, in descending order.
+
+Only provide the change in output and the feature names on the last two lines. Do not provide any further details on the last two lines."
+
+
+REPLY:
+Reasoning: The model seems to increase the output when the sum of the positive changes in input is greater than the sum of the negative changes. Conversely, the output decreases when the sum of the negative changes in input is greater than the sum of the positive changes. 
+
+a) 1
+
+b) D, C, B, E, A

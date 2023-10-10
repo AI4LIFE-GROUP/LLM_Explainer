@@ -1,0 +1,103 @@
+16_gpt-4_LR_blood_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		16
+LLM:			gpt-4
+k:			5
+
+MESSAGE:
+[{'role': 'user', 'content': "We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'D' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.\n\nDataset:\n```\nChange in Input: A: 0.284, B: -0.042, C: -0.165, D: -0.103 \nChange in Output: 0\n\nChange in Input: A: 0.292, B: 0.045, C: -0.124, D: -0.102 \nChange in Output: 0\n\nChange in Input: A: -0.317, B: 0.048, C: 0.134, D: 0.125 \nChange in Output: 1\n\nChange in Input: A: -0.234, B: 0.138, C: 0.230, D: 0.137 \nChange in Output: 1\n\nChange in Input: A: -0.321, B: -0.091, C: 0.141, D: -0.026 \nChange in Output: 1\n\nChange in Input: A: 0.272, B: -0.069, C: -0.121, D: -0.239 \nChange in Output: 0\n\nChange in Input: A: 0.311, B: 0.077, C: -0.198, D: -0.041 \nChange in Output: 0\n\nChange in Input: A: -0.375, B: 0.151, C: -0.041, D: 0.023 \nChange in Output: 1\n\nChange in Input: A: -0.322, B: 0.064, C: 0.075, D: -0.030 \nChange in Output: 1\n\nChange in Input: A: 0.198, B: -0.164, C: -0.304, D: 0.034 \nChange in Output: 0\n\nChange in Input: A: -0.305, B: 0.008, C: 0.140, D: 0.121 \nChange in Output: 1\n\nChange in Input: A: -0.413, B: -0.096, C: 0.022, D: 0.004 \nChange in Output: 1\n\nChange in Input: A: 0.288, B: -0.002, C: -0.090, D: -0.067 \nChange in Output: 0\n\nChange in Input: A: 0.332, B: 0.055, C: -0.044, D: -0.058 \nChange in Output: 0\n\nChange in Input: A: 0.291, B: -0.102, C: -0.180, D: -0.026 \nChange in Output: 0\n\nChange in Input: A: -0.264, B: 0.020, C: 0.221, D: 0.144 \nChange in Output: 1\n```\n\nFor each feature, starting with 'A' and continuing to 'D':\n\n1. Analyze the feature in question:\na. Compare instances where its changes are positive to where its changes are negative and explain how this difference correlates with the change in output.\nb. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'D' are ranked.\n\nUpon completion of all analyses, provide the final rank of features from 'A' to 'D' on the last line.\n\nAvoid providing general methodologies or suggesting tools. Justify your findings as you go."}]
+
+
+PROMPT_TEXT:
+We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'D' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.
+
+Dataset:
+```
+Change in Input: A: 0.284, B: -0.042, C: -0.165, D: -0.103 
+Change in Output: 0
+
+Change in Input: A: 0.292, B: 0.045, C: -0.124, D: -0.102 
+Change in Output: 0
+
+Change in Input: A: -0.317, B: 0.048, C: 0.134, D: 0.125 
+Change in Output: 1
+
+Change in Input: A: -0.234, B: 0.138, C: 0.230, D: 0.137 
+Change in Output: 1
+
+Change in Input: A: -0.321, B: -0.091, C: 0.141, D: -0.026 
+Change in Output: 1
+
+Change in Input: A: 0.272, B: -0.069, C: -0.121, D: -0.239 
+Change in Output: 0
+
+Change in Input: A: 0.311, B: 0.077, C: -0.198, D: -0.041 
+Change in Output: 0
+
+Change in Input: A: -0.375, B: 0.151, C: -0.041, D: 0.023 
+Change in Output: 1
+
+Change in Input: A: -0.322, B: 0.064, C: 0.075, D: -0.030 
+Change in Output: 1
+
+Change in Input: A: 0.198, B: -0.164, C: -0.304, D: 0.034 
+Change in Output: 0
+
+Change in Input: A: -0.305, B: 0.008, C: 0.140, D: 0.121 
+Change in Output: 1
+
+Change in Input: A: -0.413, B: -0.096, C: 0.022, D: 0.004 
+Change in Output: 1
+
+Change in Input: A: 0.288, B: -0.002, C: -0.090, D: -0.067 
+Change in Output: 0
+
+Change in Input: A: 0.332, B: 0.055, C: -0.044, D: -0.058 
+Change in Output: 0
+
+Change in Input: A: 0.291, B: -0.102, C: -0.180, D: -0.026 
+Change in Output: 0
+
+Change in Input: A: -0.264, B: 0.020, C: 0.221, D: 0.144 
+Change in Output: 1
+```
+
+For each feature, starting with 'A' and continuing to 'D':
+
+1. Analyze the feature in question:
+a. Compare instances where its changes are positive to where its changes are negative and explain how this difference correlates with the change in output.
+b. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'D' are ranked.
+
+Upon completion of all analyses, provide the final rank of features from 'A' to 'D' on the last line.
+
+Avoid providing general methodologies or suggesting tools. Justify your findings as you go.
+
+
+REPLY:
+1. Feature 'A':
+a. When 'A' increases, the output tends to be 0. When 'A' decreases, the output tends to be 1. This suggests a negative correlation between 'A' and the output.
+b. Importance of 'A': 80. This is because the change in 'A' seems to have a strong correlation with the change in output.
+
+Rank: A
+
+2. Feature 'B':
+a. When 'B' increases, the output can be either 0 or 1. When 'B' decreases, the output tends to be 0. This suggests a weak correlation between 'B' and the output.
+b. Importance of 'B': 40. This is because the change in 'B' seems to have a weaker correlation with the change in output compared to 'A'.
+
+Rank: AB
+
+3. Feature 'C':
+a. When 'C' increases, the output tends to be 1. When 'C' decreases, the output tends to be 0. This suggests a strong positive correlation between 'C' and the output.
+b. Importance of 'C': 90. This is because the change in 'C' seems to have a stronger correlation with the change in output compared to 'A' and 'B'.
+
+Rank: CAB
+
+4. Feature 'D':
+a. When 'D' increases, the output tends to be 1. When 'D' decreases, the output can be either 0 or 1. This suggests a moderate correlation between 'D' and the output.
+b. Importance of 'D': 70. This is because the change in 'D' seems to have a moderate correlation with the change in output compared to 'A', 'B', and 'C'.
+
+Final Rank: CADB

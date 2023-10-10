@@ -1,0 +1,90 @@
+20_gpt-3.5-turbo_LR_compas_summary
+temperature:		0
+n_shot:			17
+explanation_mode:	perturb
+eval_idx:		20
+LLM:			gpt-3.5-turbo
+k:			5
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model\'s output. The dataset below contains the change in features \'A\' through \'F\' (with negative values denoting a decrease in a feature\'s value) and the corresponding change in outputs.\n\nDataset:\n```\nChange in Input: A: -0.297, B: 0.106, C: 0.245, D: 0.005, E: 0.140, F: 0.103 \nChange in Output: -1\n\nChange in Input: A: -0.271, B: 0.268, C: 0.014, D: 0.043, E: 0.061, F: 0.067 \nChange in Output: -1\n\nChange in Input: A: 0.242, B: -0.296, C: -0.066, D: -0.033, E: -0.001, F: 0.023 \nChange in Output: 0\n\nChange in Input: A: 0.373, B: -0.209, C: 0.058, D: -0.080, E: -0.068, F: 0.104 \nChange in Output: 0\n\nChange in Input: A: 0.365, B: -0.093, C: -0.169, D: -0.112, E: 0.056, F: 0.076 \nChange in Output: 0\n\nChange in Input: A: -0.153, B: 0.365, C: 0.059, D: 0.109, E: 0.124, F: -0.019 \nChange in Output: -1\n\nChange in Input: A: -0.269, B: 0.303, C: 0.193, D: -0.017, E: -0.064, F: -0.051 \nChange in Output: -1\n\nChange in Input: A: 0.241, B: -0.172, C: -0.103, D: -0.271, E: -0.029, F: -0.070 \nChange in Output: 0\n\nChange in Input: A: 0.156, B: -0.176, C: -0.231, D: -0.007, E: 0.021, F: -0.086 \nChange in Output: 0\n\nChange in Input: A: -0.119, B: 0.269, C: 0.197, D: 0.002, E: -0.251, F: 0.068 \nChange in Output: -1\n\nChange in Input: A: 0.142, B: -0.240, C: -0.218, D: -0.068, E: -0.027, F: -0.090 \nChange in Output: 0\n\nChange in Input: A: 0.140, B: -0.266, C: -0.111, D: -0.117, E: -0.044, F: -0.189 \nChange in Output: 0\n\nChange in Input: A: -0.182, B: 0.070, C: 0.382, D: -0.131, E: -0.159, F: 0.101 \nChange in Output: -1\n\nChange in Input: A: -0.219, B: 0.274, C: 0.119, D: -0.102, E: 0.040, F: -0.068 \nChange in Output: -1\n\nChange in Input: A: -0.314, B: 0.290, C: 0.163, D: 0.147, E: -0.010, F: 0.000 \nChange in Output: -1\n\nChange in Input: A: 0.437, B: -0.040, C: -0.062, D: 0.038, E: -0.115, F: -0.091 \nChange in Output: 0\n\nChange in Input: A: 0.229, B: -0.284, C: -0.181, D: 0.248, E: -0.043, F: 0.107 \nChange in Output: \n```\n\nQuestion: "Based on the model\'s predictions and the given dataset, estimate the change in output for the final change in input."\n\nInstructions: "Think about the question. After explaining your reasoning provide your answer as:\n\na) on the penultimate line, the estimated change in output\n\nb) on the last line, the top five most important features ranked from most important to least important, in descending order.\n\nOnly provide the change in output and the feature names on the last two lines. Do not provide any further details on the last two lines."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'F' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.
+
+Dataset:
+```
+Change in Input: A: -0.297, B: 0.106, C: 0.245, D: 0.005, E: 0.140, F: 0.103 
+Change in Output: -1
+
+Change in Input: A: -0.271, B: 0.268, C: 0.014, D: 0.043, E: 0.061, F: 0.067 
+Change in Output: -1
+
+Change in Input: A: 0.242, B: -0.296, C: -0.066, D: -0.033, E: -0.001, F: 0.023 
+Change in Output: 0
+
+Change in Input: A: 0.373, B: -0.209, C: 0.058, D: -0.080, E: -0.068, F: 0.104 
+Change in Output: 0
+
+Change in Input: A: 0.365, B: -0.093, C: -0.169, D: -0.112, E: 0.056, F: 0.076 
+Change in Output: 0
+
+Change in Input: A: -0.153, B: 0.365, C: 0.059, D: 0.109, E: 0.124, F: -0.019 
+Change in Output: -1
+
+Change in Input: A: -0.269, B: 0.303, C: 0.193, D: -0.017, E: -0.064, F: -0.051 
+Change in Output: -1
+
+Change in Input: A: 0.241, B: -0.172, C: -0.103, D: -0.271, E: -0.029, F: -0.070 
+Change in Output: 0
+
+Change in Input: A: 0.156, B: -0.176, C: -0.231, D: -0.007, E: 0.021, F: -0.086 
+Change in Output: 0
+
+Change in Input: A: -0.119, B: 0.269, C: 0.197, D: 0.002, E: -0.251, F: 0.068 
+Change in Output: -1
+
+Change in Input: A: 0.142, B: -0.240, C: -0.218, D: -0.068, E: -0.027, F: -0.090 
+Change in Output: 0
+
+Change in Input: A: 0.140, B: -0.266, C: -0.111, D: -0.117, E: -0.044, F: -0.189 
+Change in Output: 0
+
+Change in Input: A: -0.182, B: 0.070, C: 0.382, D: -0.131, E: -0.159, F: 0.101 
+Change in Output: -1
+
+Change in Input: A: -0.219, B: 0.274, C: 0.119, D: -0.102, E: 0.040, F: -0.068 
+Change in Output: -1
+
+Change in Input: A: -0.314, B: 0.290, C: 0.163, D: 0.147, E: -0.010, F: 0.000 
+Change in Output: -1
+
+Change in Input: A: 0.437, B: -0.040, C: -0.062, D: 0.038, E: -0.115, F: -0.091 
+Change in Output: 0
+
+Change in Input: A: 0.229, B: -0.284, C: -0.181, D: 0.248, E: -0.043, F: 0.107 
+Change in Output: 
+```
+
+Question: "Based on the model's predictions and the given dataset, estimate the change in output for the final change in input."
+
+Instructions: "Think about the question. After explaining your reasoning provide your answer as:
+
+a) on the penultimate line, the estimated change in output
+
+b) on the last line, the top five most important features ranked from most important to least important, in descending order.
+
+Only provide the change in output and the feature names on the last two lines. Do not provide any further details on the last two lines."
+
+
+REPLY:
+Based on the given dataset, we can observe that the change in output is mostly negative (-1) for the majority of the input changes. However, there are also instances where the change in output is 0. 
+
+To estimate the change in output for the final change in input, we can consider the pattern observed in the dataset. Since the change in output is mostly negative for similar changes in input, it is likely that the final change in output will also be negative.
+
+Therefore, the estimated change in output for the final change in input is:
+
+a) -1
+
+b) A, B, C, D, E

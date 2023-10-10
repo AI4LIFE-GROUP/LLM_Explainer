@@ -1,0 +1,81 @@
+30_gpt-4_ANN_L_adult_summary
+temperature:		0.25
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		30
+LLM:			gpt-4
+k:			5
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model\'s output. The dataset below contains the change in features \'A\' through \'M\' (with negative values denoting a decrease in a feature\'s value) and the corresponding change in outputs.\n\nDataset:\n```\nChange in Input: A: -0.016, B: -0.010, C: 0.026, D: -0.223, E: -0.083, F: -0.412, G: -0.156, H: -0.048, I: 0.203, J: -0.043, K: 0.089, L: -0.089, M: -0.027 \nChange in Output: -1\n\nChange in Input: A: 0.109, B: 0.141, C: -0.076, D: -0.280, E: -0.041, F: -0.090, G: 0.169, H: 0.158, I: -0.015, J: -0.132, K: -0.136, L: -0.021, M: -0.005 \nChange in Output: -1\n\nChange in Input: A: 0.124, B: 0.141, C: -0.086, D: 0.119, E: -0.143, F: -0.011, G: -0.012, H: 0.028, I: 0.081, J: 0.073, K: 0.006, L: 0.032, M: 0.000 \nChange in Output: 0\n\nChange in Input: A: 0.192, B: -0.184, C: 0.138, D: 0.009, E: 0.089, F: -0.303, G: 0.038, H: 0.117, I: -0.184, J: 0.013, K: 0.021, L: -0.181, M: 0.079 \nChange in Output: 0\n\nChange in Input: A: 0.001, B: -0.002, C: -0.028, D: 0.137, E: 0.278, F: -0.065, G: 0.291, H: -0.006, I: -0.111, J: -0.116, K: 0.045, L: 0.059, M: -0.038 \nChange in Output: 0\n\nChange in Input: A: -0.238, B: -0.121, C: -0.146, D: -0.232, E: -0.122, F: -0.111, G: 0.037, H: 0.137, I: 0.013, J: 0.075, K: -0.039, L: -0.141, M: 0.145 \nChange in Output: -1\n\nChange in Input: A: -0.022, B: 0.009, C: -0.055, D: -0.398, E: -0.044, F: -0.066, G: -0.036, H: -0.216, I: 0.008, J: 0.127, K: 0.001, L: -0.021, M: 0.154 \nChange in Output: -1\n\nChange in Input: A: 0.092, B: 0.252, C: 0.032, D: 0.047, E: -0.086, F: 0.067, G: -0.002, H: -0.072, I: 0.135, J: 0.014, K: 0.026, L: 0.000, M: 0.057 \nChange in Output: 0\n\nChange in Input: A: -0.009, B: -0.024, C: -0.179, D: 0.142, E: 0.117, F: 0.024, G: -0.019, H: -0.153, I: -0.030, J: 0.099, K: -0.100, L: -0.096, M: -0.075 \nChange in Output: 0\n\nChange in Input: A: -0.031, B: 0.067, C: -0.013, D: -0.336, E: 0.029, F: -0.095, G: -0.107, H: 0.037, I: -0.049, J: 0.148, K: 0.014, L: 0.072, M: -0.078 \nChange in Output: -1\n\nChange in Input: A: 0.026, B: -0.011, C: 0.057, D: 0.025, E: -0.128, F: 0.038, G: -0.060, H: -0.113, I: 0.085, J: 0.088, K: -0.244, L: -0.131, M: 0.058 \nChange in Output: 0\n\nChange in Input: A: -0.079, B: 0.135, C: 0.029, D: 0.031, E: -0.182, F: -0.002, G: 0.052, H: 0.101, I: 0.068, J: -0.254, K: -0.157, L: 0.102, M: 0.105 \nChange in Output: 0\n\nChange in Input: A: -0.027, B: 0.130, C: -0.146, D: -0.304, E: 0.046, F: 0.025, G: 0.041, H: -0.032, I: 0.096, J: -0.162, K: -0.126, L: -0.032, M: -0.060 \nChange in Output: -1\n\nChange in Input: A: -0.117, B: 0.094, C: -0.006, D: -0.265, E: 0.123, F: -0.178, G: 0.040, H: 0.058, I: 0.052, J: -0.035, K: 0.064, L: -0.123, M: -0.038 \nChange in Output: -1\n\nChange in Input: A: -0.227, B: 0.006, C: -0.101, D: -0.312, E: 0.139, F: -0.071, G: 0.026, H: 0.022, I: 0.101, J: -0.031, K: -0.014, L: -0.086, M: -0.010 \nChange in Output: -1\n\nChange in Input: A: 0.135, B: -0.052, C: 0.027, D: 0.176, E: 0.050, F: -0.084, G: -0.124, H: -0.050, I: -0.014, J: 0.018, K: -0.112, L: 0.261, M: -0.132 \nChange in Output: 0\n```\n\nQuestion: "Based on the model\'s predictions and the given dataset, what appears to be the top five most important features in determining the model\'s prediction?"\n\nInstructions: "Think about the question. After explaining your reasoning, provide your answer as the top five most important features ranked from most important to least important, in descending order. Only provide the feature names on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'M' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.
+
+Dataset:
+```
+Change in Input: A: -0.016, B: -0.010, C: 0.026, D: -0.223, E: -0.083, F: -0.412, G: -0.156, H: -0.048, I: 0.203, J: -0.043, K: 0.089, L: -0.089, M: -0.027 
+Change in Output: -1
+
+Change in Input: A: 0.109, B: 0.141, C: -0.076, D: -0.280, E: -0.041, F: -0.090, G: 0.169, H: 0.158, I: -0.015, J: -0.132, K: -0.136, L: -0.021, M: -0.005 
+Change in Output: -1
+
+Change in Input: A: 0.124, B: 0.141, C: -0.086, D: 0.119, E: -0.143, F: -0.011, G: -0.012, H: 0.028, I: 0.081, J: 0.073, K: 0.006, L: 0.032, M: 0.000 
+Change in Output: 0
+
+Change in Input: A: 0.192, B: -0.184, C: 0.138, D: 0.009, E: 0.089, F: -0.303, G: 0.038, H: 0.117, I: -0.184, J: 0.013, K: 0.021, L: -0.181, M: 0.079 
+Change in Output: 0
+
+Change in Input: A: 0.001, B: -0.002, C: -0.028, D: 0.137, E: 0.278, F: -0.065, G: 0.291, H: -0.006, I: -0.111, J: -0.116, K: 0.045, L: 0.059, M: -0.038 
+Change in Output: 0
+
+Change in Input: A: -0.238, B: -0.121, C: -0.146, D: -0.232, E: -0.122, F: -0.111, G: 0.037, H: 0.137, I: 0.013, J: 0.075, K: -0.039, L: -0.141, M: 0.145 
+Change in Output: -1
+
+Change in Input: A: -0.022, B: 0.009, C: -0.055, D: -0.398, E: -0.044, F: -0.066, G: -0.036, H: -0.216, I: 0.008, J: 0.127, K: 0.001, L: -0.021, M: 0.154 
+Change in Output: -1
+
+Change in Input: A: 0.092, B: 0.252, C: 0.032, D: 0.047, E: -0.086, F: 0.067, G: -0.002, H: -0.072, I: 0.135, J: 0.014, K: 0.026, L: 0.000, M: 0.057 
+Change in Output: 0
+
+Change in Input: A: -0.009, B: -0.024, C: -0.179, D: 0.142, E: 0.117, F: 0.024, G: -0.019, H: -0.153, I: -0.030, J: 0.099, K: -0.100, L: -0.096, M: -0.075 
+Change in Output: 0
+
+Change in Input: A: -0.031, B: 0.067, C: -0.013, D: -0.336, E: 0.029, F: -0.095, G: -0.107, H: 0.037, I: -0.049, J: 0.148, K: 0.014, L: 0.072, M: -0.078 
+Change in Output: -1
+
+Change in Input: A: 0.026, B: -0.011, C: 0.057, D: 0.025, E: -0.128, F: 0.038, G: -0.060, H: -0.113, I: 0.085, J: 0.088, K: -0.244, L: -0.131, M: 0.058 
+Change in Output: 0
+
+Change in Input: A: -0.079, B: 0.135, C: 0.029, D: 0.031, E: -0.182, F: -0.002, G: 0.052, H: 0.101, I: 0.068, J: -0.254, K: -0.157, L: 0.102, M: 0.105 
+Change in Output: 0
+
+Change in Input: A: -0.027, B: 0.130, C: -0.146, D: -0.304, E: 0.046, F: 0.025, G: 0.041, H: -0.032, I: 0.096, J: -0.162, K: -0.126, L: -0.032, M: -0.060 
+Change in Output: -1
+
+Change in Input: A: -0.117, B: 0.094, C: -0.006, D: -0.265, E: 0.123, F: -0.178, G: 0.040, H: 0.058, I: 0.052, J: -0.035, K: 0.064, L: -0.123, M: -0.038 
+Change in Output: -1
+
+Change in Input: A: -0.227, B: 0.006, C: -0.101, D: -0.312, E: 0.139, F: -0.071, G: 0.026, H: 0.022, I: 0.101, J: -0.031, K: -0.014, L: -0.086, M: -0.010 
+Change in Output: -1
+
+Change in Input: A: 0.135, B: -0.052, C: 0.027, D: 0.176, E: 0.050, F: -0.084, G: -0.124, H: -0.050, I: -0.014, J: 0.018, K: -0.112, L: 0.261, M: -0.132 
+Change in Output: 0
+```
+
+Question: "Based on the model's predictions and the given dataset, what appears to be the top five most important features in determining the model's prediction?"
+
+Instructions: "Think about the question. After explaining your reasoning, provide your answer as the top five most important features ranked from most important to least important, in descending order. Only provide the feature names on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the top five most important features in determining the model's prediction, we need to analyze the changes in the input features and how they correlate with the changes in the output. 
+
+The idea is to identify which features, when they change, cause the most significant changes in the output. If a feature changes significantly but the output remains the same, it is likely that this feature is not very important. On the other hand, if a small change in a feature leads to a significant change in the output, it is likely that this feature is important.
+
+In this case, we can see that the features 'F', 'D', 'E', 'G', and 'A' often have large changes (both positive and negative) that correspond with changes in the output. For instance, when 'F' decreases significantly (e.g., -0.412), the output decreases as well. Similarly, when 'D' decreases significantly (e.g., -0.223), the output decreases. The same pattern can be observed for 'E', 'G', and 'A'. 
+
+Therefore, based on this analysis, it appears that the top five most important features in determining the model's prediction are 'F', 'D', 'E', 'G', and 'A'.
+
+F, D, E, G, A

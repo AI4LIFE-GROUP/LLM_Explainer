@@ -1,0 +1,110 @@
+92_gpt-4_LR_adult_summary
+temperature:		0
+n_shot:			4
+explanation_mode:	perturb
+eval_idx:		92
+LLM:			gpt-4
+k:			5
+
+MESSAGE:
+[{'role': 'user', 'content': "We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'M' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.\n\nDataset:\n```\nChange in Input: A: -0.071, B: -0.077, C: 0.159, D: 0.377, E: 0.124, F: 0.217, G: -0.114, H: 0.016, I: 0.025, J: 0.044, K: -0.027, L: 0.041, M: 0.049 \nChange in Output: 0\n\nChange in Input: A: -0.048, B: -0.022, C: 0.157, D: 0.424, E: -0.239, F: 0.159, G: -0.169, H: -0.085, I: -0.022, J: 0.102, K: -0.137, L: -0.055, M: -0.159 \nChange in Output: 0\n\nChange in Input: A: -0.003, B: 0.094, C: 0.031, D: -0.375, E: -0.219, F: 0.087, G: 0.058, H: 0.132, I: 0.096, J: 0.137, K: 0.001, L: -0.124, M: 0.086 \nChange in Output: -1\n\nChange in Input: A: 0.082, B: 0.018, C: -0.050, D: -0.382, E: -0.161, F: 0.004, G: -0.186, H: -0.003, I: -0.066, J: 0.020, K: -0.142, L: -0.043, M: -0.080 \nChange in Output: -1\n```\n\nFor each feature, starting with 'A' and continuing to 'M':\n\n1. Analyze the feature in question:\na. Compare instances where its changes are positive to where its changes are negative and explain how this difference correlates with the change in output.\nb. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'M' are ranked.\n\nUpon completion of all analyses, provide the final rank of features from 'A' to 'M' on the last line.\n\nAvoid providing general methodologies or suggesting tools. Justify your findings as you go. Do not provide the same importance for any two features."}]
+
+
+PROMPT_TEXT:
+We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'M' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.
+
+Dataset:
+```
+Change in Input: A: -0.071, B: -0.077, C: 0.159, D: 0.377, E: 0.124, F: 0.217, G: -0.114, H: 0.016, I: 0.025, J: 0.044, K: -0.027, L: 0.041, M: 0.049 
+Change in Output: 0
+
+Change in Input: A: -0.048, B: -0.022, C: 0.157, D: 0.424, E: -0.239, F: 0.159, G: -0.169, H: -0.085, I: -0.022, J: 0.102, K: -0.137, L: -0.055, M: -0.159 
+Change in Output: 0
+
+Change in Input: A: -0.003, B: 0.094, C: 0.031, D: -0.375, E: -0.219, F: 0.087, G: 0.058, H: 0.132, I: 0.096, J: 0.137, K: 0.001, L: -0.124, M: 0.086 
+Change in Output: -1
+
+Change in Input: A: 0.082, B: 0.018, C: -0.050, D: -0.382, E: -0.161, F: 0.004, G: -0.186, H: -0.003, I: -0.066, J: 0.020, K: -0.142, L: -0.043, M: -0.080 
+Change in Output: -1
+```
+
+For each feature, starting with 'A' and continuing to 'M':
+
+1. Analyze the feature in question:
+a. Compare instances where its changes are positive to where its changes are negative and explain how this difference correlates with the change in output.
+b. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'M' are ranked.
+
+Upon completion of all analyses, provide the final rank of features from 'A' to 'M' on the last line.
+
+Avoid providing general methodologies or suggesting tools. Justify your findings as you go. Do not provide the same importance for any two features.
+
+
+REPLY:
+1. Feature 'A':
+a. When 'A' decreases, the output remains constant. When 'A' increases, the output decreases. This suggests a negative correlation.
+b. Importance: 60. The correlation is not very strong, but it is consistent.
+Rank: A
+
+2. Feature 'B':
+a. When 'B' decreases, the output remains constant. When 'B' increases, the output decreases. This suggests a negative correlation.
+b. Importance: 70. The correlation is stronger than 'A' as the increase in 'B' leads to a decrease in output.
+Rank: BA
+
+3. Feature 'C':
+a. When 'C' increases, the output remains constant or decreases. When 'C' decreases, the output decreases. This suggests a weak correlation.
+b. Importance: 40. The correlation is weaker than 'A' and 'B'.
+Rank: BAC
+
+4. Feature 'D':
+a. When 'D' increases, the output remains constant. When 'D' decreases, the output decreases. This suggests a negative correlation.
+b. Importance: 80. The correlation is stronger than 'A', 'B', and 'C'.
+Rank: DBAC
+
+5. Feature 'E':
+a. When 'E' increases, the output remains constant. When 'E' decreases, the output decreases. This suggests a negative correlation.
+b. Importance: 50. The correlation is weaker than 'A', 'B', and 'D', but stronger than 'C'.
+Rank: DBAEC
+
+6. Feature 'F':
+a. When 'F' increases, the output remains constant or decreases. When 'F' decreases, the output decreases. This suggests a weak correlation.
+b. Importance: 30. The correlation is weaker than all previous features.
+Rank: DBAECF
+
+7. Feature 'G':
+a. When 'G' decreases, the output remains constant or decreases. When 'G' increases, the output decreases. This suggests a weak correlation.
+b. Importance: 20. The correlation is the weakest so far.
+Rank: DBAECFG
+
+8. Feature 'H':
+a. When 'H' increases or decreases, the output remains constant or decreases. This suggests a very weak correlation.
+b. Importance: 10. The correlation is the weakest so far.
+Rank: DBAECFGH
+
+9. Feature 'I':
+a. When 'I' increases or decreases, the output remains constant or decreases. This suggests a very weak correlation.
+b. Importance: 15. The correlation is slightly stronger than 'H'.
+Rank: DBAECFGIH
+
+10. Feature 'J':
+a. When 'J' increases, the output remains constant or decreases. This suggests a weak correlation.
+b. Importance: 25. The correlation is stronger than 'G', 'H', and 'I'.
+Rank: DBAECFJGIH
+
+11. Feature 'K':
+a. When 'K' decreases, the output remains constant or decreases. When 'K' increases, the output decreases. This suggests a weak correlation.
+b. Importance: 35. The correlation is stronger than 'F', 'G', 'H', 'I', and 'J'.
+Rank: DBAECKFJGIH
+
+12. Feature 'L':
+a. When 'L' increases or decreases, the output remains constant or decreases. This suggests a very weak correlation.
+b. Importance: 5. The correlation is the weakest so far.
+Rank: DBAECKFJGIHL
+
+13. Feature 'M':
+a. When 'M' increases, the output remains constant. When 'M' decreases, the output decreases. This suggests a negative correlation.
+b. Importance: 45. The correlation is stronger than 'C', 'F', 'G', 'H', 'I', 'J', 'K', and 'L'.
+Rank: DBAEMCKFJGIHL
+
+Final Rank: DBAEMCKFJGIHL

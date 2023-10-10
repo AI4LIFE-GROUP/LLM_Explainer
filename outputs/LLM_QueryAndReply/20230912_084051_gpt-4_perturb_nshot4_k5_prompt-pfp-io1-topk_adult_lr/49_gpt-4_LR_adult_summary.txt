@@ -1,0 +1,51 @@
+49_gpt-4_LR_adult_summary
+temperature:		0
+n_shot:			4
+explanation_mode:	perturb
+eval_idx:		49
+LLM:			gpt-4
+k:			5
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model\'s output. The dataset below contains the change in features \'A\' through \'M\' (with negative values denoting a decrease in a feature\'s value) and the corresponding change in outputs.\n\nDataset:\n```\nChange in Input: A: -0.065, B: -0.017, C: 0.182, D: 0.340, E: 0.058, F: 0.028, G: -0.089, H: -0.036, I: 0.066, J: 0.083, K: -0.092, L: 0.096, M: 0.017 \nChange in Output: 0\n\nChange in Input: A: -0.072, B: -0.023, C: 0.010, D: 0.346, E: 0.004, F: -0.017, G: -0.034, H: -0.039, I: -0.189, J: 0.032, K: -0.003, L: 0.035, M: -0.033 \nChange in Output: 0\n\nChange in Input: A: 0.036, B: 0.159, C: -0.123, D: -0.343, E: -0.019, F: 0.094, G: 0.012, H: -0.131, I: 0.178, J: 0.127, K: -0.084, L: -0.026, M: 0.092 \nChange in Output: -1\n\nChange in Input: A: -0.081, B: 0.105, C: 0.098, D: -0.382, E: 0.057, F: 0.013, G: 0.004, H: 0.079, I: -0.024, J: 0.078, K: 0.024, L: 0.092, M: 0.005 \nChange in Output: -1\n```\n\nQuestion: "Based on the model\'s predictions and the given dataset, what appears to be the top five most important features in determining the model\'s prediction?"\n\nInstructions: "Think about the question. After explaining your reasoning, provide your answer as the top five most important features ranked from most important to least important, in descending order. Only provide the feature names on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'M' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.
+
+Dataset:
+```
+Change in Input: A: -0.065, B: -0.017, C: 0.182, D: 0.340, E: 0.058, F: 0.028, G: -0.089, H: -0.036, I: 0.066, J: 0.083, K: -0.092, L: 0.096, M: 0.017 
+Change in Output: 0
+
+Change in Input: A: -0.072, B: -0.023, C: 0.010, D: 0.346, E: 0.004, F: -0.017, G: -0.034, H: -0.039, I: -0.189, J: 0.032, K: -0.003, L: 0.035, M: -0.033 
+Change in Output: 0
+
+Change in Input: A: 0.036, B: 0.159, C: -0.123, D: -0.343, E: -0.019, F: 0.094, G: 0.012, H: -0.131, I: 0.178, J: 0.127, K: -0.084, L: -0.026, M: 0.092 
+Change in Output: -1
+
+Change in Input: A: -0.081, B: 0.105, C: 0.098, D: -0.382, E: 0.057, F: 0.013, G: 0.004, H: 0.079, I: -0.024, J: 0.078, K: 0.024, L: 0.092, M: 0.005 
+Change in Output: -1
+```
+
+Question: "Based on the model's predictions and the given dataset, what appears to be the top five most important features in determining the model's prediction?"
+
+Instructions: "Think about the question. After explaining your reasoning, provide your answer as the top five most important features ranked from most important to least important, in descending order. Only provide the feature names on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the most important features, we need to look at the changes in the input features and how they correspond to the changes in the output. The larger the change in a feature, the more likely it is to have a significant impact on the output. However, we also need to consider the direction of the change. If a feature increases and the output decreases (or vice versa), this suggests a negative correlation. If both the feature and the output increase or decrease together, this suggests a positive correlation.
+
+In this dataset, the output changes from 0 to -1. We can look for features that have a large absolute change and also change in the opposite direction to the output. 
+
+Feature D has the largest absolute change in all instances and changes in the opposite direction to the output in the last two instances. This suggests it is the most important feature.
+
+Feature C also has a large absolute change and changes in the opposite direction to the output in the third instance. 
+
+Feature B changes in the same direction as the output in the last two instances and has a relatively large change, suggesting it is also important.
+
+Feature A has a large absolute change in all instances and changes in the same direction as the output in the third instance, suggesting it is also important.
+
+Feature I has a large absolute change in the second and third instances and changes in the opposite direction to the output in the second instance, suggesting it is also important.
+
+D, C, B, A, I

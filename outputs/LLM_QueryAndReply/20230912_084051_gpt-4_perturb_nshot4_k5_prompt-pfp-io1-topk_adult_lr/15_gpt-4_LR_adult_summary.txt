@@ -1,0 +1,47 @@
+15_gpt-4_LR_adult_summary
+temperature:		0
+n_shot:			4
+explanation_mode:	perturb
+eval_idx:		15
+LLM:			gpt-4
+k:			5
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model\'s output. The dataset below contains the change in features \'A\' through \'M\' (with negative values denoting a decrease in a feature\'s value) and the corresponding change in outputs.\n\nDataset:\n```\nChange in Input: A: -0.110, B: -0.099, C: 0.043, D: 0.405, E: -0.075, F: -0.143, G: 0.014, H: -0.098, I: -0.067, J: 0.065, K: 0.041, L: 0.142, M: 0.116 \nChange in Output: 0\n\nChange in Input: A: 0.011, B: -0.178, C: -0.048, D: 0.348, E: 0.098, F: -0.041, G: -0.097, H: 0.033, I: -0.041, J: 0.027, K: -0.048, L: 0.081, M: 0.013 \nChange in Output: 0\n\nChange in Input: A: -0.213, B: 0.084, C: 0.032, D: -0.361, E: -0.114, F: -0.076, G: -0.136, H: -0.119, I: 0.139, J: 0.045, K: -0.021, L: 0.292, M: -0.092 \nChange in Output: -1\n\nChange in Input: A: -0.043, B: 0.166, C: -0.077, D: -0.324, E: -0.133, F: -0.006, G: 0.042, H: -0.003, I: 0.044, J: -0.093, K: -0.140, L: 0.037, M: 0.058 \nChange in Output: -1\n```\n\nQuestion: "Based on the model\'s predictions and the given dataset, what appears to be the top five most important features in determining the model\'s prediction?"\n\nInstructions: "Think about the question. After explaining your reasoning, provide your answer as the top five most important features ranked from most important to least important, in descending order. Only provide the feature names on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of perturbations around a specific input to understand the influence of each feature on the model's output. The dataset below contains the change in features 'A' through 'M' (with negative values denoting a decrease in a feature's value) and the corresponding change in outputs.
+
+Dataset:
+```
+Change in Input: A: -0.110, B: -0.099, C: 0.043, D: 0.405, E: -0.075, F: -0.143, G: 0.014, H: -0.098, I: -0.067, J: 0.065, K: 0.041, L: 0.142, M: 0.116 
+Change in Output: 0
+
+Change in Input: A: 0.011, B: -0.178, C: -0.048, D: 0.348, E: 0.098, F: -0.041, G: -0.097, H: 0.033, I: -0.041, J: 0.027, K: -0.048, L: 0.081, M: 0.013 
+Change in Output: 0
+
+Change in Input: A: -0.213, B: 0.084, C: 0.032, D: -0.361, E: -0.114, F: -0.076, G: -0.136, H: -0.119, I: 0.139, J: 0.045, K: -0.021, L: 0.292, M: -0.092 
+Change in Output: -1
+
+Change in Input: A: -0.043, B: 0.166, C: -0.077, D: -0.324, E: -0.133, F: -0.006, G: 0.042, H: -0.003, I: 0.044, J: -0.093, K: -0.140, L: 0.037, M: 0.058 
+Change in Output: -1
+```
+
+Question: "Based on the model's predictions and the given dataset, what appears to be the top five most important features in determining the model's prediction?"
+
+Instructions: "Think about the question. After explaining your reasoning, provide your answer as the top five most important features ranked from most important to least important, in descending order. Only provide the feature names on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the most important features, we need to look at the changes in the input features and how they correspond to the changes in the output. The larger the change in a feature, the more likely it is to have a significant impact on the output. However, we also need to consider the direction of the change. If a feature increases and the output decreases (or vice versa), this suggests a negative correlation. If both increase or decrease together, this suggests a positive correlation.
+
+In this case, the output changes from 0 to -1 between the second and third data points, and remains at -1 for the fourth data point. We should therefore focus on the changes in the input features between these points.
+
+Between the second and third data points, the features with the largest changes are A, D, E, G, and L. Between the third and fourth data points, the features with the largest changes are A, B, D, E, and K. 
+
+Feature A decreases in both cases, which corresponds to the decrease in the output, suggesting a positive correlation. Feature D also decreases in both cases, suggesting a positive correlation. Feature E decreases in the first case and increases in the second, suggesting a weaker positive correlation. Feature G decreases in the first case and increases in the second, suggesting a negative correlation. Feature L increases in the first case and decreases slightly in the second, suggesting a weaker negative correlation. 
+
+Based on this analysis, the top five most important features, ranked from most to least important, appear to be:
+
+A, D, E, G, L

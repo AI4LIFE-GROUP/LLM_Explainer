@@ -1,0 +1,92 @@
+SEED = 0
+
+eval_min_idx = 0
+eval_max_idx = 200
+
+algos        = ['lime', 'grad', 'sg', 'ig', 'shap', 'itg']
+data_names   = ['compas', 'adult', 'german', 'heloc', 'credit']
+model_names  = ['lr', 'ann_s', 'ann_m', 'ann_l', 'ann_xl']
+model_dirs   = ['./models/ClassWeighted/LR/', './models/ClassWeighted/ANN_S/', './models/ClassWeighted/ANN_M/', './models/ClassWeighted/ANN_L/', './models/ClassWeighted/ANN_XL/']
+
+compas_model_names = [
+    '20230629_0056_2__compas_lr_0.001_auc_roc_0.82.pt',
+    '20230629_0056_16_2__compas_ann_s_0.001_auc_roc_0.83.pt',
+    '20230629_0056_32_16_2__compas_ann_m_0.001_auc_roc_0.83.pt',
+    '20230629_0057_64_32_16_2__compas_ann_l_0.001_auc_roc_0.83.pt',
+    '20230629_0057_256_128_64_32_16_2__compas_ann_xl_0.001_auc_roc_0.82.pt']
+
+german_model_names = [
+    '20230629_0057_2__german_lr_0.001_auc_roc_0.61.pt',
+    '20230629_0058_16_2__german_ann_s_0.001_auc_roc_0.62.pt',
+    '20230629_0058_32_16_2__german_ann_m_0.001_auc_roc_0.65.pt',
+    '20230629_0058_64_32_16_2__german_ann_l_0.001_auc_roc_0.67.pt',
+    '20230629_0058_256_128_64_32_16_2__german_ann_xl_0.001_auc_roc_0.64.pt']
+
+heloc_model_names = [
+    '20230629_0058_2__heloc_lr_0.001_auc_roc_0.80.pt',
+    '20230629_0058_16_2__heloc_ann_s_0.001_auc_roc_0.81.pt',
+    '20230629_0059_32_16_2__heloc_ann_m_0.001_auc_roc_0.82.pt',
+    '20230629_0059_64_32_16_2__heloc_ann_l_0.001_auc_roc_0.81.pt',
+    '20230629_0100_256_128_64_32_16_2__heloc_ann_xl_0.001_auc_roc_0.81.pt']
+
+credit_model_names = [
+    '20230629_0101_2__credit_lr_0.001_auc_roc_0.81.pt',
+    '20230629_0105_16_2__credit_ann_s_0.001_auc_roc_0.81.pt',
+    '20230629_0109_32_16_2__credit_ann_m_0.001_auc_roc_0.81.pt',
+    '20230629_0111_64_32_16_2__credit_ann_l_0.001_auc_roc_0.81.pt',
+    '20230629_0113_256_128_64_32_16_2__credit_ann_xl_0.001_auc_roc_0.81.pt']
+
+adult_model_names = [
+    '20230629_0039_2__adult_lr_0.001_auc_roc_0.89.pt',
+    '20230629_0041_16_2__adult_ann_s_0.001_auc_roc_0.90.pt',
+    '20230629_0044_32_16_2__adult_ann_m_0.001_auc_roc_0.90.pt',
+    '20230629_0048_64_32_16_2__adult_ann_l_0.001_auc_roc_0.90.pt',
+    '20230629_0051_256_128_64_32_16_2__adult_ann_xl_0.001_auc_roc_0.90.pt']
+
+model_file_names_data = {
+    'compas': dict(zip(model_names, compas_model_names)),
+    'adult':  dict(zip(model_names, adult_model_names)),
+    'german': dict(zip(model_names, german_model_names)),
+    'heloc':  dict(zip(model_names, heloc_model_names)),
+    'credit': dict(zip(model_names, credit_model_names))
+}
+
+## Faithfulness metric perturbation class parameters
+perturbation_mean            = 0.0
+perturbation_std             = 0.1
+perturbation_flip_percentage = np.sqrt((2/np.pi))*perturbation_std 
+perturbation_max_distance    = None #not used for normal perurbations
+perturb_num_samples          = 5000
+categorical_features = {
+    'compas': [3, 4, 5],
+    'adult': [6, 7, 8, 9, 10, 11, 12],
+    'german': list(np.arange(6, 60)),
+    'heloc': [],
+    'credit': []
+}
+
+ # Make explanations
+        param_dict_lime = dict()
+        param_dict_lime['dataset_tensor']         = train_data_tensor
+        param_dict_lime['kernel_width']           = 0.75
+        param_dict_lime['std']                    = 0.1
+        param_dict_lime['mode']                   = 'tabular'
+        param_dict_lime['sample_around_instance'] = True
+        param_dict_lime['n_samples']              = 5000
+        param_dict_lime['discretize_continuous']  = False
+        param_dict_lime['categorical_features']   = [3,4,5]
+        
+        param_dict_grad                   = dict()
+        param_dict_grad['absolute_value'] = True
+        
+        param_dict_sg                       = dict()
+        param_dict_sg['n_samples']          = 100
+        param_dict_sg['standard_deviation'] = 0.005
+        
+        param_dict_ig                       = dict()
+        param_dict_ig['method']             = 'gausslegendre'
+        param_dict_ig['multiply_by_inputs'] = False
+        param_dict_ig['baseline']           = torch.mean(train_data_tensor, dim=0).reshape(1, -1).float()
+        
+        param_dict_shap                = dict()
+        param_dict_shap['subset_size'] = 500
