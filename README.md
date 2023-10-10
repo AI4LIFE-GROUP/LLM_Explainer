@@ -15,7 +15,7 @@ The ```openxai``` folder contains code from [Agarwal et al. 2022](https://arxiv.
 
 The ```notebooks``` folder contains demonstrations such as model training and model inspection.
 
-The ```outputs``` folder stores results from a) post-hoc explainers and b) LLM explainers.
+The ```outputs``` folder stores results from post-hoc explainers and LLM explainers.
 
 # Pipeline Instructions
 
