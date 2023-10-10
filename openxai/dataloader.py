@@ -4,7 +4,7 @@ import os
 import subprocess
 import torch
 import pandas as pd
-from LLM_Explainer.openxai import dgp_synthetic
+from openxai import dgp_synthetic
 from errno import EEXIST
 import torch.utils.data as data
 from torch.utils.data import DataLoader
@@ -278,7 +278,8 @@ def get_feature_details(dname, n_round):
                          'Charge', 'Sex', 'Race']  # categorical
         conversion = [rounder, rounder, rounder, charge, gender, race]
         suffixes = [' Years', '', ' Months', '', '', '']
-        feature_types = ['c']*6#['c', 'c', 'c', 'd', 'd', 'd']
+        # do you want to treat all features as continuous or discrete?
+        feature_types = ['c']*6  # ['c', 'c', 'c', 'd', 'd', 'd']
     elif dname=='adult':
         gender = lambda x: 'Male' if x==1 else 'Female'
         workclass = lambda x: 'Private' if x==1 else 'Other'

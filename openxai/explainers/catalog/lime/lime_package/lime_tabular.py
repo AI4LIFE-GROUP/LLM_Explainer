@@ -20,7 +20,7 @@ from .discretize import EntropyDiscretizer
 from .discretize import BaseDiscretizer
 from .discretize import StatsDiscretizer
 #from .discretize import CustomDiscretizer
-from LLM_Explainer.openxai.explainers.catalog.perturbation_methods import NormalPerturbation
+from openxai.explainers.catalog.perturbation_methods import NormalPerturbation
 import lime.explanation as explanation
 import lime.lime_base as lime_base
 

@@ -3,10 +3,10 @@ import torch
 import requests
 
 # models
-from LLM_Explainer import openxai as model_ann, openxai as model_MLP
-from LLM_Explainer.openxai.ML_Models.LR.model import LogisticRegression
+import openxai as model_ann, openxai as model_MLP
+from openxai.ML_Models.LR.model import LogisticRegression
 # (Train & Test) Loaders
-import LLM_Explainer.openxai.dataloader as loaders
+import openxai.dataloader as loaders
 
 ### Get Dataset and Model
 

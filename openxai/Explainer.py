@@ -3,13 +3,13 @@ import torch
 import numpy as np
 
 # Explanation Models
-from LLM_Explainer.openxai.explainers import Gradient
-from LLM_Explainer.openxai.explainers import IntegratedGradients
-from LLM_Explainer.openxai.explainers import InputTimesGradient
-from LLM_Explainer.openxai.explainers import SmoothGrad
-from LLM_Explainer.openxai.explainers import LIME
-from LLM_Explainer.openxai.explainers import SHAPExplainerC
-from LLM_Explainer.openxai.explainers import RandomBaseline
+from openxai.explainers import Gradient
+from openxai.explainers import IntegratedGradients
+from openxai.explainers import InputTimesGradient
+from openxai.explainers import SmoothGrad
+from openxai.explainers import LIME
+from openxai.explainers import SHAPExplainerC
+from openxai.explainers import RandomBaseline
 
 
 def Explainer(method: str,

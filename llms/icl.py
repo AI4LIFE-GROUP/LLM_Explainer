@@ -1,6 +1,6 @@
 import torch
 import numpy as np
-from LLM_Explainer.openxai.explainers.catalog.perturbation_methods import NormalPerturbation
+from openxai.explainers.catalog.perturbation_methods import NormalPerturbation
 
 
 class Sampler:
