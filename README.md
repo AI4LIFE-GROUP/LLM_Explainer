@@ -13,7 +13,7 @@ The ```llms``` folder contains code for prompt generation, LLM API calls, and re
 
 The ```models``` folder contains pre-trained Logistic Regression (LR) and Large Artificial Neural Network (ANN-L) classifiers.
 
-The ```openxai``` folder contains code from [Agarwal et al. 2022](https://arxiv.org/abs/2206.11104), used to generate post-hoc explanations, perturbations around test samples, and faithfulness scores.
+The ```openxai``` folder contains code from [Agarwal et al. 2022](https://arxiv.org/abs/2206.11104) (post-hoc explanations, perturbations, faithfulness scores).
 
 The ```notebooks``` folder contains demonstrations such as model training and model inspection.
 
