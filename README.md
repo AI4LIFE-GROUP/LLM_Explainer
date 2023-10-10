@@ -1,18 +1,6 @@
 # LLM_Explainer 
 Codebase for the paper [Are Large Language Models Post Hoc Explainers?](https://arxiv.org/abs/2310.05797)
 
-The repository is organized as follows:
-
-The ```data``` folder contains the pre-processed Blood, COMPAS, Credit and Adult datasets.
-
-The ```llms``` folder contains code for prompt generation, LLM API calls, and response processing.
-
-The ```models``` folder contains pre-trained Logistic Regression (LR) and Large Artificial Neural Network (ANN-L) classifiers.
-
-The ```openxai``` folder contains code from [Agarwal et al. 2022](https://arxiv.org/abs/2206.11104), used to generate post-hoc explanations, perturbations around test samples, and faithfulness scores.
-
-The ```notebooks``` folder contains demonstrations such as model training, and the ```outputs``` folder stores results from a) post-hoc explainers and b) LLM explainers.
-
 Our pipelines 
 
 LLM_PostHocPipeline.py <-- LLM_pipeline_config.json
@@ -122,4 +110,15 @@ The parameters used for evaluating faithfulness metrics are From within these fi
 - `perturbation_max_distance` &mdash; maximum distance for perturbation (default: 0.4).
 - `perturb_num_samples` &mdash; number of perturbed samples (default: 100).
 
+The remaining folders are organized as follows:
+
+The ```data``` folder contains the pre-processed Blood, COMPAS, Credit and Adult datasets.
+
+The ```llms``` folder contains code for prompt generation, LLM API calls, and response processing.
+
+The ```models``` folder contains pre-trained Logistic Regression (LR) and Large Artificial Neural Network (ANN-L) classifiers.
+
+The ```openxai``` folder contains code from [Agarwal et al. 2022](https://arxiv.org/abs/2206.11104), used to generate post-hoc explanations, perturbations around test samples, and faithfulness scores.
+
+The ```notebooks``` folder contains demonstrations such as model training, and the ```outputs``` folder stores results from a) post-hoc explainers and b) LLM explainers.
 
