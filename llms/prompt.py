@@ -10,7 +10,6 @@ class Prompt():
         """
         Store data for prompt creation
         feature_names: list of str, feature names
-        REPLACE THIS WITH DNAME VARIABLE (also replaces conversion and suffixes)
 
         Optional:
         input_str: str, default 'Input: ', string to prepend to input.
