@@ -298,17 +298,10 @@ def get_feature_details(dname, n_round):
                       gender, workclass, marital_status, occupation, relationship, race, native_country]
         # Comment from DL: Assuming capital gain and loss are in dollars
         suffixes = [' Years', '', '', ' Dollars', ' Dollars', ' Hours', '', '', '', '', '', '', '', '']
-        feature_types = ['c'] * 13 # ['c', 'c', 'c', 'c', 'c', 'c', 'd', 'd', 'd', 'd', 'd', 'd', 'd']
+        # do you want to treat all features as continuous or discrete?
+        feature_types = ['c'] * 13  # ['c', 'c', 'c', 'c', 'c', 'c', 'd', 'd', 'd', 'd', 'd', 'd', 'd']
     elif dname == 'credit':
-        #TODO - need to implement these if you want to show feature details
         num_features = 10
-        feature_names = [''] * num_features
-        suffixes      = [''] * num_features
-        conversion    = [rounder] * num_features
-        feature_types = ['c'] * num_features
-    elif dname == 'heloc':
-        # TODO - need to implement these if you want to show feature details
-        num_features = 23
         feature_names = [''] * num_features
         suffixes      = [''] * num_features
         conversion    = [rounder] * num_features
@@ -319,6 +312,12 @@ def get_feature_details(dname, n_round):
         suffixes = [''] * num_features
         conversion = [rounder] * num_features
         feature_types = ['c'] * num_features
+    # elif dname == 'heloc':
+    #     num_features = 23
+    #     feature_names = [''] * num_features
+    #     suffixes      = [''] * num_features
+    #     conversion    = [rounder] * num_features
+    #     feature_types = ['c'] * num_features
     # elif dname == 'german':
     # TODO - not sure how to represent these since we are using A-Z for the feature names in the prompt.
     #     num_features = 60
