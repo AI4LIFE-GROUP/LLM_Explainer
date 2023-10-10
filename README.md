@@ -3,8 +3,6 @@ Codebase for the paper [Are Large Language Models Post Hoc Explainers?](https://
 
 ![LLM_framework_pages-to-jpg-0001](https://github.com/AI4LIFE-GROUP/LLM_Explainer/assets/35569862/ecee3472-6537-4761-a489-ed1d2b5399a3)
 
-# Contents 
-
 The repository is organized as follows:
 
 The ```data``` folder contains the pre-processed Blood, COMPAS, Credit and Adult datasets.
