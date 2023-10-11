@@ -193,3 +193,16 @@ To automatically faithfulness scores after generating LLM explanations, set the 
 ```
 python3 LLM_pipeline_wrapper_experiments.py
 ```
+
+### Questions?
+If you have questions/suggestions, please feel free to create GitHub issues.
+
+**Please consider citing if you find our codebase useful:**
+
+    @misc{kroeger2023large,
+    title={Are Large Language Models Post Hoc Explainers?}, 
+    author={Nicholas Kroeger and Dan Ley and Satyapriya Krishna and Chirag Agarwal and Himabindu Lakkaraju},
+    year={2023},
+    eprint={2310.05797},
+    archivePrefix={arXiv},
+    primaryClass={cs.CL}
