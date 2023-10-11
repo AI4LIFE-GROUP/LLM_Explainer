@@ -21,7 +21,7 @@ The ```outputs``` folder stores results from post-hoc explainers and LLM explain
 
 ### Prompt IDs
 
-Prompt texts are located in the `prompts.json` file. Prompts are constructed via `pre_text` + ICL samples + `mid_text` + test sample + `post_text`. Note that in many cases the test sample is not included, and the `mid_text` string is therefore empty. Where variables are required in the prompt text, these are enclosed in square brackets in `prompts.json` and defined in a dictionary within `LLM_PostHocPipeline.py`.
+Prompt texts are located in the [prompts.json](prompts.json) file. Prompts are constructed via `pre_text` + ICL samples + `mid_text` + test sample + `post_text`. Note that in many cases the test sample is not included, and the `mid_text` string is therefore empty. Where variables are required in the prompt text, these are enclosed in square brackets in `prompts.json` and defined in a dictionary within [LLM_PostHocPipeline.py](LLM_PostHocPipeline.py).
 
 The paper notes that we present perturbations in two main formats: as the raw perturbed inputs alongside their corresponding outputs (shown in the Sec. 3.1 and 3.2 templates); or as the change between each perturbed input and the test sample, and the corresponding change in output (shown in Sec. 3.3). The second approach significantly aids the LLM in discerning the most important features, providing only the changes relative to the test sample, and bypassing the LLM's need to internally compute these differences.
 
