@@ -1,7 +1,7 @@
 # LLM Explainer 
 Codebase for the paper [Are Large Language Models Post Hoc Explainers?](https://arxiv.org/abs/2310.05797)
 
-![LLMPostHocFramework](https://github.com/AI4LIFE-GROUP/LLM_Explainer/blob/main/LLM_PostHoc_Framework.png?raw=true)
+![LLMPostHocFramework](https://github.com/AI4LIFE-GROUP/LLM_Explainer/blob/main/figures/LLM_PostHoc_Framework.png)
 
 # Installation Instructions
 Without pre-made conda environment
