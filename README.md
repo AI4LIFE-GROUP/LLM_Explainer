@@ -3,6 +3,36 @@ Codebase for the paper [Are Large Language Models Post Hoc Explainers?](https://
 
 ![LLM_framework_pages-to-jpg-0001](https://github.com/AI4LIFE-GROUP/LLM_Explainer/assets/35569862/ecee3472-6537-4761-a489-ed1d2b5399a3)
 
+# Installation Instructions
+Without pre-made conda environment
+```
+1. install anaconda
+2. open terminal
+3. conda update -n base -c defaults conda
+4. conda create -n LLM_PostHocExplainer python=3.10
+5. conda activate LLM_PostHocExxplainer
+6. Install package:
+	conda install pytorch
+	conda install pandas
+	conda install requests
+	conda install scikit-learn
+	conda install captum -c pytorch
+	conda install tqdm
+	conda install lime
+	conda install openai
+```
+
+OR
+
+Installation instructions pre-made conda environment
+```
+1. install anaconda
+2. open terminal
+3. conda update -n base -c defaults conda
+4. conda env create -f LLM_PostHocExplainer.yml
+5. conda activate LLM_PostHocExplainer
+```
+
 **This repository is organized as follows:**
 
 The ```data``` folder contains the pre-processed Blood, COMPAS, Credit and Adult datasets.
@@ -35,6 +65,12 @@ When choosing a given prompt ID, corresponding prompt parameters should be updat
 
 ### Generating LLM Explanations
 
+There’s two main files you need:
+1. `LLM_PostHocPipeline.py` (Query the LLM with a prompt)
+2. `FaithfulnessPipeline.py` (Parse the reply and calculate faithfulness)
+
+Each step saves relevant information to the outputs folder
+
 To generate explanations from a given LLM, run the following command:
 
 ```
@@ -48,6 +84,7 @@ The parameters used are located in the config file ```LLM_pipeline_config.json``
 - `base_model_dir` &mdash; Directory of the saved model (default &mdash; "./models/ClassWeighted_scale_minmax/")
 - `output_dir` &mdash; Directory to save LLM results to (default &mdash; "./outputs/LLM_QueryAndReply/")
 - `openai_api_key_file_path` &mdash; File path to your OpenAI API key (default &mdash; "./openai_api_key.txt")
+  - **WARNING**: Do NOT share or push your LLM (openai) API key to github, it’s best to add the openai_api_key.txt to the .gitignore file or put it outside of your project directory on your local machine.
 - `LLM_name` &mdash; Name of the LLM model (default &mdash; "gpt-4")
 - `temperature` &mdash; Parameter controlling the randomness of the LLM's output (default &mdash; 0)
 - `eval_min_idx` &mdash; The minimum test sample index for evaluation (default &mdash; 0)
@@ -87,7 +124,7 @@ The `prompt_params` dictionary contains the following parameters:
 
 - `prompt_ID` &mdash; The ID of the prompt in `prompts.json` (default &mdash; "pfpe2-topk")
 - `k` &mdash; The number of top-K features to request from the LLM. Use -1 for all features (default &mdash; 5)
-- `hide_feature_details` &mdash; Controls whether or not feature names and suffixes (e.g., Age is 27 years vs A is 27) are hidden (default &mdash; true)
+- `hide_feature_details` &mdash; Controls whether or not feature names and suffixes (e.g., Age is 27 years vs A is 27) are hidden (default &mdash; true)*
 - `hide_test_sample` &mdash; Hides the test sample being explained, showing only neighborhood perturbations (default &mdash; true)
 - `hide_last_pred` &mdash; Hides the last ICL example's prediction, used in Prediction-Based ICL (default &mdash; true)
 - `use_soft_preds` &mdash; Sets predictions to probability scores rather than labels (default &mdash; false)
@@ -101,6 +138,15 @@ The `prompt_params` dictionary contains the following parameters:
 - `value_sep` &mdash; Separator between feature name and feature value (default &mdash; ": ")
 - `add_explanation` &mdash; Flag for adding explanations in the ICL prompt for Explanation-Based ICL (default &mdash; false)
 - `num_explanations` &mdash; Total number of explanations to subselect ICL-samples from, used in Explanation-Based ICL (default &mdash; 200)
+
+*Note: The parsing replies code only works for the case where we hide feature names (e.g. the prompt looks like: 
+“Change in Input: A: -0.081, B: -0.066, C: -0.103, D: -0.406, E: 0.098, F: -0.099, G: -0.044, H: 0.008, I: -0.064, J: 0.015, K: -0.155, L: 0.072, M: -0.123 
+Change in Output: 0”
+
+instead of
+
+“Change in Input: Age: -0.082, Final Weight: -0.043, Education Number: -0.099, Capital Gain: -0.327, Capital Loss: -0.112, Hours per Week: -0.106, Sex: -0.037, Workclass: -0.014, Marital Status: -0.018, Occupation: 0.039, Relationship: 0.073, Race: -0.022, Native Country: -0.113 
+Change in Output: -1”)
 
 ##### Experiment Parameters
 
