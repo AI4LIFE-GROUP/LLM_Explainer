@@ -19,6 +19,20 @@ The ```outputs``` folder stores results from post-hoc explainers and LLM explain
 
 # Pipeline Instructions
 
+### Prompt IDs
+
+Prompt texts are located in the `prompts.json` file. Prompts are constructed via `pre_text` + ICL samples + `mid_text` + test sample + `post_text`. Note that in many cases the test sample is not included, and the `mid_text` string is therefore empty. Where variables are required in the prompt text, these are enclosed in square brackets in `prompts.json` and defined in a dictionary within `LLM_PostHocPipeline.py`.
+
+The paper notes that we present perturbations in two main formats: as the raw perturbed inputs alongside their corresponding outputs (shown in the Sec. 3.1 and 3.2 templates); or as the change between each perturbed input and the test sample, and the corresponding change in output (shown in Sec. 3.3). The second approach significantly aids the LLM in discerning the most important features, providing only the changes relative to the test sample, and bypassing the LLM's need to internally compute these differences.
+
+When using perturbed inputs, sections 3.1 to 3.3 use prompt IDs `io1-topk-v2`, `pe2-topk-v2`, and `pfp2-v2`, respectively.
+
+When using perturbations, sections 3.1 to 3.3 use prompt IDs `pfp-io1-topk`, `pfpe2-topk`, and `pfp2`, respectively.
+
+Section 3.4 uses the prompt ID `icl_exp` (`add_explanation` should be set to true for this section)
+
+When choosing a given prompt ID, corresponding prompt parameters should be updated accordingly (see below). These may be tweaked until the prompt text appears as desired.
+
 ### Generating LLM Explanations
 
 To generate explanations from a given LLM, run the following command:
