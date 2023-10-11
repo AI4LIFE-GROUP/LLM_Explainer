@@ -29,7 +29,7 @@ When using perturbed inputs, sections 3.1 to 3.3 use prompt IDs `io1-topk-v2`, `
 
 When using perturbations, sections 3.1 to 3.3 use prompt IDs `pfp-io1-topk`, `pfpe2-topk`, and `pfp2`, respectively.
 
-Section 3.4 uses the prompt ID `icl_exp` (`add_explanation` should be set to true for this section)
+Section 3.4 uses the prompt ID `icl_exp` (`add_explanation` should be set to true for this section).
 
 When choosing a given prompt ID, corresponding prompt parameters should be updated accordingly (see below). These may be tweaked until the prompt text appears as desired.
 
