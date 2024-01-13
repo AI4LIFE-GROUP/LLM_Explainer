@@ -2,6 +2,7 @@ import logging
 import copy
 import numpy as np
 import openai
+from openai import OpenAI
 import os
 import string
 import time
@@ -39,11 +40,11 @@ def processGPTReply(reply, parse_strategy):
     return LLM_topk
 
 def queryGPT(prompt_text, LLM_name, api_key, temperature=0.0):
-    openai.api_key = api_key
-
+    client = OpenAI(api_key=api_key)
     message = [{"role": "user", "content": prompt_text}]  # put in config
-    chat    = openai.ChatCompletion.create(model=LLM_name, messages=message, temperature=temperature)
+    chat    = client.chat.completions.create(model=LLM_name, messages=message, temperature=temperature)
     reply   = chat.choices[0].message.content
+    #print(chat.usage.prompt_tokens, chat.usage.completion_tokens)
     return reply, message
 
 def RobustQueryGPT(prompt_text, LLM, api_key, temperature=0.0):
@@ -57,7 +58,7 @@ def RobustQueryGPT(prompt_text, LLM, api_key, temperature=0.0):
             # print(reply, '\nAttempts:', attempts, '\n')
 
             try_query = False
-        except openai.error.OpenAIError as e:
+        except openai.OpenAIError as e:
             print("ERROR! I'm going to sleep for " + str(attempts) + "s")
             print("Error:", str(e))
 

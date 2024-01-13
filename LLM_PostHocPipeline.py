@@ -89,6 +89,7 @@ class Pipeline:
         self.n_shot             = self.config['n_shot']
         prompt_params           = self.config['prompt_params']
         self.use_soft_preds     = prompt_params['use_soft_preds']
+        self.delta_format       = prompt_params['delta_format']
         self.rescale_soft_preds = prompt_params['rescale_soft_preds']
         self.n_round            = prompt_params['n_round']
         self.k                  = prompt_params['k']
@@ -97,13 +98,17 @@ class Pipeline:
 
         self.categorical_features = [i for i, f in enumerate(self.feature_types) if f == 'd']
 
-
-        self.prompt = Prompt(feature_names=self.feature_names, input_str=prompt_params['input_str'],
-                             output_str=prompt_params['output_str'], input_sep=prompt_params['input_sep'],
+        input_str, output_str = prompt_params['input_str'], prompt_params['output_str']
+        if self.delta_format:
+            input_str = '\nChange in ' + input_str.strip('\n')
+            output_str = '\nChange in ' + output_str.strip('\n')
+        self.hide_last_pred = bool(prompt_params['prompt_ID'] in ['pe1', 'pe2', 'pe1-topk', 'pe2-topk', 'predict_then_explain'])
+        self.prompt = Prompt(feature_names=self.feature_names, input_str=input_str,
+                             output_str=output_str, input_sep=prompt_params['input_sep'],
                              output_sep=prompt_params['output_sep'], feature_sep=prompt_params['feature_sep'],
                              value_sep=prompt_params['value_sep'], n_round=self.n_round,
                              hide_test_sample=prompt_params['hide_test_sample'],
-                             hide_last_pred=prompt_params['hide_last_pred'],
+                             hide_last_pred=self.hide_last_pred,
                              hide_feature_details=prompt_params['hide_feature_details'],
                              conversion=self.conversion, suffixes=self.suffixes, feature_types=self.feature_types,
                              use_soft_preds=self.use_soft_preds, add_explanation=prompt_params['add_explanation'], prompt_id=prompt_params['prompt_ID'])
@@ -116,6 +121,7 @@ class Pipeline:
             'n_shot': self.n_shot,
             'final_feature': letters[self.num_features-1],
             'final_change': 'FILL IN ',
+            'change_in': ' change in' if self.delta_format else '',
             'zero_change': ', '.join([letter + ': 0.000' for letter in letters[:self.num_features]]),
             'feat_words': [string.ascii_uppercase[i] for i in range(len(self.feature_names))] #[f'f{i+1}' for i in range(len(self.feature_names))]
             #'other_string_variables': 'access these in the config file using curly braces e.g. {k_word}',
@@ -214,8 +220,7 @@ class Pipeline:
             self.explanations = np.load(f'./OpenXAI_Explanations/icl_{self.data_name}_{self.model_name}_{exp_method}_explanations.npy')
 
         LLM_topks        = []
-        hide_last_pred   = self.config['prompt_params']['hide_last_pred']
-        hidden_ys        = None if not hide_last_pred else []
+        hidden_ys        = None if not self.hide_last_pred else []
         perturb_seed     = self.config['sampling_params']['perturb']['perturb_seed']
         use_eval_as_seed = True if perturb_seed == "eval" else False
         for eval_idx in range(self.eval_min_idx, self.eval_max_idx):  # loop each test sample
@@ -224,16 +229,17 @@ class Pipeline:
             # Get ICL samples (here, as it may depend on eval_idx)
             X_ICL, y_ICL, pred, exp_x_test, exp_exps, exp_y_test = self.get_icl_samples(eval_idx, use_eval_as_seed)
 
-            if self.config['prompt_params']['prompt_ID'] in ['pe1', 'pe2', 'pe1-topk', 'pe2-topk']:
+            if self.config['prompt_params']['prompt_ID'] in ['pe1', 'pe2', 'pe1-topk', 'pe2-topk', 'predict_then_explain']:
                 pred = None
-            elif self.config['prompt_params']['prompt_ID'].startswith('pfp'):
+            #elif self.config['prompt_params']['prompt_ID'].startswith('pfp'): previous check
+            elif self.delta_format:
                 X_ICL -= self.X_test[eval_idx]
                 y_ICL -= pred
             # Generate prompt text
             prompt_outputs = self.prompt.create_prompt(X_train=X_ICL, y_train=y_ICL, x=self.X_test[eval_idx],
                                                        post_text=self.post_text, x_test=exp_x_test, explanations=exp_exps,
                                                        y_test=exp_y_test, pre_text=self.pre_text, y=pred, mid_text=self.mid_text)
-            if hide_last_pred:
+            if self.hide_last_pred:
                 prompt_text, last_y = prompt_outputs
                 hidden_ys.append(last_y)
             else:
@@ -249,7 +255,7 @@ class Pipeline:
             print("REPLY:", reply)
             LLM_topks.append(processGPTReply(reply, self.reply_parse_strategy))
 
-            if hide_last_pred:
+            if self.hide_last_pred:
                 print("Last y:", last_y)
 
             # Save query info
