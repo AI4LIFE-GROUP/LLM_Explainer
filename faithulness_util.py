@@ -5,6 +5,7 @@ from sklearn.metrics import auc
 from utils import saveParameters
 import numpy as np
 import string
+import pandas as pd
 
 
 def generate_LLM_mask(num_features, top_k):
@@ -44,9 +45,39 @@ def makeFakeRankMagnitudesForFaithfulnessCalculation(LLM_topks, num_features):
     explanations = np.array(explanations)
     return explanations
 
+def constructReplies(eval_min_idx, eval_max_idx, all_topks, orig_inds, unsolvable_idx):
+    replies_df = pd.DataFrame(columns=['index', 'good/bad/unsolvable', 'reply'])
+    replies_df['index'] = np.arange(eval_min_idx, eval_max_idx)
+    replies_df['reply'] = all_topks
+    replies_df['good/bad/unsolvable'] = 'unsolvable'
+    replies_df.loc[orig_inds, 'good/bad/unsolvable'] = 'good'
+    unsolvable_idxs = np.arange(eval_min_idx, eval_max_idx)[unsolvable_idx]
+    bad_reply_idxs = list(set(list(range(eval_min_idx, eval_max_idx))) - set(orig_inds) - set(unsolvable_idxs))
+    replies_df.loc[bad_reply_idxs, 'good/bad/unsolvable'] = 'bad'
+    return replies_df, unsolvable_idxs, bad_reply_idxs
 
+def getICLFromTextFiles(output_dir, model_name, data_name,
+                        llm_name, n_feat, n_shot, experiment_section='3.1'):
+    # assumes n_round = 3
+    input_str, output_str = 'Input: ', 'Output: '
+    files = [f for f in os.listdir(output_dir) if f.endswith('_summary.txt')]
+    files = sorted(files, key=lambda x: int(x.split('_')[0]))
+    eval_min_idx, eval_max_idx = int(files[0].split('_')[0]), int(files[-1].split('_')[0]) + 1
+    if experiment_section == '3.2':
+        n_shot -= 1
+    y = np.zeros((eval_max_idx-eval_min_idx, n_shot), dtype=int)
+    X = np.zeros((eval_max_idx-eval_min_idx, n_shot, n_feat), dtype=float)
+    for i in range(eval_min_idx, eval_max_idx):
+        filename = output_dir + str(i) + f'_{llm_name}_{model_name.upper()}_{data_name}_summary.txt'
+        with open(filename, 'r') as f:
+            file_text = f.read()
+        ICL_text = file_text.split('PROMPT_TEXT:')[-1].split('REPLY:')[0]
+        y[i] = np.array([int(y.split('\n')[0]) for y in ICL_text.split(output_str)[1:1+n_shot]])
+        X[i] = [[float(x.strip().split('\n')[0][3:]) for j, x in enumerate(X.split(',')) if j<n_feat] for X in ICL_text.split(input_str)[1:1+n_shot]]
+    return X, y
 
-def saveFaithfulnessMetrics(output_dir, FA_AUC, RA_AUC, PGU_AUC, PGI_AUC, orig_inds, output_file_write_type='a', extra_str=''):
+def saveFaithfulnessMetrics(output_dir, FA_AUC, RA_AUC, PGU_AUC, PGI_AUC, orig_inds,
+                            replies_df, output_file_write_type='a', extra_str=''):
     fpth     = os.path.join(output_dir, 'FaithfulnessResults' + extra_str + '.txt')
     paramTxt = open(fpth, output_file_write_type)
 
@@ -61,6 +92,9 @@ def saveFaithfulnessMetrics(output_dir, FA_AUC, RA_AUC, PGU_AUC, PGI_AUC, orig_i
     paramTxt.write(str(round(np.mean(PGI_AUC), 3)) + '+/-' + str(round(np.std(PGI_AUC)/np.sqrt(N_samps), 3)) + '\n')
     paramTxt.close()
 
+    # save reply_df to csv
+    replies_df.to_csv(output_dir + 'replies_df.csv', index=False)
+
     faithfulness_metrics = dict(
                                 zip(
                                     ['FA', 'RA', 'PGU', 'PGI', 'orig_inds'],
@@ -70,7 +104,7 @@ def saveFaithfulnessMetrics(output_dir, FA_AUC, RA_AUC, PGU_AUC, PGI_AUC, orig_i
 
     saveParameters(output_dir, 'faithfulness_metrics_all' + extra_str, faithfulness_metrics)
 
-def GetFaithfulnessMetricsString(model, FAs, RAs, PGUs, PGIs):
+def getFaithfulnessMetricsString(model, FAs, RAs, PGUs, PGIs):
     N_samps = len(PGUs)
 
     # save FAs RA PGU and PGI as comma separated values
@@ -160,7 +194,7 @@ def calculateFaithfulness_noAUC(model, explanations, inputs, min_idx, max_idx, p
         PGUs.append(PGU)
         PGIs.append(PGI)
 
-    metrics_str = GetFaithfulnessMetricsString(model, FAs, RAs, PGUs, PGIs)
+    metrics_str = getFaithfulnessMetricsString(model, FAs, RAs, PGUs, PGIs)
     if hasattr(model, 'return_ground_truth_importance'):
         print('--- MEAN +/- STD ERROR ---')
         print('FA\tRA\tPGU\tPGI')
@@ -188,7 +222,7 @@ def calculateFaithfulness(model, explanations, inputs, min_idx, max_idx, num_fea
                                                            perturb_num_samples, feature_types, top_k)
         extra_str = ''
 
-    metrics_str = GetFaithfulnessMetricsString(model, FAs, RAs, PGUs, PGIs)
+    metrics_str = getFaithfulnessMetricsString(model, FAs, RAs, PGUs, PGIs)
     if hasattr(model, 'return_ground_truth_importance'):
         print('--- MEAN +/- STD ERROR ---')
         print('FA' + extra_str + '\tRA' + extra_str + '\tPGU' + extra_str + '\tPGI' + extra_str)

@@ -188,6 +188,11 @@ def getExperimentID():
     date_info.year, date_info.month, date_info.day, date_info.hour, date_info.minute, date_info.second)
     return testID
 
+def getTotalCosts(folders):
+    total_costs = []
+    for folder in folders:
+        total_costs.append(pd.read_csv(folder + 'total_costs.csv')['total_cost'].values)
+    return np.array(total_costs)[:, 0]
 
 def SaveExperimentInfo(config, folder_name_exp_id, n_shot, LLM, model_name, data_name, LLM_topks,
                        eval_min_idx, eval_max_idx, hidden_ys=None):

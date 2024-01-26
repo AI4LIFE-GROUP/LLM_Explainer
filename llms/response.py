@@ -39,22 +39,27 @@ def processGPTReply(reply, parse_strategy):
     LLM_topk    = [feat.strip().replace('.','') for feat in reply_split]
     return LLM_topk
 
-def queryGPT(prompt_text, LLM_name, api_key, temperature=0.0):
+def queryGPT(prompt_text, LLM_name, api_key, temperature=0.0, max_tokens=None, return_tokens=False):
     client = OpenAI(api_key=api_key)
     message = [{"role": "user", "content": prompt_text}]  # put in config
-    chat    = client.chat.completions.create(model=LLM_name, messages=message, temperature=temperature)
+    chat    = client.chat.completions.create(model=LLM_name, logprobs=False,#, logit_bias={29815: -100, 1271: -100},
+                                             messages=message, temperature=temperature, max_tokens=max_tokens)
     reply   = chat.choices[0].message.content
     #print(chat.usage.prompt_tokens, chat.usage.completion_tokens)
+    # for token in chat.choices[0].logprobs:
+    #     print(token)
+    if return_tokens:
+        return reply, message, chat.usage.prompt_tokens, chat.usage.completion_tokens
     return reply, message
 
-def RobustQueryGPT(prompt_text, LLM, api_key, temperature=0.0):
+def RobustQueryGPT(prompt_text, LLM, api_key, temperature=0.0, return_tokens=False):
     # Query (keep trying if we get an error)
     attempts = 0
     try_query = True
     while try_query:
         attempts += 1
         try:
-            reply, message = queryGPT(prompt_text, LLM, api_key, temperature)
+            reply, message, prompt_tokens, completion_tokens = queryGPT(prompt_text, LLM, api_key, temperature, return_tokens=True)
             # print(reply, '\nAttempts:', attempts, '\n')
 
             try_query = False
@@ -63,6 +68,8 @@ def RobustQueryGPT(prompt_text, LLM, api_key, temperature=0.0):
             print("Error:", str(e))
 
             time.sleep(attempts+2)
+    if return_tokens:
+        return reply, message, prompt_tokens, completion_tokens
     return reply, message
 
 def isBadReply(reply, k):
@@ -75,6 +82,9 @@ def isBadReply(reply, k):
 def LoadLLMRepliesFromTextFiles(output_dir):
     # get all .txt file names in folder that in the format _summary.txt
     file_names = [f for f in os.listdir(output_dir) if f.endswith('_summary.txt')]
+    # sort the file names by the number in the file name
+    file_names = sorted(file_names, key=lambda x: int(x.split('_')[0]))
+    #(file_names)
 
     samples = []
     for file_name in file_names:
@@ -195,40 +205,56 @@ def parse_input_final_refined_v3(input_str):
     return None  # Return None if no patterns matched
 
 
+def parser_3_3(sample, LLM_top_k):
+    rank = sample.rstrip('\n').split('\n')
+    if 'might be' in rank[-1]:
+        separator = 'might be'
+    elif ' is' in rank[-1]:
+        separator = ' is'
+    elif ' are likely' in rank[-1]:
+        separator = ' are likely'
+    elif ' are' in rank[-1]:
+        separator = ' are'
+    else:
+        separator = ':'
+
+    remove_characters = ['and', '>', '=', ' ', '.', ',', ':', "'", '(', ')', '-', '\"']
+    if '>' in rank[-1] or '=' in rank[-1]:
+        text = rank[-1].split(separator)[-1].strip()
+        for remove_character in remove_characters:
+            text = text.replace(remove_character, '')
+    elif rank[-1].split('ank:')[-1].startswith('This') or rank[-1].split('ank:')[-1].startswith('In'):
+        j = -2
+        while not rank[j]:
+            j -= 1
+        text = rank[j].split('ank:')[-1].strip()
+        for remove_character in remove_characters:
+            text = text.replace(remove_character, '')
+    else:
+        text = rank[-1].split(separator)[-1].strip().rstrip('.').lstrip()
+        for remove_character in remove_characters:
+            text = text.replace(remove_character, '')
+        text = ''.join([t.replace(' ', '').replace('.', '') for t in text.split(', ')])
+    # split the string into a list of characters
+    text = list(text)
+    return text[:LLM_top_k]
+
+
 def parseLLMTopKsFromTxtFiles(samples, LLM_top_k, experiment_section='3.1'):
+    print("Parsing LLM replies...")
     if experiment_section == '3.2':
         LLM_topks = []
+        preds = []
         for s, sample in enumerate(samples):
-            text = parse_input_final_refined_v3(sample)
-            if text is None:
-                text = sample.strip().split('\n')[-1]
-            # split the string into a list of characters
-            text = list(text)
-            LLM_topks.append(text[:LLM_top_k])
+            pred = sample.strip('\n').split('\n')[0]
+            preds.append(pred)
+            LLM_topks.append(parser_3_3(sample, LLM_top_k))
+        LLM_topks = (preds, LLM_topks)
 
     elif experiment_section == '3.3':
         LLM_topks = []
         for s, sample in enumerate(samples):
-            rank = sample.rstrip('\n').split('\n')
-
-            if 'is' in rank[-1]:
-                separator = 'is'
-            else:
-                separator = ':'
-
-            if '>' in rank[-1] or '=' in rank[-1]:
-                text = rank[-1].split(separator)[-1].strip().replace('>','').replace('=','').replace(' ', '').replace('.', '').replace(',', '').replace(':', '').replace("'", "").replace('(', '').replace(')', '').replace('-', '').replace('\"', '')
-            elif rank[-1].split('ank:')[-1].startswith('This') or rank[-1].split('ank:')[-1].startswith('In'):
-                j = -2
-                while not rank[j]:
-                    j -= 1
-                text = rank[j].split('ank:')[-1].strip().replace(' ', '').replace('.', '').replace(',', '').replace(':', '')
-            else:
-                text = rank[-1].split(separator)[-1].strip().rstrip('.').lstrip().replace(' ', '').replace('.', '').replace(',', '').replace(':','').replace("'", "")
-                text = ''.join([t.replace(' ', '').replace('.', '') for t in text.split(', ')])
-            # split the string into a list of characters
-            text = list(text)
-            LLM_topks.append(text[:LLM_top_k])
+            LLM_topks.append(parser_3_3(sample, LLM_top_k))
     else:
         LLM_topks = []
         for s, sample in enumerate(samples):
@@ -244,7 +270,9 @@ def parseLLMTopKsFromTxtFiles(samples, LLM_top_k, experiment_section='3.1'):
                 topk = topk.replace(' ', '')
                 topk = [topk]
             elif LLM_top_k > 1:
+                print(topk)
                 if len(topk) == 1:
+                    # convert string into list of characters
                     topk = sample.split('\n')[-LLM_top_k:]
                     topk = str(topk)
                     topk = topk[1:-1]
@@ -256,18 +284,21 @@ def parseLLMTopKsFromTxtFiles(samples, LLM_top_k, experiment_section='3.1'):
                 topk = topk.replace(' ', '')
                 topk = topk.split(',')
                 #Remove any element from the list that's not a letter in the alphabet
+                print(topk)
                 topk = [item for item in topk if item.isalpha()]
+                # if the topk is a single string of letters, split it into a list of letters
+                print(topk)
 
             LLM_topks.append(topk)
     return LLM_topks
 
 
-def removeBadReplies(LLM_topks, eval_min_idx, eval_max_idx, k):
+def removeBadReplies(LLM_topks, orig_inds, k):
     # loop each answer from the LLM and if it gave a list of
     # anything less than the requested amount of features, k, remove it (for now)
     num_bad_replies = 0
     LLM_topks_temp = copy.deepcopy(LLM_topks)
-    orig_inds = list(np.arange(eval_min_idx, eval_max_idx))
+    orig_inds = list(orig_inds)
     for l, LLM_topk in reversed(list(enumerate(LLM_topks_temp))):
         isAllLetters = all(len(item) == 1 and item.isalpha() and item.isupper() and (item in string.ascii_uppercase[:k]) for item in LLM_topk)
 
@@ -278,12 +309,15 @@ def removeBadReplies(LLM_topks, eval_min_idx, eval_max_idx, k):
             LLM_topks_temp[l] = LLM_topk
             isAllLetters      = all(len(item) == 1 and item.isalpha() and item.isupper() and (item in string.ascii_uppercase) for item in LLM_topk)
 
-        if len(LLM_topk) < k or len(LLM_topk) > k or not isAllLetters:
-            print("Bad reply:", LLM_topk, "at index", l)
+        if len(LLM_topk) < k or not isAllLetters: # or len(LLM_topk) > k 
+            #print("Bad reply:", LLM_topk, "at loop index", l, "and orig index", orig_inds[l])
             del LLM_topks_temp[l]
             del orig_inds[l]
             num_bad_replies += 1
+        elif len(LLM_topk) > k:
+            LLM_topks_temp[l] = LLM_topk[:k]
     print("Found", num_bad_replies, "bad replies")
+
     return LLM_topks_temp, orig_inds
 
 def get_response_processor(LLM_name):

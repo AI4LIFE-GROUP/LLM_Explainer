@@ -5,11 +5,12 @@ import torch
 import pickle
 import argparse
 import numpy as np
+import pandas as pd
 from utils import _load_config, saveParameters
 from openxai.LoadModel import DefineModel
 from openxai.dataloader import return_loaders, get_feature_details
-from faithulness_util import makeFakeRankMagnitudesForFaithfulnessCalculation, \
-    calculateFaithfulness, saveFaithfulnessMetrics, GetFaithfulnessMetricsString
+from faithulness_util import makeFakeRankMagnitudesForFaithfulnessCalculation, constructReplies,\
+    calculateFaithfulness, saveFaithfulnessMetrics, getFaithfulnessMetricsString, getICLFromTextFiles
 from llms.response import parseLLMTopKsFromTxtFiles, LoadLLMRepliesFromTextFiles
 from utils import get_model_names, get_model_architecture
 
@@ -71,21 +72,65 @@ def runFaithfulnessPipeline(config = None):
     model.load_state_dict(torch.load(model_dir + model_file_name))
     model.eval()
 
+    n_shot = int(output_dir.split('nshot')[-1].split('_')[0])
+    LLM_name = output_dir.rstrip('/').split('/')[-1].split('_')
+    print('n_shot: ', n_shot)
+    for i, name in enumerate(LLM_name):
+        if not name.isnumeric():
+            LLM_name = name
+            break
+    print('LLM_name: ', LLM_name)
+    X_ICL, y_ICL = getICLFromTextFiles(output_dir, model_name, data_name,
+                                       LLM_name, input_size, n_shot, experiment_section)
+    # save X_ICL and y_ICL to numpy files
+    np.save(output_dir + 'X_ICL.npy', X_ICL)
+    np.save(output_dir + 'y_ICL.npy', y_ICL)
+    unsolvable_idx = []
+    for i in range(y_ICL.shape[0]):
+        if len(np.unique(y_ICL[i])) == 1:
+            unsolvable_idx.append(True)
+        else:
+            unsolvable_idx.append(False)
+    unsolvable_idx = np.array(unsolvable_idx)
+    orig_inds = np.arange(eval_min_idx, eval_max_idx)[~unsolvable_idx]
+
     if load_reply_strategy == 'pkl':
         # Load LLM_topks .pkl file
         LLM_topks_path = output_dir + LLM_topks_file_name
         with open(LLM_topks_path, 'rb') as f:
-            LLM_topks = pickle.load(f)
+            og_LLM_topks = pickle.load(f)
     elif load_reply_strategy == 'txt':
         # Load LLM_topks .txt file
         samples = LoadLLMRepliesFromTextFiles(output_dir)
+        if experiment_section == '3.2':
+            preds, og_LLM_topks = parseLLMTopKsFromTxtFiles(samples, LLM_top_k, experiment_section=experiment_section)
+        else:
+            og_LLM_topks = parseLLMTopKsFromTxtFiles(samples, LLM_top_k, experiment_section=experiment_section)
 
-        LLM_topks = parseLLMTopKsFromTxtFiles(samples, LLM_top_k, experiment_section=experiment_section)
+    print("preds shape: ", len(preds))
+    # create df of preds and actuals and name it accuracy_{acc}.csv where acc is integer accuracy
+    preds = np.array([int(pred) for pred in preds])
+    hidden_ys = np.load(output_dir + 'hidden_ys.pkl', allow_pickle=True)
+    preds_df = pd.DataFrame({'preds': preds, 'hidden_ys': hidden_ys}, columns=['preds', 'hidden_ys'])
+    acc = int(np.mean(preds == hidden_ys)*100)
+    preds_df.to_csv(output_dir + f'accuracy_{acc}.csv', index=False)
 
-    LLM_topks_copy = copy.deepcopy(LLM_topks)
+    np.save(output_dir + 'preds.npy', preds)
+    print("og_LLM_topks shape: ", len(og_LLM_topks))
+    #print("og_LLM_topks", og_LLM_topks)
+
+    # Remove unsolvable idxs from LLM_topks
+    LLM_topks = copy.deepcopy(og_LLM_topks)
+    LLM_topks = [LLM_topk for i, LLM_topk in enumerate(LLM_topks) if not unsolvable_idx[i]]
 
     # Remove bad replies from LLM_topks
-    LLM_topks, orig_inds = removeBadReplies(LLM_topks_copy, eval_min_idx, eval_max_idx, LLM_top_k)
+    LLM_topks, orig_inds = removeBadReplies(LLM_topks, orig_inds, LLM_top_k)
+    replies_df, unsolvable_idxs, bad_reply_idxs = constructReplies(eval_min_idx, eval_max_idx, og_LLM_topks,
+                                                                   orig_inds, unsolvable_idx)
+    print(f"{len(unsolvable_idxs)} Unsolvable Indices: ", unsolvable_idxs)
+    print(f"{len(LLM_topks)} Good Replies:", orig_inds)
+    print(f"{len(bad_reply_idxs)} Bad Replies: ", bad_reply_idxs)
+
     explanations         = makeFakeRankMagnitudesForFaithfulnessCalculation(LLM_topks, num_features)
 
     if eval_top_k == -1:
@@ -102,10 +147,10 @@ def runFaithfulnessPipeline(config = None):
 
 
     if save_results:
-        saveFaithfulnessMetrics(output_dir, FAs, RAs, PGUs, PGIs, orig_inds, output_file_write_type='w',
-                                extra_str=extra_str)
+        saveFaithfulnessMetrics(output_dir, FAs, RAs, PGUs, PGIs, orig_inds, replies_df,
+                                output_file_write_type='w', extra_str=extra_str)
         saveParameters(output_dir, 'faithfulness_pipeline_config', config, extra_str)
-    return GetFaithfulnessMetricsString(model, FAs, RAs, PGUs, PGIs)
+    return getFaithfulnessMetricsString(model, FAs, RAs, PGUs, PGIs)
 
 if __name__ == '__main__':
     runFaithfulnessPipeline()

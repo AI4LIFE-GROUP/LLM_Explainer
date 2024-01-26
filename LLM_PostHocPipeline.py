@@ -37,6 +37,14 @@ from llms.prompt import Prompt
 bold    = lambda x: '\033[1m' + x + '\033[0m'
 letters = [string.ascii_uppercase[i] for i in range(26)]    # A, B, C, ..., Z
 
+# costs dictionary (in dollars per 1000 tokens, input and output cost in tuple format)
+api_costs = {
+    'gpt-4-1106-preview': (0.01, 0.03),
+    'gpt-4': (0.03, 0.06),
+    'gpt-3.5-turbo-1106': (0.001, 0.002),
+    'gpt-4-0125-preview': (0.01, 0.03),
+}
+
 class Pipeline:
     def __init__(self, config = None, prompts = None, do_setup = True):
         # Load config/prompts files
@@ -88,6 +96,7 @@ class Pipeline:
         # Read config
         self.n_shot             = self.config['n_shot']
         prompt_params           = self.config['prompt_params']
+        self.chain_of_thought   = prompt_params['chain_of_thought']
         self.use_soft_preds     = prompt_params['use_soft_preds']
         self.delta_format       = prompt_params['delta_format']
         self.rescale_soft_preds = prompt_params['rescale_soft_preds']
@@ -120,11 +129,14 @@ class Pipeline:
             'num_features': self.num_features,
             'n_shot': self.n_shot,
             'final_feature': letters[self.num_features-1],
-            'final_change': 'FILL IN ',
+            #'final_change': 'FILL IN ',
+            'reasoning': 'After explaining your reasoning, p' if self.chain_of_thought else 'P',
+            'last_line': ' on the last line' if self.chain_of_thought else '',
             'change_in': ' change in' if self.delta_format else '',
+            'wrt': ' with respect to a given instance' if self.delta_format else '',
             'zero_change': ', '.join([letter + ': 0.000' for letter in letters[:self.num_features]]),
             'feat_words': [string.ascii_uppercase[i] for i in range(len(self.feature_names))] #[f'f{i+1}' for i in range(len(self.feature_names))]
-            #'other_string_variables': 'access these in the config file using curly braces e.g. {k_word}',
+            #'other_string_variables': 'access these in the prompts.json file using curly braces e.g. {k_word}',
         }
         prompt_ID                 = prompt_params['prompt_ID']
         prompt_info               = self.prompts[prompt_ID]
@@ -223,6 +235,10 @@ class Pipeline:
         hidden_ys        = None if not self.hide_last_pred else []
         perturb_seed     = self.config['sampling_params']['perturb']['perturb_seed']
         use_eval_as_seed = True if perturb_seed == "eval" else False
+        tokens = np.zeros((self.eval_max_idx - self.eval_min_idx, 2))
+        experiment_costs = np.zeros((self.eval_max_idx - self.eval_min_idx, 3))
+        #perm = [1, 0, 2, 3, 4, 5, 6, 7, 8, 9]#np.random.permutation(self.num_features)
+        #print(perm)
         for eval_idx in range(self.eval_min_idx, self.eval_max_idx):  # loop each test sample
             print(eval_idx, len(LLM_topks))
 
@@ -236,6 +252,10 @@ class Pipeline:
                 X_ICL -= self.X_test[eval_idx]
                 y_ICL -= pred
             # Generate prompt text
+            # generate permutation of length n_features
+            # apply this permutation to X_ICL
+            #X_ICL = X_ICL[:, perm]
+
             prompt_outputs = self.prompt.create_prompt(X_train=X_ICL, y_train=y_ICL, x=self.X_test[eval_idx],
                                                        post_text=self.post_text, x_test=exp_x_test, explanations=exp_exps,
                                                        y_test=exp_y_test, pre_text=self.pre_text, y=pred, mid_text=self.mid_text)
@@ -245,11 +265,24 @@ class Pipeline:
             else:
                 prompt_text = prompt_outputs
 
-            print("PROMPT:\n")
+            print("PROMPT:")
             print(prompt_text)
 
             # Query LLM
-            reply, message = RobustQueryGPT(prompt_text, LLM, api_key, temperature)
+            return_tokens = True
+            output = RobustQueryGPT(prompt_text, LLM, api_key, temperature, return_tokens=return_tokens)
+            if return_tokens:
+                reply, message, prompt_tokens, completion_tokens = output
+            else:
+                reply, message = output
+
+            # Calculate cost
+            tokens[eval_idx - self.eval_min_idx] = [prompt_tokens, completion_tokens]
+            input_cost, output_cost = api_costs[LLM]
+            input_cost = api_costs[LLM][0] * prompt_tokens/1000
+            output_cost = api_costs[LLM][1] * completion_tokens/1000
+            total_cost = input_cost + output_cost
+            experiment_costs[eval_idx - self.eval_min_idx] = [input_cost, output_cost, total_cost]
 
             # Process the query reply. Keep only the feature names, remove extra punctuation
             print("REPLY:", reply)
@@ -264,7 +297,19 @@ class Pipeline:
 
         SaveExperimentInfo(self.config, folder_name_exp_id, self.n_shot, LLM, self.model_name, self.data_name, LLM_topks,
                            self.eval_min_idx, self.eval_max_idx, hidden_ys=hidden_ys)
-
+        total_tokens = np.sum(tokens, axis=0)
+        total_costs = np.sum(experiment_costs, axis=0)
+        # convert to dataframe and save as csv
+        import pandas as pd
+        df = pd.DataFrame({'prompt_tokens': tokens[:, 0], 'completion_tokens': tokens[:, 1],
+                            'input_cost': experiment_costs[:, 0], 'output_cost': experiment_costs[:, 1],
+                            'total_cost': experiment_costs[:, 2]})
+        df.to_csv(f'./outputs/LLM_QueryAndReply/{folder_name_exp_id}/costs.csv', index=False)
+        # now save total costs
+        df = pd.DataFrame({'prompt_tokens': [total_tokens[0]], 'completion_tokens': [total_tokens[1]],
+                            'input_cost': [total_costs[0]], 'output_cost': [total_costs[1]],
+                            'total_cost': [total_costs[2]]})
+        df.to_csv(f'./outputs/LLM_QueryAndReply/{folder_name_exp_id}/total_costs.csv', index=False)
         return folder_name_exp_id
 
 if __name__ == '__main__':
