@@ -10,7 +10,7 @@ Without pre-made conda environment
 2. open terminal
 3. conda update -n base -c defaults conda
 4. conda create -n LLM_PostHocExplainer python=3.10
-5. conda activate LLM_PostHocExxplainer
+5. conda activate LLM_PostHocExplainer
 6. Install package:
 	conda install pytorch
 	conda install pandas
