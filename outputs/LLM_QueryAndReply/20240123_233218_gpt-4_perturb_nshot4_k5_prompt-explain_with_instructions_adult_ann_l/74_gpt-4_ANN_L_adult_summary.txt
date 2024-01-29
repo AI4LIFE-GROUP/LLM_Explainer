@@ -1,0 +1,71 @@
+74_gpt-4_ANN_L_adult_summary
+temperature:		0
+n_shot:			4
+explanation_mode:	perturb
+eval_idx:		74
+LLM:			gpt-4
+k:			5
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We have a two-class machine learning model that predicts based on 13 features: [\'A\', \'B\', \'C\', \'D\', \'E\', \'F\', \'G\', \'H\', \'I\', \'J\', \'K\', \'L\', \'M\']. The dataset below contains the change in feature values \'A\' through \'M\' with respect to a given instance and the corresponding change in model outputs."\n\nDataset:\n```\nChange in Input: A: 0.129, B: 0.021, C: 0.093, D: 0.133, E: 0.038, F: 0.035, G: 0.116, H: 0.083, I: -0.101, J: 0.180, K: 0.114, L: -0.048, M: -0.164\nChange in Output: 0\n\nChange in Input: A: 0.024, B: 0.098, C: 0.019, D: 0.150, E: 0.018, F: -0.094, G: 0.100, H: 0.067, I: -0.165, J: -0.063, K: -0.029, L: 0.048, M: 0.034\nChange in Output: 0\n\nChange in Input: A: -0.198, B: -0.027, C: -0.123, D: -0.341, E: 0.114, F: -0.043, G: 0.078, H: 0.102, I: -0.011, J: 0.103, K: 0.214, L: 0.013, M: -0.024\nChange in Output: -1\n\nChange in Input: A: 0.062, B: 0.092, C: 0.012, D: -0.303, E: 0.169, F: -0.329, G: 0.057, H: 0.155, I: 0.092, J: 0.066, K: -0.088, L: -0.027, M: -0.174\nChange in Output: -1\n```\n\nQuestion: "Based on the above set, what are the five most important features driving the output?"\n\nInstructions: "For each feature, starting with \'A\' and continuing to \'M\':\n\n1. Analyze the feature in question. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature \'B\', determine its relative importance compared to \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from \'A\' to \'M\' are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of features from \'A\' to \'M\' from most important to least important, in descending order, separated by commas. Only provide the feature names on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We have a two-class machine learning model that predicts based on 13 features: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M']. The dataset below contains the change in feature values 'A' through 'M' with respect to a given instance and the corresponding change in model outputs."
+
+Dataset:
+```
+Change in Input: A: 0.129, B: 0.021, C: 0.093, D: 0.133, E: 0.038, F: 0.035, G: 0.116, H: 0.083, I: -0.101, J: 0.180, K: 0.114, L: -0.048, M: -0.164
+Change in Output: 0
+
+Change in Input: A: 0.024, B: 0.098, C: 0.019, D: 0.150, E: 0.018, F: -0.094, G: 0.100, H: 0.067, I: -0.165, J: -0.063, K: -0.029, L: 0.048, M: 0.034
+Change in Output: 0
+
+Change in Input: A: -0.198, B: -0.027, C: -0.123, D: -0.341, E: 0.114, F: -0.043, G: 0.078, H: 0.102, I: -0.011, J: 0.103, K: 0.214, L: 0.013, M: -0.024
+Change in Output: -1
+
+Change in Input: A: 0.062, B: 0.092, C: 0.012, D: -0.303, E: 0.169, F: -0.329, G: 0.057, H: 0.155, I: 0.092, J: 0.066, K: -0.088, L: -0.027, M: -0.174
+Change in Output: -1
+```
+
+Question: "Based on the above set, what are the five most important features driving the output?"
+
+Instructions: "For each feature, starting with 'A' and continuing to 'M':
+
+1. Analyze the feature in question. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'M' are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of features from 'A' to 'M' from most important to least important, in descending order, separated by commas. Only provide the feature names on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+Analyzing the features:
+
+1. Feature 'A': The change in 'A' seems to have a positive correlation with the output when the output is 0 and a negative correlation when the output is -1. This suggests that 'A' is an important feature. Importance: 70.
+
+2. Feature 'B': The change in 'B' seems to have a positive correlation with the output when the output is 0 and a negative correlation when the output is -1. This suggests that 'B' is an important feature. However, the magnitude of change in 'B' is less than 'A', suggesting it might be less important. Importance: 60. Running rank: AB.
+
+3. Feature 'C': The change in 'C' seems to have a positive correlation with the output when the output is 0 and a negative correlation when the output is -1. This suggests that 'C' is an important feature. However, the magnitude of change in 'C' is less than 'A' and 'B', suggesting it might be less important. Importance: 50. Running rank: ABC.
+
+4. Feature 'D': The change in 'D' seems to have a positive correlation with the output when the output is 0 and a strong negative correlation when the output is -1. This suggests that 'D' is a very important feature. Importance: 90. Running rank: DABC.
+
+5. Feature 'E': The change in 'E' seems to have a positive correlation with the output when the output is 0 and a negative correlation when the output is -1. However, the magnitude of change in 'E' is less than 'A', 'B', 'C', and 'D', suggesting it might be less important. Importance: 40. Running rank: DABCE.
+
+6. Feature 'F': The change in 'F' seems to have a positive correlation with the output when the output is 0 and a strong negative correlation when the output is -1. This suggests that 'F' is a very important feature. Importance: 80. Running rank: DFABCE.
+
+7. Feature 'G': The change in 'G' seems to have a positive correlation with the output when the output is 0 and a negative correlation when the output is -1. However, the magnitude of change in 'G' is less than 'A', 'B', 'C', 'D', and 'F', suggesting it might be less important. Importance: 45. Running rank: DFABCEG.
+
+8. Feature 'H': The change in 'H' seems to have a positive correlation with the output when the output is 0 and a negative correlation when the output is -1. However, the magnitude of change in 'H' is less than 'A', 'B', 'C', 'D', and 'F', suggesting it might be less important. Importance: 55. Running rank: DFABCEHG.
+
+9. Feature 'I': The change in 'I' seems to have a negative correlation with the output when the output is 0 and a positive correlation when the output is -1. This suggests that 'I' is an important feature. However, the magnitude of change in 'I' is less than 'A', 'B', 'C', 'D', and 'F', suggesting it might be less important. Importance: 65. Running rank: DFABIHCEG.
+
+10. Feature 'J': The change in 'J' seems to have a positive correlation with the output when the output is 0 and a negative correlation when the output is -1. However, the magnitude of change in 'J' is less than 'A', 'B', 'C', 'D', and 'F', suggesting it might be less important. Importance: 60. Running rank: DFABIJHCEG.
+
+11. Feature 'K': The change in 'K' seems to have a positive correlation with the output when the output is 0 and a negative correlation when the output is -1. However, the magnitude of change in 'K' is less than 'A', 'B', 'C', 'D', and 'F', suggesting it might be less important. Importance: 55. Running rank: DFABIJKHCEG.
+
+12. Feature 'L': The change in 'L' seems to have a negative correlation with the output when the output is 0 and a positive correlation when the output is -1. This suggests that 'L' is an important feature. However, the magnitude of change in 'L' is less than 'A', 'B', 'C', 'D', and 'F', suggesting it might be less important. Importance: 50. Running rank: DFABIJKLHCEG.
+
+13. Feature 'M': The change in 'M' seems to have a negative correlation with the output when the output is 0 and a positive correlation when the output is -1. This suggests that 'M' is an important feature. However, the magnitude of change in 'M' is less than 'A', 'B', 'C', 'D', and 'F', suggesting it might be less important. Importance: 55. Running rank: DFABIJKLMHCEG.
+
+Based on the analysis, the five most important features driving the output are: D, F, A, B, I.
