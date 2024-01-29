@@ -1,0 +1,103 @@
+18_gpt-4_LR_adult_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		18
+LLM:			gpt-4
+k:			5
+
+MESSAGE:
+[{'role': 'user', 'content': 'Dataset:\n```\nChange in Input: A: 0.056, B: 0.170, C: -0.213, D: -0.304, E: -0.123, F: -0.034, G: 0.015, H: -0.087, I: 0.162, J: -0.119, K: 0.010, L: -0.048, M: -0.080\nChange in Output: 0\n\nChange in Input: A: -0.010, B: -0.079, C: -0.088, D: -0.308, E: -0.060, F: -0.178, G: -0.010, H: 0.042, I: -0.000, J: -0.133, K: -0.014, L: -0.077, M: -0.082\nChange in Output: 0\n\nChange in Input: A: 0.051, B: 0.105, C: 0.017, D: 0.334, E: 0.171, F: -0.056, G: 0.087, H: -0.175, I: 0.033, J: 0.110, K: 0.221, L: 0.147, M: 0.022\nChange in Output: 1\n\nChange in Input: A: -0.015, B: -0.018, C: 0.175, D: 0.258, E: 0.153, F: 0.170, G: 0.008, H: 0.017, I: -0.046, J: 0.308, K: -0.162, L: -0.055, M: 0.204\nChange in Output: 1\n\nChange in Input: A: 0.091, B: -0.035, C: 0.099, D: 0.280, E: 0.137, F: -0.022, G: -0.100, H: -0.127, I: -0.015, J: 0.096, K: -0.027, L: -0.093, M: 0.114\nChange in Output: 1\n\nChange in Input: A: -0.001, B: 0.045, C: -0.093, D: -0.343, E: -0.093, F: -0.039, G: -0.013, H: 0.012, I: -0.112, J: 0.115, K: -0.122, L: -0.066, M: -0.039\nChange in Output: 0\n\nChange in Input: A: 0.107, B: 0.067, C: 0.067, D: -0.380, E: -0.207, F: -0.113, G: -0.007, H: -0.074, I: -0.051, J: -0.053, K: 0.034, L: -0.046, M: -0.042\nChange in Output: 0\n\nChange in Input: A: 0.075, B: -0.011, C: 0.047, D: 0.276, E: 0.158, F: 0.047, G: -0.080, H: 0.014, I: -0.196, J: -0.087, K: 0.076, L: -0.082, M: -0.105\nChange in Output: 1\n\nChange in Input: A: -0.227, B: 0.058, C: 0.088, D: 0.312, E: 0.110, F: -0.055, G: 0.249, H: 0.193, I: -0.044, J: 0.040, K: 0.007, L: -0.120, M: -0.126\nChange in Output: 1\n\nChange in Input: A: 0.105, B: 0.228, C: 0.063, D: -0.352, E: -0.109, F: 0.042, G: -0.083, H: 0.120, I: 0.134, J: -0.141, K: 0.012, L: -0.003, M: 0.133\nChange in Output: 0\n\nChange in Input: A: 0.014, B: 0.054, C: 0.076, D: 0.326, E: -0.112, F: -0.110, G: 0.080, H: -0.146, I: -0.191, J: 0.010, K: -0.004, L: 0.070, M: -0.039\nChange in Output: 1\n\nChange in Input: A: 0.108, B: -0.029, C: 0.301, D: 0.322, E: -0.038, F: -0.139, G: 0.038, H: 0.187, I: 0.067, J: 0.046, K: 0.087, L: -0.118, M: 0.133\nChange in Output: 1\n\nChange in Input: A: -0.055, B: -0.001, C: -0.052, D: -0.299, E: 0.016, F: -0.071, G: 0.002, H: 0.071, I: 0.044, J: 0.110, K: -0.011, L: -0.047, M: 0.028\nChange in Output: 0\n\nChange in Input: A: 0.022, B: 0.126, C: 0.111, D: -0.359, E: -0.005, F: 0.015, G: -0.035, H: 0.108, I: 0.061, J: 0.031, K: -0.209, L: 0.126, M: -0.002\nChange in Output: 0\n\nChange in Input: A: -0.154, B: 0.081, C: -0.093, D: -0.333, E: 0.014, F: -0.097, G: -0.152, H: 0.067, I: 0.141, J: -0.024, K: -0.034, L: -0.183, M: 0.107\nChange in Output: 0\n\nChange in Input: A: 0.111, B: -0.021, C: 0.092, D: 0.250, E: -0.001, F: 0.174, G: 0.131, H: 0.021, I: -0.197, J: -0.240, K: 0.108, L: 0.052, M: -0.115\nChange in Output: 1\n```\n\nQuestion: "Based on the above set, what are the five most important features driving the output?"\n\nInstructions: "For each feature, starting with \'A\' and continuing to \'M\':\n\n1. Analyze the feature in question. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature \'B\', determine its relative importance compared to \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from \'A\' to \'M\' are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of features from \'A\' to \'M\' from most important to least important, in descending order, separated by commas. Only provide the feature names on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Dataset:
+```
+Change in Input: A: 0.056, B: 0.170, C: -0.213, D: -0.304, E: -0.123, F: -0.034, G: 0.015, H: -0.087, I: 0.162, J: -0.119, K: 0.010, L: -0.048, M: -0.080
+Change in Output: 0
+
+Change in Input: A: -0.010, B: -0.079, C: -0.088, D: -0.308, E: -0.060, F: -0.178, G: -0.010, H: 0.042, I: -0.000, J: -0.133, K: -0.014, L: -0.077, M: -0.082
+Change in Output: 0
+
+Change in Input: A: 0.051, B: 0.105, C: 0.017, D: 0.334, E: 0.171, F: -0.056, G: 0.087, H: -0.175, I: 0.033, J: 0.110, K: 0.221, L: 0.147, M: 0.022
+Change in Output: 1
+
+Change in Input: A: -0.015, B: -0.018, C: 0.175, D: 0.258, E: 0.153, F: 0.170, G: 0.008, H: 0.017, I: -0.046, J: 0.308, K: -0.162, L: -0.055, M: 0.204
+Change in Output: 1
+
+Change in Input: A: 0.091, B: -0.035, C: 0.099, D: 0.280, E: 0.137, F: -0.022, G: -0.100, H: -0.127, I: -0.015, J: 0.096, K: -0.027, L: -0.093, M: 0.114
+Change in Output: 1
+
+Change in Input: A: -0.001, B: 0.045, C: -0.093, D: -0.343, E: -0.093, F: -0.039, G: -0.013, H: 0.012, I: -0.112, J: 0.115, K: -0.122, L: -0.066, M: -0.039
+Change in Output: 0
+
+Change in Input: A: 0.107, B: 0.067, C: 0.067, D: -0.380, E: -0.207, F: -0.113, G: -0.007, H: -0.074, I: -0.051, J: -0.053, K: 0.034, L: -0.046, M: -0.042
+Change in Output: 0
+
+Change in Input: A: 0.075, B: -0.011, C: 0.047, D: 0.276, E: 0.158, F: 0.047, G: -0.080, H: 0.014, I: -0.196, J: -0.087, K: 0.076, L: -0.082, M: -0.105
+Change in Output: 1
+
+Change in Input: A: -0.227, B: 0.058, C: 0.088, D: 0.312, E: 0.110, F: -0.055, G: 0.249, H: 0.193, I: -0.044, J: 0.040, K: 0.007, L: -0.120, M: -0.126
+Change in Output: 1
+
+Change in Input: A: 0.105, B: 0.228, C: 0.063, D: -0.352, E: -0.109, F: 0.042, G: -0.083, H: 0.120, I: 0.134, J: -0.141, K: 0.012, L: -0.003, M: 0.133
+Change in Output: 0
+
+Change in Input: A: 0.014, B: 0.054, C: 0.076, D: 0.326, E: -0.112, F: -0.110, G: 0.080, H: -0.146, I: -0.191, J: 0.010, K: -0.004, L: 0.070, M: -0.039
+Change in Output: 1
+
+Change in Input: A: 0.108, B: -0.029, C: 0.301, D: 0.322, E: -0.038, F: -0.139, G: 0.038, H: 0.187, I: 0.067, J: 0.046, K: 0.087, L: -0.118, M: 0.133
+Change in Output: 1
+
+Change in Input: A: -0.055, B: -0.001, C: -0.052, D: -0.299, E: 0.016, F: -0.071, G: 0.002, H: 0.071, I: 0.044, J: 0.110, K: -0.011, L: -0.047, M: 0.028
+Change in Output: 0
+
+Change in Input: A: 0.022, B: 0.126, C: 0.111, D: -0.359, E: -0.005, F: 0.015, G: -0.035, H: 0.108, I: 0.061, J: 0.031, K: -0.209, L: 0.126, M: -0.002
+Change in Output: 0
+
+Change in Input: A: -0.154, B: 0.081, C: -0.093, D: -0.333, E: 0.014, F: -0.097, G: -0.152, H: 0.067, I: 0.141, J: -0.024, K: -0.034, L: -0.183, M: 0.107
+Change in Output: 0
+
+Change in Input: A: 0.111, B: -0.021, C: 0.092, D: 0.250, E: -0.001, F: 0.174, G: 0.131, H: 0.021, I: -0.197, J: -0.240, K: 0.108, L: 0.052, M: -0.115
+Change in Output: 1
+```
+
+Question: "Based on the above set, what are the five most important features driving the output?"
+
+Instructions: "For each feature, starting with 'A' and continuing to 'M':
+
+1. Analyze the feature in question. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'M' are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of features from 'A' to 'M' from most important to least important, in descending order, separated by commas. Only provide the feature names on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+1. Feature 'A': The changes in 'A' seem to have a mixed correlation with the output. There are instances where both positive and negative changes in 'A' have resulted in both 0 and 1 outputs. Therefore, the importance of 'A' in determining the output is moderate. Rating: 50
+
+2. Feature 'B': The changes in 'B' also show a mixed correlation with the output. However, there are more instances where a positive change in 'B' has resulted in a 1 output and a negative change in 'B' has resulted in a 0 output. Therefore, 'B' seems to be slightly more important than 'A' in determining the output. Current rank: BA
+
+3. Feature 'C': The changes in 'C' show a strong correlation with the output. Positive changes in 'C' mostly result in a 1 output and negative changes in 'C' mostly result in a 0 output. Therefore, 'C' is more important than both 'A' and 'B' in determining the output. Current rank: CBA
+
+4. Feature 'D': The changes in 'D' show a very strong correlation with the output. Positive changes in 'D' mostly result in a 1 output and negative changes in 'D' mostly result in a 0 output. Therefore, 'D' is the most important feature so far. Current rank: DCBA
+
+5. Feature 'E': The changes in 'E' show a mixed correlation with the output. Therefore, 'E' is less important than 'D', 'C', and 'B' but more important than 'A' in determining the output. Current rank: DCBEA
+
+6. Feature 'F': The changes in 'F' show a weak correlation with the output. Therefore, 'F' is the least important feature so far. Current rank: DCBEAF
+
+7. Feature 'G': The changes in 'G' show a weak correlation with the output. Therefore, 'G' is less important than 'D', 'C', 'B', 'E', and 'A' but more important than 'F' in determining the output. Current rank: DCBEAGF
+
+8. Feature 'H': The changes in 'H' show a moderate correlation with the output. Therefore, 'H' is more important than 'E', 'A', 'G', and 'F' but less important than 'D', 'C', and 'B' in determining the output. Current rank: DCHBEAGF
+
+9. Feature 'I': The changes in 'I' show a weak correlation with the output. Therefore, 'I' is less important than all other features so far. Current rank: DCHBEAGFI
+
+10. Feature 'J': The changes in 'J' show a moderate correlation with the output. Therefore, 'J' is more important than 'E', 'A', 'G', 'F', and 'I' but less important than 'D', 'C', 'H', and 'B' in determining the output. Current rank: DCHBJEAGFI
+
+11. Feature 'K': The changes in 'K' show a weak correlation with the output. Therefore, 'K' is less important than all other features so far. Current rank: DCHBJEAGFIK
+
+12. Feature 'L': The changes in 'L' show a weak correlation with the output. Therefore, 'L' is less important than all other features so far. Current rank: DCHBJEAGFIKL
+
+13. Feature 'M': The changes in 'M' show a moderate correlation with the output. Therefore, 'M' is more important than 'E', 'A', 'G', 'F', 'I', 'K', and 'L' but less important than 'D', 'C', 'H', 'B', and 'J' in determining the output. Final rank: DCHBJMEAGFIKL
+
+D, C, H, B, J, M, E, A, G, F, I, K, L
