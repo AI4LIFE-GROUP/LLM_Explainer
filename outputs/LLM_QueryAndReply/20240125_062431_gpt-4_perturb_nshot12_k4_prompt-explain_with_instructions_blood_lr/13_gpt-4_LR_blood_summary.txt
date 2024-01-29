@@ -1,0 +1,77 @@
+13_gpt-4_LR_blood_summary
+temperature:		0
+n_shot:			12
+explanation_mode:	perturb
+eval_idx:		13
+LLM:			gpt-4
+k:			4
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We have a two-class machine learning model that predicts based on 4 features: [\'A\', \'B\', \'C\', \'D\']. The dataset below contains the change in feature values \'A\' through \'D\' with respect to a given instance and the corresponding change in model outputs."\n\nDataset:\n```\nChange in Input: A: -0.327, B: 0.035, C: 0.208, D: -0.149\nChange in Output: 0\n\nChange in Input: A: -0.349, B: 0.164, C: 0.073, D: -0.053\nChange in Output: 0\n\nChange in Input: A: 0.331, B: 0.011, C: -0.073, D: -0.200\nChange in Output: -1\n\nChange in Input: A: -0.302, B: 0.113, C: 0.081, D: 0.105\nChange in Output: 0\n\nChange in Input: A: 0.317, B: -0.023, C: -0.092, D: -0.093\nChange in Output: -1\n\nChange in Input: A: -0.295, B: 0.225, C: 0.067, D: 0.195\nChange in Output: 0\n\nChange in Input: A: 0.302, B: -0.157, C: -0.080, D: 0.031\nChange in Output: -1\n\nChange in Input: A: -0.267, B: 0.146, C: 0.205, D: 0.083\nChange in Output: 0\n\nChange in Input: A: -0.240, B: 0.250, C: 0.234, D: 0.059\nChange in Output: 0\n\nChange in Input: A: 0.233, B: -0.161, C: -0.218, D: -0.005\nChange in Output: -1\n\nChange in Input: A: 0.264, B: -0.145, C: -0.156, D: 0.066\nChange in Output: -1\n\nChange in Input: A: 0.294, B: -0.135, C: -0.069, D: -0.025\nChange in Output: -1\n```\n\nQuestion: "Based on the above set, what are the four most important features driving the output?"\n\nInstructions: "For each feature, starting with \'A\' and continuing to \'D\':\n\n1. Analyze the feature in question. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature \'B\', determine its relative importance compared to \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from \'A\' to \'D\' are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of features from \'A\' to \'D\' from most important to least important, in descending order, separated by commas. Only provide the feature names on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We have a two-class machine learning model that predicts based on 4 features: ['A', 'B', 'C', 'D']. The dataset below contains the change in feature values 'A' through 'D' with respect to a given instance and the corresponding change in model outputs."
+
+Dataset:
+```
+Change in Input: A: -0.327, B: 0.035, C: 0.208, D: -0.149
+Change in Output: 0
+
+Change in Input: A: -0.349, B: 0.164, C: 0.073, D: -0.053
+Change in Output: 0
+
+Change in Input: A: 0.331, B: 0.011, C: -0.073, D: -0.200
+Change in Output: -1
+
+Change in Input: A: -0.302, B: 0.113, C: 0.081, D: 0.105
+Change in Output: 0
+
+Change in Input: A: 0.317, B: -0.023, C: -0.092, D: -0.093
+Change in Output: -1
+
+Change in Input: A: -0.295, B: 0.225, C: 0.067, D: 0.195
+Change in Output: 0
+
+Change in Input: A: 0.302, B: -0.157, C: -0.080, D: 0.031
+Change in Output: -1
+
+Change in Input: A: -0.267, B: 0.146, C: 0.205, D: 0.083
+Change in Output: 0
+
+Change in Input: A: -0.240, B: 0.250, C: 0.234, D: 0.059
+Change in Output: 0
+
+Change in Input: A: 0.233, B: -0.161, C: -0.218, D: -0.005
+Change in Output: -1
+
+Change in Input: A: 0.264, B: -0.145, C: -0.156, D: 0.066
+Change in Output: -1
+
+Change in Input: A: 0.294, B: -0.135, C: -0.069, D: -0.025
+Change in Output: -1
+```
+
+Question: "Based on the above set, what are the four most important features driving the output?"
+
+Instructions: "For each feature, starting with 'A' and continuing to 'D':
+
+1. Analyze the feature in question. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'D' are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of features from 'A' to 'D' from most important to least important, in descending order, separated by commas. Only provide the feature names on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+Analyzing the dataset, we can see that:
+
+1. Feature 'A': When 'A' increases, the output decreases and vice versa. This indicates a strong negative correlation. The magnitude of change in 'A' also seems to be larger than the other features. Therefore, I would rate 'A' as 90 out of 100 in terms of importance. As the first feature analyzed, 'A' is currently the most important.
+
+2. Feature 'B': 'B' seems to have a weak correlation with the output. When 'B' increases or decreases, the output mostly remains the same. Therefore, I would rate 'B' as 30 out of 100 in terms of importance. Compared to 'A', 'B' is less important, so the current ranking is AB.
+
+3. Feature 'C': 'C' shows a similar pattern to 'A', but the magnitude of change is smaller. When 'C' increases, the output mostly remains the same, and when 'C' decreases, the output decreases. Therefore, I would rate 'C' as 70 out of 100 in terms of importance. Compared to 'A' and 'B', 'C' is more important than 'B' but less important than 'A', so the current ranking is ACB.
+
+4. Feature 'D': 'D' seems to have a weak correlation with the output. When 'D' increases or decreases, the output mostly remains the same. Therefore, I would rate 'D' as 40 out of 100 in terms of importance. Compared to 'A', 'B', and 'C', 'D' is more important than 'B' but less important than 'A' and 'C', so the final ranking is ACD, B.
+
+Based on the analysis, the final rank of features from most important to least important is: A, C, D, B.
