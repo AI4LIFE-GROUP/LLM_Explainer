@@ -1,0 +1,45 @@
+17_gpt-4_ANN_L_adult_summary
+temperature:		0
+n_shot:			4
+explanation_mode:	perturb
+eval_idx:		17
+LLM:			gpt-4
+k:			5
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We have a two-class machine learning model that predicts based on 13 features: [\'A\', \'B\', \'C\', \'D\', \'E\', \'F\', \'G\', \'H\', \'I\', \'J\', \'K\', \'L\', \'M\']. The dataset below contains the change in feature values \'A\' through \'M\' with respect to a given instance and the corresponding change in model outputs."\n\nDataset:\n```\nChange in Input: A: 0.047, B: 0.053, C: 0.052, D: 0.273, E: 0.073, F: 0.126, G: -0.276, H: 0.009, I: 0.012, J: -0.110, K: -0.026, L: -0.003, M: -0.055\nChange in Output: 1\n\nChange in Input: A: 0.059, B: -0.148, C: 0.037, D: 0.290, E: -0.032, F: -0.095, G: -0.063, H: 0.139, I: -0.112, J: -0.106, K: 0.160, L: -0.138, M: 0.012\nChange in Output: 1\n\nChange in Input: A: -0.183, B: -0.037, C: 0.022, D: -0.349, E: -0.117, F: 0.184, G: -0.038, H: 0.004, I: 0.274, J: 0.037, K: -0.050, L: 0.087, M: -0.060\nChange in Output: 0\n\nChange in Input: A: -0.005, B: 0.153, C: -0.207, D: -0.304, E: 0.149, F: -0.186, G: -0.055, H: -0.245, I: -0.006, J: -0.065, K: 0.060, L: 0.010, M: 0.036\nChange in Output: 0\n```\n\nQuestion: "Based on the above set, what are the five most important features driving the output?"\n\nInstructions: "Think about the question. After explaining your reasoning, provide your answer as the top five features ranked from most important to least important, in descending order, separated by commas. Only provide the feature names on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We have a two-class machine learning model that predicts based on 13 features: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M']. The dataset below contains the change in feature values 'A' through 'M' with respect to a given instance and the corresponding change in model outputs."
+
+Dataset:
+```
+Change in Input: A: 0.047, B: 0.053, C: 0.052, D: 0.273, E: 0.073, F: 0.126, G: -0.276, H: 0.009, I: 0.012, J: -0.110, K: -0.026, L: -0.003, M: -0.055
+Change in Output: 1
+
+Change in Input: A: 0.059, B: -0.148, C: 0.037, D: 0.290, E: -0.032, F: -0.095, G: -0.063, H: 0.139, I: -0.112, J: -0.106, K: 0.160, L: -0.138, M: 0.012
+Change in Output: 1
+
+Change in Input: A: -0.183, B: -0.037, C: 0.022, D: -0.349, E: -0.117, F: 0.184, G: -0.038, H: 0.004, I: 0.274, J: 0.037, K: -0.050, L: 0.087, M: -0.060
+Change in Output: 0
+
+Change in Input: A: -0.005, B: 0.153, C: -0.207, D: -0.304, E: 0.149, F: -0.186, G: -0.055, H: -0.245, I: -0.006, J: -0.065, K: 0.060, L: 0.010, M: 0.036
+Change in Output: 0
+```
+
+Question: "Based on the above set, what are the five most important features driving the output?"
+
+Instructions: "Think about the question. After explaining your reasoning, provide your answer as the top five features ranked from most important to least important, in descending order, separated by commas. Only provide the feature names on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the most important features driving the output, we need to look at the magnitude of the change in each feature and how it corresponds to the change in output. The larger the change in a feature, the more likely it is to have a significant impact on the output. However, we also need to consider the direction of the change (positive or negative) and how it aligns with the change in output. 
+
+For example, in the first two instances, the output increases (from 0 to 1). In these cases, the features with the largest positive changes are likely to be important. In the first instance, these are 'D', 'F', 'B', 'E', and 'A'. In the second instance, these are 'D', 'H', 'K', 'A', and 'C'. 
+
+In the third and fourth instances, the output decreases (from 1 to 0). In these cases, the features with the largest negative changes are likely to be important. In the third instance, these are 'D', 'E', 'A', 'M', and 'K'. In the fourth instance, these are 'D', 'H', 'C', 'F', and 'E'. 
+
+By comparing these lists, we can see that 'D' appears as a significant feature in all instances, followed by 'F', 'A', 'E', and 'H'. Therefore, these are likely to be the most important features driving the output.
+
+'D', 'F', 'A', 'E', 'H'
