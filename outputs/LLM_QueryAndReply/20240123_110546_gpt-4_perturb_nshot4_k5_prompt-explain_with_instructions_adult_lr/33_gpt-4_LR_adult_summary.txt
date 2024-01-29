@@ -1,0 +1,73 @@
+33_gpt-4_LR_adult_summary
+temperature:		0
+n_shot:			4
+explanation_mode:	perturb
+eval_idx:		33
+LLM:			gpt-4
+k:			5
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We have a two-class machine learning model that predicts based on 13 features: [\'A\', \'B\', \'C\', \'D\', \'E\', \'F\', \'G\', \'H\', \'I\', \'J\', \'K\', \'L\', \'M\']. The dataset below contains the change in feature values \'A\' through \'M\' with respect to a given instance and the corresponding change in model outputs."\n\nDataset:\n```\nChange in Input: A: -0.029, B: -0.261, C: 0.015, D: 0.317, E: -0.006, F: 0.131, G: 0.075, H: -0.066, I: -0.139, J: -0.107, K: 0.095, L: 0.055, M: -0.048\nChange in Output: 0\n\nChange in Input: A: 0.073, B: -0.054, C: 0.130, D: 0.295, E: -0.074, F: -0.012, G: 0.143, H: 0.020, I: 0.011, J: 0.044, K: -0.164, L: 0.078, M: 0.028\nChange in Output: 0\n\nChange in Input: A: 0.033, B: 0.204, C: -0.179, D: -0.346, E: -0.061, F: -0.046, G: -0.026, H: -0.104, I: 0.144, J: 0.096, K: 0.073, L: 0.119, M: 0.066\nChange in Output: -1\n\nChange in Input: A: 0.154, B: 0.027, C: -0.005, D: -0.369, E: 0.021, F: -0.098, G: -0.009, H: 0.057, I: 0.073, J: -0.027, K: 0.107, L: -0.128, M: 0.028\nChange in Output: -1\n```\n\nQuestion: "Based on the above set, what are the five most important features driving the output?"\n\nInstructions: "For each feature, starting with \'A\' and continuing to \'M\':\n\n1. Analyze the feature in question. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature \'B\', determine its relative importance compared to \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from \'A\' to \'M\' are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of features from \'A\' to \'M\' from most important to least important, in descending order, separated by commas. Only provide the feature names on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We have a two-class machine learning model that predicts based on 13 features: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M']. The dataset below contains the change in feature values 'A' through 'M' with respect to a given instance and the corresponding change in model outputs."
+
+Dataset:
+```
+Change in Input: A: -0.029, B: -0.261, C: 0.015, D: 0.317, E: -0.006, F: 0.131, G: 0.075, H: -0.066, I: -0.139, J: -0.107, K: 0.095, L: 0.055, M: -0.048
+Change in Output: 0
+
+Change in Input: A: 0.073, B: -0.054, C: 0.130, D: 0.295, E: -0.074, F: -0.012, G: 0.143, H: 0.020, I: 0.011, J: 0.044, K: -0.164, L: 0.078, M: 0.028
+Change in Output: 0
+
+Change in Input: A: 0.033, B: 0.204, C: -0.179, D: -0.346, E: -0.061, F: -0.046, G: -0.026, H: -0.104, I: 0.144, J: 0.096, K: 0.073, L: 0.119, M: 0.066
+Change in Output: -1
+
+Change in Input: A: 0.154, B: 0.027, C: -0.005, D: -0.369, E: 0.021, F: -0.098, G: -0.009, H: 0.057, I: 0.073, J: -0.027, K: 0.107, L: -0.128, M: 0.028
+Change in Output: -1
+```
+
+Question: "Based on the above set, what are the five most important features driving the output?"
+
+Instructions: "For each feature, starting with 'A' and continuing to 'M':
+
+1. Analyze the feature in question. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'M' are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of features from 'A' to 'M' from most important to least important, in descending order, separated by commas. Only provide the feature names on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+Analyzing the features:
+
+1. Feature 'A': The change in 'A' does not seem to have a consistent impact on the output. In the first two instances, a decrease and increase in 'A' both result in no change in output. In the last two instances, an increase in 'A' corresponds to a decrease in output. The correlation is not clear, so the importance is low. Rating: 20.
+
+2. Feature 'B': A decrease in 'B' in the first instance results in no change in output, while an increase in 'B' in the third instance results in a decrease in output. The correlation is not clear, so the importance is low. Rating: 20. Current rank: AB.
+
+3. Feature 'C': An increase in 'C' in the first instance results in no change in output, while a decrease in 'C' in the third instance results in a decrease in output. The correlation is not clear, so the importance is low. Rating: 20. Current rank: ABC.
+
+4. Feature 'D': An increase in 'D' in the first instance results in no change in output, while a decrease in 'D' in the third and fourth instances results in a decrease in output. The correlation is not clear, so the importance is low. Rating: 20. Current rank: ABCD.
+
+5. Feature 'E': The change in 'E' does not seem to have a consistent impact on the output. The correlation is not clear, so the importance is low. Rating: 20. Current rank: ABCDE.
+
+6. Feature 'F': An increase in 'F' in the first instance results in no change in output, while a decrease in 'F' in the third and fourth instances results in a decrease in output. The correlation is not clear, so the importance is low. Rating: 20. Current rank: ABCDEF.
+
+7. Feature 'G': An increase in 'G' in the first instance results in no change in output, while a decrease in 'G' in the third and fourth instances results in a decrease in output. The correlation is not clear, so the importance is low. Rating: 20. Current rank: ABCDEFG.
+
+8. Feature 'H': A decrease in 'H' in the first instance results in no change in output, while an increase in 'H' in the fourth instance results in a decrease in output. The correlation is not clear, so the importance is low. Rating: 20. Current rank: ABCDEFGH.
+
+9. Feature 'I': A decrease in 'I' in the first instance results in no change in output, while an increase in 'I' in the third and fourth instances results in a decrease in output. The correlation is not clear, so the importance is low. Rating: 20. Current rank: ABCDEFGHI.
+
+10. Feature 'J': A decrease in 'J' in the first instance results in no change in output, while an increase in 'J' in the third instance results in a decrease in output. The correlation is not clear, so the importance is low. Rating: 20. Current rank: ABCDEFGHIJ.
+
+11. Feature 'K': An increase in 'K' in the first instance results in no change in output, while a decrease in 'K' in the second instance results in no change in output. The correlation is not clear, so the importance is low. Rating: 20. Current rank: ABCDEFGHIJK.
+
+12. Feature 'L': An increase in 'L' in the first instance results in no change in output, while a decrease in 'L' in the fourth instance results in a decrease in output. The correlation is not clear, so the importance is low. Rating: 20. Current rank: ABCDEFGHIJKL.
+
+13. Feature 'M': A decrease in 'M' in the first instance results in no change in output, while an increase in 'M' in the second and fourth instances results in no change and a decrease in output, respectively. The correlation is not clear, so the importance is low. Rating: 20. Final rank: ABCDEFGHIJKLM.
+
+Based on the analysis, all features have the same importance rating. Therefore, the five most important features are arbitrary. For the sake of providing an answer, the first five features in the final rank are chosen.
+
+Answer: A, B, C, D, E.
