@@ -42,7 +42,7 @@ def processGPTReply(reply, parse_strategy):
 def queryGPT(prompt_text, LLM_name, api_key, temperature=0.0, max_tokens=None, return_tokens=False):
     client = OpenAI(api_key=api_key)
     message = [{"role": "user", "content": prompt_text}]  # put in config
-    chat    = client.chat.completions.create(model=LLM_name, logprobs=False,#, logit_bias={29815: -100, 1271: -100},
+    chat    = client.chat.completions.create(model=LLM_name, logprobs=False,# logit_bias={29815: -100, 1271: -100},
                                              messages=message, temperature=temperature, max_tokens=max_tokens)
     reply   = chat.choices[0].message.content
     #print(chat.usage.prompt_tokens, chat.usage.completion_tokens)
@@ -218,7 +218,7 @@ def parser_3_3(sample, LLM_top_k):
     else:
         separator = ':'
 
-    remove_characters = ['and', '>', '=', ' ', '.', ',', ':', "'", '(', ')', '-', '\"']
+    remove_characters = ['and', '>', '=', ' ', '.', ',', ':', "'", '(', ')', '-', '\"', '*', '`']
     if '>' in rank[-1] or '=' in rank[-1]:
         text = rank[-1].split(separator)[-1].strip()
         for remove_character in remove_characters:
