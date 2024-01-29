@@ -251,9 +251,7 @@ class Pipeline:
             elif self.delta_format:
                 X_ICL -= self.X_test[eval_idx]
                 y_ICL -= pred
-            # Generate prompt text
             # generate permutation of length n_features
-            # apply this permutation to X_ICL
             #X_ICL = X_ICL[:, perm]
 
             prompt_outputs = self.prompt.create_prompt(X_train=X_ICL, y_train=y_ICL, x=self.X_test[eval_idx],

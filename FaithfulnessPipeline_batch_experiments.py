@@ -27,29 +27,29 @@ experiment_IDs = [
 # '20240118_114835_gpt-4_perturb_nshot16_k5_prompt-logprob_credit_lr/',
 # '20240118_115211_gpt-4_perturb_nshot16_k5_prompt-logprob_adult_lr/',
 
-# 3.1, delta_format = True, LR
+# # 3.1, delta_format = True, LR
 # '20240118_145133_gpt-4_perturb_nshot16_k4_prompt-explain_blood_lr/',
 # '20240118_153538_gpt-4_perturb_nshot16_k5_prompt-explain_compas_lr/',
 # '20240118_162128_gpt-4_perturb_nshot16_k5_prompt-explain_credit_lr/',
 # '20240118_165912_gpt-4_perturb_nshot16_k5_prompt-explain_adult_lr/',
-# 3.1, delta_format = True, ANN_L
+# # 3.1, delta_format = True, ANN_L
 # '20240119_234329_gpt-4_perturb_nshot16_k4_prompt-explain_blood_ann_l/',
 # '20240120_001133_gpt-4_perturb_nshot16_k5_prompt-explain_compas_ann_l/',
 # '20240120_003927_gpt-4_perturb_nshot16_k5_prompt-explain_credit_ann_l/',
 # '20240120_082839_gpt-4_perturb_nshot16_k5_prompt-explain_adult_ann_l/',
 
-# 3.2, delta_format = True, LR
+# # 3.2, delta_format = True, LR
 # '20240120_124557_gpt-4_perturb_nshot16_k4_prompt-explain_with_instructions_blood_lr/',
 # '20240120_135959_gpt-4_perturb_nshot16_k5_prompt-explain_with_instructions_compas_lr/',
 # '20240120_143646_gpt-4_perturb_nshot16_k5_prompt-explain_with_instructions_credit_lr/',
-# '20240120_152851_gpt-4_perturb_nshot16_k5_prompt-explain_with_instructions_adult_lr/'
-# 3.2, delta_format = True, ANN_L
+# '20240120_152851_gpt-4_perturb_nshot16_k5_prompt-explain_with_instructions_adult_lr/',
+# # 3.2, delta_format = True, ANN_L
 # '20240120_180956_gpt-4_perturb_nshot16_k4_prompt-explain_with_instructions_blood_ann_l/',
 # '20240120_183849_gpt-4_perturb_nshot16_k5_prompt-explain_with_instructions_compas_ann_l/',
 # '20240120_191201_gpt-4_perturb_nshot16_k5_prompt-explain_with_instructions_credit_ann_l/',
 # '20240120_195646_gpt-4_perturb_nshot16_k5_prompt-explain_with_instructions_adult_ann_l/',
 
-# 3.1, delta_format = False, LR
+# # 3.1, delta_format = False, LR
 # '20240120_225834_gpt-4_perturb_nshot16_k4_prompt-explain_blood_lr/',
 # '20240120_231536_gpt-4_perturb_nshot16_k5_prompt-explain_compas_lr/',
 # '20240120_233701_gpt-4_perturb_nshot16_k5_prompt-explain_credit_lr/',
@@ -60,12 +60,12 @@ experiment_IDs = [
 # '20240121_011037_gpt-4_perturb_nshot16_k5_prompt-explain_credit_ann_l/',
 # '20240121_013351_gpt-4_perturb_nshot16_k5_prompt-explain_adult_ann_l/',
 
-# 3.2, delta_format = False, LR
+# # 3.2, delta_format = False, LR
 # '20240121_102350_gpt-4_perturb_nshot16_k4_prompt-explain_with_instructions_blood_lr/',
 # '20240121_105646_gpt-4_perturb_nshot16_k5_prompt-explain_with_instructions_compas_lr/',
 # '20240121_113348_gpt-4_perturb_nshot16_k5_prompt-explain_with_instructions_credit_lr/',
 # '20240121_122407_gpt-4_perturb_nshot16_k5_prompt-explain_with_instructions_adult_lr/',
-# 3.2, delta_format = False, ANN_L
+# # 3.2, delta_format = False, ANN_L
 # '20240121_130412_gpt-4_perturb_nshot16_k4_prompt-explain_with_instructions_blood_ann_l/',
 # '20240121_133431_gpt-4_perturb_nshot16_k5_prompt-explain_with_instructions_compas_ann_l/',
 # '20240121_141224_gpt-4_perturb_nshot16_k5_prompt-explain_with_instructions_credit_ann_l/',
@@ -157,10 +157,36 @@ experiment_IDs = [
 #'20240118_165912_gpt-4_perturb_nshot16_k5_prompt-explain_adult_lr/',
 # '20240125_224008_gpt-4_perturb_nshot16_k5_prompt-predict_then_explain_adult_ann_l/',
 #'20240120_082839_gpt-4_perturb_nshot16_k5_prompt-explain_adult_ann_l/',
+
+# # 3.1, delta_format = True, LR, blood/adult, gpt-4-0125-preview
+# '20240126_180554_gpt-4-0125-preview_perturb_nshot16_k4_prompt-explain_blood_lr/',
+# '20240127_134123_gpt-4-0125-preview_perturb_nshot16_k5_prompt-explain_compas_lr/',
+# '20240127_143152_gpt-4-0125-preview_perturb_nshot16_k5_prompt-explain_credit_lr/',
+# '20240126_192323_gpt-4-0125-preview_perturb_nshot16_k5_prompt-explain_adult_lr/',
+
+# # 3.1, delta_format = True, ANN_L, blood/adult, gpt-4-0125-preview
+# '20240126_200819_gpt-4-0125-preview_perturb_nshot16_k4_prompt-explain_blood_ann_l/',
+# '20240127_151655_gpt-4-0125-preview_perturb_nshot16_k5_prompt-explain_compas_ann_l/',
+# '20240127_160003_gpt-4-0125-preview_perturb_nshot16_k5_prompt-explain_credit_ann_l/',
+# '20240126_204719_gpt-4-0125-preview_perturb_nshot16_k5_prompt-explain_adult_ann_l/',
+
+# # 3.2, delta_format = True, LR, blood/adult, gpt-4-0125-preview
+# '20240126_234707_gpt-4-0125-preview_perturb_nshot16_k4_prompt-explain_with_instructions_blood_lr/',
+# '20240127_003809_gpt-4-0125-preview_perturb_nshot16_k5_prompt-explain_with_instructions_adult_lr/',
+
+# # 3.2, delta_format = True, ANN_L, blood/adult, gpt-4-0125-preview
+# '20240127_020947_gpt-4-0125-preview_perturb_nshot16_k4_prompt-explain_with_instructions_blood_ann_l/',
+# '20240127_030305_gpt-4-0125-preview_perturb_nshot16_k5_prompt-explain_with_instructions_adult_ann_l/',
+
+# 3.0, new gpt-4
+# '20240128_233558_gpt-4-0125-preview_perturb_nshot16_k4_prompt-logprob_blood_lr/',
+# '20240128_234922_gpt-4-0125-preview_perturb_nshot16_k5_prompt-logprob_compas_lr/',
+# '20240128_235149_gpt-4-0125-preview_perturb_nshot16_k5_prompt-logprob_credit_lr/',
+# '20240128_233841_gpt-4-0125-preview_perturb_nshot16_k5_prompt-logprob_adult_lr/',
 ]
 
 calculateAUC       = False
-experiment_section = "3.2"
+experiment_section = "3.3"
 
 eval_top_ks = [1, 2, 3, 4, 5]
 

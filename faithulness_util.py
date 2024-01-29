@@ -105,6 +105,7 @@ def saveFaithfulnessMetrics(output_dir, FA_AUC, RA_AUC, PGU_AUC, PGI_AUC, orig_i
     saveParameters(output_dir, 'faithfulness_metrics_all' + extra_str, faithfulness_metrics)
 
 def getFaithfulnessMetricsString(model, FAs, RAs, PGUs, PGIs):
+    print("LENGTHS", len(FAs), len(RAs), len(PGUs), len(PGIs))
     N_samps = len(PGUs)
 
     # save FAs RA PGU and PGI as comma separated values

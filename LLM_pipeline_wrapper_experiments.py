@@ -5,12 +5,12 @@ from LLM_PostHocPipeline import Pipeline
 from FaithfulnessPipeline import runFaithfulnessPipeline
 
 
-datasets   = ['blood', 'adult']  # 'blood', 'adult', 'credit', 'compas']
+datasets   = ['compas', 'credit']  # 'blood', 'adult', 'credit', 'compas']
 std_devs   = 0.1
 max_ks     = [5]
-models     = ['lr', 'ann_l']
+models     = ['lr']#, 'ann_l']
 n_shots    = [16]
-prompt_ids = ['explain']  # , 'io1-topk', 'io1-topk']
+prompt_ids = ['logprob']  # , 'io1-topk', 'io1-topk']
 
 # Load pipeline config/prompts
 config  = _load_config('LLM_pipeline_config.json')

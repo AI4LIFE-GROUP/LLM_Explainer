@@ -107,15 +107,16 @@ def runFaithfulnessPipeline(config = None):
         else:
             og_LLM_topks = parseLLMTopKsFromTxtFiles(samples, LLM_top_k, experiment_section=experiment_section)
 
-    print("preds shape: ", len(preds))
-    # create df of preds and actuals and name it accuracy_{acc}.csv where acc is integer accuracy
-    preds = np.array([int(pred) for pred in preds])
-    hidden_ys = np.load(output_dir + 'hidden_ys.pkl', allow_pickle=True)
-    preds_df = pd.DataFrame({'preds': preds, 'hidden_ys': hidden_ys}, columns=['preds', 'hidden_ys'])
-    acc = int(np.mean(preds == hidden_ys)*100)
-    preds_df.to_csv(output_dir + f'accuracy_{acc}.csv', index=False)
+    if experiment_section == '3.2':
+        print("preds shape: ", len(preds))
+        # create df of preds and actuals and name it accuracy_{acc}.csv where acc is integer accuracy
+        preds = np.array([int(pred) for pred in preds])
+        hidden_ys = np.load(output_dir + 'hidden_ys.pkl', allow_pickle=True)
+        preds_df = pd.DataFrame({'preds': preds, 'hidden_ys': hidden_ys}, columns=['preds', 'hidden_ys'])
+        acc = int(np.mean(preds == hidden_ys)*100)
+        preds_df.to_csv(output_dir + f'accuracy_{acc}.csv', index=False)
 
-    np.save(output_dir + 'preds.npy', preds)
+        np.save(output_dir + 'preds.npy', preds)
     print("og_LLM_topks shape: ", len(og_LLM_topks))
     #print("og_LLM_topks", og_LLM_topks)
 
