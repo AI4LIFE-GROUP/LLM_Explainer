@@ -1,0 +1,85 @@
+20_gpt-4_LR_adult_summary
+temperature:		0
+n_shot:			8
+explanation_mode:	perturb
+eval_idx:		20
+LLM:			gpt-4
+k:			5
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We have a two-class machine learning model that predicts based on 13 features: [\'A\', \'B\', \'C\', \'D\', \'E\', \'F\', \'G\', \'H\', \'I\', \'J\', \'K\', \'L\', \'M\']. The dataset below contains the change in feature values \'A\' through \'M\' with respect to a given instance and the corresponding change in model outputs."\n\nDataset:\n```\nChange in Input: A: -0.020, B: 0.050, C: 0.275, D: 0.287, E: 0.011, F: 0.133, G: 0.134, H: -0.012, I: -0.091, J: -0.136, K: -0.023, L: -0.246, M: -0.097\nChange in Output: 1\n\nChange in Input: A: 0.043, B: -0.071, C: -0.162, D: -0.349, E: 0.170, F: -0.006, G: 0.029, H: 0.064, I: 0.076, J: 0.008, K: 0.051, L: 0.074, M: -0.027\nChange in Output: 0\n\nChange in Input: A: -0.204, B: 0.023, C: 0.071, D: -0.306, E: -0.008, F: -0.193, G: -0.076, H: -0.128, I: -0.064, J: 0.038, K: 0.028, L: 0.099, M: 0.050\nChange in Output: 0\n\nChange in Input: A: -0.031, B: -0.131, C: 0.152, D: 0.292, E: 0.085, F: 0.049, G: 0.052, H: 0.035, I: -0.277, J: -0.168, K: -0.194, L: -0.188, M: -0.016\nChange in Output: 1\n\nChange in Input: A: -0.123, B: 0.084, C: 0.016, D: -0.436, E: 0.085, F: 0.044, G: -0.084, H: 0.034, I: -0.010, J: -0.097, K: 0.052, L: 0.098, M: 0.080\nChange in Output: 0\n\nChange in Input: A: 0.112, B: -0.007, C: -0.040, D: -0.319, E: -0.170, F: -0.087, G: -0.120, H: 0.041, I: 0.039, J: 0.001, K: 0.095, L: -0.190, M: -0.060\nChange in Output: 0\n\nChange in Input: A: -0.029, B: -0.100, C: 0.150, D: 0.356, E: 0.031, F: 0.103, G: -0.038, H: -0.056, I: -0.008, J: 0.021, K: 0.097, L: 0.027, M: -0.153\nChange in Output: 1\n\nChange in Input: A: -0.179, B: -0.060, C: 0.004, D: 0.412, E: 0.042, F: 0.038, G: 0.065, H: -0.029, I: 0.069, J: 0.114, K: 0.018, L: -0.047, M: 0.126\nChange in Output: 1\n```\n\nQuestion: "Based on the above set, what are the five most important features driving the output?"\n\nInstructions: "For each feature, starting with \'A\' and continuing to \'M\':\n\n1. Analyze the feature in question. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature \'B\', determine its relative importance compared to \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from \'A\' to \'M\' are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of features from \'A\' to \'M\' from most important to least important, in descending order, separated by commas. Only provide the feature names on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We have a two-class machine learning model that predicts based on 13 features: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M']. The dataset below contains the change in feature values 'A' through 'M' with respect to a given instance and the corresponding change in model outputs."
+
+Dataset:
+```
+Change in Input: A: -0.020, B: 0.050, C: 0.275, D: 0.287, E: 0.011, F: 0.133, G: 0.134, H: -0.012, I: -0.091, J: -0.136, K: -0.023, L: -0.246, M: -0.097
+Change in Output: 1
+
+Change in Input: A: 0.043, B: -0.071, C: -0.162, D: -0.349, E: 0.170, F: -0.006, G: 0.029, H: 0.064, I: 0.076, J: 0.008, K: 0.051, L: 0.074, M: -0.027
+Change in Output: 0
+
+Change in Input: A: -0.204, B: 0.023, C: 0.071, D: -0.306, E: -0.008, F: -0.193, G: -0.076, H: -0.128, I: -0.064, J: 0.038, K: 0.028, L: 0.099, M: 0.050
+Change in Output: 0
+
+Change in Input: A: -0.031, B: -0.131, C: 0.152, D: 0.292, E: 0.085, F: 0.049, G: 0.052, H: 0.035, I: -0.277, J: -0.168, K: -0.194, L: -0.188, M: -0.016
+Change in Output: 1
+
+Change in Input: A: -0.123, B: 0.084, C: 0.016, D: -0.436, E: 0.085, F: 0.044, G: -0.084, H: 0.034, I: -0.010, J: -0.097, K: 0.052, L: 0.098, M: 0.080
+Change in Output: 0
+
+Change in Input: A: 0.112, B: -0.007, C: -0.040, D: -0.319, E: -0.170, F: -0.087, G: -0.120, H: 0.041, I: 0.039, J: 0.001, K: 0.095, L: -0.190, M: -0.060
+Change in Output: 0
+
+Change in Input: A: -0.029, B: -0.100, C: 0.150, D: 0.356, E: 0.031, F: 0.103, G: -0.038, H: -0.056, I: -0.008, J: 0.021, K: 0.097, L: 0.027, M: -0.153
+Change in Output: 1
+
+Change in Input: A: -0.179, B: -0.060, C: 0.004, D: 0.412, E: 0.042, F: 0.038, G: 0.065, H: -0.029, I: 0.069, J: 0.114, K: 0.018, L: -0.047, M: 0.126
+Change in Output: 1
+```
+
+Question: "Based on the above set, what are the five most important features driving the output?"
+
+Instructions: "For each feature, starting with 'A' and continuing to 'M':
+
+1. Analyze the feature in question. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'M' are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of features from 'A' to 'M' from most important to least important, in descending order, separated by commas. Only provide the feature names on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+Analyzing the dataset, we can see that the changes in the features are not uniform and vary from instance to instance. This suggests that the importance of each feature in determining the output is not constant and depends on the specific instance. However, we can still make some general observations about the importance of each feature.
+
+1. Feature 'A': The changes in 'A' are not consistent in direction with the output. Sometimes a negative change in 'A' corresponds to a positive change in output and sometimes it doesn't. Therefore, the importance of 'A' in determining the output is relatively low. Rating: 30
+
+2. Feature 'B': Similar to 'A', the changes in 'B' are not consistent in direction with the output. Therefore, the importance of 'B' in determining the output is also relatively low. However, the changes in 'B' are generally larger than those in 'A', suggesting that 'B' might be slightly more important than 'A'. Current rank: BA. Rating: 35
+
+3. Feature 'C': The changes in 'C' are generally consistent in direction with the output. A positive change in 'C' usually corresponds to a positive change in output and a negative change in 'C' usually corresponds to a negative change in output. Therefore, 'C' is likely more important than both 'A' and 'B'. Current rank: CBA. Rating: 60
+
+4. Feature 'D': 'D' shows a strong correlation with the output. A positive change in 'D' usually corresponds to a positive change in output and a negative change in 'D' usually corresponds to a negative change in output. Therefore, 'D' is likely the most important feature so far. Current rank: DCBA. Rating: 80
+
+5. Feature 'E': The changes in 'E' are not consistent in direction with the output. Therefore, the importance of 'E' in determining the output is relatively low. However, the changes in 'E' are generally larger than those in 'A' and 'B', suggesting that 'E' might be slightly more important than 'A' and 'B' but less important than 'C' and 'D'. Current rank: DCBEA. Rating: 40
+
+6. Feature 'F': Similar to 'E', the changes in 'F' are not consistent in direction with the output. Therefore, the importance of 'F' in determining the output is also relatively low. However, the changes in 'F' are generally larger than those in 'A', 'B', and 'E', suggesting that 'F' might be slightly more important than 'A', 'B', and 'E' but less important than 'C' and 'D'. Current rank: DCFBEA. Rating: 45
+
+7. Feature 'G': The changes in 'G' are not consistent in direction with the output. Therefore, the importance of 'G' in determining the output is relatively low. However, the changes in 'G' are generally larger than those in 'A', 'B', 'E', and 'F', suggesting that 'G' might be slightly more important than 'A', 'B', 'E', and 'F' but less important than 'C' and 'D'. Current rank: DCGFBEA. Rating: 50
+
+8. Feature 'H': Similar to 'G', the changes in 'H' are not consistent in direction with the output. Therefore, the importance of 'H' in determining the output is also relatively low. However, the changes in 'H' are generally larger than those in 'A', 'B', 'E', 'F', and 'G', suggesting that 'H' might be slightly more important than 'A', 'B', 'E', 'F', and 'G' but less important than 'C' and 'D'. Current rank: DCHGFBEA. Rating: 55
+
+9. Feature 'I': The changes in 'I' are not consistent in direction with the output. Therefore, the importance of 'I' in determining the output is relatively low. However, the changes in 'I' are generally larger than those in 'A', 'B', 'E', 'F', 'G', and 'H', suggesting that 'I' might be slightly more important than 'A', 'B', 'E', 'F', 'G', and 'H' but less important than 'C' and 'D'. Current rank: DCIHGFBEA. Rating: 60
+
+10. Feature 'J': Similar to 'I', the changes in 'J' are not consistent in direction with the output. Therefore, the importance of 'J' in determining the output is also relatively low. However, the changes in 'J' are generally larger than those in 'A', 'B', 'E', 'F', 'G', 'H', and 'I', suggesting that 'J' might be slightly more important than 'A', 'B', 'E', 'F', 'G', 'H', and 'I' but less important than 'C' and 'D'. Current rank: DCJIHGFBEA. Rating: 65
+
+11. Feature 'K': The changes in 'K' are not consistent in direction with the output. Therefore, the importance of 'K' in determining the output is relatively low. However, the changes in 'K' are generally larger than those in 'A', 'B', 'E', 'F', 'G', 'H', 'I', and 'J', suggesting that 'K' might be slightly more important than 'A', 'B', 'E', 'F', 'G', 'H', 'I', and 'J' but less important than 'C' and 'D'. Current rank: DCKJIHGFBEA. Rating: 70
+
+12. Feature 'L': Similar to 'K', the changes in 'L' are not consistent in direction with the output. Therefore, the importance of 'L' in determining the output is also relatively low. However, the changes in 'L' are generally larger than those in 'A', 'B', 'E', 'F', 'G', 'H', 'I', 'J', and 'K', suggesting that 'L' might be slightly more important than 'A', 'B', 'E', 'F', 'G', 'H', 'I', 'J', and 'K' but less important than 'C' and 'D'. Current rank: DCLKJIHGFBEA. Rating: 75
+
+13. Feature 'M': The changes in 'M' are not consistent in direction with the output. Therefore, the importance of 'M' in determining the output is relatively low. However, the changes in 'M' are generally larger than those in 'A', 'B', 'E', 'F', 'G', 'H', 'I', 'J', 'K', and 'L', suggesting that 'M' might be slightly more important than 'A', 'B', 'E', 'F', 'G', 'H', 'I', 'J', 'K', and 'L' but less important than 'C' and 'D'. Final rank: DCMKJIHGFBEA. Rating: 80
+
+Based on the above analysis, the five most important features driving the output are 'D', 'C', 'M', 'K', and 'J'.
+
+D, C, M, K, J
