@@ -1,0 +1,77 @@
+3_gpt-4_ANN_L_adult_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		3
+LLM:			gpt-4
+k:			5
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We have a two-class machine learning model that predicts based on 13 features: [\'A\', \'B\', \'C\', \'D\', \'E\', \'F\', \'G\', \'H\', \'I\', \'J\', \'K\', \'L\', \'M\']. The dataset below contains the change in feature values \'A\' through \'M\' with respect to a given instance and the corresponding change in model outputs."\n\nDataset:\n```\nChange in Input: A: -0.092, B: 0.095, C: 0.508, D: -0.347, E: -0.086, F: 0.527, G: 0.197, H: 0.890, I: 0.919, J: 0.907, K: 1.017, L: 1.062, M: 1.011\nChange in Output: 0\n\nChange in Input: A: -0.011, B: 0.009, C: 0.498, D: -0.346, E: -0.043, F: 0.425, G: -0.076, H: 0.986, I: 0.968, J: 1.157, K: 0.872, L: 1.170, M: 0.857\nChange in Output: 0\n\nChange in Input: A: 0.132, B: 0.207, C: 0.407, D: 0.358, E: -0.126, F: 0.344, G: -0.139, H: 1.076, I: 1.131, J: 1.020, K: 1.013, L: 0.840, M: 0.945\nChange in Output: 1\n\nChange in Input: A: 0.265, B: 0.143, C: 0.642, D: 0.258, E: 0.005, F: 0.354, G: -0.059, H: 0.879, I: 1.082, J: 0.628, K: 0.803, L: 1.094, M: 0.820\nChange in Output: 1\n\nChange in Input: A: 0.463, B: 0.166, C: 0.771, D: 0.230, E: -0.132, F: 0.391, G: -0.031, H: 1.083, I: 0.952, J: 1.026, K: 0.852, L: 0.987, M: 0.961\nChange in Output: 1\n\nChange in Input: A: -0.054, B: 0.167, C: 0.720, D: -0.354, E: -0.164, F: 0.263, G: 0.011, H: 0.897, I: 0.943, J: 1.002, K: 1.009, L: 1.133, M: 0.982\nChange in Output: 0\n\nChange in Input: A: -0.109, B: 0.097, C: 0.494, D: -0.280, E: 0.048, F: 0.359, G: -0.115, H: 0.921, I: 1.078, J: 1.193, K: 1.028, L: 0.772, M: 1.106\nChange in Output: 0\n\nChange in Input: A: -0.041, B: 0.308, C: 0.569, D: 0.351, E: -0.265, F: 0.540, G: -0.048, H: 1.060, I: 0.898, J: 0.949, K: 0.868, L: 1.032, M: 0.790\nChange in Output: 1\n\nChange in Input: A: 0.144, B: 0.157, C: 0.727, D: 0.275, E: 0.180, F: 0.352, G: -0.094, H: 1.042, I: 0.939, J: 1.090, K: 0.928, L: 0.995, M: 1.048\nChange in Output: 1\n\nChange in Input: A: -0.177, B: 0.196, C: 0.439, D: -0.258, E: -0.028, F: 0.500, G: 0.176, H: 0.861, I: 1.017, J: 1.096, K: 1.052, L: 0.884, M: 0.961\nChange in Output: 0\n\nChange in Input: A: 0.052, B: 0.255, C: 0.627, D: 0.327, E: -0.118, F: 0.491, G: 0.088, H: 0.973, I: 1.044, J: 0.946, K: 0.957, L: 0.976, M: 1.179\nChange in Output: 1\n\nChange in Input: A: 0.182, B: 0.024, C: 0.554, D: 0.380, E: 0.037, F: 0.383, G: 0.090, H: 0.885, I: 1.052, J: 0.992, K: 0.959, L: 1.039, M: 0.732\nChange in Output: 1\n\nChange in Input: A: 0.135, B: 0.039, C: 0.437, D: -0.310, E: -0.261, F: 0.406, G: -0.015, H: 0.907, I: 1.180, J: 0.849, K: 1.087, L: 0.849, M: 1.010\nChange in Output: 0\n\nChange in Input: A: -0.059, B: 0.137, C: 0.443, D: -0.294, E: -0.014, F: 0.377, G: 0.040, H: 1.075, I: 0.912, J: 1.042, K: 0.908, L: 0.995, M: 1.080\nChange in Output: 0\n\nChange in Input: A: -0.005, B: -0.120, C: 0.636, D: -0.445, E: 0.052, F: 0.323, G: 0.015, H: 0.938, I: 0.910, J: 0.960, K: 1.068, L: 0.911, M: 0.948\nChange in Output: 0\n\nChange in Input: A: 0.314, B: 0.306, C: 0.654, D: 0.252, E: -0.012, F: 0.487, G: 0.025, H: 1.008, I: 0.924, J: 1.005, K: 1.192, L: 0.888, M: 0.932\nChange in Output: \n```\n\nQuestion: "Based on the above set, estimate the change in output for the final change in input. What are the five most important features driving the output?"\n\nInstructions: "Provide the estimated change in output immediately as a single integer on the first line of your response. Do not provide any further details on the first line. Think about the question. After explaining your reasoning, provide your answer the top five features ranked from most important to least important, in descending order, separated by commas. Only provide the feature names on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We have a two-class machine learning model that predicts based on 13 features: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M']. The dataset below contains the change in feature values 'A' through 'M' with respect to a given instance and the corresponding change in model outputs."
+
+Dataset:
+```
+Change in Input: A: -0.092, B: 0.095, C: 0.508, D: -0.347, E: -0.086, F: 0.527, G: 0.197, H: 0.890, I: 0.919, J: 0.907, K: 1.017, L: 1.062, M: 1.011
+Change in Output: 0
+
+Change in Input: A: -0.011, B: 0.009, C: 0.498, D: -0.346, E: -0.043, F: 0.425, G: -0.076, H: 0.986, I: 0.968, J: 1.157, K: 0.872, L: 1.170, M: 0.857
+Change in Output: 0
+
+Change in Input: A: 0.132, B: 0.207, C: 0.407, D: 0.358, E: -0.126, F: 0.344, G: -0.139, H: 1.076, I: 1.131, J: 1.020, K: 1.013, L: 0.840, M: 0.945
+Change in Output: 1
+
+Change in Input: A: 0.265, B: 0.143, C: 0.642, D: 0.258, E: 0.005, F: 0.354, G: -0.059, H: 0.879, I: 1.082, J: 0.628, K: 0.803, L: 1.094, M: 0.820
+Change in Output: 1
+
+Change in Input: A: 0.463, B: 0.166, C: 0.771, D: 0.230, E: -0.132, F: 0.391, G: -0.031, H: 1.083, I: 0.952, J: 1.026, K: 0.852, L: 0.987, M: 0.961
+Change in Output: 1
+
+Change in Input: A: -0.054, B: 0.167, C: 0.720, D: -0.354, E: -0.164, F: 0.263, G: 0.011, H: 0.897, I: 0.943, J: 1.002, K: 1.009, L: 1.133, M: 0.982
+Change in Output: 0
+
+Change in Input: A: -0.109, B: 0.097, C: 0.494, D: -0.280, E: 0.048, F: 0.359, G: -0.115, H: 0.921, I: 1.078, J: 1.193, K: 1.028, L: 0.772, M: 1.106
+Change in Output: 0
+
+Change in Input: A: -0.041, B: 0.308, C: 0.569, D: 0.351, E: -0.265, F: 0.540, G: -0.048, H: 1.060, I: 0.898, J: 0.949, K: 0.868, L: 1.032, M: 0.790
+Change in Output: 1
+
+Change in Input: A: 0.144, B: 0.157, C: 0.727, D: 0.275, E: 0.180, F: 0.352, G: -0.094, H: 1.042, I: 0.939, J: 1.090, K: 0.928, L: 0.995, M: 1.048
+Change in Output: 1
+
+Change in Input: A: -0.177, B: 0.196, C: 0.439, D: -0.258, E: -0.028, F: 0.500, G: 0.176, H: 0.861, I: 1.017, J: 1.096, K: 1.052, L: 0.884, M: 0.961
+Change in Output: 0
+
+Change in Input: A: 0.052, B: 0.255, C: 0.627, D: 0.327, E: -0.118, F: 0.491, G: 0.088, H: 0.973, I: 1.044, J: 0.946, K: 0.957, L: 0.976, M: 1.179
+Change in Output: 1
+
+Change in Input: A: 0.182, B: 0.024, C: 0.554, D: 0.380, E: 0.037, F: 0.383, G: 0.090, H: 0.885, I: 1.052, J: 0.992, K: 0.959, L: 1.039, M: 0.732
+Change in Output: 1
+
+Change in Input: A: 0.135, B: 0.039, C: 0.437, D: -0.310, E: -0.261, F: 0.406, G: -0.015, H: 0.907, I: 1.180, J: 0.849, K: 1.087, L: 0.849, M: 1.010
+Change in Output: 0
+
+Change in Input: A: -0.059, B: 0.137, C: 0.443, D: -0.294, E: -0.014, F: 0.377, G: 0.040, H: 1.075, I: 0.912, J: 1.042, K: 0.908, L: 0.995, M: 1.080
+Change in Output: 0
+
+Change in Input: A: -0.005, B: -0.120, C: 0.636, D: -0.445, E: 0.052, F: 0.323, G: 0.015, H: 0.938, I: 0.910, J: 0.960, K: 1.068, L: 0.911, M: 0.948
+Change in Output: 0
+
+Change in Input: A: 0.314, B: 0.306, C: 0.654, D: 0.252, E: -0.012, F: 0.487, G: 0.025, H: 1.008, I: 0.924, J: 1.005, K: 1.192, L: 0.888, M: 0.932
+Change in Output: 
+```
+
+Question: "Based on the above set, estimate the change in output for the final change in input. What are the five most important features driving the output?"
+
+Instructions: "Provide the estimated change in output immediately as a single integer on the first line of your response. Do not provide any further details on the first line. Think about the question. After explaining your reasoning, provide your answer the top five features ranked from most important to least important, in descending order, separated by commas. Only provide the feature names on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+1
+
+The change in output seems to be influenced by a combination of the features rather than a single feature. However, by observing the dataset, it appears that when the values of features 'H', 'I', 'J', 'K', and 'L' are high, the output tends to be 1. Conversely, when these values are lower, the output tends to be 0. Therefore, these features seem to be the most important in driving the output.
+
+H, I, J, K, L
