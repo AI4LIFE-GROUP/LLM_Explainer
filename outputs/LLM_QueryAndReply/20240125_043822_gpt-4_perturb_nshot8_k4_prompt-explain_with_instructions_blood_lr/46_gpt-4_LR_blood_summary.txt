@@ -1,0 +1,63 @@
+46_gpt-4_LR_blood_summary
+temperature:		0
+n_shot:			8
+explanation_mode:	perturb
+eval_idx:		46
+LLM:			gpt-4
+k:			4
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We have a two-class machine learning model that predicts based on 4 features: [\'A\', \'B\', \'C\', \'D\']. The dataset below contains the change in feature values \'A\' through \'D\' with respect to a given instance and the corresponding change in model outputs."\n\nDataset:\n```\nChange in Input: A: -0.376, B: -0.004, C: 0.036, D: 0.107\nChange in Output: 0\n\nChange in Input: A: 0.397, B: 0.030, C: -0.036, D: 0.077\nChange in Output: 0\n\nChange in Input: A: 0.356, B: -0.103, C: -0.034, D: 0.017\nChange in Output: 0\n\nChange in Input: A: -0.292, B: 0.030, C: 0.186, D: -0.124\nChange in Output: 0\n\nChange in Input: A: 0.303, B: -0.091, C: -0.223, D: -0.018\nChange in Output: -1\n\nChange in Input: A: 0.333, B: -0.119, C: -0.102, D: 0.038\nChange in Output: 0\n\nChange in Input: A: -0.444, B: 0.006, C: -0.035, D: 0.157\nChange in Output: 0\n\nChange in Input: A: -0.372, B: 0.214, C: -0.045, D: 0.107\nChange in Output: 0\n```\n\nQuestion: "Based on the above set, what are the four most important features driving the output?"\n\nInstructions: "For each feature, starting with \'A\' and continuing to \'D\':\n\n1. Analyze the feature in question. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature \'B\', determine its relative importance compared to \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from \'A\' to \'D\' are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of features from \'A\' to \'D\' from most important to least important, in descending order, separated by commas. Only provide the feature names on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We have a two-class machine learning model that predicts based on 4 features: ['A', 'B', 'C', 'D']. The dataset below contains the change in feature values 'A' through 'D' with respect to a given instance and the corresponding change in model outputs."
+
+Dataset:
+```
+Change in Input: A: -0.376, B: -0.004, C: 0.036, D: 0.107
+Change in Output: 0
+
+Change in Input: A: 0.397, B: 0.030, C: -0.036, D: 0.077
+Change in Output: 0
+
+Change in Input: A: 0.356, B: -0.103, C: -0.034, D: 0.017
+Change in Output: 0
+
+Change in Input: A: -0.292, B: 0.030, C: 0.186, D: -0.124
+Change in Output: 0
+
+Change in Input: A: 0.303, B: -0.091, C: -0.223, D: -0.018
+Change in Output: -1
+
+Change in Input: A: 0.333, B: -0.119, C: -0.102, D: 0.038
+Change in Output: 0
+
+Change in Input: A: -0.444, B: 0.006, C: -0.035, D: 0.157
+Change in Output: 0
+
+Change in Input: A: -0.372, B: 0.214, C: -0.045, D: 0.107
+Change in Output: 0
+```
+
+Question: "Based on the above set, what are the four most important features driving the output?"
+
+Instructions: "For each feature, starting with 'A' and continuing to 'D':
+
+1. Analyze the feature in question. Rate the importance of the feature in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the feature, position it in a running rank compared to the features already analyzed. For instance, after analyzing feature 'B', determine its relative importance compared to 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all features from 'A' to 'D' are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of features from 'A' to 'D' from most important to least important, in descending order, separated by commas. Only provide the feature names on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+Feature 'A': The changes in feature 'A' do not seem to have a consistent impact on the output. Both positive and negative changes in 'A' have resulted in no change in output in most instances. However, a positive change in 'A' has resulted in a negative change in output once. This suggests that 'A' might have some influence on the output, but it is not very strong or consistent. Importance: 40
+
+Feature 'B': The changes in feature 'B' also do not seem to have a consistent impact on the output. Both positive and negative changes in 'B' have resulted in no change in output. Unlike 'A', 'B' has not resulted in any change in output even once. This suggests that 'B' has even less influence on the output than 'A'. Running rank: AB
+
+Feature 'C': The changes in feature 'C' seem to have a slightly more consistent impact on the output than 'A' and 'B'. A negative change in 'C' has resulted in a negative change in output once. However, other changes in 'C', both positive and negative, have resulted in no change in output. This suggests that 'C' might have a slightly stronger influence on the output than 'A' and 'B', but it is still not very strong or consistent. Running rank: CAB
+
+Feature 'D': The changes in feature 'D' do not seem to have any consistent impact on the output. Both positive and negative changes in 'D' have resulted in no change in output. This suggests that 'D' has the least influence on the output among all the features. Final rank: CADB
+
+Answer: C, A, D, B
