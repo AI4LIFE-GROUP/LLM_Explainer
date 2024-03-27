@@ -1,4 +1,3 @@
-
 """
 Description:    This script runs the LLM post-hoc pipeline for a given dataset and model.
                 The pipeline consists of the following steps:
@@ -18,6 +17,7 @@ Description:    This script runs the LLM post-hoc pipeline for a given dataset a
 import warnings
 warnings.filterwarnings("ignore")
 import torch
+import time
 import random
 import string
 import numpy as np
@@ -31,7 +31,7 @@ from openxai.LoadModel import DefineModel
 # LLM Imports
 from llms.query import getExperimentID, SaveLLMQueryInfo
 from llms.icl import ConstantICL, PerturbICL
-from llms.response import processGPTReply, RobustQueryGPT
+from llms.response import processGPTReply, RobustQueryGPT, QueryLlama
 from llms.prompt import Prompt
 
 bold    = lambda x: '\033[1m' + x + '\033[0m'
@@ -102,13 +102,14 @@ class Pipeline:
         self.rescale_soft_preds = prompt_params['rescale_soft_preds']
         self.n_round            = prompt_params['n_round']
         self.k                  = prompt_params['k']
+        self.add_explanation    = prompt_params['add_explanation']
         self.feature_types, self.feature_names, self.conversion, self.suffixes = get_feature_details(self.data_name,
                                                                                                      self.n_round)
 
         self.categorical_features = [i for i, f in enumerate(self.feature_types) if f == 'd']
 
         input_str, output_str = prompt_params['input_str'], prompt_params['output_str']
-        if self.delta_format:
+        if self.delta_format and not self.add_explanation:
             input_str = '\nChange in ' + input_str.strip('\n')
             output_str = '\nChange in ' + output_str.strip('\n')
         self.hide_last_pred = bool(prompt_params['prompt_ID'] in ['pe1', 'pe2', 'pe1-topk', 'pe2-topk', 'predict_then_explain'])
@@ -129,7 +130,6 @@ class Pipeline:
             'num_features': self.num_features,
             'n_shot': self.n_shot,
             'final_feature': letters[self.num_features-1],
-            #'final_change': 'FILL IN ',
             'reasoning': 'After explaining your reasoning, p' if self.chain_of_thought else 'P',
             'last_line': ' on the last line' if self.chain_of_thought else '',
             'change_in': ' change in' if self.delta_format else '',
@@ -247,7 +247,6 @@ class Pipeline:
 
             if self.config['prompt_params']['prompt_ID'] in ['pe1', 'pe2', 'pe1-topk', 'pe2-topk', 'predict_then_explain']:
                 pred = None
-            #elif self.config['prompt_params']['prompt_ID'].startswith('pfp'): previous check
             elif self.delta_format:
                 X_ICL -= self.X_test[eval_idx]
                 y_ICL -= pred
@@ -264,23 +263,25 @@ class Pipeline:
                 prompt_text = prompt_outputs
 
             print("PROMPT:")
+            prompt_text = prompt_text.lstrip('\n').rstrip('\n')
+            prompt_text = prompt_text + '\n\nAnswer:' if 'llama' in LLM else prompt_text
             print(prompt_text)
 
             # Query LLM
-            return_tokens = True
-            output = RobustQueryGPT(prompt_text, LLM, api_key, temperature, return_tokens=return_tokens)
-            if return_tokens:
+            if 'gpt' in LLM:
+                output = RobustQueryGPT(prompt_text, LLM, api_key, temperature, return_tokens=True)
                 reply, message, prompt_tokens, completion_tokens = output
-            else:
-                reply, message = output
-
-            # Calculate cost
-            tokens[eval_idx - self.eval_min_idx] = [prompt_tokens, completion_tokens]
-            input_cost, output_cost = api_costs[LLM]
-            input_cost = api_costs[LLM][0] * prompt_tokens/1000
-            output_cost = api_costs[LLM][1] * completion_tokens/1000
-            total_cost = input_cost + output_cost
-            experiment_costs[eval_idx - self.eval_min_idx] = [input_cost, output_cost, total_cost]
+                # Calculate cost
+                tokens[eval_idx - self.eval_min_idx] = [prompt_tokens, completion_tokens]
+                input_cost, output_cost = api_costs[LLM]
+                input_cost = api_costs[LLM][0] * prompt_tokens/1000
+                output_cost = api_costs[LLM][1] * completion_tokens/1000
+                total_cost = input_cost + output_cost
+                experiment_costs[eval_idx - self.eval_min_idx] = [input_cost, output_cost, total_cost]
+            elif 'llama' in LLM:
+                message = QueryLlama(prompt_text, LLM, api_key)
+                reply = message['generated_text']
+                time.sleep(5)
 
             # Process the query reply. Keep only the feature names, remove extra punctuation
             print("REPLY:", reply)
@@ -295,19 +296,21 @@ class Pipeline:
 
         SaveExperimentInfo(self.config, folder_name_exp_id, self.n_shot, LLM, self.model_name, self.data_name, LLM_topks,
                            self.eval_min_idx, self.eval_max_idx, hidden_ys=hidden_ys)
-        total_tokens = np.sum(tokens, axis=0)
-        total_costs = np.sum(experiment_costs, axis=0)
-        # convert to dataframe and save as csv
-        import pandas as pd
-        df = pd.DataFrame({'prompt_tokens': tokens[:, 0], 'completion_tokens': tokens[:, 1],
-                            'input_cost': experiment_costs[:, 0], 'output_cost': experiment_costs[:, 1],
-                            'total_cost': experiment_costs[:, 2]})
-        df.to_csv(f'./outputs/LLM_QueryAndReply/{folder_name_exp_id}/costs.csv', index=False)
-        # now save total costs
-        df = pd.DataFrame({'prompt_tokens': [total_tokens[0]], 'completion_tokens': [total_tokens[1]],
-                            'input_cost': [total_costs[0]], 'output_cost': [total_costs[1]],
-                            'total_cost': [total_costs[2]]})
-        df.to_csv(f'./outputs/LLM_QueryAndReply/{folder_name_exp_id}/total_costs.csv', index=False)
+        
+        if 'gpt' in LLM:
+            total_tokens = np.sum(tokens, axis=0)
+            total_costs = np.sum(experiment_costs, axis=0)
+            # convert to dataframe and save as csv
+            import pandas as pd
+            df = pd.DataFrame({'prompt_tokens': tokens[:, 0], 'completion_tokens': tokens[:, 1],
+                                'input_cost': experiment_costs[:, 0], 'output_cost': experiment_costs[:, 1],
+                                'total_cost': experiment_costs[:, 2]})
+            df.to_csv(f'./outputs/LLM_QueryAndReply/{folder_name_exp_id}/costs.csv', index=False)
+            # now save total costs
+            df = pd.DataFrame({'prompt_tokens': [total_tokens[0]], 'completion_tokens': [total_tokens[1]],
+                                'input_cost': [total_costs[0]], 'output_cost': [total_costs[1]],
+                                'total_cost': [total_costs[2]]})
+            df.to_csv(f'./outputs/LLM_QueryAndReply/{folder_name_exp_id}/total_costs.csv', index=False)
         return folder_name_exp_id
 
 if __name__ == '__main__':
