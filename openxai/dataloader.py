@@ -9,8 +9,13 @@ from errno import EEXIST
 import torch.utils.data as data
 from torch.utils.data import DataLoader
 from urllib.request import urlretrieve
+import numpy as np
+import pickle as pkl
+from sentence_transformers import SentenceTransformer
 # from xai_benchmark.dataset.Synthetic import dgp_synthetic
+
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 def download_file(url, filename):
@@ -37,7 +42,8 @@ def download_file(url, filename):
 
 
 class TabularDataLoader(data.Dataset):
-    def __init__(self, path, filename, label, download=False, scale='minmax', gauss_params=None, file_url=None, dtype=''):
+    def __init__(self, path, filename, label, download=False, scale='minmax', gauss_params=None, file_url=None,
+                 dtype=''):
 
         """
         Load training dataset
@@ -133,6 +139,8 @@ class TabularDataLoader(data.Dataset):
 
             if not os.path.isfile(path + filename):
                 raise RuntimeError("Dataset not found. You can use download=True to download it")
+
+
             self.dataset = pd.read_csv(path + filename)
             self.target = label
             self.targets = self.dataset[self.target]
@@ -154,10 +162,6 @@ class TabularDataLoader(data.Dataset):
 
         if not dtype in ['train', 'val', 'test']:
             raise NotImplementedError('The current version of DataLoader class only provides the following datatypes: {train, val, test}')
-
-        # Save feature names
-        self.feature_names = self.X.columns.to_list()
-        self.target_name = label
 
         # Transform data
         if scale == 'minmax':
@@ -207,6 +211,84 @@ class TabularDataLoader(data.Dataset):
             else:
                 raise
 
+class TextDataLoader(data.Dataset):
+    def __init__(self, path, filename, label, dtype=''):
+
+        """
+        Load training dataset
+        :param path: string with path to training set
+        :param filename: string with name of file
+        :param label: string, column name for label
+        :param dtype: string, type of data to load
+
+        :return: tensor with training data
+        """
+        if not dtype in ['train', 'val', 'test']:
+            raise NotImplementedError('The current version of DataLoader class only provides the following datatypes: {train, val, test}')
+
+        self.path = path
+
+        if not os.path.isfile(path + filename):
+            raise RuntimeError("Dataset not found. You can use download=True to download it")
+
+        # load premade embeddings from pkl
+        if dtype == 'train' or dtype == 'val':
+            with open(path + 'beauty-train-embeddings.pkl', 'rb') as f:
+                self.embeddings = pkl.load(f)
+        else:
+            with open(path + 'beauty-test-embeddings.pkl', 'rb') as f:
+                self.embeddings = pkl.load(f)
+
+        self.dataset = pd.read_pickle(path + filename)
+        self.target = label
+        self.targets = self.dataset[self.target]
+
+        self.dataset = self.dataset.drop(columns=[self.target])
+
+        val_percent_of_train  = 0.2
+        n_train               = self.dataset.shape[0]
+        n_val                 = int(n_train * val_percent_of_train)
+
+        if dtype == 'train':
+            self.dataset = self.dataset[n_val:]
+            self.targets = self.targets[n_val:]
+            self.data    = self.embeddings[n_val:]
+        elif dtype == 'val':
+            self.dataset = self.dataset[0:n_val]
+            self.targets = self.targets[0:n_val]
+            self.data    = self.embeddings[0:n_val]
+        else:
+            self.data = self.embeddings
+
+        self.sentences = self.dataset['text'].values  # convert from dataframe column to list
+
+    def __len__(self):
+        return len(self.dataset)
+
+    def __getitem__(self, idx):
+
+        # select correct row with idx
+        if isinstance(idx, torch.Tensor):
+            idx = idx.tolist()
+
+        return (self.data[idx], self.sentences[idx], self.targets.values[idx])
+
+    def get_number_of_features(self):
+        return self.data.shape[1]
+
+    def get_number_of_instances(self):
+        return self.data.shape[0]
+
+    def mkdir_p(self, mypath):
+        """Creates a directory. equivalent to using mkdir -p on the command line"""
+        try:
+            os.makedirs(mypath)
+        except OSError as exc:  # Python >2.5
+            if exc.errno == EEXIST and os.path.isdir(mypath):
+                pass
+            else:
+                raise
+
 
 def return_loaders(data_name, download=False, batch_size=32, transform=None, scaler='minmax', gauss_params=None):
 
@@ -222,6 +304,7 @@ def return_loaders(data_name, download=False, batch_size=32, transform=None, sca
             'lending-club': ('lending-club', transform, 'loan_repaid'),
             'student': ('student', transform, 'decision'),
             'blood': ('blood', transform, 'C'),
+            'beauty': ('beauty', transform, 'sentiment'),
             }
 
     urls = {
@@ -237,25 +320,31 @@ def return_loaders(data_name, download=False, batch_size=32, transform=None, sca
         prefix = './data/' + dict[data_name][0] + '/'
         file_train = 'train'
         file_test = 'test'
+    elif dict[data_name][0] == 'beauty':
+        prefix = './data/' + dict[data_name][0] + '/'
+        file_train = 'beauty-train.pkl'
+        file_test = 'beauty-test.pkl'
     else:
         prefix = './data/' + dict[data_name][0] + '/'
         file_train = data_name + '-train.csv'
         file_test = data_name + '-test.csv'
 
-    dataset_train = TabularDataLoader(path=prefix, filename=file_train,
-                                      label=dict[data_name][2], scale=scaler,
-                                      gauss_params=gauss_params, download=download,
-                                      file_url=urls.get(file_train[:-4], None), dtype='train')
+    if data_name == 'beauty':
+        dataset_train = TextDataLoader(path=prefix, filename=file_train, label=dict[data_name][2], dtype='train')
+        dataset_val = TextDataLoader(path=prefix, filename=file_train, label=dict[data_name][2], dtype='val')
+        dataset_test = TextDataLoader(path=prefix, filename=file_test, label=dict[data_name][2], dtype='test')
+    else:
+        dataset_train = TabularDataLoader(path=prefix, filename=file_train, label=dict[data_name][2], scale=scaler,
+                                          gauss_params=gauss_params, download=download,
+                                          file_url=urls.get(file_train[:-4], None), dtype='train')
 
-    dataset_val = TabularDataLoader(path=prefix, filename=file_train,
-                                      label=dict[data_name][2], scale=scaler,
-                                      gauss_params=gauss_params, download=download,
-                                      file_url=urls.get(file_train[:-4], None), dtype='val')
+        dataset_val = TabularDataLoader(path=prefix, filename=file_train, label=dict[data_name][2], scale=scaler,
+                                          gauss_params=gauss_params, download=download,
+                                          file_url=urls.get(file_train[:-4], None), dtype='val')
 
-    dataset_test = TabularDataLoader(path=prefix, filename=file_test,
-                                     label=dict[data_name][2], scale=scaler,
-                                     gauss_params=gauss_params, download=download,
-                                     file_url=urls.get(file_test[:-4], None), dtype='test')
+        dataset_test = TabularDataLoader(path=prefix, filename=file_test, label=dict[data_name][2], scale=scaler,
+                                         gauss_params=gauss_params, download=download,
+                                         file_url=urls.get(file_test[:-4], None), dtype='test')
 
     trainloader = DataLoader(dataset_train, batch_size=batch_size, shuffle=True)
     valloader = DataLoader(dataset_val, batch_size=batch_size, shuffle=False)
