@@ -68,7 +68,7 @@ def Explainer(method: str,
             param_dict['discretize_continuous'] = False
             param_dict['categorical_features'] = []  # changed by Nick K
 
-        explainer = LIME(model.predict,
+        explainer = LIME(model,#.predict,
                          param_dict['dataset_tensor'],
                          std=param_dict['std'],
                          mode=param_dict['mode'],

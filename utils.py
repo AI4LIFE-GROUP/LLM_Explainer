@@ -88,11 +88,21 @@ def get_model_names(model_name, dataset_name, base_model_dir):
         compas_model_names = ['20230713_1728_2__compas_lr_0.001_auc_roc_0.84.pt']
         credit_model_names = ['20230713_1730_2__credit_lr_0.001_auc_roc_0.81.pt']
         adult_model_names  = ['20230713_1728_2__adult_lr_0.001_auc_roc_0.90.pt']
+        beauty_model_names = ['20240326_1629_2__beauty_lr_0.001_auc_roc_0.93.pt']
 
         model_file_names_data = {
             'compas': dict(zip(model_names, compas_model_names)),
             'adult': dict(zip(model_names, adult_model_names)),
             'credit': dict(zip(model_names, credit_model_names))
+        }
+    elif 'ClassWeighted' in base_model_dir:
+        beauty_model_names = ['20240326_1629_2__beauty_lr_0.001_auc_roc_0.93.pt',
+                              'none_ann_s',
+                              'none_ann_m',
+                              '20240328_1159_64_32_16_2__beauty_ann_l_0.001_auc_roc_0.94.pt',
+                              'none_ann_xl']
+        model_file_names_data = {
+            'beauty': dict(zip(model_names, beauty_model_names))
         }
     else:
         raise NotImplementedError(f'Not implemented for {base_model_dir}')

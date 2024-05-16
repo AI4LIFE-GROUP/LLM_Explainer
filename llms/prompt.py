@@ -1,7 +1,121 @@
 import string
 import numpy as np
+from sentence_transformers import SentenceTransformer
+import torch
 
-class Prompt():
+class TextClassifierPrompt:
+    def __init__(self, prompt_dict):
+        self.pre_text = prompt_dict['pre_text']
+        self.post_text = prompt_dict['post_text']
+
+    # Generate embeddings
+    def generate_embeddings(self, texts, embedding_model):
+
+        batch_size = 256  # Adjust based on your system's memory capacity
+        embeddings = []
+        print('transforming data...')
+        num_batches = len(texts) // batch_size
+        for i in range(0, len(texts), batch_size):
+            if i % 100 == 0:
+                print(f'Processing batch {i // batch_size + 1}/{num_batches}')
+            batch = texts[i:i + batch_size]
+            batch_embeddings = embedding_model.encode(batch)
+            embeddings.extend(batch_embeddings)
+        return embeddings
+
+    def create_prompt(self, original_sentence, embedding, classifier, num_ICL):
+        embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
+        # original prediction
+        with torch.no_grad():
+            original_prediction = np.argmax(classifier(torch.tensor(embedding[np.newaxis, :])), 1).item()
+
+        neighborhood_sentences = self.generate_neighborhood_sentences(original_sentence, num_samples=500)
+
+        # calculate embeddings for the neighborhood instances
+        print('generating embeddings')
+        neighborhood_embeddings = self.generate_embeddings(neighborhood_sentences, embedding_model)
+        print('embeddings generated')
+
+        # get the class label for the neighborhood instances
+        with torch.no_grad():
+            neighborhood_preds = np.argmax(classifier(torch.tensor(neighborhood_embeddings)), 1)
+
+        # calculate number of negatives and positives in the neighborhood
+        num_negatives, num_positives = torch.sum(neighborhood_preds == 0).item(), torch.sum(neighborhood_preds == 1).item()
+
+        # confirm that there are at least 16/2 negative and 16/2 positive instances in the neighborhood
+        if num_negatives < num_ICL // 2 or num_positives < num_ICL // 2:
+            print("Not enough instances in the neighborhood for a balanced ICL prompt for the sentence:\n",
+                  original_sentence)
+            print("You have {} negative instances and {} positive instances".format(num_negatives, num_positives))
+
+        # class balancing - find indices for num_icl // 2 instances for each class
+        negatives_idx = np.where(neighborhood_preds == 0)[0]
+        positives_idx = np.where(neighborhood_preds == 1)[0]
+
+
+        # get the negative and positive instances
+        negatives = [neighborhood_sentences[i] for i in negatives_idx]
+        positives = [neighborhood_sentences[i] for i in positives_idx]
+
+        print('Original sentence:', original_sentence)
+        print('Original prediction:', original_prediction)
+        dataset_prompt = ''
+        loop_counter, neg_counter, pos_counter = 0, 0, 0
+
+        show_kept_words = False
+
+        while neg_counter + pos_counter < num_ICL:
+            if show_kept_words:
+                # alternate between negative and positive instances
+                if loop_counter % 2 == 0 and neg_counter < num_negatives:
+                    dataset_prompt += '\nKept words: ' + negatives[neg_counter] + '\n' + 'Change in output: ' + str(
+                        original_prediction - 0) + '\n'
+                    neg_counter += 1
+                    loop_counter += 1
+                elif pos_counter < num_positives:
+                    dataset_prompt += '\nKept words: ' + positives[pos_counter] + '\n' + 'Change in output: ' + str(
+                        original_prediction - 1) + '\n'
+                    pos_counter += 1
+                    loop_counter += 1
+            else:
+                # alternate between negative and positive instances
+                if loop_counter % 2 == 0 and neg_counter < num_negatives:
+                    neg_sent = negatives[neg_counter].split()
+                    neg_removed = ' '.join(list(set(original_sentence.split()) - set(neg_sent)))
+                    dataset_prompt += '\nRemoved words: ' + neg_removed + '\n' + 'Change in output: ' + str(
+                        original_prediction - 0) + '\n'
+                    neg_counter += 1
+                    loop_counter += 1
+                elif pos_counter < num_positives:
+                    pos_sent = positives[pos_counter].split()
+                    pos_removed = ' '.join(list(set(original_sentence.split()) - set(pos_sent)))
+                    dataset_prompt += '\nRemoved words: ' + pos_removed + '\n' + 'Change in output: ' + str(
+                        original_prediction - 1) + '\n'
+                    pos_counter += 1
+                    loop_counter += 1
+
+
+        return self.pre_text + '\nOriginal sentence: ' + original_sentence + '\n' + dataset_prompt + self.post_text
+
+    def generate_neighborhood_sentences(self, sentence, num_samples=5000):
+        words = sentence.split()
+        num_words = len(words)
+
+        # Initialize the list to store neighborhood sentences
+        neighborhood_sentences = []  # Include the original sentence as the first sample
+
+        for _ in range(num_samples):
+            num_words_to_remove = np.random.randint(1, num_words)  # Number of words to remove
+            words_to_remove = np.random.choice(range(num_words), size=num_words_to_remove, replace=False)
+            perturbed_sentence = ' '.join([word for idx, word in enumerate(words) if idx not in words_to_remove])
+            neighborhood_sentences.append(perturbed_sentence)
+
+        return neighborhood_sentences
+
+
+
+class Prompt:
     def __init__(self, feature_names, input_str='Input:', output_str='Prediction: ',
                  input_sep='\n\n', output_sep='. ', feature_sep='\n', value_sep='=', n_round=5,
                  hide_feature_details=False, hide_test_sample=False,

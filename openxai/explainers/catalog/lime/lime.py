@@ -6,6 +6,7 @@ from ... api import Explainer
 # import lime
 from .lime_package import lime_tabular
 from .lime_package import lime_image
+from .lime_package import lime_text
 
 
 class LIME(Explainer):
@@ -23,7 +24,6 @@ class LIME(Explainer):
                  categorical_features = None) -> None:  # changed by Nick K
 
         self.output_dim = 2
-        self.data = data.numpy()
         self.mode = mode
         self.model = model
         self.n_samples = n_samples
@@ -33,6 +33,7 @@ class LIME(Explainer):
             categorical_features = []
 
         if self.mode == "tabular":
+            self.data = data.numpy()
             self.explainer = lime_tabular.LimeTabularExplainer(self.data,
                                                                mode="classification",
                                                                sample_around_instance=self.sample_around_instance,
@@ -42,6 +43,8 @@ class LIME(Explainer):
                                                                std=std,
                                                                categorical_features=categorical_features  # changed by Nick K
                                                                )
+        elif self.mode == 'text':
+            self.explainer = lime_text.LimeTextExplainer(class_names=['0', '1'])
         else:
             self.explainer = lime_image.LimeImageExplainer()
 
@@ -68,6 +71,14 @@ class LIME(Explainer):
                 all_perturbations.append(perts)
             # we are explaining the the prob of 1; choosing [0] would explain P(y=0|x)
             return torch.FloatTensor(attribution_scores[1]), all_perturbations
+        elif self.mode == 'text':
+            attribution_scores = []
+            for i in tqdm(range(all_data.shape[0]), disable=disable_tqdm):
+                text = all_data[i]
+                exp = self.explainer.explain_instance(text, self.model, num_samples=self.n_samples)
+                attribution_scores.append(exp)
+
+            return attribution_scores
         else:
             attribution_scores = []
             for i in tqdm(range(all_data.shape[0]), disable=disable_tqdm):

@@ -28,15 +28,15 @@ def MakePostHocExplanations(post_hoc_explainer_name, SEED, inputs, model_name, d
 load_explanations              = False
 load_exp_dir                   = 'outputs/Explainers/20230825_002537_credit_ann_l/'  #if load_explatins is True, then load explanations from this directory. 1 model+dataset at a time (for now)
 use_new_exp_id_for_final_table = True
-exp_id_for_final_table         = '20230829_142318' # if use_new_exp_id_for_final_table is True, then use this exp_id for saving results to the final table
+exp_id_for_final_table         = '20240328_235213' # if use_new_exp_id_for_final_table is True, then use this exp_id for saving results to the final table
 calculateAUC                   = True
 
 SEED           = 0
-algos          = ['sg']#['grad', 'sg', 'ig', 'itg', 'shap', 'lime', 'random']
-data_names     = ['blood', 'adult', 'credit', 'compas']  # ', 'heloc']  # ['compas', 'adult', 'heloc']  # 'german', 'heloc', 'credit']
-model_names    = ['lr', 'ann_l']#, 'lr']  # , 'ann_s', 'ann_m', 'ann_l', 'ann_xl']
-base_model_dir = 'models/ClassWeighted_scale_minmax/'
-ks             = [-1]
+algos          = ['grad']#['grad', 'sg', 'ig', 'itg', 'shap', 'lime', 'random']
+data_names     = ['beauty']#['blood', 'adult', 'credit', 'compas']  # ', 'heloc']  # ['compas', 'adult', 'heloc']  # 'german', 'heloc', 'credit']
+model_names    = ['ann_l']#, 'lr']  # , 'ann_s', 'ann_m', 'ann_l', 'ann_xl']
+base_model_dir = 'models/ClassWeighted/'
+ks             = [3]
 eval_min_idx   = 0
 eval_max_idx   = 100
 
@@ -56,7 +56,7 @@ categorical_features = {
 #LIME
 kernel_width           = 0.75
 std_LIME               = 0.1
-mode                   = 'tabular'
+mode                   = 'text'
 sample_around_instance = True
 n_samples_LIME         = 1000#16
 discretize_continuous  = False
@@ -107,6 +107,10 @@ faithfulness_dicts = {
     "blood": {
         "lr": pd.DataFrame(index=algos, columns=LR_metrics),
         "ann_l": pd.DataFrame(index=algos, columns=ANN_metrics),
+    },
+    "beauty": {
+        "lr": pd.DataFrame(index=algos, columns=LR_metrics),
+        "ann_l": pd.DataFrame(index=algos, columns=ANN_metrics),
     }
 }
 
@@ -131,6 +135,11 @@ for d, data_name in enumerate(data_names):
     X_train, y_train = loader_train.dataset.data, loader_train.dataset.targets.to_numpy()
     X_val, y_val     = loader_val.dataset.data, loader_val.dataset.targets.to_numpy()
     X_test, y_test   = loader_test.dataset.data, loader_test.dataset.targets.to_numpy()
+
+    if mode == 'text':
+        X_train_sentences = loader_train.dataset.sentences
+        X_val_sentences = loader_val.dataset.sentences
+        X_test_sentences = loader_test.dataset.sentences
 
     # Loop over models
     for model_name in model_names:

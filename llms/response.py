@@ -59,7 +59,7 @@ def RobustQueryGPT(prompt_text, LLM, api_key, temperature=0.0, return_tokens=Fal
     while try_query:
         attempts += 1
         try:
-            reply, message, prompt_tokens, completion_tokens = queryGPT(prompt_text, LLM, api_key, temperature, return_tokens=True)
+            reply, message, prompt_tokens, completion_tokens = queryGPT(prompt_text, LLM, api_key, temperature, return_tokens=return_tokens)
             # print(reply, '\nAttempts:', attempts, '\n')
 
             try_query = False

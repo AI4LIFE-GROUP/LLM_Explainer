@@ -3,6 +3,8 @@ import numpy as np
 from openxai.explainers.catalog.perturbation_methods import NormalPerturbation
 
 
+
+
 class Sampler:
     def __init__(self, model, sample_space):
         self.model = model
@@ -140,6 +142,11 @@ class PerturbICL(Sampler):
                                                               self.feature_mask,
                                                               self.n_samples,
                                                               self.feature_types)#.detach().numpy()
+
+class SentenceICL(Sampler):
+    def __init__(self):
+        raise NotImplementedError("SentenceICL not implemented yet")
+
 
 # def most_confident_preds(model, perturbations, eval_idx, n_shot):
 #     perturbations_i = np.array(perturbations[eval_idx])

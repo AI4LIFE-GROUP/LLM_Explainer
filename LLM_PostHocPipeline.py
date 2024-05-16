@@ -31,8 +31,8 @@ from openxai.LoadModel import DefineModel
 # LLM Imports
 from llms.query import getExperimentID, SaveLLMQueryInfo
 from llms.icl import ConstantICL, PerturbICL
-from llms.response import processGPTReply, RobustQueryGPT, QueryLlama
-from llms.prompt import Prompt
+from llms.response import processGPTReply, RobustQueryGPT#, QueryLlama
+from llms.prompt import Prompt, TextClassifierPrompt
 
 bold    = lambda x: '\033[1m' + x + '\033[0m'
 letters = [string.ascii_uppercase[i] for i in range(26)]    # A, B, C, ..., Z
@@ -50,11 +50,13 @@ class Pipeline:
         # Load config/prompts files
         self.config  = _load_config('LLM_pipeline_config.json') if config is None else config
         self.prompts = _load_config('prompts.json') if prompts is None else prompts
+        self.modality = 'text' if self.config['data_name'] in ['beauty'] else 'tabular'
 
         if do_setup:
             self.load_dataset_and_model()
-            self.generate_prompt_instance()
-            self.generate_icl_sampler_instance()
+            if self.modality != 'text':
+                self.generate_prompt_instance()
+                self.generate_icl_sampler_instance()
 
     def load_dataset_and_model(self):
         # Read config
@@ -66,6 +68,7 @@ class Pipeline:
                                                                self.data_name,
                                                                self.base_model_dir)
 
+
         # Load dataset
         download_data                         = False if self.data_name in ['compas', 'blood'] else True
         loader_train, loader_val, loader_test = return_loaders(data_name=self.data_name, download=download_data,
@@ -74,6 +77,12 @@ class Pipeline:
         self.X_train, self.y_train = loader_train.dataset.data, loader_train.dataset.targets.to_numpy()
         self.X_val, self.y_val     = loader_val.dataset.data, loader_val.dataset.targets.to_numpy()
         self.X_test, self.y_test   = loader_test.dataset.data, loader_test.dataset.targets.to_numpy()
+
+        if self.modality == 'text':
+            self.X_train_sentences = loader_train.dataset.sentences
+            self.X_val_sentences = loader_val.dataset.sentences
+            self.X_test_sentences = loader_test.dataset.sentences
+
         self.num_features          = self.X_train.shape[1]
 
         # Load model
@@ -106,7 +115,10 @@ class Pipeline:
         self.feature_types, self.feature_names, self.conversion, self.suffixes = get_feature_details(self.data_name,
                                                                                                      self.n_round)
 
-        self.categorical_features = [i for i, f in enumerate(self.feature_types) if f == 'd']
+        if self.modality == 'text':
+            self.categorical_features = None
+        else:
+            self.categorical_features = [i for i, f in enumerate(self.feature_types) if f == 'd']
 
         input_str, output_str = prompt_params['input_str'], prompt_params['output_str']
         if self.delta_format and not self.add_explanation:
@@ -219,12 +231,25 @@ class Pipeline:
         eval_max_idx             = self.config['eval_max_idx']
         max_test_samples         = self.config['max_test_samples']
         self.eval_max_idx        = min(max_test_samples, len(self.y_test)) if eval_max_idx == -1 else eval_max_idx
+        prompt_ID                = self.config['prompt_params']['prompt_ID']
+        n_shot                   = self.config['n_shot']
+        self.k                   = self.config['prompt_params']['k']
+        self.n_shot              = self.config['n_shot']
+        self.icl_params          = self.config['icl_params']
+        self.sampling_scheme     = self.icl_params['sampling_scheme']
+
 
         # Load openai's API key from text file
         api_key            = loadOpenAPIKeyFromFile(openai_api_key_file_path)
-        folder_name_exp_id = (getExperimentID(**experiment_params) + '_' + LLM + '_' + self.sampling_scheme +
+        if self.modality == 'text':
+            folder_name_exp_id = ((getExperimentID(**experiment_params) + '_' + LLM + '_nshot' + str(n_shot) + '_k'
+                                  + str(self.k) + '_prompt-' + self.config['prompt_params']['prompt_ID']) + '_' +
+                                  self.data_name + '_' + self.model_name)
+        else:
+            folder_name_exp_id = (getExperimentID(**experiment_params) + '_' + LLM + '_' + self.sampling_scheme +
                               '_nshot' + str(self.n_shot) + '_k' + str(self.k) + '_prompt-' +
                               self.config['prompt_params']['prompt_ID']) + '_' + self.data_name + '_' + self.model_name
+            hidden_ys = None if not self.hide_last_pred else []
 
         # To test ICL with explanations
         if self.config['prompt_params']['add_explanation']:
@@ -232,7 +257,6 @@ class Pipeline:
             self.explanations = np.load(f'./OpenXAI_Explanations/icl_{self.data_name}_{self.model_name}_{exp_method}_explanations.npy')
 
         LLM_topks        = []
-        hidden_ys        = None if not self.hide_last_pred else []
         perturb_seed     = self.config['sampling_params']['perturb']['perturb_seed']
         use_eval_as_seed = True if perturb_seed == "eval" else False
         tokens = np.zeros((self.eval_max_idx - self.eval_min_idx, 2))
@@ -242,25 +266,32 @@ class Pipeline:
         for eval_idx in range(self.eval_min_idx, self.eval_max_idx):  # loop each test sample
             print(eval_idx, len(LLM_topks))
 
-            # Get ICL samples (here, as it may depend on eval_idx)
-            X_ICL, y_ICL, pred, exp_x_test, exp_exps, exp_y_test = self.get_icl_samples(eval_idx, use_eval_as_seed)
-
-            if self.config['prompt_params']['prompt_ID'] in ['pe1', 'pe2', 'pe1-topk', 'pe2-topk', 'predict_then_explain']:
-                pred = None
-            elif self.delta_format:
-                X_ICL -= self.X_test[eval_idx]
-                y_ICL -= pred
-            # generate permutation of length n_features
-            #X_ICL = X_ICL[:, perm]
-
-            prompt_outputs = self.prompt.create_prompt(X_train=X_ICL, y_train=y_ICL, x=self.X_test[eval_idx],
-                                                       post_text=self.post_text, x_test=exp_x_test, explanations=exp_exps,
-                                                       y_test=exp_y_test, pre_text=self.pre_text, y=pred, mid_text=self.mid_text)
-            if self.hide_last_pred:
-                prompt_text, last_y = prompt_outputs
-                hidden_ys.append(last_y)
+            if self.modality == 'text':
+                self.prompt = TextClassifierPrompt(prompt_dict=self.prompts[prompt_ID])
+                prompt_text = self.prompt.create_prompt(self.X_test_sentences[eval_idx], self.X_test[eval_idx],
+                                                        self.model, n_shot)
+                self.reply_parse_strategy = ''
             else:
-                prompt_text = prompt_outputs
+
+                # Get ICL samples (here, as it may depend on eval_idx)
+                X_ICL, y_ICL, pred, exp_x_test, exp_exps, exp_y_test = self.get_icl_samples(eval_idx, use_eval_as_seed)
+
+                if self.config['prompt_params']['prompt_ID'] in ['pe1', 'pe2', 'pe1-topk', 'pe2-topk', 'predict_then_explain']:
+                    pred = None
+                elif self.delta_format:
+                    X_ICL -= self.X_test[eval_idx]
+                    y_ICL -= pred
+                # generate permutation of length n_features
+                #X_ICL = X_ICL[:, perm]
+
+                prompt_outputs = self.prompt.create_prompt(X_train=X_ICL, y_train=y_ICL, x=self.X_test[eval_idx],
+                                                           post_text=self.post_text, x_test=exp_x_test, explanations=exp_exps,
+                                                           y_test=exp_y_test, pre_text=self.pre_text, y=pred, mid_text=self.mid_text)
+                if self.hide_last_pred:
+                    prompt_text, last_y = prompt_outputs
+                    hidden_ys.append(last_y)
+                else:
+                    prompt_text = prompt_outputs
 
             print("PROMPT:")
             prompt_text = prompt_text.lstrip('\n').rstrip('\n')
@@ -279,7 +310,7 @@ class Pipeline:
                 total_cost = input_cost + output_cost
                 experiment_costs[eval_idx - self.eval_min_idx] = [input_cost, output_cost, total_cost]
             elif 'llama' in LLM:
-                message = QueryLlama(prompt_text, LLM, api_key)
+                # message = QueryLlama(prompt_text, LLM, api_key)
                 reply = message['generated_text']
                 time.sleep(5)
 
@@ -287,8 +318,11 @@ class Pipeline:
             print("REPLY:", reply)
             LLM_topks.append(processGPTReply(reply, self.reply_parse_strategy))
 
-            if self.hide_last_pred:
-                print("Last y:", last_y)
+            if self.modality == 'tabular':
+                if self.hide_last_pred:
+                    print("Last y:", last_y)
+            else:
+                hidden_ys = None
 
             # Save query info
             SaveLLMQueryInfo(folder_name_exp_id, LLM, self.model_name, self.data_name, temperature,
