@@ -2,12 +2,24 @@ import logging
 import copy
 import numpy as np
 import openai
+import requests
 from openai import OpenAI
 import os
 import string
 import time
 from .query import LLM_APIS
 import re
+letters = [chr(i) for i in range(ord('A'), ord('Z')+1)]
+
+huggingface_familys = {
+    "llama": "meta-llama",
+    "mistral": "mistralai",
+}
+
+huggingface_llms = {
+    "llama-2-70b-chat-hf": "Llama-2-70b-chat-hf",
+    "mixtral-8x7b-instruct": "Mixtral-8x7B-Instruct-v0.1",
+}
 
 
 def extract_pattern(string):
@@ -36,21 +48,54 @@ def processGPTReply(reply, parse_strategy):
     elif parse_strategy.lower() == 'last':
         reply = reply.split('\n')[-1]
     reply_split = reply.split(',')
-    LLM_topk    = [feat.strip().replace('.','') for feat in reply_split]
+    LLM_topk    = [feat.split(':')[0].strip().replace('.','') for feat in reply_split]
     return LLM_topk
 
 def queryGPT(prompt_text, LLM_name, api_key, temperature=0.0, max_tokens=None, return_tokens=False):
     client = OpenAI(api_key=api_key)
     message = [{"role": "user", "content": prompt_text}]  # put in config
-    chat    = client.chat.completions.create(model=LLM_name, logprobs=False,# logit_bias={29815: -100, 1271: -100},
+    chat    = client.chat.completions.create(model=LLM_name, logprobs=False,# logit_bias=logit_bias,
                                              messages=message, temperature=temperature, max_tokens=max_tokens)
     reply   = chat.choices[0].message.content
+        # print(reply)
+        # count += 1
+    
     #print(chat.usage.prompt_tokens, chat.usage.completion_tokens)
     # for token in chat.choices[0].logprobs:
     #     print(token)
     if return_tokens:
         return reply, message, chat.usage.prompt_tokens, chat.usage.completion_tokens
     return reply, message
+
+def QueryHuggingFace(prompt_text, LLM, api_key):
+    llm_family = huggingface_familys["llama" if "llama" in LLM.lower() else "mistral"]
+    LLM = huggingface_llms[LLM]
+    API_URL = f"https://api-inference.huggingface.co/models/{llm_family}/{LLM}"
+    headers = {"Authorization": f"Bearer {api_key}"}
+    payload = {
+        "inputs": prompt_text,
+        "parameters": {
+            "max_new_tokens": 250,  # maximum according to docs
+            "return_full_text": False,
+            "do_sample": False,
+            "use_cache": False,
+            "wait_for_model": True,
+        }
+    }
+    attempts = 0
+    while True:
+        attempts += 1
+        try:
+            output = requests.post(API_URL, headers=headers, json=payload).json()
+            return output[0]
+        except Exception as e:
+            print("ERROR! I'm going to sleep for " + str(attempts) + "s")
+            print("Error:", str(e))
+            try:
+                print("output", output)
+            except:
+                print("No output")
+            time.sleep(attempts+2)
 
 def RobustQueryGPT(prompt_text, LLM, api_key, temperature=0.0, return_tokens=False):
     # Query (keep trying if we get an error)
@@ -239,24 +284,41 @@ def parser_3_3(sample, LLM_top_k):
     text = list(text)
     return text[:LLM_top_k]
 
+def parse_list_format(text):
+    # Regular expression to match list items, considering various formats (numbered, bulleted, etc.)
+    # This pattern now captures a broader set of characters after the marker
+    pattern = re.compile(r'^\s*(?:\d+\.\s*|\*\s*|\-\s*)([A-Za-z0-9 ]+)(?=\s|$)', re.MULTILINE)
+    
+    # Find all matches in the text
+    matches = pattern.findall(text)
+    
+    # Process matches to extract the last word or character if it's like 'Feature A', 'Feature B', etc.
+    features = [match.split()[-1] for match in matches]
+    
+    return features
+
 
 def parseLLMTopKsFromTxtFiles(samples, LLM_top_k, experiment_section='3.1'):
     print("Parsing LLM replies...")
-    if experiment_section == '3.2':
-        LLM_topks = []
+    LLM_topks = []
+    if experiment_section == 'llama':
+        for s, sample in enumerate(samples):
+            LLM_topks.append(parse_list_format(sample))
+    elif experiment_section == '3.2':
         preds = []
         for s, sample in enumerate(samples):
             pred = sample.strip('\n').split('\n')[0]
             preds.append(pred)
             LLM_topks.append(parser_3_3(sample, LLM_top_k))
         LLM_topks = (preds, LLM_topks)
-
+    elif experiment_section == '3.4':
+        for s, sample in enumerate(samples):
+            sample = sample.lstrip('\n').split('\n')[0]
+            LLM_topks.append(parser_3_3(sample, LLM_top_k))
     elif experiment_section == '3.3':
-        LLM_topks = []
         for s, sample in enumerate(samples):
             LLM_topks.append(parser_3_3(sample, LLM_top_k))
     else:
-        LLM_topks = []
         for s, sample in enumerate(samples):
             sample = sample.rstrip('\n')
             topk = sample.split('\n')[-1]

@@ -31,7 +31,7 @@ from openxai.LoadModel import DefineModel
 # LLM Imports
 from llms.query import getExperimentID, SaveLLMQueryInfo
 from llms.icl import ConstantICL, PerturbICL
-from llms.response import processGPTReply, RobustQueryGPT#, QueryLlama
+from llms.response import processGPTReply, RobustQueryGPT#, QueryHuggingFace
 from llms.prompt import Prompt, TextClassifierPrompt
 
 bold    = lambda x: '\033[1m' + x + '\033[0m'
@@ -67,7 +67,6 @@ class Pipeline:
         self.model_dir, self.model_file_name = get_model_names(self.model_name,
                                                                self.data_name,
                                                                self.base_model_dir)
-
 
         # Load dataset
         download_data                         = False if self.data_name in ['compas', 'blood'] else True
@@ -136,6 +135,7 @@ class Pipeline:
                              use_soft_preds=self.use_soft_preds, add_explanation=prompt_params['add_explanation'], prompt_id=prompt_params['prompt_ID'])
         k_words = get_k_words()
         self.k  = self.k if self.k != -1 else len(self.feature_types)
+        self.k  = min(self.k, len(self.feature_types))
 
         prompt_variables = {
             'k_word': k_words[self.k-1],
@@ -261,11 +261,17 @@ class Pipeline:
         use_eval_as_seed = True if perturb_seed == "eval" else False
         tokens = np.zeros((self.eval_max_idx - self.eval_min_idx, 2))
         experiment_costs = np.zeros((self.eval_max_idx - self.eval_min_idx, 3))
-        #perm = [1, 0, 2, 3, 4, 5, 6, 7, 8, 9]#np.random.permutation(self.num_features)
-        #print(perm)
+        # if True:
+        #     perm = np.array([21, 17, 15, 16,  3,  5,  0,  4, 19,  1, 12,  6,  8, 18, 13, 22, 11, 2, 20, 9, 14, 10, 7])
+        #     print(perm)
+        #     alphabet = np.array(list(string.ascii_uppercase))
+        #     gt = self.model.return_ground_truth_importance().detach().numpy()
+        #     gt_idx = np.argsort(-np.abs(gt))
+        #     gt_letters = alphabet[list(gt_idx)]
         for eval_idx in range(self.eval_min_idx, self.eval_max_idx):  # loop each test sample
             print(eval_idx, len(LLM_topks))
 
+            print("Original Pred:", pred)
             if self.modality == 'text':
                 self.prompt = TextClassifierPrompt(prompt_dict=self.prompts[prompt_ID])
                 prompt_text = self.prompt.create_prompt(self.X_test_sentences[eval_idx], self.X_test[eval_idx],
@@ -276,13 +282,13 @@ class Pipeline:
                 # Get ICL samples (here, as it may depend on eval_idx)
                 X_ICL, y_ICL, pred, exp_x_test, exp_exps, exp_y_test = self.get_icl_samples(eval_idx, use_eval_as_seed)
 
-                if self.config['prompt_params']['prompt_ID'] in ['pe1', 'pe2', 'pe1-topk', 'pe2-topk', 'predict_then_explain']:
-                    pred = None
-                elif self.delta_format:
-                    X_ICL -= self.X_test[eval_idx]
-                    y_ICL -= pred
-                # generate permutation of length n_features
-                #X_ICL = X_ICL[:, perm]
+            if self.config['prompt_params']['prompt_ID'] in ['pe1', 'pe2', 'pe1-topk', 'pe2-topk', 'predict_then_explain']:
+                pred = None
+            elif self.delta_format:
+                X_ICL -= self.X_test[eval_idx]
+                y_ICL -= pred
+            # generate permutation of length n_features
+            # X_ICL = X_ICL[:, perm]
 
                 prompt_outputs = self.prompt.create_prompt(X_train=X_ICL, y_train=y_ICL, x=self.X_test[eval_idx],
                                                            post_text=self.post_text, x_test=exp_x_test, explanations=exp_exps,
@@ -309,14 +315,18 @@ class Pipeline:
                 output_cost = api_costs[LLM][1] * completion_tokens/1000
                 total_cost = input_cost + output_cost
                 experiment_costs[eval_idx - self.eval_min_idx] = [input_cost, output_cost, total_cost]
-            elif 'llama' in LLM:
-                # message = QueryLlama(prompt_text, LLM, api_key)
+            elif 'llama' in LLM or 'mixtral' in LLM:
+                # message = QueryHuggingFace(prompt_text, LLM, api_key)
                 reply = message['generated_text']
                 time.sleep(5)
 
             # Process the query reply. Keep only the feature names, remove extra punctuation
             print("REPLY:", reply)
-            LLM_topks.append(processGPTReply(reply, self.reply_parse_strategy))
+            topk = processGPTReply(reply, self.reply_parse_strategy)
+            # print("Top-K", topk)
+            # shuffled_topk = [gt_letters[list(alphabet).index(letter)] for letter in topk]
+            # print("Shuffled Top-K", shuffled_topk)
+            LLM_topks.append(topk)
 
             if self.modality == 'tabular':
                 if self.hide_last_pred:
