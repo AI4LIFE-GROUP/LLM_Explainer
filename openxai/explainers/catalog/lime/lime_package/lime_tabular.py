@@ -6,7 +6,7 @@ import copy
 from functools import partial
 import json
 import warnings
-
+import torch
 import numpy as np
 import scipy as sp
 import sklearn
@@ -387,7 +387,11 @@ class LimeTabularExplainer(object):
 
         #yss = predict_fn(inverse)  # CHANGED FROM DL
         if perturbations is None:
+            # SK: convert data to torch tensor
+            data = torch.tensor(data).float()
             yss = predict_fn(data)
+            # convert yss to numpy array
+            yss = yss.detach().numpy()
 
         # for classification, the model needs to provide a list of tuples - classes
         # along with prediction probabilities

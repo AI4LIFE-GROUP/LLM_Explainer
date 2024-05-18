@@ -33,7 +33,7 @@ exp_id_for_final_table         = '20240328_235213' # if use_new_exp_id_for_final
 calculateAUC                   = True
 
 SEED           = 0
-algos          = ['lime'] #, 'sg', 'ig', 'itg', 'shap', 'lime', 'random']
+algos          = ['shap', 'lime', 'sg', 'ig', 'itg', 'grad', 'random'] #, 'sg', 'ig', 'itg', 'shap', 'lime', 'random']
 data_names     = ['compas']#['blood', 'adult', 'credit', 'compas']  # ', 'heloc']  # ['compas', 'adult', 'heloc']  # 'german', 'heloc', 'credit']
 model_names    = ['ann_xl']#, 'lr']  # , 'ann_s', 'ann_m', 'ann_l', 'ann_xl']
 base_model_dir = 'models/ClassWeighted/'
