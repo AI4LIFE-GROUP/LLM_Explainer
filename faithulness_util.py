@@ -92,7 +92,8 @@ def saveFaithfulnessMetrics(output_dir, FA_AUC, RA_AUC, PGU_AUC, PGI_AUC, orig_i
     paramTxt.close()
 
     # save reply_df to csv
-    replies_df.to_csv(output_dir + 'replies_df.csv', index=False)
+    if replies_df is not None:
+        replies_df.to_csv(output_dir + 'replies_df.csv', index=False)
 
     faithfulness_metrics = dict(
                                 zip(

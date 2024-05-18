@@ -17,6 +17,7 @@ def MakePostHocExplanations(post_hoc_explainer_name, SEED, inputs, model_name, d
         exps = np.load(output_dir + 'test_' + data_name + '_' + model_name + '_' + post_hoc_explainer_name + '_explanations.npy')
     else:
         if post_hoc_explainer_name == 'lime':
+            print(type(inputs))
             exps, _ = explainer.get_explanation(inputs.float(), seed=SEED, disable_tqdm=True)
         else:
             exps = explainer.get_explanation(inputs.float(), label=labels)
@@ -32,7 +33,7 @@ exp_id_for_final_table         = '20240328_235213' # if use_new_exp_id_for_final
 calculateAUC                   = True
 
 SEED           = 0
-algos          = ['grad'] #, 'sg', 'ig', 'itg', 'shap', 'lime', 'random']
+algos          = ['lime'] #, 'sg', 'ig', 'itg', 'shap', 'lime', 'random']
 data_names     = ['compas']#['blood', 'adult', 'credit', 'compas']  # ', 'heloc']  # ['compas', 'adult', 'heloc']  # 'german', 'heloc', 'credit']
 model_names    = ['ann_xl']#, 'lr']  # , 'ann_s', 'ann_m', 'ann_l', 'ann_xl']
 base_model_dir = 'models/ClassWeighted/'
@@ -255,7 +256,7 @@ for d, data_name in enumerate(data_names):
                 faithfulness_dicts[data_name][model_name].loc[algo, "PGU_"+str(k)] = PGU_metric
                 faithfulness_dicts[data_name][model_name].loc[algo, "PGI_"+str(k)] = PGI_metric
 
-                saveFaithfulnessMetrics(output_dir, FAs, RAs, PGUs, PGIs, None, extra_str='_'+model_name+'_'+data_name+'_'+algo+'_k_'+str(k))
+                saveFaithfulnessMetrics(output_dir, FAs, RAs, PGUs, PGIs, None, extra_str='_'+model_name+'_'+data_name+'_'+algo+'_k_'+str(k), replies_df = None)
                 saveParameters(output_dir, 'faithfulness_config_'+model_name+'_'+data_name+'_'+algo+'_k_'+str(k), param)
                 saveParameters('outputs/Explainers/', exp_id_for_final_table + '_faithfulness_dicts', faithfulness_dicts)
 
