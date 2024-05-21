@@ -102,9 +102,13 @@ def get_model_names(model_name, dataset_name, base_model_dir):
                               '20240328_1159_64_32_16_2__beauty_ann_l_0.001_auc_roc_0.94.pt',
                               'none_ann_xl']
         compas_model_names = ['20240517_1606_256_128_64_32_16_2__compas_ann_xl_0.001_auc_roc_0.83.pt']
+        adult_model_names = ['20240520_1939_256_128_64_32_16_2__adult_ann_xl_0.001_auc_roc_0.90.pt']
+        credit_model_names = ['20240520_1957_256_128_64_32_16_2__credit_ann_xl_0.001_auc_roc_0.81.pt']
         model_file_names_data = {
             'beauty': dict(zip(model_names, beauty_model_names)),
-            'compas': dict(zip(model_names, compas_model_names))
+            'compas': dict(zip(model_names, compas_model_names)),
+            'adult': dict(zip(model_names, adult_model_names)),
+            'credit': dict(zip(model_names, credit_model_names))
         }
     else:
         raise NotImplementedError(f'Not implemented for {base_model_dir}')
