@@ -33,18 +33,20 @@ def get_model_architecture(model_name):
                              'ann_m': [32, 16, 2],
                              'ann_l': [64, 32, 16, 2],
                              'ann_xl': [256, 128, 64, 32, 16, 2],
+                             'ann_xxl': [512, 256, 128, 64, 32, 16, 8, 2], 
                              'lr': [2]
                              }  # dimension for each layer for each network to train, ignoring input layer size
     activation_per_layer_per_MLP = {'ann_s': [nn.ReLU(), None],
                                     'ann_m': [nn.ReLU(), nn.ReLU(), None],
                                     'ann_l': [nn.ReLU(), nn.ReLU(), nn.ReLU(), None],
                                     'ann_xl': [nn.ReLU(), nn.ReLU(), nn.ReLU(), nn.ReLU(), nn.ReLU(), None],
+                                    'ann_xxl': [nn.ReLU(), nn.ReLU(), nn.ReLU(), nn.ReLU(), nn.ReLU(), nn.ReLU(), nn.ReLU(), None],
                                     'lr':    [None]
                                     } # ignore input layer size
     return dim_per_layer_per_MLP[model_name], activation_per_layer_per_MLP[model_name]
 
 def get_model_names(model_name, dataset_name, base_model_dir):
-    model_names = ['ann_xl'] #['lr', 'ann_s', 'ann_m', 'ann_l', 'ann_xl']
+    model_names = ['ann_xxl'] #['lr', 'ann_s', 'ann_m', 'ann_l', 'ann_xl']
     model_dirs  = [base_model_dir + model_name.upper() + '/' for model_name in model_names]
 
     model_dirs = dict(zip(model_names, model_dirs))
@@ -103,7 +105,8 @@ def get_model_names(model_name, dataset_name, base_model_dir):
                               'none_ann_xl']
         compas_model_names = ['20240517_1606_256_128_64_32_16_2__compas_ann_xl_0.001_auc_roc_0.83.pt']
         adult_model_names = ['20240520_1939_256_128_64_32_16_2__adult_ann_xl_0.001_auc_roc_0.90.pt']
-        credit_model_names = ['20240520_1957_256_128_64_32_16_2__credit_ann_xl_0.001_auc_roc_0.81.pt']
+        # credit_model_names = ['20240520_1957_256_128_64_32_16_2__credit_ann_xl_0.001_auc_roc_0.81.pt']
+        credit_model_names = ['20240523_1903_512_256_128_64_32_16_8_2__credit_ann_xxl_0.001_auc_roc_0.81.pt']
         model_file_names_data = {
             'beauty': dict(zip(model_names, beauty_model_names)),
             'compas': dict(zip(model_names, compas_model_names)),
