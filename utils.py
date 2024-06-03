@@ -46,7 +46,7 @@ def get_model_architecture(model_name):
     return dim_per_layer_per_MLP[model_name], activation_per_layer_per_MLP[model_name]
 
 def get_model_names(model_name, dataset_name, base_model_dir):
-    model_names = ['ann_xxl'] #['lr', 'ann_s', 'ann_m', 'ann_l', 'ann_xl']
+    model_names = ['ann_xl'] #['lr', 'ann_s', 'ann_m', 'ann_l', 'ann_xl']
     model_dirs  = [base_model_dir + model_name.upper() + '/' for model_name in model_names]
 
     model_dirs = dict(zip(model_names, model_dirs))
@@ -105,13 +105,15 @@ def get_model_names(model_name, dataset_name, base_model_dir):
                               'none_ann_xl']
         compas_model_names = ['20240517_1606_256_128_64_32_16_2__compas_ann_xl_0.001_auc_roc_0.83.pt']
         adult_model_names = ['20240520_1939_256_128_64_32_16_2__adult_ann_xl_0.001_auc_roc_0.90.pt']
-        # credit_model_names = ['20240520_1957_256_128_64_32_16_2__credit_ann_xl_0.001_auc_roc_0.81.pt']
-        credit_model_names = ['20240523_1903_512_256_128_64_32_16_8_2__credit_ann_xxl_0.001_auc_roc_0.81.pt']
+        credit_model_names = ['20240520_1957_256_128_64_32_16_2__credit_ann_xl_0.001_auc_roc_0.81.pt']
+        blood_model_names = ['20240603_1715_256_128_64_32_16_2__blood_ann_xl_0.001_auc_roc_0.76.pt']
+        # credit_model_names = ['20240523_1903_512_256_128_64_32_16_8_2__credit_ann_xxl_0.001_auc_roc_0.81.pt']
         model_file_names_data = {
             'beauty': dict(zip(model_names, beauty_model_names)),
             'compas': dict(zip(model_names, compas_model_names)),
             'adult': dict(zip(model_names, adult_model_names)),
-            'credit': dict(zip(model_names, credit_model_names))
+            'credit': dict(zip(model_names, credit_model_names)),
+            'blood': dict(zip(model_names, blood_model_names))
         }
     else:
         raise NotImplementedError(f'Not implemented for {base_model_dir}')
