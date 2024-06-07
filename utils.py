@@ -106,7 +106,7 @@ def get_model_names(model_name, dataset_name, base_model_dir):
         compas_model_names = ['20240517_1606_256_128_64_32_16_2__compas_ann_xl_0.001_auc_roc_0.83.pt']
         adult_model_names = ['20240520_1939_256_128_64_32_16_2__adult_ann_xl_0.001_auc_roc_0.90.pt']
         credit_model_names = ['20240520_1957_256_128_64_32_16_2__credit_ann_xl_0.001_auc_roc_0.81.pt']
-        blood_model_names = ['20240603_1715_256_128_64_32_16_2__blood_ann_xl_0.001_auc_roc_0.76.pt']
+        blood_model_names = ['20240606_1514_256_128_64_32_16_2__blood_ann_xl_0.001_auc_roc_0.77.pt']
         # credit_model_names = ['20240523_1903_512_256_128_64_32_16_8_2__credit_ann_xxl_0.001_auc_roc_0.81.pt']
         model_file_names_data = {
             'beauty': dict(zip(model_names, beauty_model_names)),
