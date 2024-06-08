@@ -34,7 +34,7 @@ calculateAUC                   = True
 
 SEED           = 0
 algos          = ['shap', 'lime', 'sg', 'ig', 'itg', 'grad', 'random'] #, 'sg', 'ig', 'itg', 'shap', 'lime', 'random']
-data_names     = ['blood']#['blood', 'adult', 'credit', 'compas']  # ', 'heloc']  # ['compas', 'adult', 'heloc']  # 'german', 'heloc', 'credit']
+data_names     = ['heloc']#['blood', 'adult', 'credit', 'compas']  # ', 'heloc']  # ['compas', 'adult', 'heloc']  # 'german', 'heloc', 'credit']
 model_names    = ['ann_xl']#, 'lr']  # , 'ann_s', 'ann_m', 'ann_l', 'ann_xl']
 base_model_dir = 'models/ClassWeighted/'
 ks             = [3]
@@ -51,7 +51,8 @@ categorical_features = {
     'compas': [],#[3, 4, 5],
     'adult': [],#[6, 7, 8, 9, 10, 11, 12],
     'credit': [],
-    'blood': []
+    'blood': [],
+    'heloc': []
 }
 
 #LIME
@@ -99,8 +100,9 @@ faithfulness_dicts = {
         "ann_l": pd.DataFrame(index=algos, columns=ANN_metrics),
     },
     "heloc": {
-        "lr": pd.DataFrame(index=algos, columns=LR_metrics),
-        "ann_l": pd.DataFrame(index=algos, columns=ANN_metrics),
+        # "lr": pd.DataFrame(index=algos, columns=LR_metrics),
+        # "ann_l": pd.DataFrame(index=algos, columns=ANN_metrics),
+        "ann_xl": pd.DataFrame(index=algos, columns=ANN_metrics),
     },
     "credit": {
         # "lr": pd.DataFrame(index=algos, columns=LR_metrics),

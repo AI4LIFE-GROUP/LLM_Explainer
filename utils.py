@@ -107,13 +107,15 @@ def get_model_names(model_name, dataset_name, base_model_dir):
         adult_model_names = ['20240520_1939_256_128_64_32_16_2__adult_ann_xl_0.001_auc_roc_0.90.pt']
         credit_model_names = ['20240520_1957_256_128_64_32_16_2__credit_ann_xl_0.001_auc_roc_0.81.pt']
         blood_model_names = ['20240606_1514_256_128_64_32_16_2__blood_ann_xl_0.001_auc_roc_0.77.pt']
+        heloc_model_names = ['20240608_1634_256_128_64_32_16_2__heloc_ann_xl_0.001_auc_roc_0.81.pt']
         # credit_model_names = ['20240523_1903_512_256_128_64_32_16_8_2__credit_ann_xxl_0.001_auc_roc_0.81.pt']
         model_file_names_data = {
             'beauty': dict(zip(model_names, beauty_model_names)),
             'compas': dict(zip(model_names, compas_model_names)),
             'adult': dict(zip(model_names, adult_model_names)),
             'credit': dict(zip(model_names, credit_model_names)),
-            'blood': dict(zip(model_names, blood_model_names))
+            'blood': dict(zip(model_names, blood_model_names)),
+            'heloc': dict(zip(model_names, heloc_model_names))
         }
     else:
         raise NotImplementedError(f'Not implemented for {base_model_dir}')

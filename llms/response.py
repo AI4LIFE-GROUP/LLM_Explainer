@@ -363,7 +363,6 @@ def removeBadReplies(LLM_topks, orig_inds, k):
     orig_inds = list(orig_inds)
     for l, LLM_topk in reversed(list(enumerate(LLM_topks_temp))):
         isAllLetters = all(len(item) == 1 and item.isalpha() and item.isupper() and (item in string.ascii_uppercase[:k]) for item in LLM_topk)
-
         # if reply is e.g. ["'D'", "'E'", "'F'", "'A'", "'B'"], convert it to ['D', 'E', 'F', 'A', 'B']
         if not isAllLetters:
             LLM_topk          = [item.replace("'", "") for item in LLM_topk]

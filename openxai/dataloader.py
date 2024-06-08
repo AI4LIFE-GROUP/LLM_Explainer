@@ -324,6 +324,10 @@ def return_loaders(data_name, download=False, batch_size=32, transform=None, sca
         prefix = './data/' + dict[data_name][0] + '/'
         file_train = 'beauty-train.pkl'
         file_test = 'beauty-test.pkl'
+    elif dict[data_name][0] == 'heloc':
+        prefix = './data/' + dict[data_name][0] + '/'
+        file_train = 'heloc-train.pkl'
+        file_test = 'heloc-test.pkl'    
     else:
         prefix = './data/' + dict[data_name][0] + '/'
         file_train = data_name + '-train.csv'
@@ -401,12 +405,12 @@ def get_feature_details(dname, n_round):
         suffixes = [''] * num_features
         conversion = [rounder] * num_features
         feature_types = ['c'] * num_features
-    # elif dname == 'heloc':
-    #     num_features = 23
-    #     feature_names = [''] * num_features
-    #     suffixes      = [''] * num_features
-    #     conversion    = [rounder] * num_features
-    #     feature_types = ['c'] * num_features
+    elif dname == 'heloc':
+        num_features = 23
+        feature_names = [''] * num_features
+        suffixes      = [''] * num_features
+        conversion    = [rounder] * num_features
+        feature_types = ['c'] * num_features
     # elif dname == 'german':
     # TODO - not sure how to represent these since we are using A-Z for the feature names in the prompt.
     #     num_features = 60
