@@ -107,7 +107,7 @@ faithfulness_dicts = {
     "credit": {
         # "lr": pd.DataFrame(index=algos, columns=LR_metrics),
         # "ann_l": pd.DataFrame(index=algos, columns=ANN_metrics),
-        "ann_xxl": pd.DataFrame(index=algos, columns=ANN_metrics),
+        "ann_xl": pd.DataFrame(index=algos, columns=ANN_metrics),
     },
     "blood": {
         # "lr": pd.DataFrame(index=algos, columns=LR_metrics),
