@@ -33,8 +33,8 @@ exp_id_for_final_table         = '20240328_235213' # if use_new_exp_id_for_final
 calculateAUC                   = True
 
 SEED           = 0
-algos          = ['shap', 'lime', 'sg', 'ig', 'itg', 'grad', 'random'] #, 'sg', 'ig', 'itg', 'shap', 'lime', 'random']
-data_names     = ['heloc']#['blood', 'adult', 'credit', 'compas']  # ', 'heloc']  # ['compas', 'adult', 'heloc']  # 'german', 'heloc', 'credit']
+algos          = ['lime'] #, 'sg', 'ig', 'itg', 'shap', 'lime', 'random']
+data_names     = ['heloc', 'blood', 'adult', 'credit', 'compas' ]#['blood', 'adult', 'credit', 'compas']  # ', 'heloc']  # ['compas', 'adult', 'heloc']  # 'german', 'heloc', 'credit']
 model_names    = ['ann_xl']#, 'lr']  # , 'ann_s', 'ann_m', 'ann_l', 'ann_xl']
 base_model_dir = 'models/ClassWeighted/'
 ks             = [3]
@@ -60,7 +60,7 @@ kernel_width           = 0.75
 std_LIME               = 0.1
 mode                   = 'tabular'
 sample_around_instance = True
-n_samples_LIME         = 1000#16
+n_samples_LIME         = 16 #1000
 discretize_continuous  = False
 
 # grad
