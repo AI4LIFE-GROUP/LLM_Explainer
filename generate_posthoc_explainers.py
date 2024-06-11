@@ -60,7 +60,7 @@ kernel_width           = 0.75
 std_LIME               = 0.1
 mode                   = 'tabular'
 sample_around_instance = True
-n_samples_LIME         = 16 #1000
+n_samples_LIME         = 1000 #16
 discretize_continuous  = False
 
 # grad
