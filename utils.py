@@ -80,13 +80,22 @@ def get_model_names(model_name, dataset_name, base_model_dir):
             '20230907_1208_32_16_2__blood_ann_m_0.001_auc_roc_0.74.pt',
             '20230907_1208_64_32_16_2__blood_ann_l_0.001_auc_roc_0.75.pt',
             '20230907_1208_256_128_64_32_16_2__blood_ann_xl_0.001_auc_roc_0.76.pt',
+            'non_text_ann']
+        
+        heloc_model_names = [
+            '20230629_0058_2__heloc_lr_0.001_auc_roc_0.80.pt',
+            '',
+            '',
+            '20230629_0059_64_32_16_2__heloc_ann_l_0.001_auc_roc_0.81.pt',
+            '',
             'none_text_ann']
 
         model_file_names_data = {
             'compas': dict(zip(model_names, compas_model_names)),
             'adult': dict(zip(model_names, adult_model_names)),
             'credit': dict(zip(model_names, credit_model_names)),
-            'blood': dict(zip(model_names, blood_model_names))
+            'blood': dict(zip(model_names, blood_model_names)),
+            'heloc': dict(zip(model_names, heloc_model_names))
         }
     elif 'ClassWeighted_scale_standard' in base_model_dir:
         compas_model_names = ['20230713_1728_2__compas_lr_0.001_auc_roc_0.84.pt']
