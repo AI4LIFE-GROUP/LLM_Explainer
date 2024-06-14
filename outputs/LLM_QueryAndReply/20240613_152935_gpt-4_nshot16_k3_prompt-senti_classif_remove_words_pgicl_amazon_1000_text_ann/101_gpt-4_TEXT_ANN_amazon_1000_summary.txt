@@ -1,0 +1,89 @@
+101_gpt-4_TEXT_ANN_amazon_1000_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		101
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: My sister has one also and she loves it.\n\nRemoved words: my has and she .\nChange in output: 1\n\nRemoved words: one also\nChange in output: 0\n\nRemoved words: my she\nChange in output: 1\n\nRemoved words: sister\nChange in output: 0\n\nRemoved words: one also and she it\nChange in output: 1\n\nRemoved words: my sister one also she it .\nChange in output: 0\n\nRemoved words: my sister has also she loves it .\nChange in output: 1\n\nRemoved words: my sister has one also she loves .\nChange in output: 0\n\nRemoved words: my one also and loves it .\nChange in output: 1\n\nRemoved words: one also she it .\nChange in output: 0\n\nRemoved words: my she loves\nChange in output: 1\n\nRemoved words: sister also\nChange in output: 0\n\nRemoved words: my also and she loves it\nChange in output: 1\n\nRemoved words: sister one also loves it .\nChange in output: 0\n\nRemoved words: sister has one and she loves .\nChange in output: 1\n\nRemoved words: sister one and she loves it .\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: My sister has one also and she loves it.
+
+Removed words: my has and she .
+Change in output: 1
+
+Removed words: one also
+Change in output: 0
+
+Removed words: my she
+Change in output: 1
+
+Removed words: sister
+Change in output: 0
+
+Removed words: one also and she it
+Change in output: 1
+
+Removed words: my sister one also she it .
+Change in output: 0
+
+Removed words: my sister has also she loves it .
+Change in output: 1
+
+Removed words: my sister has one also she loves .
+Change in output: 0
+
+Removed words: my one also and loves it .
+Change in output: 1
+
+Removed words: one also she it .
+Change in output: 0
+
+Removed words: my she loves
+Change in output: 1
+
+Removed words: sister also
+Change in output: 0
+
+Removed words: my also and she loves it
+Change in output: 1
+
+Removed words: sister one also loves it .
+Change in output: 0
+
+Removed words: sister has one and she loves .
+Change in output: 1
+
+Removed words: sister one and she loves it .
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The words 'my', 'she', and 'loves' appear to be the most important in driving the output. 
+
+The word 'my' appears in 7 instances where the output changes, indicating a strong correlation. The word 'she' also appears in 7 instances where the output changes, suggesting a similar level of importance. The word 'loves' appears in 6 instances where the output changes, indicating a slightly lower but still significant level of importance.
+
+The words 'sister', 'has', 'one', 'also', 'and', 'it', and '.' appear to have less influence on the output. They either appear less frequently in instances where the output changes, or they appear in a roughly equal number of instances where the output does and does not change, suggesting a weaker correlation.
+
+Therefore, the final rank of the words from most important to least important is: 'my', 'she', 'loves', 'sister', 'has', 'one', 'also', 'and', 'it', '.'.
+
+my, she, loves

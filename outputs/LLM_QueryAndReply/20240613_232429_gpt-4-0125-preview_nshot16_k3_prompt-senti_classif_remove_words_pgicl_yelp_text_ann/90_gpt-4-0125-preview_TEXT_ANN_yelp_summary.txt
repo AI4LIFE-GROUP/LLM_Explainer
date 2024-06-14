@@ -1,0 +1,101 @@
+90_gpt-4-0125-preview_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		90
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: I am far from a sushi connoisseur but I can definitely tell the difference between good food and bad food and this was certainly bad food.\n\nRemoved words: far sushi but can difference between was\nChange in output: 1\n\nRemoved words: i am far from definitely tell difference between good food and bad this was certainly bad .\nChange in output: 0\n\nRemoved words: i the and and bad\nChange in output: 1\n\nRemoved words: i am far from a sushi connoisseur but can definitely the difference between good food and bad food and this was certainly bad food .\nChange in output: 0\n\nRemoved words: far connoisseur but can between good certainly\nChange in output: 1\n\nRemoved words: i am far a sushi connoisseur but i can definitely the good food and bad and was certainly\nChange in output: 0\n\nRemoved words: food and certainly\nChange in output: 1\n\nRemoved words: i am sushi but can definitely tell the between good food and food and this bad food\nChange in output: 0\n\nRemoved words: connoisseur but the this bad\nChange in output: 1\n\nRemoved words: i am from a sushi but can definitely tell the between good and bad food and this was certainly bad food\nChange in output: 0\n\nRemoved words: far from a sushi connoisseur i tell difference between good food and bad food and this was certainly food .\nChange in output: 1\n\nRemoved words: am sushi definitely between good certainly bad .\nChange in output: 0\n\nRemoved words: am far can definitely between good food bad\nChange in output: 1\n\nRemoved words: i am a sushi connoisseur but i can the between good and bad food and was certainly food .\nChange in output: 0\n\nRemoved words: i am far from a sushi connoisseur i can definitely tell the between good food and bad and was bad food\nChange in output: 1\n\nRemoved words: am far a connoisseur i can tell the difference between food bad food and this bad food\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: I am far from a sushi connoisseur but I can definitely tell the difference between good food and bad food and this was certainly bad food.
+
+Removed words: far sushi but can difference between was
+Change in output: 1
+
+Removed words: i am far from definitely tell difference between good food and bad this was certainly bad .
+Change in output: 0
+
+Removed words: i the and and bad
+Change in output: 1
+
+Removed words: i am far from a sushi connoisseur but can definitely the difference between good food and bad food and this was certainly bad food .
+Change in output: 0
+
+Removed words: far connoisseur but can between good certainly
+Change in output: 1
+
+Removed words: i am far a sushi connoisseur but i can definitely the good food and bad and was certainly
+Change in output: 0
+
+Removed words: food and certainly
+Change in output: 1
+
+Removed words: i am sushi but can definitely tell the between good food and food and this bad food
+Change in output: 0
+
+Removed words: connoisseur but the this bad
+Change in output: 1
+
+Removed words: i am from a sushi but can definitely tell the between good and bad food and this was certainly bad food
+Change in output: 0
+
+Removed words: far from a sushi connoisseur i tell difference between good food and bad food and this was certainly food .
+Change in output: 1
+
+Removed words: am sushi definitely between good certainly bad .
+Change in output: 0
+
+Removed words: am far can definitely between good food bad
+Change in output: 1
+
+Removed words: i am a sushi connoisseur but i can the between good and bad food and was certainly food .
+Change in output: 0
+
+Removed words: i am far from a sushi connoisseur i can definitely tell the between good food and bad and was bad food
+Change in output: 1
+
+Removed words: am far a connoisseur i can tell the difference between food bad food and this bad food
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the top three most important words driving the output, we'll analyze the presence and absence of specific words in relation to the change in output. We'll focus on words that appear frequently across different entries with varying outputs.
+
+1. **"sushi"** - Appears in several entries with both changes in output (1 and 0). Its removal doesn't consistently lead to the same change, suggesting its influence might be moderate but not decisive. Importance: 50
+
+2. **"but"** - This word also appears in various contexts with both outputs. Like "sushi," its impact seems moderate. However, considering its role in contrasting information, it might slightly edge out "sushi" in importance. Importance: 55. Rank: but, sushi
+
+3. **"can"** - Appears in multiple entries, and its removal is associated with both outputs. Its role seems crucial in indicating the ability to discern, which is central to the sentence's meaning. Importance: 60. Rank: can, but, sushi
+
+4. **"difference"** - Directly related to the ability to discern quality, which is a key aspect of the original sentence. Its removal and presence are closely tied to changes in output, indicating a high level of importance. Importance: 70. Rank: difference, can, but, sushi
+
+5. **"between"** - Essential for the comparison made in the original sentence. Its removal leads to changes in output, but its importance seems slightly less than "difference" because it supports the concept of comparison rather than being the core of it. Importance: 65. Rank: difference, between, can, but, sushi
+
+6. **"good"** and **"bad"** - These words are central to the sentence's evaluative aspect. Their removal significantly impacts the output, indicating their high importance. However, "bad" appears more crucial since its presence or absence directly influences the negative or positive connotation of the sentence. "Good" supports positive distinctions but seems slightly less critical in driving the output towards a negative perception. Importance: "good" - 80, "bad" - 90. Rank: bad, good, difference, between, can, but, sushi
+
+7. **"food"** - While central to the topic, its removal and presence across various outputs suggest its role is more about the subject matter than influencing the sentiment or discernment aspect directly. Importance: 70. Rank: bad, good, difference, between, food, can, but, sushi
+
+8. **"certainly"** - Its presence amplifies the certainty of the judgment. However, its removal doesn't consistently lead to a predictable change in output, suggesting its importance is moderate in the context of influencing the model's output decisively. Importance: 60. Rank: bad, good, difference, between, food, can, certainly, but, sushi
+
+9. **"far"**, **"connoisseur"**, **"definitely"**, **"tell"**, **"the"**, **"and"**, **"this"**, **"was"** - These words contribute to the sentence's structure and depth but do not individually drive the output as strongly as the words ranked above. Their importance varies, but none surpass the top-ranked words in direct influence on the output. 
+
+Final Rank: bad, good, difference, between, food, can, certainly, but, sushi

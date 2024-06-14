@@ -1,0 +1,101 @@
+5_gpt-4-0125-preview_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		5
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: The ambiance isn\'t much better.\n\nRemoved words: much better\nChange in output: 0\n\nRemoved words: the isn \' t better .\nChange in output: -1\n\nRemoved words: isn t much better .\nChange in output: 0\n\nRemoved words: ambiance \' t much .\nChange in output: -1\n\nRemoved words: ambiance isn \' t .\nChange in output: 0\n\nRemoved words: the \' t better .\nChange in output: -1\n\nRemoved words: the isn \' .\nChange in output: 0\n\nRemoved words: isn t better\nChange in output: -1\n\nRemoved words: ambiance isn \' much\nChange in output: 0\n\nRemoved words: the isn t better\nChange in output: -1\n\nRemoved words: \' much better .\nChange in output: 0\n\nRemoved words: the ambiance t better\nChange in output: -1\n\nRemoved words: .\nChange in output: 0\n\nRemoved words: isn t better\nChange in output: -1\n\nRemoved words: the\nChange in output: 0\n\nRemoved words: the ambiance \' t .\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: The ambiance isn't much better.
+
+Removed words: much better
+Change in output: 0
+
+Removed words: the isn ' t better .
+Change in output: -1
+
+Removed words: isn t much better .
+Change in output: 0
+
+Removed words: ambiance ' t much .
+Change in output: -1
+
+Removed words: ambiance isn ' t .
+Change in output: 0
+
+Removed words: the ' t better .
+Change in output: -1
+
+Removed words: the isn ' .
+Change in output: 0
+
+Removed words: isn t better
+Change in output: -1
+
+Removed words: ambiance isn ' much
+Change in output: 0
+
+Removed words: the isn t better
+Change in output: -1
+
+Removed words: ' much better .
+Change in output: 0
+
+Removed words: the ambiance t better
+Change in output: -1
+
+Removed words: .
+Change in output: 0
+
+Removed words: isn t better
+Change in output: -1
+
+Removed words: the
+Change in output: 0
+
+Removed words: the ambiance ' t .
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the most important words driving the output, we'll analyze each word's presence or absence in the dataset and its impact on the change in output. We'll consider how the removal of certain words or combinations of words affects the output, looking for patterns that suggest a word's importance in determining the model's output.
+
+1. **Ambiance** - The removal of "ambiance" in various combinations leads to both 0 and -1 changes in output. Notably, its removal alone does not directly result in a consistent negative or positive change, suggesting its importance is conditional rather than absolute. Importance: 50
+
+2. **Isn't (isn ' t / isn t)** - The presence or absence of forms of "isn't" shows a more consistent pattern in influencing the output change. Its removal, especially when combined with other words, often leads to a negative change, indicating its role in the sentence's sentiment. However, there are instances where its removal does not change the output, suggesting other words also play a significant role. Importance: 70
+
+3. **Much Better** - The phrase "much better" when removed, consistently results in no change in output (0). This suggests that the phrase, while potentially significant in the original sentence's sentiment, does not independently alter the model's output when removed. Its importance seems lower because its absence doesn't lead to a negative change. Importance: 40
+
+4. **The** - The removal of "the" shows no consistent pattern in affecting the output significantly. In some cases, its removal leads to a change, but in others, it does not. This inconsistency suggests that "the" is not a key driver of the output by itself. Importance: 30
+
+5. **Better** - Considering the variations where "better" is removed, either as part of "much better" or with other words, and observing the changes in output, it's clear that "better" on its own does not significantly drive the output change. Its impact seems tied to its context within the sentence rather than its independent presence or absence. Importance: 40
+
+6. **T ( ' t )** - The contraction part of "isn't" seems to play a role in the output change, especially when considered in the context of negation. Its removal, particularly in combinations that alter the sentence's perceived sentiment, suggests a moderate level of importance. However, its impact is not as clear-cut or consistent as "isn't" in full form. Importance: 60
+
+Ranking the words based on the analysis above, considering their impact on the model's output, both in terms of causing a change and the nature of that change (positive, negative, or neutral), we get:
+
+**isn't, t, ambiance, much better, better, the**
+
+Therefore, the top three most important words driving the output, based on the analysis, are:
+
+isn't, t, ambiance

@@ -1,0 +1,105 @@
+95_gpt-4-0125-preview_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		95
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: This isn\'t a small family restaurant, this is a fine dining establishment.\n\nRemoved words: this isn \' t a a fine dining establishment\nChange in output: 1\n\nRemoved words: isn \' is fine\nChange in output: 0\n\nRemoved words: this isn t a small family restaurant , this is a fine dining establishment .\nChange in output: 1\n\nRemoved words: small\nChange in output: 0\n\nRemoved words: this isn \' a small family restaurant , this is a fine .\nChange in output: 1\n\nRemoved words: isn \' t small family restaurant , this fine dining establishment .\nChange in output: 0\n\nRemoved words: this isn \' t a family restaurant , this is a fine dining establishment .\nChange in output: 1\n\nRemoved words: t is dining\nChange in output: 0\n\nRemoved words: this isn t a family this is a fine dining establishment .\nChange in output: 1\n\nRemoved words: isn \' small restaurant , this is a dining .\nChange in output: 0\n\nRemoved words: this isn a small family restaurant , this is a fine dining establishment\nChange in output: 1\n\nRemoved words: this isn \' t family is .\nChange in output: 0\n\nRemoved words: t a restaurant is fine dining establishment .\nChange in output: 1\n\nRemoved words: this \' a family restaurant is fine dining .\nChange in output: 0\n\nRemoved words: this isn \' t a family restaurant , is a fine dining establishment .\nChange in output: 1\n\nRemoved words: isn restaurant dining\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: This isn't a small family restaurant, this is a fine dining establishment.
+
+Removed words: this isn ' t a a fine dining establishment
+Change in output: 1
+
+Removed words: isn ' is fine
+Change in output: 0
+
+Removed words: this isn t a small family restaurant , this is a fine dining establishment .
+Change in output: 1
+
+Removed words: small
+Change in output: 0
+
+Removed words: this isn ' a small family restaurant , this is a fine .
+Change in output: 1
+
+Removed words: isn ' t small family restaurant , this fine dining establishment .
+Change in output: 0
+
+Removed words: this isn ' t a family restaurant , this is a fine dining establishment .
+Change in output: 1
+
+Removed words: t is dining
+Change in output: 0
+
+Removed words: this isn t a family this is a fine dining establishment .
+Change in output: 1
+
+Removed words: isn ' small restaurant , this is a dining .
+Change in output: 0
+
+Removed words: this isn a small family restaurant , this is a fine dining establishment
+Change in output: 1
+
+Removed words: this isn ' t family is .
+Change in output: 0
+
+Removed words: t a restaurant is fine dining establishment .
+Change in output: 1
+
+Removed words: this ' a family restaurant is fine dining .
+Change in output: 0
+
+Removed words: this isn ' t a family restaurant , is a fine dining establishment .
+Change in output: 1
+
+Removed words: isn restaurant dining
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the top three most important words driving the output, we'll analyze each word mentioned in the "Removed words" column and observe how their removal affects the change in output. We'll consider both when their removal leads to a change in output (indicated by a change from 0 to 1 or vice versa) and when it does not, to assess their importance.
+
+1. **this**: Removal of "this" in various contexts shows a mixed impact on the output, indicating its importance is context-dependent. However, its frequent appearance in both scenarios that change and do not change the output suggests it has a moderate level of importance. **Importance: 50**
+
+2. **isn**: The abbreviation of "is not" appears to have a significant impact in contexts where its removal changes the output, especially when combined with other words. Its removal alone or in significant phrases often leads to a change in output. **Importance: 70**
+
+3. **t**: Short for "not" when removed with "isn" or alone in some contexts, it shows a varied impact. Its role seems less critical on its own but contributes to changes when part of the negation "isn't." **Importance: 60**
+
+4. **a**: The article "a" shows up in various removals, but its impact seems less significant compared to other words, as its removal alone does not directly correlate with a consistent change in output. **Importance: 40**
+
+5. **small**: The adjective "small" when removed, shows a direct impact in one instance but is part of larger phrases in others. Its specific removal does not consistently change the output, suggesting a moderate impact. **Importance: 55**
+
+6. **family**: Similar to "small," "family" has a moderate impact. Its removal in certain contexts changes the output, but it's not as pivotal on its own. **Importance: 55**
+
+7. **restaurant**: The word "restaurant" appears in several key phrases. Its removal, especially in conjunction with descriptors like "small" and "family," tends to influence the output, indicating a higher importance. **Importance: 65**
+
+8. **fine**: "Fine" is part of the phrase "fine dining establishment," which is crucial to the sentence's meaning. Its removal in contexts tends to change the output, highlighting its importance. **Importance: 75**
+
+9. **dining**: Similar to "fine," "dining" is integral to the key phrase. Its removal impacts the output significantly, suggesting high importance. **Importance: 75**
+
+10. **establishment**: Being part of the key phrase "fine dining establishment," its removal impacts the output, but its importance seems slightly less than "fine" and "dining" due to the specific focus on the type of dining experience. **Importance: 70**
+
+After analyzing and ranking these words based on their observed impact on the output changes, the final rank from most important to least important is:
+
+**fine, dining, establishment, isn, restaurant, t, this, family, small, a**

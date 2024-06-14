@@ -1,0 +1,105 @@
+90_gpt-4_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		90
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: I am far from a sushi connoisseur but I can definitely tell the difference between good food and bad food and this was certainly bad food.\n\nRemoved words: i far a sushi connoisseur definitely tell between good food and food\nChange in output: 1\n\nRemoved words: am difference good food and bad was\nChange in output: 0\n\nRemoved words: far from can definitely tell the was certainly\nChange in output: 1\n\nRemoved words: i am far from sushi can food bad food and this bad .\nChange in output: 0\n\nRemoved words: sushi but\nChange in output: 1\n\nRemoved words: i from connoisseur can tell the difference between good food and bad food and was bad .\nChange in output: 0\n\nRemoved words: far\nChange in output: 1\n\nRemoved words: i from a sushi definitely between food and certainly bad .\nChange in output: 0\n\nRemoved words: i far connoisseur can the bad and certainly food .\nChange in output: 1\n\nRemoved words: i am far from a sushi connoisseur but i can definitely tell the between good food bad food and this was certainly bad food\nChange in output: 0\n\nRemoved words: i am from a but can definitely the difference good this certainly food\nChange in output: 1\n\nRemoved words: i am can definitely tell difference food and bad food\nChange in output: 0\n\nRemoved words: i am from sushi but definitely the difference food this was certainly food .\nChange in output: 1\n\nRemoved words: i am far a sushi connoisseur but i tell the difference between food and bad food and this was certainly bad .\nChange in output: 0\n\nRemoved words: i am far from a sushi connoisseur but i can definitely tell the difference between good food bad food and this was certainly bad food .\nChange in output: 1\n\nRemoved words: i am a but i can tell the between good and bad food and was bad food .\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: I am far from a sushi connoisseur but I can definitely tell the difference between good food and bad food and this was certainly bad food.
+
+Removed words: i far a sushi connoisseur definitely tell between good food and food
+Change in output: 1
+
+Removed words: am difference good food and bad was
+Change in output: 0
+
+Removed words: far from can definitely tell the was certainly
+Change in output: 1
+
+Removed words: i am far from sushi can food bad food and this bad .
+Change in output: 0
+
+Removed words: sushi but
+Change in output: 1
+
+Removed words: i from connoisseur can tell the difference between good food and bad food and was bad .
+Change in output: 0
+
+Removed words: far
+Change in output: 1
+
+Removed words: i from a sushi definitely between food and certainly bad .
+Change in output: 0
+
+Removed words: i far connoisseur can the bad and certainly food .
+Change in output: 1
+
+Removed words: i am far from a sushi connoisseur but i can definitely tell the between good food bad food and this was certainly bad food
+Change in output: 0
+
+Removed words: i am from a but can definitely the difference good this certainly food
+Change in output: 1
+
+Removed words: i am can definitely tell difference food and bad food
+Change in output: 0
+
+Removed words: i am from sushi but definitely the difference food this was certainly food .
+Change in output: 1
+
+Removed words: i am far a sushi connoisseur but i tell the difference between food and bad food and this was certainly bad .
+Change in output: 0
+
+Removed words: i am far from a sushi connoisseur but i can definitely tell the difference between good food bad food and this was certainly bad food .
+Change in output: 1
+
+Removed words: i am a but i can tell the between good and bad food and was bad food .
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The task involves identifying the most important words that drive the output of a model. The output changes when certain words are removed from the original sentence. The change in output is either 1 or 0, with 1 indicating a significant change and 0 indicating no change. 
+
+1. "I": This word appears in 10 removal sets, with 5 resulting in a change in output and 5 not resulting in a change. This suggests that "I" has a moderate influence on the output. Importance: 50
+
+2. "Am": This word appears in 8 removal sets, with 4 resulting in a change in output and 4 not resulting in a change. This suggests that "Am" has a moderate influence on the output. Importance: 50
+
+3. "Far": This word appears in 6 removal sets, with 4 resulting in a change in output and 2 not resulting in a change. This suggests that "Far" has a higher influence on the output. Importance: 67
+
+4. "From": This word appears in 7 removal sets, with 3 resulting in a change in output and 4 not resulting in a change. This suggests that "From" has a lower influence on the output. Importance: 43
+
+5. "A": This word appears in 8 removal sets, with 4 resulting in a change in output and 4 not resulting in a change. This suggests that "A" has a moderate influence on the output. Importance: 50
+
+6. "Sushi": This word appears in 6 removal sets, with 3 resulting in a change in output and 3 not resulting in a change. This suggests that "Sushi" has a moderate influence on the output. Importance: 50
+
+7. "Connoisseur": This word appears in 6 removal sets, with 3 resulting in a change in output and 3 not resulting in a change. This suggests that "Connoisseur" has a moderate influence on the output. Importance: 50
+
+8. "But": This word appears in 7 removal sets, with 3 resulting in a change in output and 4 not resulting in a change. This suggests that "But" has a lower influence on the output. Importance: 43
+
+9. "Can": This word appears in 8 removal sets, with 4 resulting in a change in output and 4 not resulting in a change. This suggests that "Can" has a moderate influence on the output. Importance: 50
+
+10. "Definitely": This word appears in 8 removal sets, with 4 resulting in a change in output and 4 not resulting in a change. This suggests that "Definitely" has a moderate influence on the output. Importance: 50
+
+Based on the analysis, the top three most important words driving the output are "Far", "I", and "Am".
+
+Final Rank: Far, I, Am

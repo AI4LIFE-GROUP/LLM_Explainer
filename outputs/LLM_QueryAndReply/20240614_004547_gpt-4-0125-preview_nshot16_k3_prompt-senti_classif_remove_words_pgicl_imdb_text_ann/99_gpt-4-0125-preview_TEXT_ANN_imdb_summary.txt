@@ -1,0 +1,93 @@
+99_gpt-4-0125-preview_TEXT_ANN_imdb_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		99
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: Overall, a delight!  \n\nRemoved words: a\nChange in output: 0\n\nRemoved words: , a delight !\nChange in output: -1\n\nRemoved words: overall , a !\nChange in output: 0\n\nRemoved words: delight\nChange in output: -1\n\nRemoved words: overall a !\nChange in output: 0\n\nRemoved words: , delight\nChange in output: -1\n\nRemoved words: a\nChange in output: 0\n\nRemoved words: , a delight\nChange in output: -1\n\nRemoved words: a\nChange in output: 0\n\nRemoved words: , delight\nChange in output: -1\n\nRemoved words: a\nChange in output: 0\n\nRemoved words: delight\nChange in output: -1\n\nRemoved words: overall a !\nChange in output: 0\n\nRemoved words: delight\nChange in output: -1\n\nRemoved words: overall delight !\nChange in output: 0\n\nRemoved words: , a delight !\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: Overall, a delight!  
+
+Removed words: a
+Change in output: 0
+
+Removed words: , a delight !
+Change in output: -1
+
+Removed words: overall , a !
+Change in output: 0
+
+Removed words: delight
+Change in output: -1
+
+Removed words: overall a !
+Change in output: 0
+
+Removed words: , delight
+Change in output: -1
+
+Removed words: a
+Change in output: 0
+
+Removed words: , a delight
+Change in output: -1
+
+Removed words: a
+Change in output: 0
+
+Removed words: , delight
+Change in output: -1
+
+Removed words: a
+Change in output: 0
+
+Removed words: delight
+Change in output: -1
+
+Removed words: overall a !
+Change in output: 0
+
+Removed words: delight
+Change in output: -1
+
+Removed words: overall delight !
+Change in output: 0
+
+Removed words: , a delight !
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the importance of each word in driving the output, we'll analyze the changes in output when each word is removed from the original sentence "Overall, a delight!".
+
+1. **Overall**: Removal of "Overall" alone does not change the output (0 change). However, when removed with other words except "delight", the change remains 0, indicating its removal does not directly influence the negative or positive sentiment of the model's output. Importance: 10
+
+2. **a**: Removing "a" alone results in no change in output (0 change). Its removal, in combination with other words, where the output changes, seems to be more about the removal of those other words than "a" itself. Importance: 5
+
+3. **delight**: Removal of "delight" consistently results in a negative change in output (-1 change). Whether removed alone or with other words (excluding cases where only "Overall" is left), the removal of "delight" leads to a negative output change. This indicates a strong positive influence of the word "delight" on the model's output. Importance: 100
+
+4. **, and !**: Punctuation marks like "," and "!" when removed with "a delight" or "delight" also lead to a negative change in output, but their removal alone or with other words does not directly influence the output unless "delight" is also removed. Their importance seems tied to the structure rather than sentiment, thus lower than "delight" but potentially higher than "Overall" or "a" due to their presence in significant changes. Importance: 20
+
+Ranking the words based on their importance in determining the output, from most important to least important, we get:
+
+delight, ,, Overall, a

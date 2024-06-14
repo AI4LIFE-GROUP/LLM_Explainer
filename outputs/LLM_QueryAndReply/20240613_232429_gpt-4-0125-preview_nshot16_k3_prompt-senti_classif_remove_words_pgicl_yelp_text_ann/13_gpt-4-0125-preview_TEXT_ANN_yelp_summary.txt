@@ -1,0 +1,97 @@
+13_gpt-4-0125-preview_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		13
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: Everyone is very attentive, providing excellent customer service.\n\nRemoved words: everyone is attentive , providing excellent customer service .\nChange in output: 1\n\nRemoved words: is attentive providing excellent customer service .\nChange in output: 0\n\nRemoved words: everyone is attentive excellent customer .\nChange in output: 1\n\nRemoved words: everyone very attentive , providing excellent customer service .\nChange in output: 0\n\nRemoved words: everyone is attentive , providing excellent customer service .\nChange in output: 1\n\nRemoved words: everyone attentive , providing excellent service .\nChange in output: 0\n\nRemoved words: everyone is attentive providing excellent customer .\nChange in output: 1\n\nRemoved words: everyone is very attentive , customer service\nChange in output: 0\n\nRemoved words: everyone is attentive , providing excellent customer service .\nChange in output: 1\n\nRemoved words: everyone is very attentive excellent customer service .\nChange in output: 0\n\nRemoved words: everyone is attentive , excellent customer service .\nChange in output: 1\n\nRemoved words: is , providing customer .\nChange in output: 0\n\nRemoved words: everyone is attentive , providing excellent customer service .\nChange in output: 1\n\nRemoved words: everyone is very attentive , providing customer service .\nChange in output: 0\n\nRemoved words: everyone is attentive , providing excellent .\nChange in output: 1\n\nRemoved words: everyone very , providing excellent customer .\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: Everyone is very attentive, providing excellent customer service.
+
+Removed words: everyone is attentive , providing excellent customer service .
+Change in output: 1
+
+Removed words: is attentive providing excellent customer service .
+Change in output: 0
+
+Removed words: everyone is attentive excellent customer .
+Change in output: 1
+
+Removed words: everyone very attentive , providing excellent customer service .
+Change in output: 0
+
+Removed words: everyone is attentive , providing excellent customer service .
+Change in output: 1
+
+Removed words: everyone attentive , providing excellent service .
+Change in output: 0
+
+Removed words: everyone is attentive providing excellent customer .
+Change in output: 1
+
+Removed words: everyone is very attentive , customer service
+Change in output: 0
+
+Removed words: everyone is attentive , providing excellent customer service .
+Change in output: 1
+
+Removed words: everyone is very attentive excellent customer service .
+Change in output: 0
+
+Removed words: everyone is attentive , excellent customer service .
+Change in output: 1
+
+Removed words: is , providing customer .
+Change in output: 0
+
+Removed words: everyone is attentive , providing excellent customer service .
+Change in output: 1
+
+Removed words: everyone is very attentive , providing customer service .
+Change in output: 0
+
+Removed words: everyone is attentive , providing excellent .
+Change in output: 1
+
+Removed words: everyone very , providing excellent customer .
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the top three most important words driving the output, we'll analyze the occurrences and the impact of specific words being removed on the change in output. We'll focus on the words that appear to have a direct correlation with changes in the output, either by their presence or absence.
+
+1. **Attentive**: The word "attentive" is removed in several instances, and we see a mix of outputs (both 0 and 1) when it is removed or when other words are removed but "attentive" is kept. This indicates that while "attentive" has some influence, it's not the sole determinant of the output. Its importance seems moderate because its removal alone does not consistently predict the output change. Importance: 50
+
+2. **Everyone**: The removal of "everyone" shows a mix of outputs as well, but focusing on the sentences where only minor words are removed alongside "everyone," the change in output is not consistent, suggesting that "everyone" by itself does not have a strong direct influence on the output. Importance: 40
+
+3. **Very**: The word "very" is closely associated with "attentive" in the original sentence. Its removal in some cases leads to a change in output to 0, but in other cases, the output remains 1 without it. This suggests that "very" modifies the impact of "attentive" but is not a strong independent driver of the output. Importance: 30
+
+4. **Excellent**: The word "excellent" appears to be crucial. Its removal or the removal of words around it while keeping "excellent" tends to lead to a consistent change in output. This suggests a high importance in determining the output. Importance: 70
+
+5. **Customer Service**: Considering "customer" and "service" together as they often appear together in the dataset, their presence or absence significantly influences the output. The removal of phrases including these words tends to lead to a change in output, indicating a high level of importance. However, since they are not always removed together, it's slightly challenging to separate their individual impacts. For simplicity, we'll consider them as a combined entity and assign a high importance. Importance: 60
+
+6. **Providing**: The removal of "providing" in various instances does not show a consistent pattern in changing the output, suggesting its role is less critical compared to words like "excellent" or the phrase "customer service." Importance: 20
+
+Based on the analysis and considering the importance ratings, the top three most important words/phrases driving the output, in descending order of importance, are:
+
+**Excellent, Customer Service, Attentive**

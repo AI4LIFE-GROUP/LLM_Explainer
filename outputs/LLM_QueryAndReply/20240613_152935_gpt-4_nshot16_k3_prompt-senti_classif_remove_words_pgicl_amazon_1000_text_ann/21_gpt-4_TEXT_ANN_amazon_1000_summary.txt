@@ -1,0 +1,95 @@
+21_gpt-4_TEXT_ANN_amazon_1000_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		21
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: Verizon\'s bills, however, are difficult to understand even though their pricing plans are simple.\n\nRemoved words: however their\nChange in output: 0\n\nRemoved words: verizon \' s bills however , difficult to understand even pricing plans simple .\nChange in output: -1\n\nRemoved words: verizon however to even though plans are simple .\nChange in output: 0\n\nRemoved words: verizon \' however to understand even their pricing are simple .\nChange in output: -1\n\nRemoved words: verizon \' s , however , are difficult to even though their pricing plans are simple\nChange in output: 0\n\nRemoved words: verizon \' s bills , however are difficult to even though their pricing plans are simple .\nChange in output: -1\n\nRemoved words: bills , , are difficult understand their plans are simple\nChange in output: 0\n\nRemoved words: verizon \' s bills , however , difficult to understand even though their pricing plans are simple .\nChange in output: -1\n\nRemoved words: \' s however , are to understand even their plans are simple .\nChange in output: 0\n\nRemoved words: verizon \' s bills however difficult to understand even pricing are simple .\nChange in output: -1\n\nRemoved words: \' bills , however are difficult to understand even though their pricing plans are simple\nChange in output: 0\n\nRemoved words: verizon \' s bills , however , are difficult to even though their pricing plans are simple .\nChange in output: -1\n\nRemoved words: verizon \' s , however , are difficult understand their plans are simple .\nChange in output: 0\n\nRemoved words: verizon \' s bills , however are difficult to understand even though their pricing plans are simple .\nChange in output: -1\n\nRemoved words: though .\nChange in output: 0\n\nRemoved words: verizon bills , difficult to even though pricing plans are\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: Verizon's bills, however, are difficult to understand even though their pricing plans are simple.
+
+Removed words: however their
+Change in output: 0
+
+Removed words: verizon ' s bills however , difficult to understand even pricing plans simple .
+Change in output: -1
+
+Removed words: verizon however to even though plans are simple .
+Change in output: 0
+
+Removed words: verizon ' however to understand even their pricing are simple .
+Change in output: -1
+
+Removed words: verizon ' s , however , are difficult to even though their pricing plans are simple
+Change in output: 0
+
+Removed words: verizon ' s bills , however are difficult to even though their pricing plans are simple .
+Change in output: -1
+
+Removed words: bills , , are difficult understand their plans are simple
+Change in output: 0
+
+Removed words: verizon ' s bills , however , difficult to understand even though their pricing plans are simple .
+Change in output: -1
+
+Removed words: ' s however , are to understand even their plans are simple .
+Change in output: 0
+
+Removed words: verizon ' s bills however difficult to understand even pricing are simple .
+Change in output: -1
+
+Removed words: ' bills , however are difficult to understand even though their pricing plans are simple
+Change in output: 0
+
+Removed words: verizon ' s bills , however , are difficult to even though their pricing plans are simple .
+Change in output: -1
+
+Removed words: verizon ' s , however , are difficult understand their plans are simple .
+Change in output: 0
+
+Removed words: verizon ' s bills , however are difficult to understand even though their pricing plans are simple .
+Change in output: -1
+
+Removed words: though .
+Change in output: 0
+
+Removed words: verizon bills , difficult to even though pricing plans are
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The dataset shows the change in output when certain words are removed from the original sentence. A change in output of -1 indicates that the removal of the word(s) had a significant impact on the model's output, while a change of 0 indicates that the removal of the word(s) had no impact.
+
+1. 'Verizon': This word appears in 10 out of 16 removals that resulted in a change in output of -1. This suggests that 'Verizon' is a significant word in driving the output. Importance: 90
+
+2. 'Bills': This word appears in 8 out of 16 removals that resulted in a change in output of -1. This suggests that 'bills' is also a significant word in driving the output, but less so than 'Verizon'. Importance: 80
+
+3. 'However': This word appears in 7 out of 16 removals that resulted in a change in output of -1. This suggests that 'however' is also a significant word in driving the output, but less so than 'Verizon' and 'bills'. Importance: 70
+
+4. 'Difficult': This word appears in 6 out of 16 removals that resulted in a change in output of -1. This suggests that 'difficult' is also a significant word in driving the output, but less so than 'Verizon', 'bills', and 'however'. Importance: 60
+
+5. 'Understand': This word appears in 5 out of 16 removals that resulted in a change in output of -1. This suggests that 'understand' is also a significant word in driving the output, but less so than the other words. Importance: 50
+
+Based on this analysis, the running rank of the words from most important to least important is: Verizon, bills, however, difficult, understand.
+
+Verizon, bills, however

@@ -1,0 +1,91 @@
+18_gpt-4_TEXT_ANN_amazon_1000_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		18
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: The design is very odd, as the ear "clip" is not very comfortable at all.\n\nRemoved words: design is very odd , as the ear clip is not very comfortable at all\nChange in output: 0\n\nRemoved words: the design is odd , as the ear clip is not very comfortable at all .\nChange in output: -1\n\nRemoved words: the design very odd , as the ear clip very comfortable at all .\nChange in output: 0\n\nRemoved words: design is very odd as the ear clip is not very comfortable at all .\nChange in output: -1\n\nRemoved words: the design very odd , the ear is very comfortable at all\nChange in output: 0\n\nRemoved words: the design is odd as ear clip is not comfortable at all\nChange in output: -1\n\nRemoved words: is .\nChange in output: 0\n\nRemoved words: the design is very odd as the ear clip not very comfortable at all .\nChange in output: -1\n\nRemoved words: , clip\nChange in output: 0\n\nRemoved words: the design is very odd , as the ear clip not very comfortable at all .\nChange in output: -1\n\nRemoved words: the design is very odd , as ear clip is very comfortable at all .\nChange in output: 0\n\nRemoved words: the design is very odd , as the clip is not very comfortable at all .\nChange in output: -1\n\nRemoved words: design as the ear is not very comfortable at\nChange in output: 0\n\nRemoved words: the design is very odd the ear not very comfortable at .\nChange in output: -1\n\nRemoved words: the is very odd , as the clip is not very comfortable at all .\nChange in output: 0\n\nRemoved words: the design as ear clip is not very at .\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: The design is very odd, as the ear "clip" is not very comfortable at all.
+
+Removed words: design is very odd , as the ear clip is not very comfortable at all
+Change in output: 0
+
+Removed words: the design is odd , as the ear clip is not very comfortable at all .
+Change in output: -1
+
+Removed words: the design very odd , as the ear clip very comfortable at all .
+Change in output: 0
+
+Removed words: design is very odd as the ear clip is not very comfortable at all .
+Change in output: -1
+
+Removed words: the design very odd , the ear is very comfortable at all
+Change in output: 0
+
+Removed words: the design is odd as ear clip is not comfortable at all
+Change in output: -1
+
+Removed words: is .
+Change in output: 0
+
+Removed words: the design is very odd as the ear clip not very comfortable at all .
+Change in output: -1
+
+Removed words: , clip
+Change in output: 0
+
+Removed words: the design is very odd , as the ear clip not very comfortable at all .
+Change in output: -1
+
+Removed words: the design is very odd , as ear clip is very comfortable at all .
+Change in output: 0
+
+Removed words: the design is very odd , as the clip is not very comfortable at all .
+Change in output: -1
+
+Removed words: design as the ear is not very comfortable at
+Change in output: 0
+
+Removed words: the design is very odd the ear not very comfortable at .
+Change in output: -1
+
+Removed words: the is very odd , as the clip is not very comfortable at all .
+Change in output: 0
+
+Removed words: the design as ear clip is not very at .
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The words that seem to have the most impact on the output are "very", "odd", and "not". 
+
+1. "Very": This word appears in all the sentences where the output changes. When it is removed, the output remains the same, indicating that it has a significant impact on the output. Importance: 90
+
+2. "Odd": This word also appears in all the sentences where the output changes. When it is removed, the output remains the same, indicating that it also has a significant impact on the output. Importance: 85
+
+3. "Not": This word appears in most of the sentences where the output changes. When it is removed, the output remains the same, indicating that it has a significant impact on the output. Importance: 80
+
+The other words in the sentences do not seem to have as much of an impact on the output. When they are removed, the output often remains the same, indicating that they are less important in determining the output.
+
+Final Rank: very, odd, not

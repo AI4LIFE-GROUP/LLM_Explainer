@@ -1,0 +1,99 @@
+24_gpt-4-0125-preview_TEXT_ANN_amazon_1000_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		24
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: WARNING - DO NOT BUY!!.\n\nRemoved words: warning - do not !\nChange in output: 0\n\nRemoved words: warning - do not buy ! .\nChange in output: -1\n\nRemoved words: - .\nChange in output: 0\n\nRemoved words: warning - do not buy ! .\nChange in output: -1\n\nRemoved words: warning - not .\nChange in output: 0\n\nRemoved words: warning - do not buy !\nChange in output: -1\n\nRemoved words: - do !\nChange in output: 0\n\nRemoved words: warning - do not buy\nChange in output: -1\n\nRemoved words: not buy .\nChange in output: 0\n\nRemoved words: warning - not buy ! .\nChange in output: -1\n\nRemoved words: - not buy ! .\nChange in output: 0\n\nRemoved words: warning - do not buy ! .\nChange in output: -1\n\nRemoved words: - not buy ! ! .\nChange in output: 0\n\nRemoved words: warning - do not buy ! .\nChange in output: -1\n\nRemoved words: - do not ! !\nChange in output: 0\n\nRemoved words: warning - do not buy ! .\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: WARNING - DO NOT BUY!!.
+
+Removed words: warning - do not !
+Change in output: 0
+
+Removed words: warning - do not buy ! .
+Change in output: -1
+
+Removed words: - .
+Change in output: 0
+
+Removed words: warning - do not buy ! .
+Change in output: -1
+
+Removed words: warning - not .
+Change in output: 0
+
+Removed words: warning - do not buy !
+Change in output: -1
+
+Removed words: - do !
+Change in output: 0
+
+Removed words: warning - do not buy
+Change in output: -1
+
+Removed words: not buy .
+Change in output: 0
+
+Removed words: warning - not buy ! .
+Change in output: -1
+
+Removed words: - not buy ! .
+Change in output: 0
+
+Removed words: warning - do not buy ! .
+Change in output: -1
+
+Removed words: - not buy ! ! .
+Change in output: 0
+
+Removed words: warning - do not buy ! .
+Change in output: -1
+
+Removed words: - do not ! !
+Change in output: 0
+
+Removed words: warning - do not buy ! .
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the top three most important words driving the output, we'll analyze the occurrences and the impact of each word removal on the model's output. The words in question are "WARNING," "DO," "NOT," "BUY," and the punctuation marks "-", "!!", and ".". We'll consider how their removal individually or in combinations affects the output change.
+
+1. **WARNING**: Removal of "WARNING" in various combinations often leads to a change in output of -1, especially when removed along with "DO NOT BUY !! .". However, when "WARNING" is removed alone or with fewer words, the change is not consistent. Its presence or absence in combinations that lead to a change suggests it has a moderate impact. Importance: 60.
+
+2. **DO**: The word "DO" is part of the phrase "DO NOT BUY", which when removed entirely often results in a -1 change. However, its individual impact compared to the whole phrase is less clear. Its removal with "NOT" and "BUY" suggests it contributes to the negative output, but it's not as decisive on its own. Importance: 50.
+
+3. **NOT**: Similar to "DO", "NOT" is part of critical phrases that lead to a -1 change when removed with "WARNING", "BUY", and sometimes punctuation. Its role is significant in forming negative constructions, which are crucial for the model's output. Importance: 70.
+
+4. **BUY**: The removal of "BUY", especially in combinations with "WARNING - DO NOT !", leads to a -1 change. This suggests that "BUY" is a key word in determining the negative output. Its presence or absence in combinations that significantly affect the output indicates a high importance. Importance: 80.
+
+5. **- (Dash)**: The dash seems to have minimal impact on its own. Changes in output are more tied to the removal of words rather than punctuation in this context. Importance: 20.
+
+6. **!! (Exclamation Marks)**: The exclamation marks, similar to the dash, do not significantly change the output on their own. Their removal, without key words, results in no change or a neutral impact. Importance: 20.
+
+7. **. (Period)**: The period, like other punctuation marks, shows little to no direct impact on the output change. Its removal, in the absence of critical words, does not significantly affect the model's response. Importance: 20.
+
+Based on the analysis, the words can be ranked in terms of their importance to the model's output as follows:
+
+BUY, NOT, WARNING, DO, -, !!, .

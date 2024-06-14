@@ -1,0 +1,97 @@
+56_gpt-4_TEXT_ANN_amazon_1000_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		56
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: Unreliable - I\'m giving up.\n\nRemoved words: unreliable i \' m giving\nChange in output: 0\n\nRemoved words: unreliable - \' m .\nChange in output: -1\n\nRemoved words: unreliable i giving up .\nChange in output: 0\n\nRemoved words: - giving .\nChange in output: -1\n\nRemoved words: unreliable - giving up .\nChange in output: 0\n\nRemoved words: \' .\nChange in output: -1\n\nRemoved words: unreliable - i m giving up .\nChange in output: 0\n\nRemoved words: - .\nChange in output: -1\n\nRemoved words: unreliable - i\nChange in output: 0\n\nRemoved words: - \' giving .\nChange in output: -1\n\nRemoved words: unreliable - i \' giving up .\nChange in output: 0\n\nRemoved words: \' m\nChange in output: -1\n\nRemoved words: unreliable - i .\nChange in output: 0\n\nRemoved words: - \'\nChange in output: -1\n\nRemoved words: - i m giving up .\nChange in output: 0\n\nRemoved words: - i \' m\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: Unreliable - I'm giving up.
+
+Removed words: unreliable i ' m giving
+Change in output: 0
+
+Removed words: unreliable - ' m .
+Change in output: -1
+
+Removed words: unreliable i giving up .
+Change in output: 0
+
+Removed words: - giving .
+Change in output: -1
+
+Removed words: unreliable - giving up .
+Change in output: 0
+
+Removed words: ' .
+Change in output: -1
+
+Removed words: unreliable - i m giving up .
+Change in output: 0
+
+Removed words: - .
+Change in output: -1
+
+Removed words: unreliable - i
+Change in output: 0
+
+Removed words: - ' giving .
+Change in output: -1
+
+Removed words: unreliable - i ' giving up .
+Change in output: 0
+
+Removed words: ' m
+Change in output: -1
+
+Removed words: unreliable - i .
+Change in output: 0
+
+Removed words: - '
+Change in output: -1
+
+Removed words: - i m giving up .
+Change in output: 0
+
+Removed words: - i ' m
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The output changes by -1 when certain words are removed, and remains 0 when others are removed. This suggests that the words causing a change in output are more important in driving the output. 
+
+1. '-': The removal of '-' always results in a change in output. This suggests that '-' is very important in driving the output. I would rate its importance as 100.
+
+2. 'm': The removal of 'm' also results in a change in output. This suggests that 'm' is also very important in driving the output. However, it is not as consistently influential as '-'. I would rate its importance as 90.
+
+3. 'giving': The removal of 'giving' sometimes results in a change in output. This suggests that 'giving' is somewhat important in driving the output. I would rate its importance as 80.
+
+4. 'unreliable': The removal of 'unreliable' does not result in a change in output. This suggests that 'unreliable' is not very important in driving the output. I would rate its importance as 10.
+
+5. 'i': The removal of 'i' does not result in a change in output. This suggests that 'i' is not very important in driving the output. I would rate its importance as 10.
+
+6. 'up': The removal of 'up' does not result in a change in output. This suggests that 'up' is not very important in driving the output. I would rate its importance as 10.
+
+Based on this analysis, the running rank of the words from most important to least important is: '-', 'm', 'giving', 'unreliable', 'i', 'up'.
+
+Answer: -, m, giving

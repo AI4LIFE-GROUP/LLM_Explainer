@@ -1,0 +1,101 @@
+82_gpt-4-0125-preview_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		82
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: I will come back here every time I\'m in Vegas.\n\nRemoved words: i will come back every time \' m in vegas .\nChange in output: 1\n\nRemoved words: i come in .\nChange in output: 0\n\nRemoved words: back every\nChange in output: 1\n\nRemoved words: i m in\nChange in output: 0\n\nRemoved words: i will come here every time i \' m in vegas .\nChange in output: 1\n\nRemoved words: i come here i m in .\nChange in output: 0\n\nRemoved words: come back every time i m\nChange in output: 1\n\nRemoved words: back here \' vegas\nChange in output: 0\n\nRemoved words: will come back every time i \' m .\nChange in output: 1\n\nRemoved words: i back every time \' m in .\nChange in output: 0\n\nRemoved words: come back every .\nChange in output: 1\n\nRemoved words: come\nChange in output: 0\n\nRemoved words: i will come every time \' in vegas\nChange in output: 1\n\nRemoved words: back time\nChange in output: 0\n\nRemoved words: i will come back here every time \' m in vegas .\nChange in output: 1\n\nRemoved words: i will come back here every i m\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: I will come back here every time I'm in Vegas.
+
+Removed words: i will come back every time ' m in vegas .
+Change in output: 1
+
+Removed words: i come in .
+Change in output: 0
+
+Removed words: back every
+Change in output: 1
+
+Removed words: i m in
+Change in output: 0
+
+Removed words: i will come here every time i ' m in vegas .
+Change in output: 1
+
+Removed words: i come here i m in .
+Change in output: 0
+
+Removed words: come back every time i m
+Change in output: 1
+
+Removed words: back here ' vegas
+Change in output: 0
+
+Removed words: will come back every time i ' m .
+Change in output: 1
+
+Removed words: i back every time ' m in .
+Change in output: 0
+
+Removed words: come back every .
+Change in output: 1
+
+Removed words: come
+Change in output: 0
+
+Removed words: i will come every time ' in vegas
+Change in output: 1
+
+Removed words: back time
+Change in output: 0
+
+Removed words: i will come back here every time ' m in vegas .
+Change in output: 1
+
+Removed words: i will come back here every i m
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the most important words driving the output, we'll analyze the occurrences of each word in both contexts where their removal led to a change in output (either from 1 to 0 or 0 to 1). We'll consider the frequency of a word's removal in association with a change in output and how its presence or absence inversely affects the output.
+
+1. **"back"** - Appears in contexts leading to both changes in output to 1 and to 0. Its removal sometimes leads to a change, but it's also absent in changes leading to both 1 and 0. Its influence seems moderate because it's involved in both types of changes but isn't a consistent driver. **Importance: 50**
+
+2. **"every"** - Similar to "back," it appears in changes leading to both 1 and 0. However, its presence and absence are noted in significant changes. Given its repeated involvement, its importance seems slightly higher than "back" due to its role in the phrase "every time," which might be more pivotal. **Importance: 60**. Rank: every, back
+
+3. **"i"** - The word "i" is involved in numerous changes, indicating a high level of importance. Its removal often leads to a change in output, suggesting that the model heavily relies on the subject of the sentence for determining the output. However, its ubiquitous presence in both positive and negative changes slightly dilutes its perceived importance. **Importance: 70**. Rank: i, every, back
+
+4. **"will"** - Its removal is specifically mentioned in contexts leading to a change to 1 and its presence in changes to 0. "Will" seems to have a balanced impact on the output, indicating a moderate level of importance, but not as high as "i". **Importance: 55**. Rank: i, every, will, back
+
+5. **"come"** - The removal of "come" leads to both changes to 1 and to 0, but it's not as frequently involved as "i". Its role seems less critical in determining the output, suggesting a lower importance. **Importance: 45**. Rank: i, every, will, back, come
+
+6. **"'m"** and **"in"** - These words are often removed together, and their removal leads to changes in both directions. They seem to be part of a critical context involving the location ("in Vegas") and the state of being ("I'm"). Their combined importance seems high due to the specific context they create. **Importance: 65** each. Rank: i, every, 'm/in, will, back, come
+
+7. **"Vegas"** - The specific mention of "Vegas" seems crucial for changes to 1, indicating a high importance. Its presence or absence directly influences the model's output, likely due to the unique context it provides. **Importance: 75**. Rank: Vegas, i, every, 'm/in, will, back, come
+
+8. **"here"** and **"time"** - These words are part of phrases leading to changes, but their individual importance seems lower compared to words like "Vegas" or "i". They contribute to the context but are not as pivotal on their own. **Importance: 40** each. Rank: Vegas, i, every, 'm/in, will, back, come, here/time
+
+Final analysis and ranking, considering the balance of positive and negative correlations and the frequency of involvement in changes, suggest that the top three most important words driving the output are:
+
+Vegas, i, every

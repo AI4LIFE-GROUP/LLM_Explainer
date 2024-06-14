@@ -1,0 +1,97 @@
+95_gpt-4_TEXT_ANN_imdb_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		95
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: This movie was kind of long in length, but I enjoyed every minute of it.  \n\nRemoved words: this movie was kind of long in length , but i enjoyed every minute of .\nChange in output: 0\n\nRemoved words: this movie was kind of long in length , but i enjoyed every minute it .\nChange in output: -1\n\nRemoved words: movie was of long in length , but i every minute of it .\nChange in output: 0\n\nRemoved words: this movie was kind of long length , but i enjoyed every minute of it .\nChange in output: -1\n\nRemoved words: this was of in length enjoyed .\nChange in output: 0\n\nRemoved words: long in length , but i enjoyed\nChange in output: -1\n\nRemoved words: this movie was in , but enjoyed every\nChange in output: 0\n\nRemoved words: movie long in length , but i minute of .\nChange in output: -1\n\nRemoved words: this movie of but i enjoyed every\nChange in output: 0\n\nRemoved words: this was kind long , but i minute it\nChange in output: -1\n\nRemoved words: this of long in , but enjoyed minute it\nChange in output: 0\n\nRemoved words: this was kind of long length but i every it .\nChange in output: -1\n\nRemoved words: long every minute\nChange in output: 0\n\nRemoved words: this kind of long in length , but of it .\nChange in output: -1\n\nRemoved words: this of\nChange in output: 0\n\nRemoved words: movie was of long in length , but enjoyed every of it .\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: This movie was kind of long in length, but I enjoyed every minute of it.  
+
+Removed words: this movie was kind of long in length , but i enjoyed every minute of .
+Change in output: 0
+
+Removed words: this movie was kind of long in length , but i enjoyed every minute it .
+Change in output: -1
+
+Removed words: movie was of long in length , but i every minute of it .
+Change in output: 0
+
+Removed words: this movie was kind of long length , but i enjoyed every minute of it .
+Change in output: -1
+
+Removed words: this was of in length enjoyed .
+Change in output: 0
+
+Removed words: long in length , but i enjoyed
+Change in output: -1
+
+Removed words: this movie was in , but enjoyed every
+Change in output: 0
+
+Removed words: movie long in length , but i minute of .
+Change in output: -1
+
+Removed words: this movie of but i enjoyed every
+Change in output: 0
+
+Removed words: this was kind long , but i minute it
+Change in output: -1
+
+Removed words: this of long in , but enjoyed minute it
+Change in output: 0
+
+Removed words: this was kind of long length but i every it .
+Change in output: -1
+
+Removed words: long every minute
+Change in output: 0
+
+Removed words: this kind of long in length , but of it .
+Change in output: -1
+
+Removed words: this of
+Change in output: 0
+
+Removed words: movie was of long in length , but enjoyed every of it .
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The dataset shows the change in output when certain words are removed from the original sentence. A change in output of -1 indicates that the removal of the word(s) had a significant impact on the model's output, while a change of 0 indicates that the removal of the word(s) had no impact. 
+
+1. "This movie was kind of long in length, but I enjoyed every minute of it." - The removal of the entire sentence results in a change of 0, indicating that none of the words in the sentence are individually crucial to the output.
+
+2. "This movie was kind of long in length, but I enjoyed every minute." - The removal of "it" results in a change of -1, indicating that "it" is important to the output.
+
+3. "Movie was of long in length, but I every minute of it." - The removal of "this", "kind", "enjoyed" results in a change of 0, indicating that these words are not crucial to the output.
+
+4. "This movie was kind of long length, but I enjoyed every minute of it." - The removal of "in" results in a change of -1, indicating that "in" is important to the output.
+
+5. "This was of in length enjoyed." - The removal of "movie", "kind", "long", "but", "I", "every", "minute", "of", "it" results in a change of 0, indicating that these words are not crucial to the output.
+
+6. "Long in length, but I enjoyed" - The removal of "this", "movie", "was", "kind", "of", "every", "minute", "of", "it" results in a change of -1, indicating that these words are important to the output.
+
+From the above analysis, it can be inferred that the words "it", "in", and "this", "movie", "was", "kind", "of", "every", "minute", "of", "it" are the most important in driving the output. 
+
+Final ranking: "it", "in", "this", "movie", "was", "kind", "of", "every", "minute", "of", "it".

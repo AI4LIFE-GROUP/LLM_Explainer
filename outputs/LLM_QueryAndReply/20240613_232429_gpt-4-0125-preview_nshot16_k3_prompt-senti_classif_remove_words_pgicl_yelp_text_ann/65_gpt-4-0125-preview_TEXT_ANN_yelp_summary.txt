@@ -1,0 +1,99 @@
+65_gpt-4-0125-preview_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		65
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: The live music on Fridays totally blows.\n\nRemoved words: the music totally blows\nChange in output: 0\n\nRemoved words: the live music on totally .\nChange in output: -1\n\nRemoved words: fridays\nChange in output: 0\n\nRemoved words: totally\nChange in output: -1\n\nRemoved words: music on fridays blows\nChange in output: 0\n\nRemoved words: the fridays totally\nChange in output: -1\n\nRemoved words: the music on fridays totally blows .\nChange in output: 0\n\nRemoved words: the live on totally\nChange in output: -1\n\nRemoved words: fridays\nChange in output: 0\n\nRemoved words: live totally\nChange in output: -1\n\nRemoved words: the on fridays .\nChange in output: 0\n\nRemoved words: the live music\nChange in output: -1\n\nRemoved words: the music totally blows .\nChange in output: 0\n\nRemoved words: fridays totally\nChange in output: -1\n\nRemoved words: music fridays\nChange in output: 0\n\nRemoved words: totally\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: The live music on Fridays totally blows.
+
+Removed words: the music totally blows
+Change in output: 0
+
+Removed words: the live music on totally .
+Change in output: -1
+
+Removed words: fridays
+Change in output: 0
+
+Removed words: totally
+Change in output: -1
+
+Removed words: music on fridays blows
+Change in output: 0
+
+Removed words: the fridays totally
+Change in output: -1
+
+Removed words: the music on fridays totally blows .
+Change in output: 0
+
+Removed words: the live on totally
+Change in output: -1
+
+Removed words: fridays
+Change in output: 0
+
+Removed words: live totally
+Change in output: -1
+
+Removed words: the on fridays .
+Change in output: 0
+
+Removed words: the live music
+Change in output: -1
+
+Removed words: the music totally blows .
+Change in output: 0
+
+Removed words: fridays totally
+Change in output: -1
+
+Removed words: music fridays
+Change in output: 0
+
+Removed words: totally
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the top three most important words driving the output, we'll analyze each word mentioned in the dataset for its presence in scenarios where the change in output is non-zero (indicating a significant impact on the model's output) and its absence in scenarios where the change in output is zero (indicating less or no impact on the model's output). 
+
+1. **Totally**: This word appears in several scenarios where its removal leads to a change in output (-1), indicating a significant negative impact on the model's output. Its consistent presence in scenarios leading to a negative change suggests a high level of importance. Considering both its frequency and impact, its importance is high.
+
+2. **Live**: The word "live" appears in a few scenarios where its removal leads to a change in output (-1), but it's also absent in several scenarios where the change in output is zero. This suggests that while "live" has some impact, it's not as consistently influential as "totally".
+
+3. **Music**: Similar to "live", "music" appears in scenarios leading to both changes and no changes in output. However, its presence in the original sentence and in various combinations of removed words leading to a change in output suggests it has a moderate level of importance.
+
+4. **Fridays**: This word's removal sometimes leads to no change in output, and it's also part of combinations where the output does not change. Its impact seems neutral to slightly negative, indicating it has some importance but less so compared to "totally", "live", and "music".
+
+5. **On**: The word "on" appears in various combinations, but its direct impact on the output change is less clear. It seems to have a lower importance compared to the words analyzed above.
+
+6. **Blows**: Given that its removal in certain combinations leads to no change in output, and considering its presence in negative output changes, "blows" has an ambiguous impact. It seems to be of moderate importance, but not as critical as "totally".
+
+7. **The**: Its removal leads to both changes and no changes in output. Given its function as an article, its impact is likely less about the word itself and more about the phrases it's part of. It's of lower importance compared to the more impactful words.
+
+Ranking the words based on the analysis above, considering both their positive and negative correlations with the change in output, the top three most important words driving the output, in descending order of importance, are:
+
+**Totally, Music, Live**

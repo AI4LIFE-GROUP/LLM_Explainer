@@ -1,0 +1,99 @@
+100_gpt-4-0125-preview_TEXT_ANN_imdb_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		100
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: I loved it, it was really scary.  \n\nRemoved words: loved it , it scary .\nChange in output: 1\n\nRemoved words: it it was really scary\nChange in output: 0\n\nRemoved words: i loved it it was really scary .\nChange in output: 1\n\nRemoved words: loved it was scary\nChange in output: 0\n\nRemoved words: loved it , scary\nChange in output: 1\n\nRemoved words: it was really scary .\nChange in output: 0\n\nRemoved words: i loved really\nChange in output: 1\n\nRemoved words: loved it , it was really .\nChange in output: 0\n\nRemoved words: i loved it really scary .\nChange in output: 1\n\nRemoved words: loved , it was really\nChange in output: 0\n\nRemoved words: i loved it , it was scary .\nChange in output: 1\n\nRemoved words: , it\nChange in output: 0\n\nRemoved words: i loved scary\nChange in output: 1\n\nRemoved words: i was scary\nChange in output: 0\n\nRemoved words: i loved it it really scary\nChange in output: 1\n\nRemoved words: , was\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: I loved it, it was really scary.  
+
+Removed words: loved it , it scary .
+Change in output: 1
+
+Removed words: it it was really scary
+Change in output: 0
+
+Removed words: i loved it it was really scary .
+Change in output: 1
+
+Removed words: loved it was scary
+Change in output: 0
+
+Removed words: loved it , scary
+Change in output: 1
+
+Removed words: it was really scary .
+Change in output: 0
+
+Removed words: i loved really
+Change in output: 1
+
+Removed words: loved it , it was really .
+Change in output: 0
+
+Removed words: i loved it really scary .
+Change in output: 1
+
+Removed words: loved , it was really
+Change in output: 0
+
+Removed words: i loved it , it was scary .
+Change in output: 1
+
+Removed words: , it
+Change in output: 0
+
+Removed words: i loved scary
+Change in output: 1
+
+Removed words: i was scary
+Change in output: 0
+
+Removed words: i loved it it really scary
+Change in output: 1
+
+Removed words: , was
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the top three most important words driving the output, we'll analyze each word's presence or absence in the dataset and its impact on the change in output. We'll consider how the removal of specific words or combinations of words affects the output, looking for patterns that suggest certain words have a stronger influence on the change in output.
+
+1. **loved**: The removal of "loved" in various combinations leads to both 0 and 1 changes in output, indicating its presence or absence does not consistently predict the output change. However, its frequent involvement in changes suggests it has some importance. Initial rank: loved
+
+2. **it**: The word "it" is removed in multiple contexts, leading to both outcomes (0 and 1). Its removal alongside other words makes it hard to isolate its impact, but it appears frequently, suggesting a moderate level of importance. Compared to "loved", "it" seems slightly less decisive due to its commonality in English. Rank: loved, it
+
+3. **was**: The removal of "was" leads to changes in output, but it is less frequently involved in these changes compared to "loved" and "it". Its impact seems more contextual rather than direct. Rank: loved, it, was
+
+4. **really**: The word "really" appears in several removals leading to both 0 and 1 changes. Its role seems to amplify the sentiment but does not singularly drive the output change. Rank: loved, it, was, really
+
+5. **scary**: The presence or absence of "scary" in the dataset significantly influences the output change. When "scary" is removed, we often see a change in output, suggesting it's a key word in determining the sentiment of the sentence. Rank: scary, loved, it, was, really
+
+6. **i**: The removal of "i" shows changes in output, but given that its removal is always in conjunction with other words, its standalone importance is harder to gauge. It seems less critical than "scary" but is involved in significant changes. Rank: scary, loved, it, was, really, i
+
+7. **, and .**: Punctuation marks like "," and "." are removed in various instances, leading to changes in output. However, their influence seems more related to sentence structure than sentiment or content. Rank: scary, loved, it, was, really, i, ,
+
+Given the analysis, the top three most important words driving the output, based on their influence on the change in output and considering both positive and negative correlations, are:
+
+scary, loved, it

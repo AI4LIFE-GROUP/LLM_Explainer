@@ -1,0 +1,99 @@
+30_gpt-4-0125-preview_TEXT_ANN_amazon_1000_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		30
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: They keep getting better and better (this is my third one and I\'ve had numerous Palms too).\n\nRemoved words: they getting better and better ( this is my one and i \' ve numerous palms\nChange in output: 0\n\nRemoved words: they keep better ( this is third i \' ve had palms too .\nChange in output: -1\n\nRemoved words: better ( this is i \' palms ) .\nChange in output: 0\n\nRemoved words: getting is one i\nChange in output: -1\n\nRemoved words: they better and better ( this is my third one and \' had numerous palms too ) .\nChange in output: 0\n\nRemoved words: is one too )\nChange in output: -1\n\nRemoved words: getting better and better ( this is third and \' had numerous palms )\nChange in output: 0\n\nRemoved words: getting better ( this is i had numerous .\nChange in output: -1\n\nRemoved words: keep numerous\nChange in output: 0\n\nRemoved words: they getting better ( my third one and \' ve had numerous palms ) .\nChange in output: -1\n\nRemoved words: and i\nChange in output: 0\n\nRemoved words: getting better better ( one and i ve had palms too .\nChange in output: -1\n\nRemoved words: better ( my and had numerous )\nChange in output: 0\n\nRemoved words: they getting better better ( this is my third one and i \' ve had numerous palms ) .\nChange in output: -1\n\nRemoved words: and better my \' ve palms ) .\nChange in output: 0\n\nRemoved words: they keep getting this and ve had ) .\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: They keep getting better and better (this is my third one and I've had numerous Palms too).
+
+Removed words: they getting better and better ( this is my one and i ' ve numerous palms
+Change in output: 0
+
+Removed words: they keep better ( this is third i ' ve had palms too .
+Change in output: -1
+
+Removed words: better ( this is i ' palms ) .
+Change in output: 0
+
+Removed words: getting is one i
+Change in output: -1
+
+Removed words: they better and better ( this is my third one and ' had numerous palms too ) .
+Change in output: 0
+
+Removed words: is one too )
+Change in output: -1
+
+Removed words: getting better and better ( this is third and ' had numerous palms )
+Change in output: 0
+
+Removed words: getting better ( this is i had numerous .
+Change in output: -1
+
+Removed words: keep numerous
+Change in output: 0
+
+Removed words: they getting better ( my third one and ' ve had numerous palms ) .
+Change in output: -1
+
+Removed words: and i
+Change in output: 0
+
+Removed words: getting better better ( one and i ve had palms too .
+Change in output: -1
+
+Removed words: better ( my and had numerous )
+Change in output: 0
+
+Removed words: they getting better better ( this is my third one and i ' ve had numerous palms ) .
+Change in output: -1
+
+Removed words: and better my ' ve palms ) .
+Change in output: 0
+
+Removed words: they keep getting this and ve had ) .
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the most important words driving the output, we'll analyze the occurrences of words in the dataset where their removal leads to a change in output. We'll focus on the words that appear frequently in removals that cause a change in output (-1), as these are indicative of their importance in influencing the model's decision. 
+
+1. **Getting**: Appears in removals leading to a change in output four times. Its removal consistently leads to a negative change, suggesting a strong influence on the positive sentiment of the original sentence. Importance: 90
+
+2. **Better**: Appears in removals leading to a change in output five times. Given its frequent appearance and the context it's used in (positive improvement), its removal likely detracts significantly from the positive sentiment of the sentence. However, since it also appears in contexts where its removal does not change the output, its importance is slightly nuanced. Importance: 85
+
+3. **Keep**: Appears in removals leading to a change in output twice. While its removal does influence the output negatively in those instances, it's less frequent compared to "getting" and "better". This suggests it plays a role in the positive sentiment but is not as critical as the other two. Importance: 70
+
+4. **This**: Appears in removals leading to a change in output twice. Its role seems more related to the structure of the sentence rather than the sentiment directly. Given the mixed results upon its removal (sometimes changing the output, sometimes not), its importance is moderate. Importance: 60
+
+5. **Numerous**: Appears in removals leading to a change in output once. While its presence might contribute to a positive sentiment by indicating a variety or abundance, its overall impact is less significant compared to the other words analyzed. Importance: 50
+
+6. **Palms**: Appears in removals leading to a change in output once. Similar to "numerous", it contributes to the context but does not seem to be a key driver of sentiment on its own. Importance: 40
+
+7. **I**, **My**, **And**, **Is**, **One**, **Too**, **Had**, **Ve**: These words appear across various removals with changes in output, but they primarily serve grammatical or structural purposes rather than directly influencing sentiment. Their importance is relatively low in terms of driving the output directly. Importance: 30
+
+Based on the analysis, the top three most important words driving the output, considering their frequency in removals that lead to a change and their perceived impact on sentiment, are:
+
+**Getting, Better, Keep**

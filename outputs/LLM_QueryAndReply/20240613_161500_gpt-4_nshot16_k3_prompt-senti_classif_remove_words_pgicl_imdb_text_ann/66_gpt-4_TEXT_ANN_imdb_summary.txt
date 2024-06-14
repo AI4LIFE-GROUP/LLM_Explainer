@@ -1,0 +1,105 @@
+66_gpt-4_TEXT_ANN_imdb_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		66
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: And there wasn\'t a single sour note struck acting-wise, either; some surprisingly solid casting, here.  \t\n\nRemoved words: and there wasn \' a note acting-wise either surprisingly casting here .\nChange in output: 0\n\nRemoved words: and there \' t single either some surprisingly , here .\nChange in output: -1\n\nRemoved words: and there wasn \' t a single struck acting-wise , either surprisingly solid casting , here .\nChange in output: 0\n\nRemoved words: and there wasn \' t sour note struck , either some surprisingly solid here\nChange in output: -1\n\nRemoved words: and there wasn \' t a single note struck , either some surprisingly solid casting , here .\nChange in output: 0\n\nRemoved words: and there a single struck acting-wise , either surprisingly , here .\nChange in output: -1\n\nRemoved words: single solid here\nChange in output: 0\n\nRemoved words: and t single sour struck either some , here .\nChange in output: -1\n\nRemoved words: sour\nChange in output: 0\n\nRemoved words: and there wasn \' t a single struck acting-wise , either some surprisingly solid , here\nChange in output: -1\n\nRemoved words: either\nChange in output: 0\n\nRemoved words: and wasn a single sour note struck acting-wise either some surprisingly , .\nChange in output: -1\n\nRemoved words: and \' a single acting-wise , either surprisingly solid casting , here\nChange in output: 0\n\nRemoved words: and there wasn a acting-wise either some here .\nChange in output: -1\n\nRemoved words: there wasn \' single sour struck , either surprisingly solid here .\nChange in output: 0\n\nRemoved words: and there wasn \' t a single sour note acting-wise , surprisingly casting here .\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: And there wasn't a single sour note struck acting-wise, either; some surprisingly solid casting, here.  	
+
+Removed words: and there wasn ' a note acting-wise either surprisingly casting here .
+Change in output: 0
+
+Removed words: and there ' t single either some surprisingly , here .
+Change in output: -1
+
+Removed words: and there wasn ' t a single struck acting-wise , either surprisingly solid casting , here .
+Change in output: 0
+
+Removed words: and there wasn ' t sour note struck , either some surprisingly solid here
+Change in output: -1
+
+Removed words: and there wasn ' t a single note struck , either some surprisingly solid casting , here .
+Change in output: 0
+
+Removed words: and there a single struck acting-wise , either surprisingly , here .
+Change in output: -1
+
+Removed words: single solid here
+Change in output: 0
+
+Removed words: and t single sour struck either some , here .
+Change in output: -1
+
+Removed words: sour
+Change in output: 0
+
+Removed words: and there wasn ' t a single struck acting-wise , either some surprisingly solid , here
+Change in output: -1
+
+Removed words: either
+Change in output: 0
+
+Removed words: and wasn a single sour note struck acting-wise either some surprisingly , .
+Change in output: -1
+
+Removed words: and ' a single acting-wise , either surprisingly solid casting , here
+Change in output: 0
+
+Removed words: and there wasn a acting-wise either some here .
+Change in output: -1
+
+Removed words: there wasn ' single sour struck , either surprisingly solid here .
+Change in output: 0
+
+Removed words: and there wasn ' t a single sour note acting-wise , surprisingly casting here .
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The task involves analyzing the importance of words in a sentence based on their removal and the corresponding change in output. The output changes between 0 and -1, with -1 indicating a significant change in the output due to the removal of the word(s). 
+
+1. 'single': This word appears in 8 removal instances, with 4 resulting in a change in output. This suggests that 'single' has a significant influence on the output. Importance: 70
+
+2. 'sour': This word appears in 5 removal instances, with 3 resulting in a change in output. This suggests that 'sour' has a significant influence on the output, but less than 'single'. Importance: 60
+
+3. 'struck': This word appears in 8 removal instances, with 4 resulting in a change in output. This suggests that 'struck' has a significant influence on the output, similar to 'single'. However, considering the context of the sentence, 'struck' seems to be less important than 'single'. Importance: 65
+
+4. 'either': This word appears in 9 removal instances, with 5 resulting in no change in output. This suggests that 'either' has less influence on the output. Importance: 45
+
+5. 'surprisingly': This word appears in 9 removal instances, with 5 resulting in no change in output. This suggests that 'surprisingly' has less influence on the output, similar to 'either'. Importance: 45
+
+6. 'casting': This word appears in 6 removal instances, with 3 resulting in a change in output. This suggests that 'casting' has a significant influence on the output, but less than 'single', 'sour', and 'struck'. Importance: 50
+
+7. 'here': This word appears in 9 removal instances, with 5 resulting in no change in output. This suggests that 'here' has less influence on the output. Importance: 40
+
+8. 'solid': This word appears in 7 removal instances, with 4 resulting in no change in output. This suggests that 'solid' has less influence on the output. Importance: 45
+
+9. 'acting-wise': This word appears in 7 removal instances, with 4 resulting in no change in output. This suggests that 'acting-wise' has less influence on the output. Importance: 45
+
+10. 'note': This word appears in 4 removal instances, with 2 resulting in a change in output. This suggests that 'note' has a significant influence on the output, but less than 'single', 'sour', and 'struck'. Importance: 50
+
+Based on the analysis, the top three most important words driving the output are 'single', 'struck', and 'sour'.
+
+Final Rank: single, struck, sour

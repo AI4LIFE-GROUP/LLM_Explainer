@@ -1,0 +1,101 @@
+5_gpt-4-0125-preview_TEXT_ANN_imdb_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		5
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: The art style has the appearance of crayon/pencil drawings and is wonderfully colorful and fanciful.  \n\nRemoved words: the art style has the appearance of crayon/pencil drawings and is wonderfully colorful and fanciful\nChange in output: 0\n\nRemoved words: the\nChange in output: -1\n\nRemoved words: is wonderfully and\nChange in output: 0\n\nRemoved words: the style has the appearance drawings fanciful .\nChange in output: -1\n\nRemoved words: art the colorful .\nChange in output: 0\n\nRemoved words: has of and\nChange in output: -1\n\nRemoved words: style\nChange in output: 0\n\nRemoved words: the art style has the appearance drawings wonderfully colorful\nChange in output: -1\n\nRemoved words: the art style the appearance of crayon/pencil drawings and is wonderfully colorful .\nChange in output: 0\n\nRemoved words: has appearance of is and fanciful .\nChange in output: -1\n\nRemoved words: art has the of crayon/pencil drawings and is wonderfully colorful and fanciful .\nChange in output: 0\n\nRemoved words: the appearance and fanciful\nChange in output: -1\n\nRemoved words: the art style the appearance drawings and wonderfully colorful and fanciful .\nChange in output: 0\n\nRemoved words: art style has the appearance of and is wonderfully colorful fanciful .\nChange in output: -1\n\nRemoved words: the art style appearance of and is wonderfully and fanciful .\nChange in output: 0\n\nRemoved words: the art has the appearance of crayon/pencil drawings fanciful .\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: The art style has the appearance of crayon/pencil drawings and is wonderfully colorful and fanciful.  
+
+Removed words: the art style has the appearance of crayon/pencil drawings and is wonderfully colorful and fanciful
+Change in output: 0
+
+Removed words: the
+Change in output: -1
+
+Removed words: is wonderfully and
+Change in output: 0
+
+Removed words: the style has the appearance drawings fanciful .
+Change in output: -1
+
+Removed words: art the colorful .
+Change in output: 0
+
+Removed words: has of and
+Change in output: -1
+
+Removed words: style
+Change in output: 0
+
+Removed words: the art style has the appearance drawings wonderfully colorful
+Change in output: -1
+
+Removed words: the art style the appearance of crayon/pencil drawings and is wonderfully colorful .
+Change in output: 0
+
+Removed words: has appearance of is and fanciful .
+Change in output: -1
+
+Removed words: art has the of crayon/pencil drawings and is wonderfully colorful and fanciful .
+Change in output: 0
+
+Removed words: the appearance and fanciful
+Change in output: -1
+
+Removed words: the art style the appearance drawings and wonderfully colorful and fanciful .
+Change in output: 0
+
+Removed words: art style has the appearance of and is wonderfully colorful fanciful .
+Change in output: -1
+
+Removed words: the art style appearance of and is wonderfully and fanciful .
+Change in output: 0
+
+Removed words: the art has the appearance of crayon/pencil drawings fanciful .
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the top three most important words driving the output, we'll analyze the occurrences and the impact of each word removal on the change in output. We'll focus on words that, when removed, consistently lead to a change in output, indicating their importance in the model's decision-making process.
+
+1. **"the"** - Removal of "the" in different contexts leads to both changes and no changes in output. It's removed in several combinations, showing varied impact. Its presence in both changing and non-changing outputs suggests it has some importance but is not the most critical. Importance: 40
+
+2. **"art"** - The removal of "art" in different combinations sometimes affects the output and sometimes does not. It seems to have a moderate impact on the output, similar to "the," but given its more specific nature in the context of the sentence, it might hold slightly more weight. Importance: 45, Rank: art, the
+
+3. **"style"** - The word "style" when removed, shows no direct correlation with a change in output in one instance and is part of combinations that both affect and do not affect the output. Its impact seems to be moderate but not as significant on its own. Importance: 40, Rank: art, the, style
+
+4. **"has"** - The removal of "has" in combinations leads to a change in output in some cases. It seems to play a role in the structure that might influence the output significantly when combined with other key words. Importance: 50, Rank: has, art, the, style
+
+5. **"appearance"** - The word "appearance" is part of combinations that lead to changes in output. Its removal, especially when combined with other descriptive words, seems to significantly affect the output, indicating its importance in the context of describing the art style. Importance: 60, Rank: appearance, has, art, the, style
+
+6. **"of"** - The preposition "of" appears in several combinations that both change and do not change the output. Its role seems more structural than content-specific, suggesting a moderate level of importance. Importance: 45, Rank: appearance, has, art, of, the, style
+
+7. **"crayon/pencil drawings"** - This phrase is key to the description of the art style. Its removal leads to a change in output, indicating its high importance in the context of the sentence. Considering it as a single entity due to its combined use, its importance is significant. Importance: 70, Rank: crayon/pencil drawings, appearance, has, art, of, the, style
+
+8. **"is wonderfully colorful and fanciful"** - This phrase encapsulates the main descriptive elements of the sentence. Its removal or the removal of parts of it significantly affects the output, indicating its critical importance to the overall sentiment or description conveyed by the sentence. Importance: 75, Rank: is wonderfully colorful and fanciful, crayon/pencil drawings, appearance, has, art, of, the, style
+
+Given the analysis, the top three most important words (or phrases) driving the output, based on their impact on changes in output, are:
+
+is wonderfully colorful and fanciful, crayon/pencil drawings, appearance

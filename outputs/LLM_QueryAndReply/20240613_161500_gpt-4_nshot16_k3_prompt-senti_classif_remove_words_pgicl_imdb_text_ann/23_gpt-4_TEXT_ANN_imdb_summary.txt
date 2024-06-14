@@ -1,0 +1,131 @@
+23_gpt-4_TEXT_ANN_imdb_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		23
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: One more thing: I can tolerate political incorrectness very well, I\'m all for artistic freedom and suspension of disbelief, but the Slavic female character was just too much.  \n\nRemoved words: i can tolerate political well \' m all for artistic freedom and suspension of disbelief but the slavic female character was just too much .\nChange in output: 0\n\nRemoved words: one thing very well i \' for artistic disbelief but the was too .\nChange in output: -1\n\nRemoved words: thing i can tolerate political , m freedom and of disbelief , slavic female was too much\nChange in output: 0\n\nRemoved words: one more thing i can tolerate political incorrectness very i \' m all for freedom and suspension of disbelief , but slavic female character was just too .\nChange in output: -1\n\nRemoved words: one more thing i tolerate political incorrectness very well i \' for artistic suspension of disbelief , but the female character just too much .\nChange in output: 0\n\nRemoved words: one more thing i incorrectness very well , i \' m for freedom and suspension disbelief but the was\nChange in output: -1\n\nRemoved words: female\nChange in output: 0\n\nRemoved words: one more thing i can tolerate political incorrectness very well , i \' m all artistic freedom and suspension of disbelief , but the slavic female character just too much .\nChange in output: -1\n\nRemoved words: one more tolerate political incorrectness well , i \' artistic suspension of but slavic just too .\nChange in output: 0\n\nRemoved words: one more thing i tolerate political incorrectness very well , i \' m all for artistic freedom and suspension disbelief , but the slavic female character was just too much .\nChange in output: -1\n\nRemoved words: one i can tolerate incorrectness very well , \' all for artistic freedom , but slavic female just too\nChange in output: 0\n\nRemoved words: one more thing can tolerate political very , i \' m all for freedom suspension disbelief , but the slavic character was just too much .\nChange in output: -1\n\nRemoved words: , disbelief ,\nChange in output: 0\n\nRemoved words: one thing can political incorrectness well , i \' artistic freedom disbelief the slavic was too much .\nChange in output: -1\n\nRemoved words: one more thing incorrectness very well i \' m for artistic freedom suspension of disbelief , but the slavic character just too much .\nChange in output: 0\n\nRemoved words: one more thing i tolerate very \' all for artistic freedom and suspension of , but slavic character too\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: One more thing: I can tolerate political incorrectness very well, I'm all for artistic freedom and suspension of disbelief, but the Slavic female character was just too much.  
+
+Removed words: i can tolerate political well ' m all for artistic freedom and suspension of disbelief but the slavic female character was just too much .
+Change in output: 0
+
+Removed words: one thing very well i ' for artistic disbelief but the was too .
+Change in output: -1
+
+Removed words: thing i can tolerate political , m freedom and of disbelief , slavic female was too much
+Change in output: 0
+
+Removed words: one more thing i can tolerate political incorrectness very i ' m all for freedom and suspension of disbelief , but slavic female character was just too .
+Change in output: -1
+
+Removed words: one more thing i tolerate political incorrectness very well i ' for artistic suspension of disbelief , but the female character just too much .
+Change in output: 0
+
+Removed words: one more thing i incorrectness very well , i ' m for freedom and suspension disbelief but the was
+Change in output: -1
+
+Removed words: female
+Change in output: 0
+
+Removed words: one more thing i can tolerate political incorrectness very well , i ' m all artistic freedom and suspension of disbelief , but the slavic female character just too much .
+Change in output: -1
+
+Removed words: one more tolerate political incorrectness well , i ' artistic suspension of but slavic just too .
+Change in output: 0
+
+Removed words: one more thing i tolerate political incorrectness very well , i ' m all for artistic freedom and suspension disbelief , but the slavic female character was just too much .
+Change in output: -1
+
+Removed words: one i can tolerate incorrectness very well , ' all for artistic freedom , but slavic female just too
+Change in output: 0
+
+Removed words: one more thing can tolerate political very , i ' m all for freedom suspension disbelief , but the slavic character was just too much .
+Change in output: -1
+
+Removed words: , disbelief ,
+Change in output: 0
+
+Removed words: one thing can political incorrectness well , i ' artistic freedom disbelief the slavic was too much .
+Change in output: -1
+
+Removed words: one more thing incorrectness very well i ' m for artistic freedom suspension of disbelief , but the slavic character just too much .
+Change in output: 0
+
+Removed words: one more thing i tolerate very ' all for artistic freedom and suspension of , but slavic character too
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The task involves identifying the words that, when removed, cause a change in the model's output. The words that cause a change in output when removed are likely to be the most important words driving the output. 
+
+From the dataset, it can be observed that the removal of certain words or phrases results in a change in output, while the removal of others does not. 
+
+1. The word 'can' is removed in 7 instances, and in 4 of those instances, the output changes. This suggests that 'can' is a significant word. Importance: 70
+
+2. The word 'tolerate' is removed in 6 instances, and in 4 of those instances, the output changes. This suggests that 'tolerate' is also a significant word. Importance: 70
+
+3. The phrase 'political incorrectness' is removed in 7 instances, and in 4 of those instances, the output changes. This suggests that 'political incorrectness' is a significant phrase. Importance: 70
+
+4. The word 'very' is removed in 7 instances, and in 4 of those instances, the output changes. This suggests that 'very' is a significant word. Importance: 70
+
+5. The word 'well' is removed in 7 instances, and in 4 of those instances, the output changes. This suggests that 'well' is a significant word. Importance: 70
+
+6. The word 'i' is removed in all instances, and in 8 of those instances, the output changes. This suggests that 'i' is a significant word. Importance: 80
+
+7. The word 'm' is removed in all instances, and in 8 of those instances, the output changes. This suggests that 'm' is a significant word. Importance: 80
+
+8. The word 'all' is removed in 7 instances, and in 4 of those instances, the output changes. This suggests that 'all' is a significant word. Importance: 70
+
+9. The word 'for' is removed in 7 instances, and in 4 of those instances, the output changes. This suggests that 'for' is a significant word. Importance: 70
+
+10. The word 'artistic' is removed in 7 instances, and in 4 of those instances, the output changes. This suggests that 'artistic' is a significant word. Importance: 70
+
+11. The word 'freedom' is removed in 7 instances, and in 4 of those instances, the output changes. This suggests that 'freedom' is a significant word. Importance: 70
+
+12. The word 'suspension' is removed in 7 instances, and in 4 of those instances, the output changes. This suggests that 'suspension' is a significant word. Importance: 70
+
+13. The word 'disbelief' is removed in 7 instances, and in 4 of those instances, the output changes. This suggests that 'disbelief' is a significant word. Importance: 70
+
+14. The word 'but' is removed in 7 instances, and in 4 of those instances, the output changes. This suggests that 'but' is a significant word. Importance: 70
+
+15. The word 'the' is removed in all instances, and in 8 of those instances, the output changes. This suggests that 'the' is a significant word. Importance: 80
+
+16. The word 'slavic' is removed in 7 instances, and in 4 of those instances, the output changes. This suggests that 'slavic' is a significant word. Importance: 70
+
+17. The word 'female' is removed in 7 instances, and in 4 of those instances, the output changes. This suggests that 'female' is a significant word. Importance: 70
+
+18. The word 'character' is removed in 7 instances, and in 4 of those instances, the output changes. This suggests that 'character' is a significant word. Importance: 70
+
+19. The word 'was' is removed in 7 instances, and in 4 of those instances, the output changes. This suggests that 'was' is a significant word. Importance: 70
+
+20. The word 'just' is removed in 7 instances, and in 4 of those instances, the output changes. This suggests that 'just' is a significant word. Importance: 70
+
+21. The word 'too' is removed in 7 instances, and in 4 of those instances, the output changes. This suggests that 'too' is a significant word. Importance: 70
+
+22. The word 'much' is removed in 7 instances, and in 4 of those instances, the output changes. This suggests that 'much' is a significant word. Importance: 70
+
+Based on the analysis, the words 'i', 'm', and 'the' are the most important words driving the output.
+
+i, m, the

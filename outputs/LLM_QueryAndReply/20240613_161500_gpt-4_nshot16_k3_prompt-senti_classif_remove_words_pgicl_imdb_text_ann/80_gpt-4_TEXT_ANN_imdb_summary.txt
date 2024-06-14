@@ -1,0 +1,95 @@
+80_gpt-4_TEXT_ANN_imdb_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		80
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: ***SPOILERS*** Whatever else can (or can\'t) be said about it, SURFACE is superbly crafted.  \t\n\nRemoved words: ***spoilers*** can ( t ) about crafted\nChange in output: 0\n\nRemoved words: whatever else can ( or \' t ) be said about , surface superbly\nChange in output: -1\n\nRemoved words: ***spoilers*** whatever can ( or can \' t said about it , surface is superbly crafted .\nChange in output: 0\n\nRemoved words: ***spoilers*** whatever else can ( or can \' t ) be said about it , surface is crafted .\nChange in output: -1\n\nRemoved words: else or ) said it , surface crafted\nChange in output: 0\n\nRemoved words: ***spoilers*** else can ( can \' t ) be said about , surface is .\nChange in output: -1\n\nRemoved words: ***spoilers***\nChange in output: 0\n\nRemoved words: ***spoilers*** whatever else can ( or can \' t ) be said about it , surface is crafted .\nChange in output: -1\n\nRemoved words: whatever else or ) surface .\nChange in output: 0\n\nRemoved words: ***spoilers*** whatever else can ( or can \' t ) be said about it , surface is crafted .\nChange in output: -1\n\nRemoved words: ***spoilers*** whatever else can ( can ) be about it , surface crafted .\nChange in output: 0\n\nRemoved words: ***spoilers*** else can ( or can t ) it surface .\nChange in output: -1\n\nRemoved words: else can or t be said about , is superbly crafted\nChange in output: 0\n\nRemoved words: else ( can t ) be it is .\nChange in output: -1\n\nRemoved words: ***spoilers*** else can t it superbly\nChange in output: 0\n\nRemoved words: ***spoilers*** else ( or \' be about , surface\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: ***SPOILERS*** Whatever else can (or can't) be said about it, SURFACE is superbly crafted.  	
+
+Removed words: ***spoilers*** can ( t ) about crafted
+Change in output: 0
+
+Removed words: whatever else can ( or ' t ) be said about , surface superbly
+Change in output: -1
+
+Removed words: ***spoilers*** whatever can ( or can ' t said about it , surface is superbly crafted .
+Change in output: 0
+
+Removed words: ***spoilers*** whatever else can ( or can ' t ) be said about it , surface is crafted .
+Change in output: -1
+
+Removed words: else or ) said it , surface crafted
+Change in output: 0
+
+Removed words: ***spoilers*** else can ( can ' t ) be said about , surface is .
+Change in output: -1
+
+Removed words: ***spoilers***
+Change in output: 0
+
+Removed words: ***spoilers*** whatever else can ( or can ' t ) be said about it , surface is crafted .
+Change in output: -1
+
+Removed words: whatever else or ) surface .
+Change in output: 0
+
+Removed words: ***spoilers*** whatever else can ( or can ' t ) be said about it , surface is crafted .
+Change in output: -1
+
+Removed words: ***spoilers*** whatever else can ( can ) be about it , surface crafted .
+Change in output: 0
+
+Removed words: ***spoilers*** else can ( or can t ) it surface .
+Change in output: -1
+
+Removed words: else can or t be said about , is superbly crafted
+Change in output: 0
+
+Removed words: else ( can t ) be it is .
+Change in output: -1
+
+Removed words: ***spoilers*** else can t it superbly
+Change in output: 0
+
+Removed words: ***spoilers*** else ( or ' be about , surface
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The task involves analyzing the influence of word removals on the model's output. The output changes between 0 and -1, with 0 indicating no change and -1 indicating a negative change. 
+
+1. The word "***spoilers***" appears in 10 out of 16 removals. In all these cases, the output change is either 0 or -1. This suggests that the word "***spoilers***" does not have a significant impact on the output. Therefore, its importance rating would be low, around 20.
+
+2. The word "can" appears in 8 out of 16 removals. In all these cases, the output change is either 0 or -1. This suggests that the word "can" has a moderate impact on the output. Therefore, its importance rating would be moderate, around 50.
+
+3. The word "else" appears in 7 out of 16 removals. In all these cases, the output change is either 0 or -1. This suggests that the word "else" has a significant impact on the output. Therefore, its importance rating would be high, around 70.
+
+4. The word "surface" appears in 6 out of 16 removals. In all these cases, the output change is either 0 or -1. This suggests that the word "surface" has a significant impact on the output. Therefore, its importance rating would be high, around 80.
+
+5. The word "crafted" appears in 5 out of 16 removals. In all these cases, the output change is either 0 or -1. This suggests that the word "crafted" has a significant impact on the output. Therefore, its importance rating would be high, around 90.
+
+Based on the above analysis, the running rank of the words from most important to least important would be: crafted, surface, else, can, ***spoilers***.
+
+Final Answer: crafted, surface, else.

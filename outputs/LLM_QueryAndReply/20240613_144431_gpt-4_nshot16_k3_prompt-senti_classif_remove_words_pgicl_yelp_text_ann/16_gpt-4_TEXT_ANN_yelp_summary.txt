@@ -1,0 +1,101 @@
+16_gpt-4_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		16
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: After the disappointing dinner we went elsewhere for dessert.\n\nRemoved words: after we for\nChange in output: 0\n\nRemoved words: after disappointing dinner we went elsewhere for dessert .\nChange in output: -1\n\nRemoved words: we for\nChange in output: 0\n\nRemoved words: after disappointing dinner we went elsewhere for .\nChange in output: -1\n\nRemoved words: after the dinner went elsewhere for dessert .\nChange in output: 0\n\nRemoved words: after the disappointing dinner we went elsewhere for .\nChange in output: -1\n\nRemoved words: the dinner we went for dessert\nChange in output: 0\n\nRemoved words: after the disappointing dinner we went elsewhere for dessert\nChange in output: -1\n\nRemoved words: after disappointing dinner we went\nChange in output: 0\n\nRemoved words: after the disappointing dinner we went for .\nChange in output: -1\n\nRemoved words: after the dinner went for dessert .\nChange in output: 0\n\nRemoved words: after the disappointing we went elsewhere for dessert\nChange in output: -1\n\nRemoved words: the .\nChange in output: 0\n\nRemoved words: after the disappointing dinner we went elsewhere .\nChange in output: -1\n\nRemoved words: the went\nChange in output: 0\n\nRemoved words: after the disappointing dinner we went elsewhere for .\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: After the disappointing dinner we went elsewhere for dessert.
+
+Removed words: after we for
+Change in output: 0
+
+Removed words: after disappointing dinner we went elsewhere for dessert .
+Change in output: -1
+
+Removed words: we for
+Change in output: 0
+
+Removed words: after disappointing dinner we went elsewhere for .
+Change in output: -1
+
+Removed words: after the dinner went elsewhere for dessert .
+Change in output: 0
+
+Removed words: after the disappointing dinner we went elsewhere for .
+Change in output: -1
+
+Removed words: the dinner we went for dessert
+Change in output: 0
+
+Removed words: after the disappointing dinner we went elsewhere for dessert
+Change in output: -1
+
+Removed words: after disappointing dinner we went
+Change in output: 0
+
+Removed words: after the disappointing dinner we went for .
+Change in output: -1
+
+Removed words: after the dinner went for dessert .
+Change in output: 0
+
+Removed words: after the disappointing we went elsewhere for dessert
+Change in output: -1
+
+Removed words: the .
+Change in output: 0
+
+Removed words: after the disappointing dinner we went elsewhere .
+Change in output: -1
+
+Removed words: the went
+Change in output: 0
+
+Removed words: after the disappointing dinner we went elsewhere for .
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The dataset shows that the removal of certain words from the original sentence results in a change in the model's output. The change in output is either 0, indicating no change, or -1, indicating a decrease in output. 
+
+1. The word 'after' is removed in several instances, but the output only changes when it is removed in conjunction with other words. This suggests that 'after' has a low importance in determining the output. I would rate its importance as 20.
+
+2. The word 'disappointing' is also removed in several instances, and the output changes each time it is removed. This suggests that 'disappointing' has a high importance in determining the output. I would rate its importance as 90.
+
+3. The word 'dinner' is removed in several instances, and the output changes each time it is removed. This suggests that 'dinner' has a high importance in determining the output. I would rate its importance as 90.
+
+4. The word 'we' is removed in several instances, but the output only changes when it is removed in conjunction with other words. This suggests that 'we' has a low importance in determining the output. I would rate its importance as 20.
+
+5. The word 'went' is removed in several instances, but the output only changes when it is removed in conjunction with other words. This suggests that 'went' has a low importance in determining the output. I would rate its importance as 20.
+
+6. The word 'elsewhere' is removed in several instances, and the output changes each time it is removed. This suggests that 'elsewhere' has a high importance in determining the output. I would rate its importance as 90.
+
+7. The word 'for' is removed in several instances, but the output only changes when it is removed in conjunction with other words. This suggests that 'for' has a low importance in determining the output. I would rate its importance as 20.
+
+8. The word 'dessert' is removed in several instances, and the output changes each time it is removed. This suggests that 'dessert' has a high importance in determining the output. I would rate its importance as 90.
+
+Based on this analysis, the running rank of the words from most important to least important is: disappointing, dinner, elsewhere, dessert, after, we, went, for.
+
+disappointing, dinner, elsewhere, dessert

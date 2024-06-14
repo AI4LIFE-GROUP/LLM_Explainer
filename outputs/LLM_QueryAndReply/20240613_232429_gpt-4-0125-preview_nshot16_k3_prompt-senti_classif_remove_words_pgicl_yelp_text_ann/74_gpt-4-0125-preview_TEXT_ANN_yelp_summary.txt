@@ -1,0 +1,103 @@
+74_gpt-4-0125-preview_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		74
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: It was so bad, I had lost the heart to finish it.\n\nRemoved words: heart finish\nChange in output: 0\n\nRemoved words: was bad the heart to .\nChange in output: -1\n\nRemoved words: it was so i had lost the to finish .\nChange in output: 0\n\nRemoved words: bad i lost to .\nChange in output: -1\n\nRemoved words: so to it .\nChange in output: 0\n\nRemoved words: was bad had lost the heart .\nChange in output: -1\n\nRemoved words: it was so bad , i had lost the heart finish .\nChange in output: 0\n\nRemoved words: was so i had lost heart\nChange in output: -1\n\nRemoved words: it was so bad , had lost the heart to finish it .\nChange in output: 0\n\nRemoved words: it was so bad , i had lost the heart to finish it\nChange in output: -1\n\nRemoved words: it was so bad , lost to finish .\nChange in output: 0\n\nRemoved words: it was so bad , i had lost the heart to it .\nChange in output: -1\n\nRemoved words: it so bad , had lost heart finish .\nChange in output: 0\n\nRemoved words: it so bad , i lost to it\nChange in output: -1\n\nRemoved words: was so bad i .\nChange in output: 0\n\nRemoved words: i had lost\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: It was so bad, I had lost the heart to finish it.
+
+Removed words: heart finish
+Change in output: 0
+
+Removed words: was bad the heart to .
+Change in output: -1
+
+Removed words: it was so i had lost the to finish .
+Change in output: 0
+
+Removed words: bad i lost to .
+Change in output: -1
+
+Removed words: so to it .
+Change in output: 0
+
+Removed words: was bad had lost the heart .
+Change in output: -1
+
+Removed words: it was so bad , i had lost the heart finish .
+Change in output: 0
+
+Removed words: was so i had lost heart
+Change in output: -1
+
+Removed words: it was so bad , had lost the heart to finish it .
+Change in output: 0
+
+Removed words: it was so bad , i had lost the heart to finish it
+Change in output: -1
+
+Removed words: it was so bad , lost to finish .
+Change in output: 0
+
+Removed words: it was so bad , i had lost the heart to it .
+Change in output: -1
+
+Removed words: it so bad , had lost heart finish .
+Change in output: 0
+
+Removed words: it so bad , i lost to it
+Change in output: -1
+
+Removed words: was so bad i .
+Change in output: 0
+
+Removed words: i had lost
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the most important words driving the output, we'll analyze the occurrences and the impact of each word's removal on the change in output. We'll focus on words that appear multiple times across different removals with varying outputs.
+
+1. **Heart**: The removal of "heart" in various combinations leads to both 0 and -1 changes, indicating its presence or absence doesn't consistently drive the output in one direction. Its influence seems moderate because it appears in combinations that lead to both outcomes. Importance: 50
+
+2. **Lost**: Similar to "heart," "lost" appears in combinations leading to both 0 and -1 changes. However, its removal in the presence of "i had" consistently results in a -1 change, suggesting a slightly higher importance in driving the output negatively when removed with certain words. Importance: 60
+
+3. **Bad**: The word "bad" appears in several combinations leading to a -1 change, especially when removed along with words that describe the sentiment more directly (e.g., "was bad had lost the heart"). Its removal seems to contribute significantly to a negative shift, indicating its strong influence on the model's output. Importance: 70
+
+4. **I**: The pronoun "i" appears in multiple contexts, and its removal often leads to a -1 change, especially when combined with action or sentiment descriptors ("had lost"). This suggests "i" plays a crucial role in the sentence's sentiment expression, making it a key driver. Importance: 65
+
+5. **So**: The removal of "so" in various contexts doesn't show a consistent impact on the output, suggesting it has a lower importance compared to words directly tied to sentiment or action. Importance: 40
+
+6. **To**: Appears in various combinations but doesn't show a strong direct correlation with the change in output on its own. Its role seems more about sentence structure than sentiment. Importance: 30
+
+7. **Finish**: Like "heart," its removal leads to both 0 and -1 changes, but it doesn't appear as frequently in critical combinations that drive the output strongly in one direction. Importance: 45
+
+8. **Was**: Its removal in combinations leading to a -1 change suggests a moderate influence, likely because it's part of the sentence's descriptive backbone. However, its impact is less direct on sentiment compared to words like "bad" or "lost." Importance: 55
+
+Ranking the words based on their importance in driving the output, considering both their positive and negative contributions, we get:
+
+**Bad, Lost, I, Was, Heart, Finish, So, To**
+
+Final rank: **Bad, Lost, I, Was, Heart, Finish, So, To**

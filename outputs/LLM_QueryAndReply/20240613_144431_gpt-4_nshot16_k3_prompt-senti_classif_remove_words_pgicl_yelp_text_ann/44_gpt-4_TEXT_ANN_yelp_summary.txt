@@ -1,0 +1,91 @@
+44_gpt-4_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		44
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: There is nothing privileged about working/eating there.\n\nRemoved words: is privileged\nChange in output: 0\n\nRemoved words: there is nothing privileged there\nChange in output: -1\n\nRemoved words: about .\nChange in output: 0\n\nRemoved words: there privileged about there\nChange in output: -1\n\nRemoved words: privileged about working/eating there .\nChange in output: 0\n\nRemoved words: there privileged working/eating\nChange in output: -1\n\nRemoved words: privileged about working/eating\nChange in output: 0\n\nRemoved words: there working/eating there .\nChange in output: -1\n\nRemoved words: there is\nChange in output: 0\n\nRemoved words: there is nothing about working/eating there .\nChange in output: -1\n\nRemoved words: is nothing privileged about working/eating .\nChange in output: 0\n\nRemoved words: there nothing about working/eating there\nChange in output: -1\n\nRemoved words: is privileged about working/eating there .\nChange in output: 0\n\nRemoved words: there nothing about\nChange in output: -1\n\nRemoved words: there is about .\nChange in output: 0\n\nRemoved words: there is nothing privileged about there .\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: There is nothing privileged about working/eating there.
+
+Removed words: is privileged
+Change in output: 0
+
+Removed words: there is nothing privileged there
+Change in output: -1
+
+Removed words: about .
+Change in output: 0
+
+Removed words: there privileged about there
+Change in output: -1
+
+Removed words: privileged about working/eating there .
+Change in output: 0
+
+Removed words: there privileged working/eating
+Change in output: -1
+
+Removed words: privileged about working/eating
+Change in output: 0
+
+Removed words: there working/eating there .
+Change in output: -1
+
+Removed words: there is
+Change in output: 0
+
+Removed words: there is nothing about working/eating there .
+Change in output: -1
+
+Removed words: is nothing privileged about working/eating .
+Change in output: 0
+
+Removed words: there nothing about working/eating there
+Change in output: -1
+
+Removed words: is privileged about working/eating there .
+Change in output: 0
+
+Removed words: there nothing about
+Change in output: -1
+
+Removed words: there is about .
+Change in output: 0
+
+Removed words: there is nothing privileged about there .
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The words that seem to have the most impact on the output are "there", "privileged", and "about". 
+
+1. "There": This word appears in 10 out of the 16 word removals that resulted in a change in output. This suggests that it has a significant impact on the model's output. Rating: 80
+
+2. "Privileged": This word appears in 6 out of the 16 word removals that resulted in a change in output. This suggests that it has a moderate impact on the model's output. Rating: 60
+
+3. "About": This word appears in 6 out of the 16 word removals that resulted in a change in output. This suggests that it has a moderate impact on the model's output. Rating: 60
+
+The other words ("is", "nothing", "working/eating", ".") appear less frequently in the word removals that resulted in a change in output, suggesting that they have less impact on the model's output.
+
+Final rank: there, privileged, about

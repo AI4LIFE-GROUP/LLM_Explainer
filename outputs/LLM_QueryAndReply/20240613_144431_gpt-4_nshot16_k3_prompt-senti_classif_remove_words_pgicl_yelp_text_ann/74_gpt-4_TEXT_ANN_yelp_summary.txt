@@ -1,0 +1,105 @@
+74_gpt-4_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		74
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: It was so bad, I had lost the heart to finish it.\n\nRemoved words: was so bad i lost the finish it .\nChange in output: 0\n\nRemoved words: it bad , i the heart .\nChange in output: -1\n\nRemoved words: was so bad , i had lost the to it\nChange in output: 0\n\nRemoved words: it it\nChange in output: -1\n\nRemoved words: ,\nChange in output: 0\n\nRemoved words: it bad , i the heart to it\nChange in output: -1\n\nRemoved words: so finish it\nChange in output: 0\n\nRemoved words: was i had the to it\nChange in output: -1\n\nRemoved words: it was so , i had lost the to finish it .\nChange in output: 0\n\nRemoved words: so bad i had the heart to\nChange in output: -1\n\nRemoved words: finish\nChange in output: 0\n\nRemoved words: it was so bad i lost it\nChange in output: -1\n\nRemoved words: the it\nChange in output: 0\n\nRemoved words: it so bad , i had lost the heart to finish it .\nChange in output: -1\n\nRemoved words: was heart to it\nChange in output: 0\n\nRemoved words: it lost\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: It was so bad, I had lost the heart to finish it.
+
+Removed words: was so bad i lost the finish it .
+Change in output: 0
+
+Removed words: it bad , i the heart .
+Change in output: -1
+
+Removed words: was so bad , i had lost the to it
+Change in output: 0
+
+Removed words: it it
+Change in output: -1
+
+Removed words: ,
+Change in output: 0
+
+Removed words: it bad , i the heart to it
+Change in output: -1
+
+Removed words: so finish it
+Change in output: 0
+
+Removed words: was i had the to it
+Change in output: -1
+
+Removed words: it was so , i had lost the to finish it .
+Change in output: 0
+
+Removed words: so bad i had the heart to
+Change in output: -1
+
+Removed words: finish
+Change in output: 0
+
+Removed words: it was so bad i lost it
+Change in output: -1
+
+Removed words: the it
+Change in output: 0
+
+Removed words: it so bad , i had lost the heart to finish it .
+Change in output: -1
+
+Removed words: was heart to it
+Change in output: 0
+
+Removed words: it lost
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The dataset shows the change in output when certain words are removed from the original sentence. A change in output of 0 means the removal of the word(s) did not affect the model's output, while a change in output of -1 means the removal of the word(s) did affect the model's output. 
+
+1. The word 'it' appears in 8 instances where the output changes and in 5 instances where the output does not change. This suggests that 'it' has a significant influence on the model's output. Importance: 70
+
+2. The word 'bad' appears in 3 instances where the output changes and in 2 instances where the output does not change. This suggests that 'bad' has a moderate influence on the model's output. Compared to 'it', 'bad' is less important. Current rank: it, bad
+
+3. The word 'was' appears in 3 instances where the output changes and in 3 instances where the output does not change. This suggests that 'was' has a moderate influence on the model's output. Compared to 'it' and 'bad', 'was' is less important. Current rank: it, bad, was
+
+4. The word 'so' appears in 3 instances where the output changes and in 2 instances where the output does not change. This suggests that 'so' has a moderate influence on the model's output. Compared to 'it', 'bad', and 'was', 'so' is less important. Current rank: it, bad, was, so
+
+5. The word 'i' appears in 5 instances where the output changes and in 3 instances where the output does not change. This suggests that 'i' has a significant influence on the model's output. Compared to 'it', 'i' is less important but more important than 'bad', 'was', and 'so'. Current rank: it, i, bad, was, so
+
+6. The word 'lost' appears in 3 instances where the output changes and in 2 instances where the output does not change. This suggests that 'lost' has a moderate influence on the model's output. Compared to 'it', 'i', 'bad', 'was', and 'so', 'lost' is less important. Current rank: it, i, bad, was, so, lost
+
+7. The word 'the' appears in 5 instances where the output changes and in 3 instances where the output does not change. This suggests that 'the' has a significant influence on the model's output. Compared to 'it' and 'i', 'the' is less important but more important than 'bad', 'was', 'so', and 'lost'. Current rank: it, i, the, bad, was, so, lost
+
+8. The word 'heart' appears in 3 instances where the output changes and in 2 instances where the output does not change. This suggests that 'heart' has a moderate influence on the model's output. Compared to 'it', 'i', 'the', 'bad', 'was', 'so', and 'lost', 'heart' is less important. Current rank: it, i, the, bad, was, so, lost, heart
+
+9. The word 'to' appears in 4 instances where the output changes and in 3 instances where the output does not change. This suggests that 'to' has a moderate influence on the model's output. Compared to 'it', 'i', 'the', 'bad', 'was', 'so', 'lost', and 'heart', 'to' is less important. Current rank: it, i, the, bad, was, so, lost, heart, to
+
+10. The word 'finish' appears in 2 instances where the output changes and in 1 instance where the output does not change. This suggests that 'finish' has a moderate influence on the model's output. Compared to 'it', 'i', 'the', 'bad', 'was', 'so', 'lost', 'heart', and 'to', 'finish' is less important. Final rank: it, i, the, bad, was, so, lost, heart, to, finish
+
+Based on this analysis, the top three most important words driving the output are 'it', 'i', and 'the'.
+
+it, i, the

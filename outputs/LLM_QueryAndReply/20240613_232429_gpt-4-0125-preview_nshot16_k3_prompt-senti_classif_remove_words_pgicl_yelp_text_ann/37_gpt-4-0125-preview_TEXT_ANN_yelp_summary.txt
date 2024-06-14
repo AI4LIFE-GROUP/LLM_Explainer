@@ -1,0 +1,103 @@
+37_gpt-4-0125-preview_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		37
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: My wife had the Lobster Bisque soup which was lukewarm.\n\nRemoved words: my wife had the lobster bisque which was lukewarm .\nChange in output: 0\n\nRemoved words: lobster soup was\nChange in output: -1\n\nRemoved words: my had the lobster bisque which was .\nChange in output: 0\n\nRemoved words: my wife had lobster bisque soup which was lukewarm .\nChange in output: -1\n\nRemoved words: my bisque\nChange in output: 0\n\nRemoved words: my wife the lobster bisque which was lukewarm .\nChange in output: -1\n\nRemoved words: had bisque which was lukewarm\nChange in output: 0\n\nRemoved words: my wife had which was lukewarm .\nChange in output: -1\n\nRemoved words: wife the lobster which lukewarm .\nChange in output: 0\n\nRemoved words: which lukewarm\nChange in output: -1\n\nRemoved words: bisque was .\nChange in output: 0\n\nRemoved words: lobster soup .\nChange in output: -1\n\nRemoved words: wife had the bisque\nChange in output: 0\n\nRemoved words: soup was\nChange in output: -1\n\nRemoved words: had the lobster bisque\nChange in output: 0\n\nRemoved words: my the bisque soup which was lukewarm .\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: My wife had the Lobster Bisque soup which was lukewarm.
+
+Removed words: my wife had the lobster bisque which was lukewarm .
+Change in output: 0
+
+Removed words: lobster soup was
+Change in output: -1
+
+Removed words: my had the lobster bisque which was .
+Change in output: 0
+
+Removed words: my wife had lobster bisque soup which was lukewarm .
+Change in output: -1
+
+Removed words: my bisque
+Change in output: 0
+
+Removed words: my wife the lobster bisque which was lukewarm .
+Change in output: -1
+
+Removed words: had bisque which was lukewarm
+Change in output: 0
+
+Removed words: my wife had which was lukewarm .
+Change in output: -1
+
+Removed words: wife the lobster which lukewarm .
+Change in output: 0
+
+Removed words: which lukewarm
+Change in output: -1
+
+Removed words: bisque was .
+Change in output: 0
+
+Removed words: lobster soup .
+Change in output: -1
+
+Removed words: wife had the bisque
+Change in output: 0
+
+Removed words: soup was
+Change in output: -1
+
+Removed words: had the lobster bisque
+Change in output: 0
+
+Removed words: my the bisque soup which was lukewarm .
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the most important words driving the output, we'll analyze the changes in output when specific words are removed. A change in output indicates the importance of the removed words. Words that, when removed, lead to a change in output (either -1 or 1, though only -1 is observed here) are considered more important than those whose removal doesn't change the output (0).
+
+1. **Lobster** - Its removal is directly mentioned twice, once with "lobster soup was" and another with "lobster soup .", both leading to a change in output (-1). This suggests a high importance. **Rank: Lobster**
+
+2. **Soup** - Mentioned in combinations leading to a change in output thrice ("lobster soup was", "my wife had lobster bisque soup which was lukewarm .", "soup was"). Its consistent presence in phrases causing a change suggests significant importance. **Rank: Lobster, Soup**
+
+3. **Was** - Appears in multiple combinations leading to a change in output. Its removal in contexts like "lobster soup was", "soup was", and "which lukewarm" (implied by the removal of "was" leading to a change) indicates its importance in the context of the sentence's sentiment or state. **Rank: Lobster, Soup, Was**
+
+4. **Wife** - Its removal is directly mentioned in contexts leading to a change in output twice. However, its impact seems less direct compared to "Lobster", "Soup", and "Was" since its removal doesn't always lead to a change. **Rank: Lobster, Soup, Was, Wife**
+
+5. **Bisque** - Mentioned several times, but its removal directly leads to a change in output in a mixed manner. It's important but not as directly impactful as "Lobster" or "Soup" on the output. **Rank: Lobster, Soup, Was, Bisque, Wife**
+
+6. **Which** - Its removal is mentioned in contexts leading to a change in output, but like "Was", it's more about the structure than the content. **Rank: Lobster, Soup, Was, Bisque, Wife, Which**
+
+7. **Had** - Appears in various combinations, but its direct impact on the change in output is less clear compared to the top-ranked words. **Rank: Lobster, Soup, Was, Bisque, Wife, Which, Had**
+
+8. **My** - Mentioned several times, but its removal doesn't consistently lead to a change in output. It seems less important in driving the output compared to the content words. **Rank: Lobster, Soup, Was, Bisque, Wife, Which, Had, My**
+
+9. **The** - Its removal is mentioned, but like "My", it doesn't show a consistent pattern in affecting the output, indicating its lower importance. **Rank: Lobster, Soup, Was, Bisque, Wife, Which, Had, My, The**
+
+Given the analysis, focusing on the frequency and context of words leading to a change in output, the top three most important words driving the output are:
+
+Lobster, Soup, Was

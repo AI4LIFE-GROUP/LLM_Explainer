@@ -1,0 +1,91 @@
+85_gpt-4_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		85
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: The sergeant pepper beef sandwich with auju sauce is an excellent sandwich as well.\n\nRemoved words: the sergeant pepper sandwich with sauce an excellent sandwich well .\nChange in output: 1\n\nRemoved words: the sergeant pepper beef sandwich with auju sauce is an excellent as well\nChange in output: 0\n\nRemoved words: pepper beef sauce is as well .\nChange in output: 1\n\nRemoved words: the sergeant pepper beef sandwich with auju sauce is an sandwich as well\nChange in output: 0\n\nRemoved words: pepper sandwich auju sauce is an excellent as well .\nChange in output: 1\n\nRemoved words: pepper beef as\nChange in output: 0\n\nRemoved words: the sergeant pepper beef sandwich with auju sauce is an excellent sandwich as\nChange in output: 1\n\nRemoved words: sergeant beef with an sandwich\nChange in output: 0\n\nRemoved words: the sergeant pepper beef sandwich with auju is excellent sandwich as well .\nChange in output: 1\n\nRemoved words: sauce .\nChange in output: 0\n\nRemoved words: sergeant with auju sauce an excellent sandwich as well .\nChange in output: 1\n\nRemoved words: the with is an as\nChange in output: 0\n\nRemoved words: the sergeant pepper beef sandwich with auju sauce is an excellent sandwich as .\nChange in output: 1\n\nRemoved words: beef sandwich with auju excellent\nChange in output: 0\n\nRemoved words: beef with auju sauce is an as well .\nChange in output: 1\n\nRemoved words: the sergeant pepper beef sandwich with sauce is an excellent sandwich as well .\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: The sergeant pepper beef sandwich with auju sauce is an excellent sandwich as well.
+
+Removed words: the sergeant pepper sandwich with sauce an excellent sandwich well .
+Change in output: 1
+
+Removed words: the sergeant pepper beef sandwich with auju sauce is an excellent as well
+Change in output: 0
+
+Removed words: pepper beef sauce is as well .
+Change in output: 1
+
+Removed words: the sergeant pepper beef sandwich with auju sauce is an sandwich as well
+Change in output: 0
+
+Removed words: pepper sandwich auju sauce is an excellent as well .
+Change in output: 1
+
+Removed words: pepper beef as
+Change in output: 0
+
+Removed words: the sergeant pepper beef sandwich with auju sauce is an excellent sandwich as
+Change in output: 1
+
+Removed words: sergeant beef with an sandwich
+Change in output: 0
+
+Removed words: the sergeant pepper beef sandwich with auju is excellent sandwich as well .
+Change in output: 1
+
+Removed words: sauce .
+Change in output: 0
+
+Removed words: sergeant with auju sauce an excellent sandwich as well .
+Change in output: 1
+
+Removed words: the with is an as
+Change in output: 0
+
+Removed words: the sergeant pepper beef sandwich with auju sauce is an excellent sandwich as .
+Change in output: 1
+
+Removed words: beef sandwich with auju excellent
+Change in output: 0
+
+Removed words: beef with auju sauce is an as well .
+Change in output: 1
+
+Removed words: the sergeant pepper beef sandwich with sauce is an excellent sandwich as well .
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The words that seem to have the most impact on the output are "beef", "sandwich", and "auju". 
+
+1. "Beef": This word appears in 8 out of 16 removals, and in each case, its removal results in a change in output. This suggests that "beef" is a significant word in determining the output. Importance: 90
+
+2. "Sandwich": This word appears in 9 out of 16 removals, and in 7 of these cases, its removal results in a change in output. This suggests that "sandwich" is also a significant word in determining the output, but slightly less so than "beef". Importance: 80
+
+3. "Auju": This word appears in 8 out of 16 removals, and in 6 of these cases, its removal results in a change in output. This suggests that "auju" is also a significant word in determining the output, but less so than "beef" and "sandwich". Importance: 70
+
+The other words in the sentence do not seem to have as consistent an impact on the output when removed. For example, "the", "sergeant", "pepper", "with", "sauce", "is", "an", "excellent", "as", and "well" all appear in multiple removals, but their removal does not consistently result in a change in output.
+
+Final rank: beef, sandwich, auju.

@@ -1,0 +1,101 @@
+90_gpt-4-0125-preview_TEXT_ANN_imdb_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		90
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: The plot doesn\'t hang together at all, and the acting is absolutely appalling.  \n\nRemoved words: the \' hang together all , acting is absolutely appalling .\nChange in output: 0\n\nRemoved words: plot doesn \' t together the acting is .\nChange in output: -1\n\nRemoved words: the plot t hang all , acting is\nChange in output: 0\n\nRemoved words: the plot doesn \' t hang at all , and the acting is absolutely appalling .\nChange in output: -1\n\nRemoved words: \' is absolutely\nChange in output: 0\n\nRemoved words: plot doesn \' t hang at all , and the is absolutely appalling .\nChange in output: -1\n\nRemoved words: together and the\nChange in output: 0\n\nRemoved words: the plot doesn \' t hang the acting absolutely appalling .\nChange in output: -1\n\nRemoved words: the plot \' t hang together at all , and the acting absolutely appalling .\nChange in output: 0\n\nRemoved words: the plot doesn \' t hang together at all , the acting is absolutely appalling .\nChange in output: -1\n\nRemoved words: plot t together all the acting appalling\nChange in output: 0\n\nRemoved words: plot doesn hang at acting is\nChange in output: -1\n\nRemoved words: plot doesn \' t hang together at all and the is appalling .\nChange in output: 0\n\nRemoved words: the plot doesn \' t hang at all , and the is absolutely .\nChange in output: -1\n\nRemoved words: is\nChange in output: 0\n\nRemoved words: the plot doesn \' t at , and the acting absolutely appalling .\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: The plot doesn't hang together at all, and the acting is absolutely appalling.  
+
+Removed words: the ' hang together all , acting is absolutely appalling .
+Change in output: 0
+
+Removed words: plot doesn ' t together the acting is .
+Change in output: -1
+
+Removed words: the plot t hang all , acting is
+Change in output: 0
+
+Removed words: the plot doesn ' t hang at all , and the acting is absolutely appalling .
+Change in output: -1
+
+Removed words: ' is absolutely
+Change in output: 0
+
+Removed words: plot doesn ' t hang at all , and the is absolutely appalling .
+Change in output: -1
+
+Removed words: together and the
+Change in output: 0
+
+Removed words: the plot doesn ' t hang the acting absolutely appalling .
+Change in output: -1
+
+Removed words: the plot ' t hang together at all , and the acting absolutely appalling .
+Change in output: 0
+
+Removed words: the plot doesn ' t hang together at all , the acting is absolutely appalling .
+Change in output: -1
+
+Removed words: plot t together all the acting appalling
+Change in output: 0
+
+Removed words: plot doesn hang at acting is
+Change in output: -1
+
+Removed words: plot doesn ' t hang together at all and the is appalling .
+Change in output: 0
+
+Removed words: the plot doesn ' t hang at all , and the is absolutely .
+Change in output: -1
+
+Removed words: is
+Change in output: 0
+
+Removed words: the plot doesn ' t at , and the acting absolutely appalling .
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the top three most important words driving the output, we'll analyze the occurrences of specific words in the dataset and their impact on the change in output. We'll focus on words that, when removed, consistently lead to a change in output, indicating their importance in the model's decision-making process.
+
+1. **Plot**: Appears in several removals leading to both changes and no changes in output. However, its removal alone does not consistently predict the change in output. Importance: 50
+
+2. **Doesn't/doesn**: This contraction and its split form appear frequently. Its removal sometimes leads to a change and sometimes does not, suggesting it has some importance but is not decisive on its own. Importance: 40 - Rank: Plot, Doesn't
+
+3. **Acting**: The word "acting" appears in multiple instances. Its removal, especially when combined with other key words, often leads to a change in output. This suggests it's a significant factor but not the most critical on its own. Importance: 60 - Rank: Acting, Plot, Doesn't
+
+4. **Absolutely**: Its removal is directly associated with no change in output in one instance, but in combinations, it's part of changes. This indicates a moderate level of importance, as its presence or absence alongside other words influences the output. Importance: 55 - Rank: Acting, Absolutely, Plot, Doesn't
+
+5. **Appalling**: The removal of "appalling" in various combinations leads to changes and no changes in output. Given its strong negative connotation, it's likely a key word in determining the sentiment of the sentence. Importance: 70 - Rank: Appalling, Acting, Absolutely, Plot, Doesn't
+
+6. **Together**: Its removal leads to both changes and no changes in output, indicating it has some relevance but is not as critical as other words for the output. Importance: 45 - Rank: Appalling, Acting, Absolutely, Plot, Together, Doesn't
+
+7. **All**: Similar to "together," its removal shows mixed results. It seems to have a lower impact on the output change compared to more sentiment-driven words. Importance: 40 - Rank: Appalling, Acting, Absolutely, Plot, Together, All, Doesn't
+
+8. **Is**: The word "is" shows a minimal impact when removed, leading to no change in output in a specific instance. Its role is more grammatical, suggesting a lower importance in affecting the model's output sentiment. Importance: 30 - Rank: Appalling, Acting, Absolutely, Plot, Together, All, Doesn't, Is
+
+Considering the analysis, the top three most important words driving the output, based on their impact on changes in output, are:
+
+Appalling, Acting, Absolutely

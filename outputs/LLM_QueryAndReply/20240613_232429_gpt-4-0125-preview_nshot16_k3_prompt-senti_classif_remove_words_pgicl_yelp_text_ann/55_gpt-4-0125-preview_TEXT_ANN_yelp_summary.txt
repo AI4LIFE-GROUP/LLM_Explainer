@@ -1,0 +1,105 @@
+55_gpt-4-0125-preview_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		55
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: If you look for authentic Thai food, go else where.\n\nRemoved words: if you for thai , go else where .\nChange in output: 0\n\nRemoved words: if look authentic thai food where .\nChange in output: -1\n\nRemoved words: you look authentic thai ,\nChange in output: 0\n\nRemoved words: if you look for authentic thai food go else where .\nChange in output: -1\n\nRemoved words: if you look for authentic food , go else where .\nChange in output: 0\n\nRemoved words: if look for thai , go else where\nChange in output: -1\n\nRemoved words: you look for thai else where\nChange in output: 0\n\nRemoved words: if look authentic thai , where\nChange in output: -1\n\nRemoved words: if you look for authentic food , where .\nChange in output: 0\n\nRemoved words: look for food go else where .\nChange in output: -1\n\nRemoved words: authentic .\nChange in output: 0\n\nRemoved words: if authentic thai , else .\nChange in output: -1\n\nRemoved words: if you look for authentic thai food , else where .\nChange in output: 0\n\nRemoved words: for authentic else\nChange in output: -1\n\nRemoved words: you\nChange in output: 0\n\nRemoved words: if you look for authentic thai food , go .\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: If you look for authentic Thai food, go else where.
+
+Removed words: if you for thai , go else where .
+Change in output: 0
+
+Removed words: if look authentic thai food where .
+Change in output: -1
+
+Removed words: you look authentic thai ,
+Change in output: 0
+
+Removed words: if you look for authentic thai food go else where .
+Change in output: -1
+
+Removed words: if you look for authentic food , go else where .
+Change in output: 0
+
+Removed words: if look for thai , go else where
+Change in output: -1
+
+Removed words: you look for thai else where
+Change in output: 0
+
+Removed words: if look authentic thai , where
+Change in output: -1
+
+Removed words: if you look for authentic food , where .
+Change in output: 0
+
+Removed words: look for food go else where .
+Change in output: -1
+
+Removed words: authentic .
+Change in output: 0
+
+Removed words: if authentic thai , else .
+Change in output: -1
+
+Removed words: if you look for authentic thai food , else where .
+Change in output: 0
+
+Removed words: for authentic else
+Change in output: -1
+
+Removed words: you
+Change in output: 0
+
+Removed words: if you look for authentic thai food , go .
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the top three most important words driving the output, we'll analyze the occurrences of each word in the dataset and their impact on the change in output. We'll focus on the words that appear in the "Removed words" list and correlate with a change in output, either 0 or -1. 
+
+1. **Authentic**: This word appears multiple times across different removals, with varying impacts on the output. Notably, its removal alone does not change the output (Change in output: 0), but its presence in combinations that lead to a negative change suggests it has some importance. However, its impact seems less direct compared to other words that, when removed, consistently result in a negative change. Importance: 60
+
+2. **Thai**: Similar to "authentic," "Thai" appears in several removals. Its removal, both individually and in combination, shows a mix of impacts on the output. It's part of combinations that lead to a negative change, but its direct removal without significantly affecting the output (in combination with "authentic") suggests a moderate level of importance. Importance: 50
+
+3. **Else**: The word "else" is part of many combinations that lead to a change in output. Its removal, especially in combinations that result in a negative change, suggests it plays a significant role in the sentence's meaning related to the model's output. However, its impact is not as clear-cut when isolated, indicating its importance is context-dependent but still significant. Importance: 70
+
+4. **If**: The removal of "if" in various combinations leads to both 0 and -1 changes in output. It appears in several instances where its removal does not directly result in a negative change, suggesting its importance is conditional rather than direct. Importance: 40
+
+5. **Look**: This word's removal is involved in changes but does not consistently result in a negative change when removed. It seems to have a moderate impact on the output, indicating its role is more supportive in the sentence's overall meaning rather than critical. Importance: 45
+
+6. **For**: The word "for" appears in combinations that lead to both 0 and -1 changes. Its role seems to be more about sentence structure than directly influencing the output's sentiment or decision. Importance: 30
+
+7. **Food**: "Food" is part of combinations that lead to a negative change, suggesting its importance in the context of the sentence. However, its direct impact is not as pronounced as some other words, indicating a moderate level of importance. Importance: 55
+
+8. **Go**: Similar to "else," "go" is part of combinations that significantly affect the output. Its removal, especially in contexts leading to a negative change, suggests it's crucial for the sentence's action-oriented meaning. Importance: 75
+
+Ranking the words based on their importance in determining the output, considering both their presence in combinations leading to a change and their direct impact when removed, we get:
+
+Go, Else, Authentic, Thai, Food, Look, If, For
+
+Therefore, the top three most important words driving the output are:
+
+Go, Else, Authentic

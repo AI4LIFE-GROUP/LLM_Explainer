@@ -1,0 +1,109 @@
+9_gpt-4-0125-preview_TEXT_ANN_amazon_1000_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		9
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: So anyone near you will hear part of your conversation.\n\nRemoved words: you will hear part your conversation\nChange in output: 0\n\nRemoved words: you hear\nChange in output: -1\n\nRemoved words: near part\nChange in output: 0\n\nRemoved words: anyone will hear of your\nChange in output: -1\n\nRemoved words: near part your conversation\nChange in output: 0\n\nRemoved words: so near will\nChange in output: -1\n\nRemoved words: anyone near you will conversation\nChange in output: 0\n\nRemoved words: so of conversation\nChange in output: -1\n\nRemoved words: so you hear part .\nChange in output: 0\n\nRemoved words: so near you will hear of your conversation .\nChange in output: -1\n\nRemoved words: part your\nChange in output: 0\n\nRemoved words: so .\nChange in output: -1\n\nRemoved words: you will of conversation .\nChange in output: 0\n\nRemoved words: so hear conversation .\nChange in output: -1\n\nRemoved words: so near you will part of your conversation .\nChange in output: 0\n\nRemoved words: so anyone near you hear part of your conversation .\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: So anyone near you will hear part of your conversation.
+
+Removed words: you will hear part your conversation
+Change in output: 0
+
+Removed words: you hear
+Change in output: -1
+
+Removed words: near part
+Change in output: 0
+
+Removed words: anyone will hear of your
+Change in output: -1
+
+Removed words: near part your conversation
+Change in output: 0
+
+Removed words: so near will
+Change in output: -1
+
+Removed words: anyone near you will conversation
+Change in output: 0
+
+Removed words: so of conversation
+Change in output: -1
+
+Removed words: so you hear part .
+Change in output: 0
+
+Removed words: so near you will hear of your conversation .
+Change in output: -1
+
+Removed words: part your
+Change in output: 0
+
+Removed words: so .
+Change in output: -1
+
+Removed words: you will of conversation .
+Change in output: 0
+
+Removed words: so hear conversation .
+Change in output: -1
+
+Removed words: so near you will part of your conversation .
+Change in output: 0
+
+Removed words: so anyone near you hear part of your conversation .
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the most important words driving the output, we'll analyze each word's presence or absence in the dataset and its impact on the change in output. We'll consider how often a word is part of a removal that leads to a change in output (either 0 or -1) and its presence in combinations that do not change the output.
+
+1. **So**: Appears in removals leading to both -1 and 0 changes. Its removal alone ("so .") leads to a -1 change, indicating a significant impact when removed by itself. Importance: 80
+
+2. **Anyone**: Appears in combinations leading to both changes, but its removal alone isn't tested. It's part of a larger phrase that when removed, results in a -1 change, suggesting some importance but less direct than "so". Importance: 60
+
+3. **Near**: Appears in multiple combinations, with both 0 and -1 changes. Its direct impact seems neutral, as its removal with other words doesn't consistently drive the output to -1. Importance: 50
+
+4. **You**: Appears in several combinations. Its removal, especially with "hear" ("you hear"), leads to a -1 change, indicating a significant role. However, its impact seems slightly less direct than "so" because it's often in combination with other words for the -1 change. Importance: 70
+
+5. **Will**: Appears in various combinations. Its removal doesn't directly lead to a -1 change unless combined with other key words, suggesting its role is supportive rather than direct. Importance: 40
+
+6. **Hear**: Similar to "you", its removal in combination ("you hear") leads to a -1 change, indicating its importance. However, its impact is not as isolated as "so". Importance: 70
+
+7. **Part**: Appears in combinations with both 0 and -1 changes but doesn't seem to have a direct impact when removed with certain other words. Importance: 30
+
+8. **Of**: Appears in combinations leading to both 0 and -1 changes. Its removal alone doesn't directly result in a -1 change, suggesting a supportive role. Importance: 40
+
+9. **Your**: Appears in combinations with both 0 and -1 changes but, like "part", doesn't show a direct impact on its own. Importance: 30
+
+10. **Conversation**: Appears in multiple combinations. Its removal, especially in larger phrases, leads to both 0 and -1 changes, but it doesn't seem to be the key driver of changes. Importance: 50
+
+Ranking the words based on their importance in driving the output, considering both their positive and negative impacts, we get:
+
+So, You, Hear, Anyone, Near, Will, Of, Conversation, Part, Your
+
+Therefore, the top three most important words driving the output are:
+
+So, You, Hear

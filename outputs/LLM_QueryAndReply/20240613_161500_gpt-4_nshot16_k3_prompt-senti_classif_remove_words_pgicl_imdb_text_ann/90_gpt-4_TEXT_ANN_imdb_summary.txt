@@ -1,0 +1,93 @@
+90_gpt-4_TEXT_ANN_imdb_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		90
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: The plot doesn\'t hang together at all, and the acting is absolutely appalling.  \n\nRemoved words: plot the absolutely\nChange in output: 0\n\nRemoved words: the plot doesn t hang together at , acting is appalling .\nChange in output: -1\n\nRemoved words: the \' t hang at all and is absolutely\nChange in output: 0\n\nRemoved words: plot doesn hang at all , and the is appalling .\nChange in output: -1\n\nRemoved words: the together , absolutely\nChange in output: 0\n\nRemoved words: the plot doesn t at all , and acting is absolutely appalling\nChange in output: -1\n\nRemoved words: the doesn t hang together all , and the is appalling .\nChange in output: 0\n\nRemoved words: the plot doesn \' t at all , and the acting is absolutely appalling .\nChange in output: -1\n\nRemoved words: acting is appalling\nChange in output: 0\n\nRemoved words: the plot doesn acting .\nChange in output: -1\n\nRemoved words: doesn hang acting absolutely\nChange in output: 0\n\nRemoved words: plot doesn \' t together at all , the acting absolutely appalling\nChange in output: -1\n\nRemoved words: doesn .\nChange in output: 0\n\nRemoved words: plot doesn \' t all , the acting is appalling\nChange in output: -1\n\nRemoved words: the \' together all , and the absolutely\nChange in output: 0\n\nRemoved words: the plot doesn \' t hang together at all , and the acting is .\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: The plot doesn't hang together at all, and the acting is absolutely appalling.  
+
+Removed words: plot the absolutely
+Change in output: 0
+
+Removed words: the plot doesn t hang together at , acting is appalling .
+Change in output: -1
+
+Removed words: the ' t hang at all and is absolutely
+Change in output: 0
+
+Removed words: plot doesn hang at all , and the is appalling .
+Change in output: -1
+
+Removed words: the together , absolutely
+Change in output: 0
+
+Removed words: the plot doesn t at all , and acting is absolutely appalling
+Change in output: -1
+
+Removed words: the doesn t hang together all , and the is appalling .
+Change in output: 0
+
+Removed words: the plot doesn ' t at all , and the acting is absolutely appalling .
+Change in output: -1
+
+Removed words: acting is appalling
+Change in output: 0
+
+Removed words: the plot doesn acting .
+Change in output: -1
+
+Removed words: doesn hang acting absolutely
+Change in output: 0
+
+Removed words: plot doesn ' t together at all , the acting absolutely appalling
+Change in output: -1
+
+Removed words: doesn .
+Change in output: 0
+
+Removed words: plot doesn ' t all , the acting is appalling
+Change in output: -1
+
+Removed words: the ' together all , and the absolutely
+Change in output: 0
+
+Removed words: the plot doesn ' t hang together at all , and the acting is .
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The words that seem to have the most impact on the output are 'plot', 'doesn', and 'acting'. 
+
+1. 'Plot': Every time the word 'plot' is removed, the output changes by -1. This suggests that the word 'plot' has a strong positive correlation with the output. Importance: 100
+
+2. 'Doesn': The word 'doesn' also has a strong correlation with the output. Whenever it is removed, the output changes by -1. This suggests that 'doesn' has a strong positive correlation with the output. Importance: 100
+
+3. 'Acting': The word 'acting' seems to have a less consistent impact on the output. In some cases, its removal leads to a change in output, but in others, it does not. This suggests that 'acting' has a moderate positive correlation with the output. Importance: 50
+
+4. Other words: The removal of other words does not consistently lead to a change in output. This suggests that these words have a weak or no correlation with the output. Importance: 0-25
+
+Based on this analysis, the ranking of the words from most important to least important is: 'plot', 'doesn', 'acting'. 
+
+plot, doesn, acting

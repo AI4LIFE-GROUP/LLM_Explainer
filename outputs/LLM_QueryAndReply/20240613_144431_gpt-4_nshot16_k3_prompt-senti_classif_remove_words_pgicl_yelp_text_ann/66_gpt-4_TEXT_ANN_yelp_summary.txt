@@ -1,0 +1,101 @@
+66_gpt-4_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		66
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: The seafood was fresh and generous in portion.\n\nRemoved words: seafood fresh generous portion\nChange in output: 1\n\nRemoved words: fresh\nChange in output: 0\n\nRemoved words: portion\nChange in output: 1\n\nRemoved words: in\nChange in output: 0\n\nRemoved words: was generous\nChange in output: 1\n\nRemoved words: seafood was and generous in portion .\nChange in output: 0\n\nRemoved words: the was fresh generous in portion .\nChange in output: 1\n\nRemoved words: seafood was fresh and generous portion .\nChange in output: 0\n\nRemoved words: the fresh and generous portion\nChange in output: 1\n\nRemoved words: in .\nChange in output: 0\n\nRemoved words: the was and generous portion .\nChange in output: 1\n\nRemoved words: was\nChange in output: 0\n\nRemoved words: was generous\nChange in output: 1\n\nRemoved words: the seafood was portion .\nChange in output: 0\n\nRemoved words: the seafood was fresh generous in portion .\nChange in output: 1\n\nRemoved words: and\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: The seafood was fresh and generous in portion.
+
+Removed words: seafood fresh generous portion
+Change in output: 1
+
+Removed words: fresh
+Change in output: 0
+
+Removed words: portion
+Change in output: 1
+
+Removed words: in
+Change in output: 0
+
+Removed words: was generous
+Change in output: 1
+
+Removed words: seafood was and generous in portion .
+Change in output: 0
+
+Removed words: the was fresh generous in portion .
+Change in output: 1
+
+Removed words: seafood was fresh and generous portion .
+Change in output: 0
+
+Removed words: the fresh and generous portion
+Change in output: 1
+
+Removed words: in .
+Change in output: 0
+
+Removed words: the was and generous portion .
+Change in output: 1
+
+Removed words: was
+Change in output: 0
+
+Removed words: was generous
+Change in output: 1
+
+Removed words: the seafood was portion .
+Change in output: 0
+
+Removed words: the seafood was fresh generous in portion .
+Change in output: 1
+
+Removed words: and
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The output changes when the words 'seafood', 'fresh', 'generous', 'portion', 'was', 'and', 'in', and 'the' are removed. However, the words 'seafood', 'fresh', 'generous', and 'portion' seem to have a more significant impact on the output than the others. 
+
+1. 'Seafood': The output changes when 'seafood' is removed, indicating its importance. However, it's not as impactful as 'fresh', 'generous', and 'portion'. Importance: 70
+
+2. 'Fresh': The output doesn't change when 'fresh' is removed alone, but it does when removed with other words. This suggests it has some importance, but not as much as 'generous' and 'portion'. Importance: 80
+
+3. 'Generous': The output changes when 'generous' is removed, indicating its importance. It seems to be as impactful as 'portion'. Importance: 90
+
+4. 'Portion': The output changes when 'portion' is removed, indicating its importance. It seems to be as impactful as 'generous'. Importance: 90
+
+5. 'Was': The output doesn't change when 'was' is removed alone, but it does when removed with other words. This suggests it has some importance, but not as much as 'seafood', 'fresh', 'generous', and 'portion'. Importance: 60
+
+6. 'And': The output doesn't change when 'and' is removed, suggesting it's not as important as the other words. Importance: 50
+
+7. 'In': The output doesn't change when 'in' is removed, suggesting it's not as important as the other words. Importance: 50
+
+8. 'The': The output changes when 'the' is removed, indicating its importance. However, it's not as impactful as 'seafood', 'fresh', 'generous', and 'portion'. Importance: 70
+
+Based on the above analysis, the top three most important words driving the output are 'generous', 'portion', and 'fresh'.
+
+Generous, Portion, Fresh

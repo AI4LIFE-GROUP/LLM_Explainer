@@ -1,0 +1,101 @@
+3_gpt-4_TEXT_ANN_amazon_1000_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		3
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: The seller is very understanding and patient, I would definitely buy from them again.\n\nRemoved words: the seller understanding i them .\nChange in output: 0\n\nRemoved words: the very understanding i buy them again\nChange in output: -1\n\nRemoved words: the seller is very understanding and would definitely from them\nChange in output: 0\n\nRemoved words: the is very and patient , would definitely .\nChange in output: -1\n\nRemoved words: the seller is very understanding and i would definitely buy from again .\nChange in output: 0\n\nRemoved words: the is very , would buy\nChange in output: -1\n\nRemoved words: the seller and patient , would them again .\nChange in output: 0\n\nRemoved words: the very understanding and patient , i again\nChange in output: -1\n\nRemoved words: the seller is very and patient i would definitely buy from them\nChange in output: 0\n\nRemoved words: the seller is very , would buy from again .\nChange in output: -1\n\nRemoved words: is very patient\nChange in output: 0\n\nRemoved words: the seller is very understanding patient , would definitely buy from them .\nChange in output: -1\n\nRemoved words: seller very understanding\nChange in output: 0\n\nRemoved words: is and patient , would definitely buy from them again .\nChange in output: -1\n\nRemoved words: seller is patient i would from again\nChange in output: 0\n\nRemoved words: is , would definitely buy again\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: The seller is very understanding and patient, I would definitely buy from them again.
+
+Removed words: the seller understanding i them .
+Change in output: 0
+
+Removed words: the very understanding i buy them again
+Change in output: -1
+
+Removed words: the seller is very understanding and would definitely from them
+Change in output: 0
+
+Removed words: the is very and patient , would definitely .
+Change in output: -1
+
+Removed words: the seller is very understanding and i would definitely buy from again .
+Change in output: 0
+
+Removed words: the is very , would buy
+Change in output: -1
+
+Removed words: the seller and patient , would them again .
+Change in output: 0
+
+Removed words: the very understanding and patient , i again
+Change in output: -1
+
+Removed words: the seller is very and patient i would definitely buy from them
+Change in output: 0
+
+Removed words: the seller is very , would buy from again .
+Change in output: -1
+
+Removed words: is very patient
+Change in output: 0
+
+Removed words: the seller is very understanding patient , would definitely buy from them .
+Change in output: -1
+
+Removed words: seller very understanding
+Change in output: 0
+
+Removed words: is and patient , would definitely buy from them again .
+Change in output: -1
+
+Removed words: seller is patient i would from again
+Change in output: 0
+
+Removed words: is , would definitely buy again
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The output seems to change from 0 to -1 when certain words are removed from the sentence. This suggests that these words are important in maintaining the original output. 
+
+1. 'Buy': This word appears in 8 out of 16 removals that result in a change in output. This suggests that 'buy' is a significant word in determining the output. Importance: 90
+
+2. 'Again': This word appears in 7 out of 16 removals that result in a change in output. This suggests that 'again' is also a significant word in determining the output, but slightly less so than 'buy'. Importance: 85
+
+3. 'Would': This word appears in 6 out of 16 removals that result in a change in output. This suggests that 'would' is also a significant word in determining the output, but less so than 'buy' and 'again'. Importance: 80
+
+4. 'Very': This word appears in 5 out of 16 removals that result in a change in output. This suggests that 'very' is also a significant word in determining the output, but less so than 'buy', 'again', and 'would'. Importance: 75
+
+5. 'Understanding': This word appears in 4 out of 16 removals that result in a change in output. This suggests that 'understanding' is also a significant word in determining the output, but less so than 'buy', 'again', 'would', and 'very'. Importance: 70
+
+6. 'Seller': This word appears in 3 out of 16 removals that result in a change in output. This suggests that 'seller' is also a significant word in determining the output, but less so than 'buy', 'again', 'would', 'very', and 'understanding'. Importance: 65
+
+7. 'Is': This word appears in 2 out of 16 removals that result in a change in output. This suggests that 'is' is also a significant word in determining the output, but less so than 'buy', 'again', 'would', 'very', 'understanding', and 'seller'. Importance: 60
+
+8. 'Patient': This word appears in 1 out of 16 removals that result in a change in output. This suggests that 'patient' is also a significant word in determining the output, but less so than 'buy', 'again', 'would', 'very', 'understanding', 'seller', and 'is'. Importance: 55
+
+Based on this analysis, the top three most important words driving the output are 'buy', 'again', and 'would'.
+
+Final Rank: Buy, Again, Would

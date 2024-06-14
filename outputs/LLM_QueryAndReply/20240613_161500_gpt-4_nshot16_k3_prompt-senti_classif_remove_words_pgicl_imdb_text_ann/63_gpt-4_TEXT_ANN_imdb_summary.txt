@@ -1,0 +1,91 @@
+63_gpt-4_TEXT_ANN_imdb_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		63
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: John Wayne did an incredible job for being so young in the movie industry.  \t\n\nRemoved words: john wayne did an incredible job for being so in the industry .\nChange in output: 1\n\nRemoved words: for being so .\nChange in output: 0\n\nRemoved words: john wayne did an incredible job being young in movie industry .\nChange in output: 1\n\nRemoved words: john an incredible for young in the industry .\nChange in output: 0\n\nRemoved words: wayne did an being so in .\nChange in output: 1\n\nRemoved words: did incredible so movie\nChange in output: 0\n\nRemoved words: wayne an in industry .\nChange in output: 1\n\nRemoved words: john wayne young movie industry .\nChange in output: 0\n\nRemoved words: john wayne did an incredible job for being so young in the movie industry\nChange in output: 1\n\nRemoved words: john wayne did an incredible for so young movie industry .\nChange in output: 0\n\nRemoved words: so\nChange in output: 1\n\nRemoved words: industry\nChange in output: 0\n\nRemoved words: john wayne did an incredible job in the movie industry .\nChange in output: 1\n\nRemoved words: john wayne did an incredible job for so young in the movie industry .\nChange in output: 0\n\nRemoved words: john did an incredible job for being in the movie industry .\nChange in output: 1\n\nRemoved words: did an incredible job for so young the movie industry .\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: John Wayne did an incredible job for being so young in the movie industry.  	
+
+Removed words: john wayne did an incredible job for being so in the industry .
+Change in output: 1
+
+Removed words: for being so .
+Change in output: 0
+
+Removed words: john wayne did an incredible job being young in movie industry .
+Change in output: 1
+
+Removed words: john an incredible for young in the industry .
+Change in output: 0
+
+Removed words: wayne did an being so in .
+Change in output: 1
+
+Removed words: did incredible so movie
+Change in output: 0
+
+Removed words: wayne an in industry .
+Change in output: 1
+
+Removed words: john wayne young movie industry .
+Change in output: 0
+
+Removed words: john wayne did an incredible job for being so young in the movie industry
+Change in output: 1
+
+Removed words: john wayne did an incredible for so young movie industry .
+Change in output: 0
+
+Removed words: so
+Change in output: 1
+
+Removed words: industry
+Change in output: 0
+
+Removed words: john wayne did an incredible job in the movie industry .
+Change in output: 1
+
+Removed words: john wayne did an incredible job for so young in the movie industry .
+Change in output: 0
+
+Removed words: john did an incredible job for being in the movie industry .
+Change in output: 1
+
+Removed words: did an incredible job for so young the movie industry .
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The words that seem to have the most impact on the output are "young", "being", and "so". 
+
+"Young" appears to be the most important word. Whenever it is removed, the output changes. This suggests that the model is sensitive to the age of the actor, which is a key factor in the sentence. 
+
+"Being" is the second most important word. It is also consistently associated with a change in output when removed. This suggests that the model is sensitive to the state or condition of the actor, which is expressed by the word "being".
+
+"So" is the third most important word. It is associated with a change in output in most cases when removed. This suggests that the model is sensitive to the degree or extent of something, which is expressed by the word "so".
+
+The other words in the sentence do not seem to have as much impact on the output. They are either not associated with a change in output when removed or are associated with a change in output less consistently.
+
+Final ranking: young, being, so.

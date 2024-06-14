@@ -1,0 +1,100 @@
+92_gpt-4-0125-preview_TEXT_ANN_imdb_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		92
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: Bad characters, bad story and bad acting.  \n\nRemoved words: bad characters , story and acting .\nChange in output: 0\n\nRemoved words: bad , bad story and bad acting .\nChange in output: -1\n\nRemoved words: bad story and\nChange in output: 0\n\nRemoved words: bad , bad story bad acting .\nChange in output: -1\n\nRemoved words: bad and\nChange in output: 0\n\nRemoved words: bad , bad story bad acting .\nChange in output: -1\n\nRemoved words: bad characters bad story and bad acting .\nChange in output: 0\n\nRemoved words: bad bad story bad acting .\nChange in output: -1\n\nRemoved words: bad\nChange in output: 0\n\nRemoved words: bad bad story bad acting .\nChange in output: -1\n\nRemoved words: characters bad\nChange in output: 0\n\nRemoved words: bad characters bad story bad .\nChange in output: -1\n\nRemoved words: bad characters , story and bad .\nChange in output: 0\n\nRemoved words: bad characters , bad story bad acting .\nChange in output: -1\n\nRemoved words: bad bad\nChange in output: 0\n\nRemoved words: bad characters bad story bad .\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: Bad characters, bad story and bad acting.  
+
+Removed words: bad characters , story and acting .
+Change in output: 0
+
+Removed words: bad , bad story and bad acting .
+Change in output: -1
+
+Removed words: bad story and
+Change in output: 0
+
+Removed words: bad , bad story bad acting .
+Change in output: -1
+
+Removed words: bad and
+Change in output: 0
+
+Removed words: bad , bad story bad acting .
+Change in output: -1
+
+Removed words: bad characters bad story and bad acting .
+Change in output: 0
+
+Removed words: bad bad story bad acting .
+Change in output: -1
+
+Removed words: bad
+Change in output: 0
+
+Removed words: bad bad story bad acting .
+Change in output: -1
+
+Removed words: characters bad
+Change in output: 0
+
+Removed words: bad characters bad story bad .
+Change in output: -1
+
+Removed words: bad characters , story and bad .
+Change in output: 0
+
+Removed words: bad characters , bad story bad acting .
+Change in output: -1
+
+Removed words: bad bad
+Change in output: 0
+
+Removed words: bad characters bad story bad .
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the most important words driving the output, we'll analyze the frequency and context in which each word appears and its impact on the change in output. The words in question are "bad," "characters," "story," and "acting."
+
+1. **Bad**: This word appears in every instance where there's a change in output, either -1 or 0, depending on its removal or context. Its removal alone or in combination with other words leads to a change in output in several instances. Given its frequent appearance and the consistent impact on output change, its importance is high. However, its removal doesn't always lead to a negative change, indicating a complex influence.
+
+2. **Characters**: The word "characters" appears in multiple instances, but its removal or inclusion doesn't consistently influence the output to change negatively or positively. It seems its impact is more dependent on its combination with "bad" rather than its standalone presence.
+
+3. **Story**: Similar to "characters," the word "story" appears in various combinations, but its direct influence on output change is less clear than "bad." It often appears alongside "bad," suggesting its impact is also more significant in combination rather than alone.
+
+4. **Acting**: The word "acting" follows a similar pattern to "characters" and "story," where its impact is observed mainly in combination with "bad." Its standalone removal or inclusion doesn't distinctly affect the output change, indicating a lesser importance than "bad."
+
+Given the analysis, the importance rating on a scale of 0-100 (with 100 being most important) would be:
+
+- **Bad**: 90 - Its presence or absence has the most consistent and significant impact on output changes.
+- **Characters**: 50 - While it appears frequently, its impact is less direct than "bad."
+- **Story**: 50 - Similar to "characters," its impact is intertwined with "bad," making it difficult to isolate its influence.
+- **Acting**: 50 - Like "story" and "characters," its importance is secondary to "bad."
+
+Considering the relative importance and the instructions for ranking, the final rank from most important to least important is:
+
+bad, characters, story, acting

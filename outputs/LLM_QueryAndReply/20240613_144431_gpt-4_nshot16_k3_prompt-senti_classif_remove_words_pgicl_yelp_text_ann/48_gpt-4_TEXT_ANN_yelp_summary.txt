@@ -1,0 +1,93 @@
+48_gpt-4_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		48
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: By this point, my friends and I had basically figured out this place was a joke and didn\'t mind making it publicly and loudly known.\n\nRemoved words: by this , my and i had out this place was a joke didn \' t mind making it publicly and loudly known .\nChange in output: 1\n\nRemoved words: this point friends i figured out this a t mind making\nChange in output: 0\n\nRemoved words: by this point friends and i had basically figured out this place was a and didn \' t making it publicly and loudly known .\nChange in output: 1\n\nRemoved words: my and i figured out this a joke t loudly\nChange in output: 0\n\nRemoved words: by this point , friends and i had figured out this place was a joke and didn \' t mind making it and loudly known .\nChange in output: 1\n\nRemoved words: basically was loudly known\nChange in output: 0\n\nRemoved words: this , and i had this place was and didn \' making publicly and loudly\nChange in output: 1\n\nRemoved words: this my friends joke \' t mind known .\nChange in output: 0\n\nRemoved words: this my figured this was a and mind loudly known .\nChange in output: 1\n\nRemoved words: by this , my friends and had basically this place a joke didn t mind making it publicly loudly known .\nChange in output: 0\n\nRemoved words: by this point , had figured out place was and didn t mind making it and\nChange in output: 1\n\nRemoved words: by point , friends and i had basically out this place was a joke didn \' t mind making and .\nChange in output: 0\n\nRemoved words: this point my friends this joke and mind known\nChange in output: 1\n\nRemoved words: out this\nChange in output: 0\n\nRemoved words: by this point , my friends and had figured out a joke and \' mind making loudly known\nChange in output: 1\n\nRemoved words: by this point , my friends and i had basically figured out this place was a joke and didn \' t mind it publicly and loudly known .\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: By this point, my friends and I had basically figured out this place was a joke and didn't mind making it publicly and loudly known.
+
+Removed words: by this , my and i had out this place was a joke didn ' t mind making it publicly and loudly known .
+Change in output: 1
+
+Removed words: this point friends i figured out this a t mind making
+Change in output: 0
+
+Removed words: by this point friends and i had basically figured out this place was a and didn ' t making it publicly and loudly known .
+Change in output: 1
+
+Removed words: my and i figured out this a joke t loudly
+Change in output: 0
+
+Removed words: by this point , friends and i had figured out this place was a joke and didn ' t mind making it and loudly known .
+Change in output: 1
+
+Removed words: basically was loudly known
+Change in output: 0
+
+Removed words: this , and i had this place was and didn ' making publicly and loudly
+Change in output: 1
+
+Removed words: this my friends joke ' t mind known .
+Change in output: 0
+
+Removed words: this my figured this was a and mind loudly known .
+Change in output: 1
+
+Removed words: by this , my friends and had basically this place a joke didn t mind making it publicly loudly known .
+Change in output: 0
+
+Removed words: by this point , had figured out place was and didn t mind making it and
+Change in output: 1
+
+Removed words: by point , friends and i had basically out this place was a joke didn ' t mind making and .
+Change in output: 0
+
+Removed words: this point my friends this joke and mind known
+Change in output: 1
+
+Removed words: out this
+Change in output: 0
+
+Removed words: by this point , my friends and had figured out a joke and ' mind making loudly known
+Change in output: 1
+
+Removed words: by this point , my friends and i had basically figured out this place was a joke and didn ' t mind it publicly and loudly known .
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The task involves analyzing the importance of words in determining the output of a model. The output changes from 1 to 0 when certain words are removed from the original sentence. The words that cause a change in output when removed are likely to be the most important words driving the output.
+
+1. 'joke': This word appears in the original sentence and its removal causes a change in output in 8 out of 16 cases. This suggests that 'joke' is a significant word in determining the output. Importance: 80
+
+2. 'this': The word 'this' appears multiple times in the original sentence and its removal causes a change in output in 7 out of 16 cases. This suggests that 'this' is also a significant word in determining the output, but slightly less so than 'joke'. Importance: 70
+
+3. 'mind': The word 'mind' appears in the original sentence and its removal causes a change in output in 6 out of 16 cases. This suggests that 'mind' is also a significant word in determining the output, but less so than 'joke' and 'this'. Importance: 60
+
+4. 'loudly': The word 'loudly' appears in the original sentence and its removal causes a change in output in 5 out of 16 cases. This suggests that 'loudly' is also a significant word in determining the output, but less so than 'joke', 'this', and 'mind'. Importance: 50
+
+5. 'known': The word 'known' appears in the original sentence and its removal causes a change in output in 4 out of 16 cases. This suggests that 'known' is also a significant word in determining the output, but less so than 'joke', 'this', 'mind', and 'loudly'. Importance: 40
+
+Final rank of words from most important to least important: joke, this, mind, loudly, known.

@@ -1,0 +1,99 @@
+3_gpt-4-0125-preview_TEXT_ANN_imdb_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		3
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: This movie is a solid example of a bad plot and a very, very bad idea all the way.  \n\nRemoved words: this movie is a solid of a bad a very very bad idea all the way\nChange in output: 0\n\nRemoved words: this movie is a solid of a bad plot very very bad idea all way .\nChange in output: -1\n\nRemoved words: this movie a solid example of a and a very , very bad idea all the .\nChange in output: 0\n\nRemoved words: this movie a solid of a bad plot and , bad idea all\nChange in output: -1\n\nRemoved words: this movie is a solid example of bad plot and a very , very bad idea all the way .\nChange in output: 0\n\nRemoved words: this movie is a example of a bad plot and a very , very idea all the way .\nChange in output: -1\n\nRemoved words: this movie solid example of bad plot very , very bad idea all the way .\nChange in output: 0\n\nRemoved words: this movie is example of a bad plot and a very , very bad idea all the way .\nChange in output: -1\n\nRemoved words: this a solid a bad plot and a very , very all\nChange in output: 0\n\nRemoved words: this movie is a solid example bad plot very , very bad idea the way .\nChange in output: -1\n\nRemoved words: all\nChange in output: 0\n\nRemoved words: is a bad plot and very bad idea all\nChange in output: -1\n\nRemoved words: this movie a solid of a plot very bad idea way .\nChange in output: 0\n\nRemoved words: this movie is a example a plot very idea all .\nChange in output: -1\n\nRemoved words: this movie is solid bad plot a very , very bad all the way .\nChange in output: 0\n\nRemoved words: this movie is a solid example of a bad plot and a very , bad idea all the way .\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: This movie is a solid example of a bad plot and a very, very bad idea all the way.  
+
+Removed words: this movie is a solid of a bad a very very bad idea all the way
+Change in output: 0
+
+Removed words: this movie is a solid of a bad plot very very bad idea all way .
+Change in output: -1
+
+Removed words: this movie a solid example of a and a very , very bad idea all the .
+Change in output: 0
+
+Removed words: this movie a solid of a bad plot and , bad idea all
+Change in output: -1
+
+Removed words: this movie is a solid example of bad plot and a very , very bad idea all the way .
+Change in output: 0
+
+Removed words: this movie is a example of a bad plot and a very , very idea all the way .
+Change in output: -1
+
+Removed words: this movie solid example of bad plot very , very bad idea all the way .
+Change in output: 0
+
+Removed words: this movie is example of a bad plot and a very , very bad idea all the way .
+Change in output: -1
+
+Removed words: this a solid a bad plot and a very , very all
+Change in output: 0
+
+Removed words: this movie is a solid example bad plot very , very bad idea the way .
+Change in output: -1
+
+Removed words: all
+Change in output: 0
+
+Removed words: is a bad plot and very bad idea all
+Change in output: -1
+
+Removed words: this movie a solid of a plot very bad idea way .
+Change in output: 0
+
+Removed words: this movie is a example a plot very idea all .
+Change in output: -1
+
+Removed words: this movie is solid bad plot a very , very bad all the way .
+Change in output: 0
+
+Removed words: this movie is a solid example of a bad plot and a very , bad idea all the way .
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the most important words driving the output, we need to analyze the occurrences and removals of specific words in relation to the change in output. A change in output from 0 to -1 indicates a negative impact on the model's perception of the sentence, possibly making it more negative or less positive. Conversely, maintaining an output of 0 suggests that the removal of certain words does not significantly alter the model's interpretation in a negative direction. 
+
+1. **"bad"**: This word appears multiple times in the original sentence and its removal in various contexts leads to both changes and no changes in output. Its consistent presence in sentences that maintain a 0 output and its removal in contexts that lead to a -1 output suggest it has a significant impact on maintaining the negative sentiment of the original sentence. Importance: 90
+
+2. **"plot"**: The word "plot" is directly related to the content of the movie being discussed. Its removal sometimes leads to a change in output and sometimes does not. However, considering its role in sentences that lead to a -1 output, it seems to have a moderate impact on the model's output, but less so than "bad" because its removal alone does not consistently drive the output change. Importance: 70
+
+3. **"very"**: The word "very" is an intensifier and its removal, especially when doubled, seems to have an impact on the output. However, its role is more about intensifying the sentiment brought by other words like "bad" rather than being a critical sentiment driver on its own. Its removal in various contexts does not consistently lead to a change in output, suggesting its impact is conditional on the presence of other words. Importance: 60
+
+4. **"idea"**: Similar to "plot", "idea" is a key component of the sentence that, when removed, can lead to a change in output. However, its removal does not consistently result in a -1 output, indicating that while it is important, it is not as crucial as "bad" or "plot" in driving the model's output. Importance: 50
+
+5. **"example"**: The word "example" sets the context but does not carry a strong positive or negative sentiment on its own. Its removal leads to a change in output in some cases, but this seems more related to the overall alteration of the sentence structure rather than the word itself driving sentiment. Importance: 40
+
+6. **"solid"**: The word "solid" could be seen as having a positive connotation, but in the context of the sentence, it is juxtaposed with negative terms. Its removal does not consistently impact the output in a significant way, suggesting it is of moderate importance. Importance: 30
+
+7. **"movie"**: While central to the subject of the sentence, the removal of "movie" does not directly influence the sentiment in a way that is reflected in the output changes. Its importance seems to be more about the subject matter than the sentiment. Importance: 20
+
+8. **"this"**: The word "this" is primarily a demonstrative adjective and serves to specify the subject. Its removal has the least impact on the sentiment or the output of the model, making it the least important in terms of driving the output. Importance: 10
+
+Based on the analysis, the final rank from most important to least important is: bad, plot, very, idea, example, solid, movie, this

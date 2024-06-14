@@ -1,0 +1,95 @@
+56_gpt-4-0125-preview_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		56
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: You can\'t beat that.\n\nRemoved words: you can t\nChange in output: 0\n\nRemoved words: \' t beat that\nChange in output: -1\n\nRemoved words: you can beat that\nChange in output: 0\n\nRemoved words: \' t beat\nChange in output: -1\n\nRemoved words: \' that\nChange in output: 0\n\nRemoved words: you can t beat .\nChange in output: -1\n\nRemoved words: \' t beat that .\nChange in output: 0\n\nRemoved words: can beat .\nChange in output: -1\n\nRemoved words: you can \' that .\nChange in output: 0\n\nRemoved words: can t beat that .\nChange in output: -1\n\nRemoved words: can\nChange in output: 0\n\nRemoved words: can t beat .\nChange in output: -1\n\nRemoved words: t\nChange in output: 0\n\nRemoved words: you can \' t beat .\nChange in output: -1\n\nRemoved words: you \' t that .\nChange in output: 0\n\nRemoved words: \' t beat\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: You can't beat that.
+
+Removed words: you can t
+Change in output: 0
+
+Removed words: ' t beat that
+Change in output: -1
+
+Removed words: you can beat that
+Change in output: 0
+
+Removed words: ' t beat
+Change in output: -1
+
+Removed words: ' that
+Change in output: 0
+
+Removed words: you can t beat .
+Change in output: -1
+
+Removed words: ' t beat that .
+Change in output: 0
+
+Removed words: can beat .
+Change in output: -1
+
+Removed words: you can ' that .
+Change in output: 0
+
+Removed words: can t beat that .
+Change in output: -1
+
+Removed words: can
+Change in output: 0
+
+Removed words: can t beat .
+Change in output: -1
+
+Removed words: t
+Change in output: 0
+
+Removed words: you can ' t beat .
+Change in output: -1
+
+Removed words: you ' t that .
+Change in output: 0
+
+Removed words: ' t beat
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the most important words driving the output, we'll analyze each word's presence or absence in the dataset and its impact on the change in output. We'll consider both the instances where their removal leads to a change in output and where it does not.
+
+1. **'t** - The removal of "'t" in various combinations leads to both 0 and -1 changes in output, indicating its significant role in determining the output. It's involved in changes both when alone and when combined with other words. Importance: 90
+
+2. **beat** - The word "beat" is also central to changes in output, appearing in combinations that lead to both 0 and -1 changes. Its presence or absence alongside other words like "'t" seems to be crucial. However, its impact seems slightly less direct than "'t" because its removal without "'t" doesn't always change the output. Importance: 80
+
+3. **that** - The removal of "that" leads to a change in output in some cases but is also seen in instances where the output does not change. It appears to have a moderate impact on the output, less so than "'t" and "beat". Importance: 70
+
+4. **can** - The word "can" is involved in changes, but its removal alone leads to no change in output, suggesting its role is less critical than "'t", "beat", and "that". Its impact seems to be more in combination with other words rather than on its own. Importance: 60
+
+5. **you** - Similar to "can", "you" is part of combinations that lead to changes in output, but its removal alone does not always directly impact the output. Its importance is therefore considered to be on the lower end, similar to "can" but slightly less because it appears less frequently in impactful combinations. Importance: 50
+
+Based on the analysis and the importance ratings, the final rank from most important to least important is:
+
+'t, beat, that, can, you

@@ -1,0 +1,101 @@
+63_gpt-4-0125-preview_TEXT_ANN_imdb_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		63
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: John Wayne did an incredible job for being so young in the movie industry.  \t\n\nRemoved words: for in\nChange in output: 1\n\nRemoved words: john wayne did incredible job for being so young in the movie industry .\nChange in output: 0\n\nRemoved words: john wayne did an incredible job for being so young in industry .\nChange in output: 1\n\nRemoved words: incredible being young in the movie industry .\nChange in output: 0\n\nRemoved words: job being so the movie\nChange in output: 1\n\nRemoved words: did job for young in the industry\nChange in output: 0\n\nRemoved words: john did an incredible job so in the movie industry\nChange in output: 1\n\nRemoved words: incredible so young movie industry\nChange in output: 0\n\nRemoved words: john wayne did an incredible job for being so in the movie industry .\nChange in output: 1\n\nRemoved words: john wayne job for being so young the .\nChange in output: 0\n\nRemoved words: did job so movie .\nChange in output: 1\n\nRemoved words: wayne did job young in movie industry\nChange in output: 0\n\nRemoved words: john wayne an incredible job for being so young in movie industry .\nChange in output: 1\n\nRemoved words: john wayne did incredible job being so young in the movie industry\nChange in output: 0\n\nRemoved words: incredible job\nChange in output: 1\n\nRemoved words: john job in the\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: John Wayne did an incredible job for being so young in the movie industry.  	
+
+Removed words: for in
+Change in output: 1
+
+Removed words: john wayne did incredible job for being so young in the movie industry .
+Change in output: 0
+
+Removed words: john wayne did an incredible job for being so young in industry .
+Change in output: 1
+
+Removed words: incredible being young in the movie industry .
+Change in output: 0
+
+Removed words: job being so the movie
+Change in output: 1
+
+Removed words: did job for young in the industry
+Change in output: 0
+
+Removed words: john did an incredible job so in the movie industry
+Change in output: 1
+
+Removed words: incredible so young movie industry
+Change in output: 0
+
+Removed words: john wayne did an incredible job for being so in the movie industry .
+Change in output: 1
+
+Removed words: john wayne job for being so young the .
+Change in output: 0
+
+Removed words: did job so movie .
+Change in output: 1
+
+Removed words: wayne did job young in movie industry
+Change in output: 0
+
+Removed words: john wayne an incredible job for being so young in movie industry .
+Change in output: 1
+
+Removed words: john wayne did incredible job being so young in the movie industry
+Change in output: 0
+
+Removed words: incredible job
+Change in output: 1
+
+Removed words: john job in the
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the top three most important words driving the output, we'll analyze the occurrences and the impact of each word removal on the change in output. We'll focus on words that appear multiple times across different removals with varying outputs.
+
+1. **John Wayne**: The removal of "John Wayne" consistently leads to a change in output to 0 in multiple instances, indicating a strong negative correlation with the output. This suggests that the presence of "John Wayne" is crucial for a positive output. Importance: 90
+
+2. **Incredible**: The word "incredible" appears in several removals with varying outputs. Its removal sometimes leads to a change in output to 0 and sometimes to 1, indicating a mixed influence. However, its presence in positive output cases and removal in negative output cases suggests a significant positive correlation. Importance: 80
+
+3. **Job**: The word "job" appears in multiple removals with both positive and negative changes in output. Like "incredible," its influence is mixed, but it seems slightly less critical than "incredible" based on the dataset. Importance: 70
+
+4. **Young**: The word "young" appears in several removals, and its removal tends to lead to a negative change in output, suggesting its importance in contributing to a positive output. However, its impact seems slightly less direct than "John Wayne," "incredible," or "job." Importance: 60
+
+5. **Movie Industry**: Considering "movie" and "industry" together, as their combined context seems more relevant than individually, their removal tends to influence the output negatively, indicating their importance. However, their impact is less pronounced than the above words. Importance: 50
+
+6. **For**: The word "for" appears in several removals with varying impacts, suggesting a moderate level of importance. Its removal doesn't consistently lead to a negative or positive change, indicating a lower level of importance than the above words. Importance: 40
+
+7. **Did**: The word "did" appears in multiple removals, but its impact seems less significant compared to the other words analyzed. Its removal doesn't show a strong correlation with the change in output. Importance: 30
+
+8. **Being/So**: These words appear in several removals but their individual impact seems diluted across the dataset, making it hard to attribute a strong influence on the output directly to them. Importance: 20
+
+Based on the analysis and the importance ratings, the top three most important words driving the output, in descending order of importance, are:
+
+John Wayne, Incredible, Job

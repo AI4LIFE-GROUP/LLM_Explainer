@@ -1,0 +1,93 @@
+105_gpt-4_TEXT_ANN_amazon_1000_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		105
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: These are fabulous!\n\nRemoved words: these are\nChange in output: 1\n\nRemoved words: are fabulous !\nChange in output: 0\n\nRemoved words: these are !\nChange in output: 1\n\nRemoved words: are\nChange in output: 0\n\nRemoved words: these are\nChange in output: 1\n\nRemoved words: these !\nChange in output: 0\n\nRemoved words: these are\nChange in output: 1\n\nRemoved words: are fabulous !\nChange in output: 0\n\nRemoved words: these are !\nChange in output: 1\n\nRemoved words: these fabulous !\nChange in output: 0\n\nRemoved words: these are !\nChange in output: 1\n\nRemoved words: are fabulous !\nChange in output: 0\n\nRemoved words: these are !\nChange in output: 1\n\nRemoved words: are fabulous !\nChange in output: 0\n\nRemoved words: these are !\nChange in output: 1\n\nRemoved words: are fabulous\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: These are fabulous!
+
+Removed words: these are
+Change in output: 1
+
+Removed words: are fabulous !
+Change in output: 0
+
+Removed words: these are !
+Change in output: 1
+
+Removed words: are
+Change in output: 0
+
+Removed words: these are
+Change in output: 1
+
+Removed words: these !
+Change in output: 0
+
+Removed words: these are
+Change in output: 1
+
+Removed words: are fabulous !
+Change in output: 0
+
+Removed words: these are !
+Change in output: 1
+
+Removed words: these fabulous !
+Change in output: 0
+
+Removed words: these are !
+Change in output: 1
+
+Removed words: are fabulous !
+Change in output: 0
+
+Removed words: these are !
+Change in output: 1
+
+Removed words: are fabulous !
+Change in output: 0
+
+Removed words: these are !
+Change in output: 1
+
+Removed words: are fabulous
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The dataset shows that the removal of certain words from the original sentence causes a change in the model's output. The change in output is either 0 or 1, with 1 indicating a significant change and 0 indicating no change. 
+
+1. "These": The removal of "these" from the sentence results in a change in output in some cases (when removed with "are" or "!") but not in others (when removed with "fabulous !"). This suggests that "these" has some influence on the output, but its importance is dependent on the context of the other words it is removed with. Importance: 50
+
+2. "Are": The removal of "are" from the sentence consistently results in no change in output, regardless of the other words it is removed with. This suggests that "are" has little to no influence on the output. Importance: 0
+
+3. "Fabulous": The removal of "fabulous" from the sentence is not directly tested in the dataset. However, when "fabulous" is left in the sentence (when "these are" or "these are !" is removed), the output changes. This suggests that "fabulous" has a significant influence on the output. Importance: 100
+
+4. "!": The removal of "!" from the sentence results in a change in output in some cases (when removed with "these are") but not in others (when removed with "are fabulous"). This suggests that "!" has some influence on the output, but its importance is dependent on the context of the other words it is removed with. Importance: 50
+
+Based on this analysis, the running rank of the words from most important to least important is: "fabulous", "these", "!", "are".
+
+Final Answer: fabulous, these, !, are

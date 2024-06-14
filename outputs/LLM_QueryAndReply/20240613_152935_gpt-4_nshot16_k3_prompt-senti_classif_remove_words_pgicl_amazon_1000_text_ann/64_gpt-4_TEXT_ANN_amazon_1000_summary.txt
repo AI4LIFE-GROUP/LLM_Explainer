@@ -1,0 +1,91 @@
+64_gpt-4_TEXT_ANN_amazon_1000_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		64
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: We received a WHITE colored battery that goes DEAD after a couple hoursTHe original used to last a week - but still lasts longer than thereplacement\n\nRemoved words: we a white colored battery that goes dead after a couple hoursthe original used to last week but still lasts longer than thereplacement\nChange in output: 1\n\nRemoved words: we received a white colored battery that goes dead after a hoursthe original used last a week - but still longer thereplacement\nChange in output: 0\n\nRemoved words: received a battery dead after still than\nChange in output: 1\n\nRemoved words: we received white colored battery that goes after a couple hoursthe to week - but still lasts thereplacement\nChange in output: 0\n\nRemoved words: last\nChange in output: 1\n\nRemoved words: we a white colored that goes dead after a couple hoursthe to last a week but still lasts longer\nChange in output: 0\n\nRemoved words: white colored goes dead a hoursthe used last - still lasts thereplacement\nChange in output: 1\n\nRemoved words: colored dead a but longer than\nChange in output: 0\n\nRemoved words: colored battery dead after a but lasts\nChange in output: 1\n\nRemoved words: received colored goes dead original a week thereplacement\nChange in output: 0\n\nRemoved words: we a colored goes after a used to last - but still longer than thereplacement\nChange in output: 1\n\nRemoved words: colored dead original last but longer thereplacement\nChange in output: 0\n\nRemoved words: we received a goes dead after a couple original used to last week lasts longer\nChange in output: 1\n\nRemoved words: we received a white colored battery goes dead after hoursthe original used last a week - but lasts longer than thereplacement\nChange in output: 0\n\nRemoved words: we received a white colored battery that goes dead after a couple original used last week - but still\nChange in output: 1\n\nRemoved words: we received a white colored battery that goes dead after hoursthe original used last a week - but still lasts longer than thereplacement\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: We received a WHITE colored battery that goes DEAD after a couple hoursTHe original used to last a week - but still lasts longer than thereplacement
+
+Removed words: we a white colored battery that goes dead after a couple hoursthe original used to last week but still lasts longer than thereplacement
+Change in output: 1
+
+Removed words: we received a white colored battery that goes dead after a hoursthe original used last a week - but still longer thereplacement
+Change in output: 0
+
+Removed words: received a battery dead after still than
+Change in output: 1
+
+Removed words: we received white colored battery that goes after a couple hoursthe to week - but still lasts thereplacement
+Change in output: 0
+
+Removed words: last
+Change in output: 1
+
+Removed words: we a white colored that goes dead after a couple hoursthe to last a week but still lasts longer
+Change in output: 0
+
+Removed words: white colored goes dead a hoursthe used last - still lasts thereplacement
+Change in output: 1
+
+Removed words: colored dead a but longer than
+Change in output: 0
+
+Removed words: colored battery dead after a but lasts
+Change in output: 1
+
+Removed words: received colored goes dead original a week thereplacement
+Change in output: 0
+
+Removed words: we a colored goes after a used to last - but still longer than thereplacement
+Change in output: 1
+
+Removed words: colored dead original last but longer thereplacement
+Change in output: 0
+
+Removed words: we received a goes dead after a couple original used to last week lasts longer
+Change in output: 1
+
+Removed words: we received a white colored battery goes dead after hoursthe original used last a week - but lasts longer than thereplacement
+Change in output: 0
+
+Removed words: we received a white colored battery that goes dead after a couple original used last week - but still
+Change in output: 1
+
+Removed words: we received a white colored battery that goes dead after hoursthe original used last a week - but still lasts longer than thereplacement
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The task requires us to identify the top three most important words driving the output. To do this, we need to look at the words that, when removed, cause a change in the output. 
+
+1. The word "last" appears to be significant. It is removed in five instances, and in each case, the output changes. This suggests a strong correlation between the presence of "last" and the output. I would rate its importance as 90.
+
+2. The word "dead" is also removed in several instances, and in most of these cases, the output changes. This suggests that "dead" also has a significant influence on the output. I would rate its importance as 80.
+
+3. The word "colored" is removed in multiple instances, and in most of these cases, the output changes. This suggests that "colored" also has a significant influence on the output. I would rate its importance as 70.
+
+Based on this analysis, the running rank would be "last", "dead", "colored". However, it's important to note that this is a simplified analysis and the actual importance of words can depend on various factors such as their position in the sentence, their semantic meaning, and their interaction with other words.
+
+Final Answer: last, dead, colored

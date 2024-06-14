@@ -1,0 +1,105 @@
+8_gpt-4_TEXT_ANN_imdb_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		8
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: In a most wonderful location lies a story of contrast.  \t\n\nRemoved words: most\nChange in output: 0\n\nRemoved words: location lies story\nChange in output: -1\n\nRemoved words: a most a of contrast .\nChange in output: 0\n\nRemoved words: wonderful location a story .\nChange in output: -1\n\nRemoved words: in a most location of contrast\nChange in output: 0\n\nRemoved words: in a wonderful location lies a story contrast .\nChange in output: -1\n\nRemoved words: wonderful contrast\nChange in output: 0\n\nRemoved words: in most wonderful location lies a story contrast .\nChange in output: -1\n\nRemoved words: in most wonderful location lies a story of contrast .\nChange in output: 0\n\nRemoved words: in a most lies a story of .\nChange in output: -1\n\nRemoved words: lies a .\nChange in output: 0\n\nRemoved words: most wonderful location lies a story of .\nChange in output: -1\n\nRemoved words: wonderful lies of contrast\nChange in output: 0\n\nRemoved words: in most wonderful story of .\nChange in output: -1\n\nRemoved words: in a wonderful lies\nChange in output: 0\n\nRemoved words: in most wonderful lies a story of .\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: In a most wonderful location lies a story of contrast.  	
+
+Removed words: most
+Change in output: 0
+
+Removed words: location lies story
+Change in output: -1
+
+Removed words: a most a of contrast .
+Change in output: 0
+
+Removed words: wonderful location a story .
+Change in output: -1
+
+Removed words: in a most location of contrast
+Change in output: 0
+
+Removed words: in a wonderful location lies a story contrast .
+Change in output: -1
+
+Removed words: wonderful contrast
+Change in output: 0
+
+Removed words: in most wonderful location lies a story contrast .
+Change in output: -1
+
+Removed words: in most wonderful location lies a story of contrast .
+Change in output: 0
+
+Removed words: in a most lies a story of .
+Change in output: -1
+
+Removed words: lies a .
+Change in output: 0
+
+Removed words: most wonderful location lies a story of .
+Change in output: -1
+
+Removed words: wonderful lies of contrast
+Change in output: 0
+
+Removed words: in most wonderful story of .
+Change in output: -1
+
+Removed words: in a wonderful lies
+Change in output: 0
+
+Removed words: in most wonderful lies a story of .
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The output changes by -1 when certain words are removed, and remains the same (0) when other words are removed. This suggests that the words whose removal causes a change in output are more important in driving the output. 
+
+1. 'Location': The removal of 'location' results in a change in output, suggesting it is important. However, it is not always present in the removed words when the output changes, so it is not the most important. Importance: 70
+
+2. 'Lies': The removal of 'lies' results in a change in output, suggesting it is important. However, like 'location', it is not always present in the removed words when the output changes, so it is not the most important. Importance: 70
+
+3. 'Story': The removal of 'story' results in a change in output, suggesting it is important. However, like 'location' and 'lies', it is not always present in the removed words when the output changes, so it is not the most important. Importance: 70
+
+4. 'A': The removal of 'a' results in a change in output, suggesting it is important. However, it is not always present in the removed words when the output changes, so it is not the most important. Importance: 70
+
+5. 'Most': The removal of 'most' does not result in a change in output, suggesting it is not important in driving the output. Importance: 30
+
+6. 'Wonderful': The removal of 'wonderful' does not result in a change in output, suggesting it is not important in driving the output. Importance: 30
+
+7. 'In': The removal of 'in' does not result in a change in output, suggesting it is not important in driving the output. Importance: 30
+
+8. 'Of': The removal of 'of' does not result in a change in output, suggesting it is not important in driving the output. Importance: 30
+
+9. 'Contrast': The removal of 'contrast' does not result in a change in output, suggesting it is not important in driving the output. Importance: 30
+
+10. '.': The removal of '.' does not result in a change in output, suggesting it is not important in driving the output. Importance: 30
+
+Based on the above analysis, the top three most important words driving the output are 'location', 'lies', and 'story'. However, 'a' is also equally important. 
+
+Final rank: location, lies, story, a

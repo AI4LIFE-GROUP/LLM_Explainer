@@ -1,0 +1,101 @@
+38_gpt-4-0125-preview_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		38
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: They brought a fresh batch of fries and I was thinking yay something warm but no!\n\nRemoved words: they brought a fresh batch and i was thinking yay but !\nChange in output: 1\n\nRemoved words: brought batch of and yay but no\nChange in output: 0\n\nRemoved words: brought batch and was thinking warm but !\nChange in output: 1\n\nRemoved words: batch of was but\nChange in output: 0\n\nRemoved words: they brought a fresh batch of fries i was thinking something warm but no !\nChange in output: 1\n\nRemoved words: a fresh fries i yay warm !\nChange in output: 0\n\nRemoved words: they brought fries but !\nChange in output: 1\n\nRemoved words: fresh of and no\nChange in output: 0\n\nRemoved words: they brought a fresh batch of fries and i was thinking yay something warm but !\nChange in output: 1\n\nRemoved words: warm\nChange in output: 0\n\nRemoved words: brought fresh batch fries and was thinking something but\nChange in output: 1\n\nRemoved words: warm\nChange in output: 0\n\nRemoved words: a fresh batch of fries and was thinking yay something warm !\nChange in output: 1\n\nRemoved words: a fresh batch thinking something but no !\nChange in output: 0\n\nRemoved words: they brought a of was yay warm but\nChange in output: 1\n\nRemoved words: they a batch and i yay something !\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: They brought a fresh batch of fries and I was thinking yay something warm but no!
+
+Removed words: they brought a fresh batch and i was thinking yay but !
+Change in output: 1
+
+Removed words: brought batch of and yay but no
+Change in output: 0
+
+Removed words: brought batch and was thinking warm but !
+Change in output: 1
+
+Removed words: batch of was but
+Change in output: 0
+
+Removed words: they brought a fresh batch of fries i was thinking something warm but no !
+Change in output: 1
+
+Removed words: a fresh fries i yay warm !
+Change in output: 0
+
+Removed words: they brought fries but !
+Change in output: 1
+
+Removed words: fresh of and no
+Change in output: 0
+
+Removed words: they brought a fresh batch of fries and i was thinking yay something warm but !
+Change in output: 1
+
+Removed words: warm
+Change in output: 0
+
+Removed words: brought fresh batch fries and was thinking something but
+Change in output: 1
+
+Removed words: warm
+Change in output: 0
+
+Removed words: a fresh batch of fries and was thinking yay something warm !
+Change in output: 1
+
+Removed words: a fresh batch thinking something but no !
+Change in output: 0
+
+Removed words: they brought a of was yay warm but
+Change in output: 1
+
+Removed words: they a batch and i yay something !
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the top three most important words driving the output, we'll analyze the occurrences and the impact of each word's removal on the change in output. We'll focus on words that appear multiple times across different removals with varying outputs.
+
+1. **Warm**: The word "warm" is removed in scenarios that lead to both a change in output to 0 and no change when removed alongside other words. Its removal is directly associated with a change to 0 in two instances and is present in combinations that lead to a change to 1. Given its repeated involvement in altering the output, its importance is high. However, because its removal doesn't consistently lead to the same output change, its importance is significant but not absolute. Importance: 80
+
+2. **But**: The word "but" is removed in several instances leading to both changes in output to 1 and 0. Its presence and removal seem crucial in flipping the output, indicating a strong influence on the model's decision-making process. Given its frequent appearance in both scenarios, its importance is on par with "warm" but slightly less due to its more common usage in language, which might not make it as uniquely influential. Importance: 75
+
+3. **Yay**: The word "yay" appears in multiple removals with varying outputs. Its removal is part of changes leading to both 0 and 1, similar to "warm" and "but". However, its specific contribution seems less pivotal compared to "warm", as its presence or absence is not as consistently aligned with a single output change. Importance: 70
+
+4. **Fries**: The word "fries" appears in several removals but its direct impact on the output change is less clear compared to "warm", "but", and "yay". It seems more contextually bound, and its removal doesn't consistently lead to a change in output in a predictable manner. Importance: 60
+
+5. **Brought**: Appears in multiple scenarios with both outcomes, but like "fries", its impact is overshadowed by the more emotionally or contextually charged words like "warm", "but", and "yay". Its role is more about the structure than influencing the sentiment or key content. Importance: 55
+
+6. **Fresh**: Similar to "brought", "fresh" is part of structural elements and its removal is involved in both output changes. However, its contribution to changing the output seems less direct compared to the top-ranked words. Importance: 50
+
+7. **Batch**: "Batch" is another word that, while frequently removed, doesn't show a clear pattern of influencing the output directly. Its role is more about the context of the sentence rather than driving the sentiment or decision of the model. Importance: 45
+
+8. **And**: As a conjunction, "and" is crucial for sentence structure but its removal and the impact on output change seem less directly tied to the sentiment or key decision-driving elements of the model compared to the other words analyzed. Importance: 40
+
+Given the analysis, the top three most important words driving the output, based on their impact and frequency of involvement in changes, are:
+
+Warm, But, Yay

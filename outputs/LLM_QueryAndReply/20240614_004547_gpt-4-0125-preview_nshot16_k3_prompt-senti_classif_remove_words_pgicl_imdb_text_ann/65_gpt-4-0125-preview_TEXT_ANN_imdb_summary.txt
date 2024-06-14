@@ -1,0 +1,101 @@
+65_gpt-4-0125-preview_TEXT_ANN_imdb_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		65
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: You\'ll love it!  \t\n\nRemoved words: you \' ll love\nChange in output: 1\n\nRemoved words: \' !\nChange in output: 0\n\nRemoved words: you \' ll love it\nChange in output: 1\n\nRemoved words: ll\nChange in output: 0\n\nRemoved words: love it !\nChange in output: 1\n\nRemoved words: \' ll love it !\nChange in output: 0\n\nRemoved words: you \' love it !\nChange in output: 1\n\nRemoved words: ll\nChange in output: 0\n\nRemoved words: love\nChange in output: 1\n\nRemoved words: ll !\nChange in output: 0\n\nRemoved words: you \' love !\nChange in output: 1\n\nRemoved words: \' ll love !\nChange in output: 0\n\nRemoved words: you ll love it\nChange in output: 1\n\nRemoved words: ll\nChange in output: 0\n\nRemoved words: you \' ll love it\nChange in output: 1\n\nRemoved words: \' love\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: You'll love it!  	
+
+Removed words: you ' ll love
+Change in output: 1
+
+Removed words: ' !
+Change in output: 0
+
+Removed words: you ' ll love it
+Change in output: 1
+
+Removed words: ll
+Change in output: 0
+
+Removed words: love it !
+Change in output: 1
+
+Removed words: ' ll love it !
+Change in output: 0
+
+Removed words: you ' love it !
+Change in output: 1
+
+Removed words: ll
+Change in output: 0
+
+Removed words: love
+Change in output: 1
+
+Removed words: ll !
+Change in output: 0
+
+Removed words: you ' love !
+Change in output: 1
+
+Removed words: ' ll love !
+Change in output: 0
+
+Removed words: you ll love it
+Change in output: 1
+
+Removed words: ll
+Change in output: 0
+
+Removed words: you ' ll love it
+Change in output: 1
+
+Removed words: ' love
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the most important words driving the output, we'll analyze each word's presence and absence in the dataset and its effect on the change in output. We'll consider both when the removal of a word leads to a change in output (either from 1 to 0 or 0 to 1) and when its removal does not lead to a change, indicating its importance or lack thereof in influencing the model's decision.
+
+1. **you**: The removal of "you" in various combinations leads to both changes and no changes in output. However, focusing on instances where only "you" or "you" with minimal other words is removed, the change in output is not consistent, suggesting its influence is not the strongest. Importance: 40
+
+2. **'**: The apostrophe is tricky because it's part of contractions and does not carry meaning on its own. Its removal, seen in combinations, does not consistently affect the output in a way that suggests high importance. Importance: 20
+
+3. **ll**: The removal of "ll" in various combinations leads to no change in output in multiple instances. Given its role in the contraction "you'll," its removal alone does not seem to significantly impact the output, suggesting it's not a key driver. Importance: 30
+
+4. **love**: The word "love" appears to be crucial. Its removal, especially when isolated or with minimal additional words, leads to a change in output. This suggests a strong positive correlation with the original output. Importance: 90
+
+5. **it**: Similar to "love," the removal of "it" in certain combinations changes the output. However, its impact seems slightly less consistent than "love," indicating a slightly lower importance. Importance: 80
+
+6. **!**: The exclamation mark's removal in isolation leads to no change in output, suggesting it's not a significant driver of the output on its own. Importance: 10
+
+Ranking the words based on their importance in determining the output, we get:
+
+love, it, you, ll, ', !
+
+Therefore, the top three most important words driving the output are:
+
+love, it, you

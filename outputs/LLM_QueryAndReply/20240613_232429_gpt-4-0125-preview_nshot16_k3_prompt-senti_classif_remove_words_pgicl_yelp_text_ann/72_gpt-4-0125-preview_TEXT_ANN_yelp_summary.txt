@@ -1,0 +1,123 @@
+72_gpt-4-0125-preview_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		72
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: The restaurant is very clean and has a family restaurant feel to it.\n\nRemoved words: restaurant .\nChange in output: 0\n\nRemoved words: the and has to\nChange in output: -1\n\nRemoved words: the restaurant very has family feel to\nChange in output: 0\n\nRemoved words: the restaurant is very clean and a restaurant feel to it .\nChange in output: -1\n\nRemoved words: a\nChange in output: 0\n\nRemoved words: the restaurant very clean and has a family restaurant feel to it .\nChange in output: -1\n\nRemoved words: a .\nChange in output: 0\n\nRemoved words: clean has to it .\nChange in output: -1\n\nRemoved words: the restaurant is clean a family restaurant feel .\nChange in output: 0\n\nRemoved words: restaurant very clean and has family restaurant to\nChange in output: -1\n\nRemoved words: the is and a family restaurant feel to .\nChange in output: 0\n\nRemoved words: restaurant very clean a to it\nChange in output: -1\n\nRemoved words: the restaurant is clean restaurant feel it\nChange in output: 0\n\nRemoved words: the restaurant is very and has a family restaurant to it .\nChange in output: -1\n\nRemoved words: the restaurant and restaurant feel to it\nChange in output: 0\n\nRemoved words: the restaurant is very clean and a restaurant feel to it .\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: The restaurant is very clean and has a family restaurant feel to it.
+
+Removed words: restaurant .
+Change in output: 0
+
+Removed words: the and has to
+Change in output: -1
+
+Removed words: the restaurant very has family feel to
+Change in output: 0
+
+Removed words: the restaurant is very clean and a restaurant feel to it .
+Change in output: -1
+
+Removed words: a
+Change in output: 0
+
+Removed words: the restaurant very clean and has a family restaurant feel to it .
+Change in output: -1
+
+Removed words: a .
+Change in output: 0
+
+Removed words: clean has to it .
+Change in output: -1
+
+Removed words: the restaurant is clean a family restaurant feel .
+Change in output: 0
+
+Removed words: restaurant very clean and has family restaurant to
+Change in output: -1
+
+Removed words: the is and a family restaurant feel to .
+Change in output: 0
+
+Removed words: restaurant very clean a to it
+Change in output: -1
+
+Removed words: the restaurant is clean restaurant feel it
+Change in output: 0
+
+Removed words: the restaurant is very and has a family restaurant to it .
+Change in output: -1
+
+Removed words: the restaurant and restaurant feel to it
+Change in output: 0
+
+Removed words: the restaurant is very clean and a restaurant feel to it .
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the top three most important words driving the output, we'll analyze the occurrences of words in scenarios where their removal leads to a change in output versus when it does not. We'll focus on words that appear frequently across different contexts of word removals that result in a change in output (-1) and those that do not (0).
+
+1. **Restaurant**: This word is removed in various contexts, sometimes leading to a change in output and sometimes not. Its removal alone does not change the output, but combined with other words, it often does. This indicates a moderate level of importance, as its influence seems context-dependent. Importance: 50
+
+2. **Clean**: The word "clean" appears in several removals that lead to a change in output. Its removal alongside other words like "very," "and," "has," "a," "family," "restaurant," and "feel" in different combinations tends to result in a negative change. This suggests that "clean" is a key word in maintaining the positive sentiment of the sentence. Importance: 70
+
+   - Ranking so far: Clean, Restaurant
+
+3. **Very**: The removal of "very" in different combinations also leads to a change in output, but like "restaurant," its impact seems to be more about the intensity of the sentiment rather than the sentiment itself. Importance: 60
+
+   - Ranking so far: Clean, Very, Restaurant
+
+4. **Family**: This word is part of combinations where its removal does not always change the output, indicating its role is less critical in determining the sentiment directly. Importance: 40
+
+   - Ranking so far: Clean, Very, Restaurant, Family
+
+5. **Feel**: Similar to "family," "feel" appears in combinations where its removal leads to both changes and no changes in output. Its role seems complementary to the sentiment rather than central. Importance: 40
+
+   - Ranking so far: Clean, Very, Restaurant, Family=Feel
+
+6. **Has**: The word "has" appears in contexts where its removal leads to a change and where it does not. Given its function as a linking verb, its importance seems more structural than semantic in terms of sentiment. Importance: 30
+
+   - Ranking so far: Clean, Very, Restaurant, Family=Feel, Has
+
+7. **And**: This conjunction appears in various contexts with mixed results on the output. Its primary function is to connect phrases or clauses, indicating a structural rather than a semantic role in sentiment. Importance: 30
+
+   - Ranking so far: Clean, Very, Restaurant, Family=Feel, Has=And
+
+8. **To**: Similar to "and" and "has," "to" is more about sentence structure. Its removal in different contexts does not consistently affect the output, suggesting a lower importance in sentiment determination. Importance: 20
+
+   - Ranking so far: Clean, Very, Restaurant, Family=Feel, Has=And, To
+
+9. **Is**: The word "is" is crucial for the sentence structure but its removal in various combinations shows that its impact on sentiment is not as direct as some other words. Importance: 30
+
+   - Ranking so far: Clean, Very, Restaurant, Family=Feel, Has=And=Is, To
+
+10. **A**: This article appears in various contexts with mixed impacts on the output. Its role is more about grammar than sentiment. Importance: 20
+
+    - Final Ranking: Clean, Very, Restaurant, Family=Feel, Has=And=Is, To=A
+
+The top three most important words driving the output, based on their relative importance in changing the model's output, are:
+
+Clean, Very, Restaurant

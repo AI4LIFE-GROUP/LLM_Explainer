@@ -1,0 +1,109 @@
+51_gpt-4-0125-preview_TEXT_ANN_amazon_1000_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		51
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: This is hands down the best phone I\'ve ever had.\n\nRemoved words: this hands down the best phone i \' ve ever .\nChange in output: 0\n\nRemoved words: this hands down the phone \' ve ever .\nChange in output: -1\n\nRemoved words: this hands down ve had\nChange in output: 0\n\nRemoved words: the best ever\nChange in output: -1\n\nRemoved words: ve had\nChange in output: 0\n\nRemoved words: the\nChange in output: -1\n\nRemoved words: is down best i ve\nChange in output: 0\n\nRemoved words: this is hands down the best phone i \' ve ever had\nChange in output: -1\n\nRemoved words: is the i\nChange in output: 0\n\nRemoved words: this down phone\nChange in output: -1\n\nRemoved words: this is hands down the best phone i \' ve ever .\nChange in output: 0\n\nRemoved words: this i ve had\nChange in output: -1\n\nRemoved words: is down phone i ve\nChange in output: 0\n\nRemoved words: is hands best \' had .\nChange in output: -1\n\nRemoved words: this is hands best phone i \' had .\nChange in output: 0\n\nRemoved words: this is down the best ever had\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: This is hands down the best phone I've ever had.
+
+Removed words: this hands down the best phone i ' ve ever .
+Change in output: 0
+
+Removed words: this hands down the phone ' ve ever .
+Change in output: -1
+
+Removed words: this hands down ve had
+Change in output: 0
+
+Removed words: the best ever
+Change in output: -1
+
+Removed words: ve had
+Change in output: 0
+
+Removed words: the
+Change in output: -1
+
+Removed words: is down best i ve
+Change in output: 0
+
+Removed words: this is hands down the best phone i ' ve ever had
+Change in output: -1
+
+Removed words: is the i
+Change in output: 0
+
+Removed words: this down phone
+Change in output: -1
+
+Removed words: this is hands down the best phone i ' ve ever .
+Change in output: 0
+
+Removed words: this i ve had
+Change in output: -1
+
+Removed words: is down phone i ve
+Change in output: 0
+
+Removed words: is hands best ' had .
+Change in output: -1
+
+Removed words: this is hands best phone i ' had .
+Change in output: 0
+
+Removed words: this is down the best ever had
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the most important words driving the output, we'll analyze each word's presence or absence in the dataset and its impact on the change in output. We'll consider how the removal of specific words correlates with changes in the output, noting both when the output decreases (-1) and when it remains unchanged (0). 
+
+1. **"best"** - The word "best" appears in several removals with varying impacts on the output. Its removal in contexts like "the best ever" and "is hands best ' had ." correlates with a negative change, suggesting its importance in maintaining a positive sentiment. However, its absence in other combinations doesn't always lead to a change, indicating a conditional importance. Importance score: 70.
+
+2. **"ever"** - Similar to "best," "ever" is part of combinations where its removal leads to a negative change, such as "the best ever" and "this i ve had." This suggests its role in emphasizing sentiment, but like "best," its impact is context-dependent. Importance score: 65.
+
+3. **"the"** - The removal of "the" in some contexts leads directly to a negative change, indicating its structural importance in the sentence. Its presence seems to be crucial in maintaining the sentence's positive output in certain contexts. Importance score: 75.
+
+After analyzing these words, the running rank based on their importance in determining the output is: **the, best, ever**.
+
+4. **"hands"** - The word "hands" appears in the original sentence as part of the phrase "hands down," which is a strong positive modifier. However, its removal doesn't consistently lead to a negative change in output, suggesting its impact is significant but not as critical as some other words. Importance score: 60.
+
+The updated rank is: **the, best, ever, hands**.
+
+5. **"down"** - Similar to "hands," "down" is part of a positive modifier phrase. Its removal, in combination with other words, doesn't consistently result in a negative change. Its importance seems slightly less than "hands" due to its more common usage outside of key phrases. Importance score: 55.
+
+The updated rank is: **the, best, ever, hands, down**.
+
+6. **"phone"** - The word "phone" is central to the subject of the sentence. Its removal in certain contexts leads to a negative change, but this seems more related to the loss of subject matter than a change in sentiment. Importance score: 50.
+
+The updated rank is: **the, best, ever, hands, down, phone**.
+
+7. **"is"**, **"i"**, **"'ve"**, **"had"** - These words serve grammatical functions or are part of the sentence structure that doesn't inherently carry sentiment or strong emphasis on their own. Their removal doesn't consistently impact the output in a way that suggests high importance. Importance scores: **is** - 40, **i** - 30, **'ve** - 30, **had** - 30.
+
+The final rank, considering all analyzed words, is: **the, best, ever, hands, down, phone, is, i, 've, had**.
+
+Given the task to identify the top three most important words driving the output, the answer is:
+
+**the, best, ever**

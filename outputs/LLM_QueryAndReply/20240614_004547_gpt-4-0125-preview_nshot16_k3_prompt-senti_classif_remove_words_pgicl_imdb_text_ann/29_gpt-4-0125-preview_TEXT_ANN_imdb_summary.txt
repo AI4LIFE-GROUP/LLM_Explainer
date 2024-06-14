@@ -1,0 +1,103 @@
+29_gpt-4-0125-preview_TEXT_ANN_imdb_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		29
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: Not sure who was more lost - the flat characters or the audience, nearly half of whom walked out.  \n\nRemoved words: not was more - the flat characters or the audience , of walked\nChange in output: 0\n\nRemoved words: not sure who was more lost - the flat characters or the audience , nearly half whom walked out .\nChange in output: -1\n\nRemoved words: sure more lost - flat or the audience , nearly half of out .\nChange in output: 0\n\nRemoved words: not sure was more lost - the flat characters or the audience , nearly half of whom walked out .\nChange in output: -1\n\nRemoved words: - the half\nChange in output: 0\n\nRemoved words: not sure who was lost - the flat characters or the audience , nearly half whom walked out .\nChange in output: -1\n\nRemoved words: not who more lost - the or the audience , half whom walked out .\nChange in output: 0\n\nRemoved words: not sure who was more lost - the flat characters or the audience , nearly half whom walked out .\nChange in output: -1\n\nRemoved words: who was more lost - the characters or the audience , half of out\nChange in output: 0\n\nRemoved words: not sure who was more lost - the flat or the audience , nearly half whom walked out .\nChange in output: -1\n\nRemoved words: sure lost - , half of .\nChange in output: 0\n\nRemoved words: not sure who was more lost - the flat or the audience , nearly half of whom walked out .\nChange in output: -1\n\nRemoved words: more lost - the characters , walked out .\nChange in output: 0\n\nRemoved words: not sure was more lost - the flat characters or the audience , nearly half of whom walked out .\nChange in output: -1\n\nRemoved words: more the flat the audience , nearly half of whom walked out\nChange in output: 0\n\nRemoved words: not sure who was more lost - the flat or the audience , nearly half whom walked out .\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: Not sure who was more lost - the flat characters or the audience, nearly half of whom walked out.  
+
+Removed words: not was more - the flat characters or the audience , of walked
+Change in output: 0
+
+Removed words: not sure who was more lost - the flat characters or the audience , nearly half whom walked out .
+Change in output: -1
+
+Removed words: sure more lost - flat or the audience , nearly half of out .
+Change in output: 0
+
+Removed words: not sure was more lost - the flat characters or the audience , nearly half of whom walked out .
+Change in output: -1
+
+Removed words: - the half
+Change in output: 0
+
+Removed words: not sure who was lost - the flat characters or the audience , nearly half whom walked out .
+Change in output: -1
+
+Removed words: not who more lost - the or the audience , half whom walked out .
+Change in output: 0
+
+Removed words: not sure who was more lost - the flat characters or the audience , nearly half whom walked out .
+Change in output: -1
+
+Removed words: who was more lost - the characters or the audience , half of out
+Change in output: 0
+
+Removed words: not sure who was more lost - the flat or the audience , nearly half whom walked out .
+Change in output: -1
+
+Removed words: sure lost - , half of .
+Change in output: 0
+
+Removed words: not sure who was more lost - the flat or the audience , nearly half of whom walked out .
+Change in output: -1
+
+Removed words: more lost - the characters , walked out .
+Change in output: 0
+
+Removed words: not sure was more lost - the flat characters or the audience , nearly half of whom walked out .
+Change in output: -1
+
+Removed words: more the flat the audience , nearly half of whom walked out
+Change in output: 0
+
+Removed words: not sure who was more lost - the flat or the audience , nearly half whom walked out .
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the top three most important words driving the output, we'll analyze the occurrences and the impact of removal of specific words on the change in output. The key is to identify patterns where the removal of certain words consistently leads to a change in output (either from 0 to -1 or vice versa) and where their presence or absence does not affect the change in output.
+
+1. **not**: The removal of "not" often leads to a change in output to -1. This suggests that "not" plays a crucial role in determining the sentiment or meaning of the sentence as perceived by the model. Its presence or absence directly influences the output, indicating a high level of importance. Importance: 95
+
+2. **sure**: The word "sure" also appears to influence the output significantly. However, its impact seems slightly less consistent compared to "not", as its removal in some cases leads to a change in output, but in other cases, similar words are removed without affecting the output. Importance: 85
+
+3. **was**: The removal of "was" in various combinations also leads to changes in output, but like "sure", its impact is not as consistently observed across all instances. It seems to play a role in the structure of the sentence that affects the model's interpretation but is not as pivotal as "not". Importance: 80
+
+4. **more**: The word "more" appears in several instances where its removal does not consistently affect the change in output. It seems to have a moderate impact on the model's interpretation, likely because it modifies the degree of the sentiment but does not fundamentally alter it. Importance: 70
+
+5. **lost**: The word "lost" is central to the theme of the original sentence but its removal does not consistently lead to a change in output. This suggests that while it is key to the sentence's meaning, the model's output change is more sensitive to other words that alter the sentiment's direction rather than its intensity. Importance: 65
+
+6. **the**: As a common article, "the" appears frequently and its removal in various contexts does not consistently lead to a change in output. It's more about the structure rather than altering sentiment or meaning significantly. Importance: 50
+
+7. **audience**: The specific removal of "audience" does not consistently lead to a change in output, suggesting its role is more about the content of the sentence rather than influencing the model's sentiment analysis directly. Importance: 60
+
+8. **characters**: Similar to "audience", "characters" adds to the content but does not have a consistent impact on the change in output when removed. Its importance is more about the narrative context rather than sentiment analysis. Importance: 60
+
+9. **flat**: The adjective "flat" describes the characters and could influence the sentiment. However, its removal does not consistently affect the output, suggesting its impact is less critical compared to words that directly influence sentiment polarity. Importance: 65
+
+Given the analysis, the top three most important words driving the output, based on their impact on changing the model's output, are:
+
+not, sure, was

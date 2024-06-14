@@ -1,0 +1,113 @@
+40_gpt-4-0125-preview_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		40
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: This wonderful experience made this place a must-stop whenever we are in town again.\n\nRemoved words: this wonderful made this place a must-stop whenever we are in town again .\nChange in output: 1\n\nRemoved words: must-stop we in again\nChange in output: 0\n\nRemoved words: this wonderful experience made this place a must-stop whenever are in town again .\nChange in output: 1\n\nRemoved words: this wonderful experience made this a must-stop whenever we are in town again .\nChange in output: 0\n\nRemoved words: this wonderful experience this place must-stop whenever we in town .\nChange in output: 1\n\nRemoved words: wonderful experience made are\nChange in output: 0\n\nRemoved words: this wonderful made this place a must-stop whenever we are in town .\nChange in output: 1\n\nRemoved words: wonderful experience made this must-stop whenever we in again .\nChange in output: 0\n\nRemoved words: this wonderful experience this a must-stop we are in town again .\nChange in output: 1\n\nRemoved words: this wonderful experience made this place a must-stop whenever we are in .\nChange in output: 0\n\nRemoved words: this wonderful experience made this place a must-stop whenever are in town again .\nChange in output: 1\n\nRemoved words: this made whenever are town\nChange in output: 0\n\nRemoved words: this experience made place a must-stop whenever we are in town again .\nChange in output: 1\n\nRemoved words: .\nChange in output: 0\n\nRemoved words: this wonderful experience this a whenever we are in town .\nChange in output: 1\n\nRemoved words: wonderful this place we are in town again .\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: This wonderful experience made this place a must-stop whenever we are in town again.
+
+Removed words: this wonderful made this place a must-stop whenever we are in town again .
+Change in output: 1
+
+Removed words: must-stop we in again
+Change in output: 0
+
+Removed words: this wonderful experience made this place a must-stop whenever are in town again .
+Change in output: 1
+
+Removed words: this wonderful experience made this a must-stop whenever we are in town again .
+Change in output: 0
+
+Removed words: this wonderful experience this place must-stop whenever we in town .
+Change in output: 1
+
+Removed words: wonderful experience made are
+Change in output: 0
+
+Removed words: this wonderful made this place a must-stop whenever we are in town .
+Change in output: 1
+
+Removed words: wonderful experience made this must-stop whenever we in again .
+Change in output: 0
+
+Removed words: this wonderful experience this a must-stop we are in town again .
+Change in output: 1
+
+Removed words: this wonderful experience made this place a must-stop whenever we are in .
+Change in output: 0
+
+Removed words: this wonderful experience made this place a must-stop whenever are in town again .
+Change in output: 1
+
+Removed words: this made whenever are town
+Change in output: 0
+
+Removed words: this experience made place a must-stop whenever we are in town again .
+Change in output: 1
+
+Removed words: .
+Change in output: 0
+
+Removed words: this wonderful experience this a whenever we are in town .
+Change in output: 1
+
+Removed words: wonderful this place we are in town again .
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the top three most important words driving the output, we'll analyze each word's presence or absence in the dataset and its impact on the change in output. We'll consider both when its removal leads to a change in output to 1 (indicating a significant impact) and when its removal leads to a change in output to 0 (indicating less or no impact).
+
+1. **this**: Appears in multiple removals leading to both changes in output (1 and 0). Its removal sometimes leads to a significant change and other times does not, suggesting its importance is context-dependent rather than absolute. Importance: 50
+
+2. **wonderful**: Similar to "this," its removal appears in both contexts where the output changes to 1 and to 0. However, its presence or absence seems less directly correlated with the output change compared to "this." Importance: 40
+
+3. **experience**: Its removal is often associated with a change to 1, indicating a significant impact on the output. However, there are instances where its removal does not change the outcome, suggesting variability. Importance: 60
+
+4. **made**: Like "experience," its removal is associated with both outcomes but seems slightly less impactful overall based on the dataset. Importance: 55
+
+5. **place**: Its removal is associated with changes to 1 and 0, but it appears less frequently in critical changes. Importance: 45
+
+6. **must-stop**: Its removal directly correlates with a change to 0 in one instance, suggesting its presence is crucial for a specific output. This indicates a high level of importance. Importance: 70
+
+7. **whenever**: Appears in various contexts with mixed outcomes, making it hard to determine its absolute importance. Importance: 50
+
+8. **we**: Its removal is directly associated with a change to 0 in one instance, indicating its importance in maintaining the original output. Importance: 65
+
+9. **are**: Similar to "we," indicating a significant role in the output but slightly less so. Importance: 60
+
+10. **in**: Appears in multiple contexts but does not show a strong direct correlation with the output change, suggesting moderate importance. Importance: 50
+
+11. **town**: Its removal is associated with both outcomes, indicating a moderate level of importance. Importance: 50
+
+12. **again**: Its removal leads to a change to 0 in one instance, suggesting its presence is somewhat crucial for maintaining the original output. Importance: 55
+
+Based on the analysis, the words that most frequently contribute to a change in output (either to 1 or 0) and thus are deemed most important are:
+
+1. **must-stop**: Its presence or absence directly influences the output significantly.
+2. **we**: Its removal and presence are crucial in determining the output's change.
+3. **experience**: Shows a strong correlation with significant changes in output.
+
+Final rank: must-stop, we, experience

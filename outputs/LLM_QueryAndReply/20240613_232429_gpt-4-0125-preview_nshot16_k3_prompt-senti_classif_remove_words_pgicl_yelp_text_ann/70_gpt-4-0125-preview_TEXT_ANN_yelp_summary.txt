@@ -1,0 +1,95 @@
+70_gpt-4-0125-preview_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		70
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: I love the decor with the Chinese calligraphy wall paper.\n\nRemoved words: love the with the chinese calligraphy wall .\nChange in output: 1\n\nRemoved words: i love the decor with the calligraphy wall paper .\nChange in output: 0\n\nRemoved words: love the decor with the chinese calligraphy wall paper .\nChange in output: 1\n\nRemoved words: i love the with the calligraphy paper .\nChange in output: 0\n\nRemoved words: love the decor with chinese calligraphy wall paper .\nChange in output: 1\n\nRemoved words: love decor with chinese paper\nChange in output: 0\n\nRemoved words: love the decor with the chinese calligraphy wall paper .\nChange in output: 1\n\nRemoved words: the with chinese .\nChange in output: 0\n\nRemoved words: love the decor with the chinese calligraphy wall paper .\nChange in output: 1\n\nRemoved words: i love the decor with the chinese calligraphy wall paper\nChange in output: 0\n\nRemoved words: the decor calligraphy paper .\nChange in output: 1\n\nRemoved words: decor calligraphy\nChange in output: 0\n\nRemoved words: love the decor with the chinese calligraphy wall .\nChange in output: 1\n\nRemoved words: i love the decor with chinese calligraphy wall\nChange in output: 0\n\nRemoved words: love the decor with the chinese calligraphy wall paper .\nChange in output: 1\n\nRemoved words: love decor with the chinese calligraphy paper .\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: I love the decor with the Chinese calligraphy wall paper.
+
+Removed words: love the with the chinese calligraphy wall .
+Change in output: 1
+
+Removed words: i love the decor with the calligraphy wall paper .
+Change in output: 0
+
+Removed words: love the decor with the chinese calligraphy wall paper .
+Change in output: 1
+
+Removed words: i love the with the calligraphy paper .
+Change in output: 0
+
+Removed words: love the decor with chinese calligraphy wall paper .
+Change in output: 1
+
+Removed words: love decor with chinese paper
+Change in output: 0
+
+Removed words: love the decor with the chinese calligraphy wall paper .
+Change in output: 1
+
+Removed words: the with chinese .
+Change in output: 0
+
+Removed words: love the decor with the chinese calligraphy wall paper .
+Change in output: 1
+
+Removed words: i love the decor with the chinese calligraphy wall paper
+Change in output: 0
+
+Removed words: the decor calligraphy paper .
+Change in output: 1
+
+Removed words: decor calligraphy
+Change in output: 0
+
+Removed words: love the decor with the chinese calligraphy wall .
+Change in output: 1
+
+Removed words: i love the decor with chinese calligraphy wall
+Change in output: 0
+
+Removed words: love the decor with the chinese calligraphy wall paper .
+Change in output: 1
+
+Removed words: love decor with the chinese calligraphy paper .
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the top three most important words driving the output, we'll analyze the occurrences and the impact of each word's removal on the change in output. We'll focus on the words that appear multiple times across different removals and their correlation with the output change.
+
+1. **"love"** - This word appears in multiple removals and consistently shows a pattern where its removal correlates with a change in output. When "love" is removed, we see both instances of output changing to 1 and staying at 0, indicating its presence or absence doesn't consistently predict the output change. Therefore, its importance is moderate but not the highest. **Importance: 50**
+
+2. **"decor"** - The word "decor" appears in several removals. Its removal sometimes leads to a change in output to 1 and other times to 0, similar to "love". However, its presence or absence doesn't show as strong a correlation with the output change as some other words might. Thus, its importance is there but likely less than "love" due to less consistent impact. **Importance: 40**
+
+3. **"the"** - Appears frequently in removals. The removal of "the" in different contexts shows varied impact on the output, indicating its role is context-dependent rather than directly influential on its own. Given its commonality and less direct impact, its importance is lower. **Importance: 30**
+
+4. **"with"** - This word, like "the", appears often but does not show a clear pattern of influencing the output change directly. Its role seems auxiliary to other more impactful words. **Importance: 20**
+
+5. **"chinese"**, **"calligraphy"**, **"wall"**, **"paper"** - These words often appear together in the removals. Their combined removal tends to correlate with a change in output to 1, suggesting a collective importance. However, isolating their individual impact is challenging due to their frequent co-occurrence. Given their specific reference to the subject matter of the sentence, their importance in driving the output seems significant but not as individually distinguishable. **Importance: 60**
+
+Given the analysis, the top three most important words based on their impact on the model's output, considering both their presence and absence, seem to be **"chinese"**, **"calligraphy"**, and **"wall"**/**"paper"** (treated as a single entity due to their similar context and impact). These words directly relate to the specific subject matter of the sentence and show a strong correlation with changes in the output when removed, indicating their significant role in the model's interpretation of the sentence.
+
+Final rank: **chinese, calligraphy, wall/paper**

@@ -1,0 +1,99 @@
+21_gpt-4_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		21
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: This place is a jewel in Las Vegas, and exactly what I\'ve been hoping to find in nearly ten years living here.\n\nRemoved words: this place is jewel in las vegas , and exactly what i ve been hoping to find in nearly living\nChange in output: 0\n\nRemoved words: place jewel in vegas and \' ve hoping to nearly ten living .\nChange in output: -1\n\nRemoved words: a vegas , what ve hoping find nearly living .\nChange in output: 0\n\nRemoved words: this is jewel vegas what \' ve been to nearly ten years living here .\nChange in output: -1\n\nRemoved words: place is a jewel vegas , and \' ve been hoping to find in nearly years living .\nChange in output: 0\n\nRemoved words: this is a jewel in las vegas , and exactly what i \' ve to find in nearly ten years living here\nChange in output: -1\n\nRemoved words: is a jewel in vegas and i \' ve been find in living here .\nChange in output: 0\n\nRemoved words: this place is a in vegas , and exactly what i \' ve been hoping to find in nearly ten years living here .\nChange in output: -1\n\nRemoved words: in and living\nChange in output: 0\n\nRemoved words: is a jewel in las , and i \' been hoping to nearly years .\nChange in output: -1\n\nRemoved words: this place is a jewel in las vegas , and exactly what \' been to find in nearly ten years living here .\nChange in output: 0\n\nRemoved words: this place is a jewel in las vegas , and exactly what i \' ve been hoping to find in ten years living here .\nChange in output: -1\n\nRemoved words: this a hoping living\nChange in output: 0\n\nRemoved words: this place is a in las vegas and exactly what i \' ve been hoping to in nearly ten years living here .\nChange in output: -1\n\nRemoved words: exactly\nChange in output: 0\n\nRemoved words: this place jewel in , exactly \' ve been in here\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: This place is a jewel in Las Vegas, and exactly what I've been hoping to find in nearly ten years living here.
+
+Removed words: this place is jewel in las vegas , and exactly what i ve been hoping to find in nearly living
+Change in output: 0
+
+Removed words: place jewel in vegas and ' ve hoping to nearly ten living .
+Change in output: -1
+
+Removed words: a vegas , what ve hoping find nearly living .
+Change in output: 0
+
+Removed words: this is jewel vegas what ' ve been to nearly ten years living here .
+Change in output: -1
+
+Removed words: place is a jewel vegas , and ' ve been hoping to find in nearly years living .
+Change in output: 0
+
+Removed words: this is a jewel in las vegas , and exactly what i ' ve to find in nearly ten years living here
+Change in output: -1
+
+Removed words: is a jewel in vegas and i ' ve been find in living here .
+Change in output: 0
+
+Removed words: this place is a in vegas , and exactly what i ' ve been hoping to find in nearly ten years living here .
+Change in output: -1
+
+Removed words: in and living
+Change in output: 0
+
+Removed words: is a jewel in las , and i ' been hoping to nearly years .
+Change in output: -1
+
+Removed words: this place is a jewel in las vegas , and exactly what ' been to find in nearly ten years living here .
+Change in output: 0
+
+Removed words: this place is a jewel in las vegas , and exactly what i ' ve been hoping to find in ten years living here .
+Change in output: -1
+
+Removed words: this a hoping living
+Change in output: 0
+
+Removed words: this place is a in las vegas and exactly what i ' ve been hoping to in nearly ten years living here .
+Change in output: -1
+
+Removed words: exactly
+Change in output: 0
+
+Removed words: this place jewel in , exactly ' ve been in here
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The task is to identify the top three most important words driving the output. To do this, we need to look at the words whose removal causes a change in the output. 
+
+1. "This": The word "this" is removed in 7 instances. In 4 of these instances, the output changes, while in 3 instances, it does not. This suggests that "this" has a significant impact on the output. Importance: 60
+
+2. "Place": The word "place" is removed in 6 instances. In 3 of these instances, the output changes, while in 3 instances, it does not. This suggests that "place" has a moderate impact on the output. Importance: 50
+
+3. "Jewel": The word "jewel" is removed in 6 instances. In 3 of these instances, the output changes, while in 3 instances, it does not. This suggests that "jewel" has a moderate impact on the output. Importance: 50
+
+4. "Vegas": The word "vegas" is removed in 8 instances. In 4 of these instances, the output changes, while in 4 instances, it does not. This suggests that "vegas" has a significant impact on the output. Importance: 60
+
+5. "Exactly": The word "exactly" is removed in 7 instances. In 4 of these instances, the output changes, while in 3 instances, it does not. This suggests that "exactly" has a significant impact on the output. Importance: 60
+
+6. "Hoping": The word "hoping" is removed in 7 instances. In 4 of these instances, the output changes, while in 3 instances, it does not. This suggests that "hoping" has a significant impact on the output. Importance: 60
+
+7. "Living": The word "living" is removed in 8 instances. In 4 of these instances, the output changes, while in 4 instances, it does not. This suggests that "living" has a significant impact on the output. Importance: 60
+
+Based on the above analysis, the words "this", "vegas", "exactly", "hoping", and "living" have the highest importance scores. However, we are only asked for the top three. Therefore, the top three most important words driving the output are "this", "vegas", and "exactly".
+
+This, Vegas, Exactly

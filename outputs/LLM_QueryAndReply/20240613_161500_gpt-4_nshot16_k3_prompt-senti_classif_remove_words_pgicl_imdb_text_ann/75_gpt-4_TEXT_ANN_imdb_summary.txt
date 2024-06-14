@@ -1,0 +1,91 @@
+75_gpt-4_TEXT_ANN_imdb_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		75
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: Not too screamy not to masculine but just right.  \n\nRemoved words: not .\nChange in output: 0\n\nRemoved words: not too screamy not to but just\nChange in output: -1\n\nRemoved words: screamy masculine just\nChange in output: 0\n\nRemoved words: not too not to\nChange in output: -1\n\nRemoved words: to masculine but\nChange in output: 0\n\nRemoved words: not too but just\nChange in output: -1\n\nRemoved words: too not to masculine but just right .\nChange in output: 0\n\nRemoved words: not too to but\nChange in output: -1\n\nRemoved words: not masculine just\nChange in output: 0\n\nRemoved words: not too not masculine\nChange in output: -1\n\nRemoved words: not too screamy to masculine just right\nChange in output: 0\n\nRemoved words: not too not masculine but just .\nChange in output: -1\n\nRemoved words: too\nChange in output: 0\n\nRemoved words: not too not to just\nChange in output: -1\n\nRemoved words: not but\nChange in output: 0\n\nRemoved words: not too not to masculine but\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: Not too screamy not to masculine but just right.  
+
+Removed words: not .
+Change in output: 0
+
+Removed words: not too screamy not to but just
+Change in output: -1
+
+Removed words: screamy masculine just
+Change in output: 0
+
+Removed words: not too not to
+Change in output: -1
+
+Removed words: to masculine but
+Change in output: 0
+
+Removed words: not too but just
+Change in output: -1
+
+Removed words: too not to masculine but just right .
+Change in output: 0
+
+Removed words: not too to but
+Change in output: -1
+
+Removed words: not masculine just
+Change in output: 0
+
+Removed words: not too not masculine
+Change in output: -1
+
+Removed words: not too screamy to masculine just right
+Change in output: 0
+
+Removed words: not too not masculine but just .
+Change in output: -1
+
+Removed words: too
+Change in output: 0
+
+Removed words: not too not to just
+Change in output: -1
+
+Removed words: not but
+Change in output: 0
+
+Removed words: not too not to masculine but
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The words that seem to have the most impact on the output are 'not', 'too', and 'to'. 
+
+The word 'not' appears in every instance where the output changes by -1. This suggests that the word 'not' has a strong negative correlation with the output. Therefore, it is likely to be one of the most important words in determining the output. I would rate its importance as 100.
+
+The word 'too' also appears in many instances where the output changes by -1. However, it does not appear in every instance, suggesting that its influence is not as strong as 'not'. I would rate its importance as 80.
+
+The word 'to' appears in some instances where the output changes by -1. However, it also appears in instances where the output does not change, suggesting that its influence is not as strong as 'not' or 'too'. I would rate its importance as 60.
+
+The other words ('screamy', 'masculine', 'but', 'just', 'right', and '.') do not seem to have a consistent impact on the output. They appear in instances where the output changes by -1, but also in instances where the output does not change. Therefore, I would rate their importance as less than 50.
+
+Based on this analysis, the final rank of the words from most important to least important is: not, too, to, screamy, masculine, but, just, right, .

@@ -1,0 +1,87 @@
+17_gpt-4_TEXT_ANN_amazon_1000_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		17
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: Superb Phone on a Great Network.\n\nRemoved words: phone .\nChange in output: 0\n\nRemoved words: superb on great\nChange in output: -1\n\nRemoved words: phone a great .\nChange in output: 0\n\nRemoved words: superb phone on network .\nChange in output: -1\n\nRemoved words: a great\nChange in output: 0\n\nRemoved words: superb phone .\nChange in output: -1\n\nRemoved words: superb phone a great network .\nChange in output: 0\n\nRemoved words: phone on network\nChange in output: -1\n\nRemoved words: a great\nChange in output: 0\n\nRemoved words: superb on network .\nChange in output: -1\n\nRemoved words: phone great\nChange in output: 0\n\nRemoved words: superb on a .\nChange in output: -1\n\nRemoved words: superb phone on a great .\nChange in output: 0\n\nRemoved words: superb\nChange in output: -1\n\nRemoved words: superb phone a great network .\nChange in output: 0\n\nRemoved words: superb phone\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: Superb Phone on a Great Network.
+
+Removed words: phone .
+Change in output: 0
+
+Removed words: superb on great
+Change in output: -1
+
+Removed words: phone a great .
+Change in output: 0
+
+Removed words: superb phone on network .
+Change in output: -1
+
+Removed words: a great
+Change in output: 0
+
+Removed words: superb phone .
+Change in output: -1
+
+Removed words: superb phone a great network .
+Change in output: 0
+
+Removed words: phone on network
+Change in output: -1
+
+Removed words: a great
+Change in output: 0
+
+Removed words: superb on network .
+Change in output: -1
+
+Removed words: phone great
+Change in output: 0
+
+Removed words: superb on a .
+Change in output: -1
+
+Removed words: superb phone on a great .
+Change in output: 0
+
+Removed words: superb
+Change in output: -1
+
+Removed words: superb phone a great network .
+Change in output: 0
+
+Removed words: superb phone
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The output changes by -1 when any of the words 'superb', 'phone', 'on', 'network', and '.' are removed. This suggests that these words are important in driving the output. The words 'a' and 'great' do not seem to affect the output when removed, as the change in output remains 0. 
+
+However, when we look at the combinations of words removed, we see that removing 'superb', 'phone', 'a', 'great', 'network', and '.' all at once results in no change in output. This suggests that the combination of these words does not influence the output as much as the individual words do. 
+
+Based on this analysis, the word 'superb' seems to be the most important, as its removal always results in a change in output. The word 'phone' is the second most important, as its removal also always results in a change in output. The word 'on' is the third most important, as its removal usually results in a change in output. The words 'network' and '.' are less important, as their removal sometimes results in a change in output. The words 'a' and 'great' are the least important, as their removal never results in a change in output.
+
+Final rank: superb, phone, on, network, ., a, great.

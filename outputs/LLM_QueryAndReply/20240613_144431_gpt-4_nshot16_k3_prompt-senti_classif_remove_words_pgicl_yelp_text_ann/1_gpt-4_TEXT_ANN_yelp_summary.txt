@@ -1,0 +1,93 @@
+1_gpt-4_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		1
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: Worst food/service I\'ve had in a while.\n\nRemoved words: had\nChange in output: 0\n\nRemoved words: worst \' ve in\nChange in output: -1\n\nRemoved words: food/service \' had a .\nChange in output: 0\n\nRemoved words: worst food/service i \' ve had a .\nChange in output: -1\n\nRemoved words: a\nChange in output: 0\n\nRemoved words: worst food/service i \' ve had a while .\nChange in output: -1\n\nRemoved words: in\nChange in output: 0\n\nRemoved words: worst \' ve had\nChange in output: -1\n\nRemoved words: food/service i \' ve had in a while\nChange in output: 0\n\nRemoved words: worst in .\nChange in output: -1\n\nRemoved words: ve .\nChange in output: 0\n\nRemoved words: worst food/service i ve in a while .\nChange in output: -1\n\nRemoved words: worst food/service \' ve had in a while .\nChange in output: 0\n\nRemoved words: worst ve had while\nChange in output: -1\n\nRemoved words: food/service i \' ve had in a while .\nChange in output: 0\n\nRemoved words: worst while\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: Worst food/service I've had in a while.
+
+Removed words: had
+Change in output: 0
+
+Removed words: worst ' ve in
+Change in output: -1
+
+Removed words: food/service ' had a .
+Change in output: 0
+
+Removed words: worst food/service i ' ve had a .
+Change in output: -1
+
+Removed words: a
+Change in output: 0
+
+Removed words: worst food/service i ' ve had a while .
+Change in output: -1
+
+Removed words: in
+Change in output: 0
+
+Removed words: worst ' ve had
+Change in output: -1
+
+Removed words: food/service i ' ve had in a while
+Change in output: 0
+
+Removed words: worst in .
+Change in output: -1
+
+Removed words: ve .
+Change in output: 0
+
+Removed words: worst food/service i ve in a while .
+Change in output: -1
+
+Removed words: worst food/service ' ve had in a while .
+Change in output: 0
+
+Removed words: worst ve had while
+Change in output: -1
+
+Removed words: food/service i ' ve had in a while .
+Change in output: 0
+
+Removed words: worst while
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The words that seem to have the most impact on the output are 'worst', 'food/service', and 'i'. 
+
+1. 'worst': Every time the word 'worst' is removed, the output changes by -1. This indicates a strong negative correlation between the presence of the word 'worst' and the output. Importance: 100
+
+2. 'food/service': The word 'food/service' does not seem to have a consistent impact on the output. Sometimes its removal changes the output, sometimes it doesn't. This suggests a moderate correlation. Importance: 50
+
+3. 'i': Similar to 'food/service', the word 'i' does not have a consistent impact on the output. Its removal sometimes changes the output, sometimes it doesn't. This suggests a moderate correlation. Importance: 50
+
+4. Other words: The removal of other words like 'had', 'a', 'in', 've', and 'while' does not seem to have any impact on the output. This suggests no correlation. Importance: 0
+
+Based on this analysis, the ranking of the words from most important to least important is: 'worst', 'food/service', 'i', 'had', 'a', 'in', 've', 'while'.
+
+Answer: worst, food/service, i

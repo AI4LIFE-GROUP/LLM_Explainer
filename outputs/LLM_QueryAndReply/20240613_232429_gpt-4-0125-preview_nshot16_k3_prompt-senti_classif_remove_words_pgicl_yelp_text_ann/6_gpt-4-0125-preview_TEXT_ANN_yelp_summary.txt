@@ -1,0 +1,101 @@
+6_gpt-4-0125-preview_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		6
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: This hole in the wall has great Mexican street tacos, and friendly staff.\n\nRemoved words: this hole in wall has great street , staff .\nChange in output: 1\n\nRemoved words: the wall great tacos friendly\nChange in output: 0\n\nRemoved words: this hole in the great street and friendly .\nChange in output: 1\n\nRemoved words: the tacos staff\nChange in output: 0\n\nRemoved words: this hole in the wall has great mexican street , and friendly staff .\nChange in output: 1\n\nRemoved words: wall great mexican , staff\nChange in output: 0\n\nRemoved words: this hole in the wall has great mexican street tacos , friendly staff .\nChange in output: 1\n\nRemoved words: this hole in the has great mexican street tacos , and staff .\nChange in output: 0\n\nRemoved words: this hole in the wall has great mexican street , and friendly staff .\nChange in output: 1\n\nRemoved words: , and staff\nChange in output: 0\n\nRemoved words: this hole in the wall has great mexican street tacos friendly staff .\nChange in output: 1\n\nRemoved words: hole mexican tacos and staff\nChange in output: 0\n\nRemoved words: this hole in wall has great mexican street , and friendly\nChange in output: 1\n\nRemoved words: hole in the has great and .\nChange in output: 0\n\nRemoved words: this hole in the wall has great mexican street , and friendly staff .\nChange in output: 1\n\nRemoved words: hole great mexican tacos and friendly staff .\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: This hole in the wall has great Mexican street tacos, and friendly staff.
+
+Removed words: this hole in wall has great street , staff .
+Change in output: 1
+
+Removed words: the wall great tacos friendly
+Change in output: 0
+
+Removed words: this hole in the great street and friendly .
+Change in output: 1
+
+Removed words: the tacos staff
+Change in output: 0
+
+Removed words: this hole in the wall has great mexican street , and friendly staff .
+Change in output: 1
+
+Removed words: wall great mexican , staff
+Change in output: 0
+
+Removed words: this hole in the wall has great mexican street tacos , friendly staff .
+Change in output: 1
+
+Removed words: this hole in the has great mexican street tacos , and staff .
+Change in output: 0
+
+Removed words: this hole in the wall has great mexican street , and friendly staff .
+Change in output: 1
+
+Removed words: , and staff
+Change in output: 0
+
+Removed words: this hole in the wall has great mexican street tacos friendly staff .
+Change in output: 1
+
+Removed words: hole mexican tacos and staff
+Change in output: 0
+
+Removed words: this hole in wall has great mexican street , and friendly
+Change in output: 1
+
+Removed words: hole in the has great and .
+Change in output: 0
+
+Removed words: this hole in the wall has great mexican street , and friendly staff .
+Change in output: 1
+
+Removed words: hole great mexican tacos and friendly staff .
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the top three most important words driving the output, we'll analyze the occurrences and the impact of each word's removal on the change in output. We'll focus on words that appear multiple times across different removals to identify patterns of influence.
+
+1. **Mexican**: The word "Mexican" is removed in several instances, and its removal is associated with both changes and no changes in output, indicating a mixed influence. However, its presence in contexts that lead to a change in output (1) and its absence in contexts leading to no change (0) suggest a moderate level of importance. Rating: 60
+
+2. **Street**: Similar to "Mexican," "street" appears in various removals with mixed outcomes. Its role seems slightly less pivotal than "Mexican" because its removal doesn't consistently correlate with a specific change in output. Rating: 50. Running rank: Mexican, Street
+
+3. **Tacos**: The word "tacos" shows a strong correlation with changes in output. Its removal often leads to a change in output to 0, indicating a significant impact on the model's decision-making process. Rating: 80. Running rank: Tacos, Mexican, Street
+
+4. **Friendly**: The removal of "friendly" is associated with both changes to 1 and no changes, similar to "Mexican" and "Street." However, its specific mention in contexts leading to a change in output to 1 suggests a notable importance, but not as high as "Tacos." Rating: 70. Running rank: Tacos, Friendly, Mexican, Street
+
+5. **Staff**: Like "friendly," "staff" is mentioned in various contexts with mixed outcomes. Its impact seems comparable to "friendly," but given the slightly less consistent association with a change in output to 1, it's rated slightly lower. Rating: 65. Running rank: Tacos, Friendly, Mexican, Staff, Street
+
+6. **Great**: The word "great" appears in multiple removals, but its impact is not as clearly defined as "Tacos" or "Friendly." Its removal is associated with both changes and no changes in output, suggesting a moderate influence. Rating: 55. Running rank: Tacos, Friendly, Mexican, Staff, Street, Great
+
+7. **Wall**: The removal of "wall" shows a less consistent pattern in influencing the output change, indicating a lower importance compared to the previously analyzed words. Rating: 40. Running rank: Tacos, Friendly, Mexican, Staff, Street, Great, Wall
+
+8. **Hole**: Similar to "wall," "hole" has a less clear impact on the output change, suggesting a lower level of importance. Rating: 40. Running rank: Tacos, Friendly, Mexican, Staff, Street, Great, Wall, Hole
+
+Given the analysis, the top three most important words driving the output, based on their influence on the model's decision-making process, are:
+
+Tacos, Friendly, Mexican

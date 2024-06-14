@@ -1,0 +1,105 @@
+76_gpt-4-0125-preview_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		76
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: Def coming back to bowl next time\n\nRemoved words: time\nChange in output: 0\n\nRemoved words: back to time\nChange in output: -1\n\nRemoved words: next\nChange in output: 0\n\nRemoved words: coming back to next\nChange in output: -1\n\nRemoved words: next\nChange in output: 0\n\nRemoved words: coming next\nChange in output: -1\n\nRemoved words: def coming to\nChange in output: 0\n\nRemoved words: def to time\nChange in output: -1\n\nRemoved words: def bowl next\nChange in output: 0\n\nRemoved words: def to time\nChange in output: -1\n\nRemoved words: def coming to\nChange in output: 0\n\nRemoved words: def back bowl next\nChange in output: -1\n\nRemoved words: def back bowl time\nChange in output: 0\n\nRemoved words: coming to time\nChange in output: -1\n\nRemoved words: def coming bowl next time\nChange in output: 0\n\nRemoved words: to\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: Def coming back to bowl next time
+
+Removed words: time
+Change in output: 0
+
+Removed words: back to time
+Change in output: -1
+
+Removed words: next
+Change in output: 0
+
+Removed words: coming back to next
+Change in output: -1
+
+Removed words: next
+Change in output: 0
+
+Removed words: coming next
+Change in output: -1
+
+Removed words: def coming to
+Change in output: 0
+
+Removed words: def to time
+Change in output: -1
+
+Removed words: def bowl next
+Change in output: 0
+
+Removed words: def to time
+Change in output: -1
+
+Removed words: def coming to
+Change in output: 0
+
+Removed words: def back bowl next
+Change in output: -1
+
+Removed words: def back bowl time
+Change in output: 0
+
+Removed words: coming to time
+Change in output: -1
+
+Removed words: def coming bowl next time
+Change in output: 0
+
+Removed words: to
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the top three most important words driving the output, let's analyze each word's impact on the model's output when removed, considering both when the output changes and when it remains the same.
+
+1. **time** - Removal of "time" alone does not change the output (0), but its removal in combination with other words leads to both no change and a negative change in output. This indicates a moderate level of importance. However, since its direct removal doesn't affect the output, its importance might be more contextual rather than direct.
+
+2. **back** - The word "back" in combination with other words leads to a negative change in output in one instance and no change in another. Its direct impact isn't tested, but given the mixed results in combinations, its importance seems moderate but not as critical on its own.
+
+3. **next** - The removal of "next" alone results in no change in output in multiple instances, suggesting that "next" by itself does not significantly influence the output. However, its presence in combinations that lead to a change suggests a contextual importance.
+
+4. **coming** - "coming" in combination with other words leads to a negative change in output in two instances and no change in another. This suggests a moderate level of importance, similar to "back", but with a slightly higher impact due to the consistent negative change when removed with certain words.
+
+5. **def** - The removal of "def" in various combinations shows a mix of no change and negative changes in output. Its direct removal isn't tested, but it seems to have a contextual influence similar to "time".
+
+6. **to** - The removal of "to" alone leads to a negative change in output, indicating a significant direct impact on the model's output. This suggests a high level of importance.
+
+7. **bowl** - "bowl" is part of combinations that lead to both no change and a negative change in output. Its direct impact isn't tested, but like "def", "back", and "coming", its importance seems more contextual.
+
+Given the analysis, the importance of the words based on their impact on the model's output, from most to least important, seems to be:
+
+- **to** has a direct negative impact when removed, indicating high importance.
+- **coming** and **back** have similar patterns of influence, but **coming** appears slightly more impactful due to its involvement in combinations leading to a consistent negative change.
+- **def**, **time**, **bowl**, and **next** show a mix of impacts, but **time** and **def** seem to have a slightly higher contextual importance than **bowl** and **next**, which often do not change the output when removed alone.
+
+Therefore, the top three most important words driving the output, considering both their direct and contextual influences, are:
+
+to, coming, back

@@ -1,0 +1,101 @@
+51_gpt-4-0125-preview_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		51
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: You get incredibly fresh fish, prepared with care.\n\nRemoved words: .\nChange in output: 0\n\nRemoved words: fresh fish care .\nChange in output: -1\n\nRemoved words: with\nChange in output: 0\n\nRemoved words: fresh fish prepared with care\nChange in output: -1\n\nRemoved words: you get incredibly fresh , prepared with care .\nChange in output: 0\n\nRemoved words: get fresh fish , prepared with care .\nChange in output: -1\n\nRemoved words: incredibly\nChange in output: 0\n\nRemoved words: incredibly fresh fish , prepared .\nChange in output: -1\n\nRemoved words: you fish with care .\nChange in output: 0\n\nRemoved words: you incredibly fresh fish , prepared care\nChange in output: -1\n\nRemoved words: prepared .\nChange in output: 0\n\nRemoved words: you get fresh prepared with care\nChange in output: -1\n\nRemoved words: get prepared with care .\nChange in output: 0\n\nRemoved words: incredibly fish , prepared care\nChange in output: -1\n\nRemoved words: you incredibly fresh fish , prepared with care .\nChange in output: 0\n\nRemoved words: get fish , with care\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: You get incredibly fresh fish, prepared with care.
+
+Removed words: .
+Change in output: 0
+
+Removed words: fresh fish care .
+Change in output: -1
+
+Removed words: with
+Change in output: 0
+
+Removed words: fresh fish prepared with care
+Change in output: -1
+
+Removed words: you get incredibly fresh , prepared with care .
+Change in output: 0
+
+Removed words: get fresh fish , prepared with care .
+Change in output: -1
+
+Removed words: incredibly
+Change in output: 0
+
+Removed words: incredibly fresh fish , prepared .
+Change in output: -1
+
+Removed words: you fish with care .
+Change in output: 0
+
+Removed words: you incredibly fresh fish , prepared care
+Change in output: -1
+
+Removed words: prepared .
+Change in output: 0
+
+Removed words: you get fresh prepared with care
+Change in output: -1
+
+Removed words: get prepared with care .
+Change in output: 0
+
+Removed words: incredibly fish , prepared care
+Change in output: -1
+
+Removed words: you incredibly fresh fish , prepared with care .
+Change in output: 0
+
+Removed words: get fish , with care
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the top three most important words driving the output, we'll analyze the occurrences and the impact of each word's removal on the change in output. We'll focus on the words that appear in the removals that lead to a change in output (-1) and those that don't (0), to understand their influence.
+
+1. **fresh**: Appears in several removals with both changes in output (-1 and 0). Its removal alongside "fish" and "care" leads to a negative change, but its absence alone doesn't always dictate the output. Importance: 60
+
+2. **fish**: Similar to "fresh," it appears in multiple contexts with varying outputs. Its removal, especially with "fresh" and "care," impacts the output negatively. However, its influence seems slightly less direct than "fresh" because it's also part of removals that don't change the output. Importance: 55, ranking: fresh, fish
+
+3. **care**: This word's removal, particularly with "fresh" and "fish," leads to a negative change. It seems equally important as "fish" in driving the output to -1 when removed together with "fresh" and "fish." Importance: 55, ranking: fresh, fish, care
+
+4. **with**: Its removal alone does not change the output, indicating it has less influence on the model's output compared to "fresh," "fish," and "care." Importance: 20, ranking: fresh, fish, care, with
+
+5. **incredibly**: Its removal in different contexts shows no consistent impact on the output, suggesting its influence is minimal or context-dependent. Importance: 25, ranking: fresh, fish, care, with, incredibly
+
+6. **prepared**: Appears in several contexts with varying impacts. Its removal, especially alongside "fresh," "fish," and "care," contributes to a negative change, but it's not as pivotal on its own. Importance: 50, ranking: fresh, fish, care, prepared, with, incredibly
+
+7. **you**: Its removal doesn't directly influence the output to change, indicating it's of lower importance in driving the output. Importance: 10, ranking: fresh, fish, care, prepared, with, incredibly, you
+
+8. **get**: Similar to "you," its removal doesn't seem to directly cause a change in output, suggesting it's less critical. Importance: 10, ranking: fresh, fish, care, prepared, with, incredibly, you, get
+
+Given the analysis, the top three most important words driving the output, based on their influence on the model's output changes, are:
+
+fresh, fish, care

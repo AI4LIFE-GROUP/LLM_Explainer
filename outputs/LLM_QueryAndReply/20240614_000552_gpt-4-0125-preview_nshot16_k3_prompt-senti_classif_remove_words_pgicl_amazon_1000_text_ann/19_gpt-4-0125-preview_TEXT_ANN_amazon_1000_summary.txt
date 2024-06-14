@@ -1,0 +1,101 @@
+19_gpt-4-0125-preview_TEXT_ANN_amazon_1000_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		19
+LLM:			gpt-4-0125-preview
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: This is a great little item.\n\nRemoved words: is little\nChange in output: 0\n\nRemoved words: this is a great item .\nChange in output: -1\n\nRemoved words: great little\nChange in output: 0\n\nRemoved words: this is a great item\nChange in output: -1\n\nRemoved words: little .\nChange in output: 0\n\nRemoved words: this\nChange in output: -1\n\nRemoved words: is great little\nChange in output: 0\n\nRemoved words: this is item .\nChange in output: -1\n\nRemoved words: is great .\nChange in output: 0\n\nRemoved words: this a\nChange in output: -1\n\nRemoved words: .\nChange in output: 0\n\nRemoved words: item .\nChange in output: -1\n\nRemoved words: this is a great little .\nChange in output: 0\n\nRemoved words: this is little item .\nChange in output: -1\n\nRemoved words: is great\nChange in output: 0\n\nRemoved words: this a\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: This is a great little item.
+
+Removed words: is little
+Change in output: 0
+
+Removed words: this is a great item .
+Change in output: -1
+
+Removed words: great little
+Change in output: 0
+
+Removed words: this is a great item
+Change in output: -1
+
+Removed words: little .
+Change in output: 0
+
+Removed words: this
+Change in output: -1
+
+Removed words: is great little
+Change in output: 0
+
+Removed words: this is item .
+Change in output: -1
+
+Removed words: is great .
+Change in output: 0
+
+Removed words: this a
+Change in output: -1
+
+Removed words: .
+Change in output: 0
+
+Removed words: item .
+Change in output: -1
+
+Removed words: this is a great little .
+Change in output: 0
+
+Removed words: this is little item .
+Change in output: -1
+
+Removed words: is great
+Change in output: 0
+
+Removed words: this a
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+To determine the most important words driving the output, we'll analyze each word's presence or absence in the dataset and its impact on the change in output. We'll consider how the removal of specific words or combinations of words affects the output, noting whether the change is positive, negative, or neutral (0). A negative change in output (-1) suggests that the word's presence contributes positively to the original output, while a neutral change (0) suggests the word's removal does not affect the output.
+
+1. **This**: Removal of "this" alone and in combinations leads to a negative change in output in several instances (e.g., "this is a great item", "this", "this is item .", "this a", "this is little item ."). This indicates a high importance in driving the output to its original state. Importance: 90
+
+2. **Is**: Removal of "is" in combinations shows mixed results, but notably, its removal alone does not change the output, while its removal with other words leads to both neutral and negative changes. This suggests "is" has a moderate importance, influenced heavily by context. Importance: 50
+
+3. **A**: "A" is rarely removed alone, and its removal in combinations leads to negative changes, suggesting its presence contributes to the original output, but its importance is less clear due to fewer direct instances. Importance: 40
+
+4. **Great**: Removal of "great" in combinations generally leads to a neutral change, except when removed with all other words, suggesting its importance is context-dependent but not as critical on its own. Importance: 60
+
+5. **Little**: Similar to "great", "little" shows a neutral change when removed, indicating a moderate importance that is also context-dependent. Importance: 60
+
+6. **Item**: Removal of "item" or its combination leads to negative changes, indicating a significant importance in driving the original output. Importance: 80
+
+7. **. (Period)**: The period's removal alone does not affect the output, suggesting it has minimal to no impact on the model's output. Importance: 10
+
+Based on the analysis, the words can be ranked in terms of their importance in driving the model's output as follows:
+
+This, Item, Great = Little, Is, A, .
+
+Final rank: This, Item, Great, Little, Is, A, .

@@ -1,0 +1,91 @@
+23_gpt-4_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		23
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: She ordered a toasted English muffin that came out untoasted.\n\nRemoved words: english\nChange in output: 0\n\nRemoved words: she ordered a english that\nChange in output: -1\n\nRemoved words: toasted english muffin out untoasted\nChange in output: 0\n\nRemoved words: she muffin that .\nChange in output: -1\n\nRemoved words: she ordered a toasted english muffin that out untoasted .\nChange in output: 0\n\nRemoved words: she ordered english muffin that came out .\nChange in output: -1\n\nRemoved words: she ordered a toasted that out untoasted .\nChange in output: 0\n\nRemoved words: she ordered\nChange in output: -1\n\nRemoved words: a toasted muffin came out untoasted\nChange in output: 0\n\nRemoved words: she ordered toasted english muffin that out .\nChange in output: -1\n\nRemoved words: ordered toasted english muffin came out untoasted .\nChange in output: 0\n\nRemoved words: she toasted out\nChange in output: -1\n\nRemoved words: english\nChange in output: 0\n\nRemoved words: she a came out\nChange in output: -1\n\nRemoved words: toasted came\nChange in output: 0\n\nRemoved words: she ordered a english that\nChange in output: -1\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: She ordered a toasted English muffin that came out untoasted.
+
+Removed words: english
+Change in output: 0
+
+Removed words: she ordered a english that
+Change in output: -1
+
+Removed words: toasted english muffin out untoasted
+Change in output: 0
+
+Removed words: she muffin that .
+Change in output: -1
+
+Removed words: she ordered a toasted english muffin that out untoasted .
+Change in output: 0
+
+Removed words: she ordered english muffin that came out .
+Change in output: -1
+
+Removed words: she ordered a toasted that out untoasted .
+Change in output: 0
+
+Removed words: she ordered
+Change in output: -1
+
+Removed words: a toasted muffin came out untoasted
+Change in output: 0
+
+Removed words: she ordered toasted english muffin that out .
+Change in output: -1
+
+Removed words: ordered toasted english muffin came out untoasted .
+Change in output: 0
+
+Removed words: she toasted out
+Change in output: -1
+
+Removed words: english
+Change in output: 0
+
+Removed words: she a came out
+Change in output: -1
+
+Removed words: toasted came
+Change in output: 0
+
+Removed words: she ordered a english that
+Change in output: -1
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The words that seem to have the most impact on the output are "she", "ordered", and "that". 
+
+1. "She": Every time the word "she" is removed, the output changes by -1. This suggests that the word "she" has a strong positive correlation with the output. Importance: 100
+
+2. "Ordered": Similar to "she", the word "ordered" also causes a -1 change in output when removed. This indicates a strong positive correlation with the output. Importance: 100
+
+3. "That": The word "that" also causes a -1 change in output when removed. This suggests a strong positive correlation with the output. Importance: 100
+
+The words "a", "toasted", "english", "muffin", "came", "out", and "untoasted" do not seem to have a significant impact on the output as their removal does not consistently result in a change in output. 
+
+Final Rank: she, ordered, that

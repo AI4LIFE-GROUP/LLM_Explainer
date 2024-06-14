@@ -1,0 +1,93 @@
+107_gpt-4_TEXT_ANN_amazon_1000_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		107
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: I can\'t use this case because the smell is disgusting.\n\nRemoved words: can \' use this case because smell is .\nChange in output: 1\n\nRemoved words: can smell\nChange in output: 0\n\nRemoved words: i t disgusting\nChange in output: 1\n\nRemoved words: \' smell .\nChange in output: 0\n\nRemoved words: i because the disgusting .\nChange in output: 1\n\nRemoved words: can use because is\nChange in output: 0\n\nRemoved words: i can t this case because the smell is disgusting .\nChange in output: 1\n\nRemoved words: can \' the smell is disgusting\nChange in output: 0\n\nRemoved words: i can t is .\nChange in output: 1\n\nRemoved words: t use this .\nChange in output: 0\n\nRemoved words: can \' t use this case is disgusting .\nChange in output: 1\n\nRemoved words: can t this the smell disgusting\nChange in output: 0\n\nRemoved words: i can t the is disgusting\nChange in output: 1\n\nRemoved words: this because\nChange in output: 0\n\nRemoved words: can \' use this case because the is disgusting\nChange in output: 1\n\nRemoved words: \' use the\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: I can't use this case because the smell is disgusting.
+
+Removed words: can ' use this case because smell is .
+Change in output: 1
+
+Removed words: can smell
+Change in output: 0
+
+Removed words: i t disgusting
+Change in output: 1
+
+Removed words: ' smell .
+Change in output: 0
+
+Removed words: i because the disgusting .
+Change in output: 1
+
+Removed words: can use because is
+Change in output: 0
+
+Removed words: i can t this case because the smell is disgusting .
+Change in output: 1
+
+Removed words: can ' the smell is disgusting
+Change in output: 0
+
+Removed words: i can t is .
+Change in output: 1
+
+Removed words: t use this .
+Change in output: 0
+
+Removed words: can ' t use this case is disgusting .
+Change in output: 1
+
+Removed words: can t this the smell disgusting
+Change in output: 0
+
+Removed words: i can t the is disgusting
+Change in output: 1
+
+Removed words: this because
+Change in output: 0
+
+Removed words: can ' use this case because the is disgusting
+Change in output: 1
+
+Removed words: ' use the
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The output changes when the following words are removed: 'can', 'use', 'this', 'case', 'because', 'smell', 'is', 'disgusting'. However, the output does not change when the following words are removed: 'i', 't', 'the', '.'. 
+
+From this, we can infer that the words 'can', 'use', 'this', 'case', 'because', 'smell', 'is', 'disgusting' are more important in driving the output. 
+
+Among these, 'can', 'use', 'this', 'case' are removed together in the first row and the output changes. This suggests that these words are collectively important. However, when 'can' and 'use' are removed together in the second row, the output does not change. This suggests that 'this' and 'case' are more important than 'can' and 'use'. 
+
+The word 'because' is removed in the fifth row and the output changes. This suggests that 'because' is also important. 
+
+The words 'smell', 'is', 'disgusting' are removed together in the first row and the output changes. This suggests that these words are collectively important. However, when 'smell' and 'is' are removed together in the second row, the output does not change. This suggests that 'disgusting' is more important than 'smell' and 'is'. 
+
+Based on this analysis, the top three most important words driving the output are 'disgusting', 'this', and 'case'.
+
+disgusting, this, case

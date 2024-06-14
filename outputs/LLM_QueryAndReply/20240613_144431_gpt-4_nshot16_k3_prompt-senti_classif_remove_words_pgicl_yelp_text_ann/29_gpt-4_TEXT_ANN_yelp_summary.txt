@@ -1,0 +1,95 @@
+29_gpt-4_TEXT_ANN_yelp_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		29
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: Crust is not good.\n\nRemoved words: is not good .\nChange in output: 1\n\nRemoved words: not good .\nChange in output: 0\n\nRemoved words: is\nChange in output: 1\n\nRemoved words: crust is not\nChange in output: 0\n\nRemoved words: good\nChange in output: 1\n\nRemoved words: crust good\nChange in output: 0\n\nRemoved words: is not good\nChange in output: 1\n\nRemoved words: .\nChange in output: 0\n\nRemoved words: crust good .\nChange in output: 1\n\nRemoved words: .\nChange in output: 0\n\nRemoved words: is .\nChange in output: 1\n\nRemoved words: crust is not .\nChange in output: 0\n\nRemoved words: good\nChange in output: 1\n\nRemoved words: crust good\nChange in output: 0\n\nRemoved words: is not good .\nChange in output: 1\n\nRemoved words: crust is not .\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: Crust is not good.
+
+Removed words: is not good .
+Change in output: 1
+
+Removed words: not good .
+Change in output: 0
+
+Removed words: is
+Change in output: 1
+
+Removed words: crust is not
+Change in output: 0
+
+Removed words: good
+Change in output: 1
+
+Removed words: crust good
+Change in output: 0
+
+Removed words: is not good
+Change in output: 1
+
+Removed words: .
+Change in output: 0
+
+Removed words: crust good .
+Change in output: 1
+
+Removed words: .
+Change in output: 0
+
+Removed words: is .
+Change in output: 1
+
+Removed words: crust is not .
+Change in output: 0
+
+Removed words: good
+Change in output: 1
+
+Removed words: crust good
+Change in output: 0
+
+Removed words: is not good .
+Change in output: 1
+
+Removed words: crust is not .
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The words in the sentence are 'Crust', 'is', 'not', 'good', and '.'. 
+
+1. 'Crust': The removal of 'Crust' results in a change in output in two instances, and no change in two instances. This suggests a moderate influence on the output. Importance: 50
+
+2. 'is': The removal of 'is' results in a change in output in all instances. This suggests a strong influence on the output. Importance: 100
+
+3. 'not': The removal of 'not' results in a change in output in some instances, and no change in others. This suggests a moderate influence on the output. Importance: 50
+
+4. 'good': The removal of 'good' results in a change in output in all instances. This suggests a strong influence on the output. Importance: 100
+
+5. '.': The removal of '.' results in no change in output in all instances. This suggests a weak influence on the output. Importance: 0
+
+Based on the above analysis, the running rank is 'is', 'good', 'Crust', 'not', '.'.
+
+Answer: is, good, Crust, not, .

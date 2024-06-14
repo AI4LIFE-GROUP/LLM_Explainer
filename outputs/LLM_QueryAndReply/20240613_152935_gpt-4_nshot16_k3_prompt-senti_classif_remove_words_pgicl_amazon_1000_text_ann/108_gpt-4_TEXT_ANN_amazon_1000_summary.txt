@@ -1,0 +1,93 @@
+108_gpt-4_TEXT_ANN_amazon_1000_summary
+temperature:		0
+n_shot:			16
+explanation_mode:	perturb
+eval_idx:		108
+LLM:			gpt-4
+k:			3
+
+MESSAGE:
+[{'role': 'user', 'content': 'Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."\n\nDataset:\n```\nOriginal sentence: I really like this product over the Motorola because it is allot clearer on the ear piece and the mic.\n\nRemoved words: really like the because is allot the ear piece and .\nChange in output: 1\n\nRemoved words: this motorola because allot clearer the\nChange in output: 0\n\nRemoved words: i really like this product over the motorola it allot on the ear and the mic\nChange in output: 1\n\nRemoved words: i really product clearer and .\nChange in output: 0\n\nRemoved words: i really like this product over the because it allot clearer on the piece and the mic .\nChange in output: 1\n\nRemoved words: really like this product over the motorola because it is allot clearer on the ear piece and the mic .\nChange in output: 0\n\nRemoved words: i like this the motorola it is allot clearer on the ear piece and the mic .\nChange in output: 1\n\nRemoved words: really because it is allot on the ear piece and .\nChange in output: 0\n\nRemoved words: i really like this product motorola because it allot clearer on the ear and the mic .\nChange in output: 1\n\nRemoved words: over motorola is clearer on the piece\nChange in output: 0\n\nRemoved words: i really this product the motorola because it is allot clearer on the piece and the mic .\nChange in output: 1\n\nRemoved words: i product motorola because it allot clearer on the mic\nChange in output: 0\n\nRemoved words: i really like this product over the because it is allot clearer on ear piece and the mic .\nChange in output: 1\n\nRemoved words: really like this over the motorola it is on ear and the\nChange in output: 0\n\nRemoved words: i really like this product over because it is allot clearer on the ear piece and the mic .\nChange in output: 1\n\nRemoved words: like this over the it allot clearer and\nChange in output: 0\n```\n\nQuestion: "Based on the above set, what are the top three most important words driving the output?"\n\nInstructions: "\n\n1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.\n\n2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word \'B\', determine its relative importance compared to word \'A\' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.\n\nAfter explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."'}]
+
+
+PROMPT_TEXT:
+Context: "We are analyzing a fixed set of word removals on a specific sentence to understand the influence on the model’s output. The dataset below contains the words removed from the original sentence and the corresponding change in output."
+
+Dataset:
+```
+Original sentence: I really like this product over the Motorola because it is allot clearer on the ear piece and the mic.
+
+Removed words: really like the because is allot the ear piece and .
+Change in output: 1
+
+Removed words: this motorola because allot clearer the
+Change in output: 0
+
+Removed words: i really like this product over the motorola it allot on the ear and the mic
+Change in output: 1
+
+Removed words: i really product clearer and .
+Change in output: 0
+
+Removed words: i really like this product over the because it allot clearer on the piece and the mic .
+Change in output: 1
+
+Removed words: really like this product over the motorola because it is allot clearer on the ear piece and the mic .
+Change in output: 0
+
+Removed words: i like this the motorola it is allot clearer on the ear piece and the mic .
+Change in output: 1
+
+Removed words: really because it is allot on the ear piece and .
+Change in output: 0
+
+Removed words: i really like this product motorola because it allot clearer on the ear and the mic .
+Change in output: 1
+
+Removed words: over motorola is clearer on the piece
+Change in output: 0
+
+Removed words: i really this product the motorola because it is allot clearer on the piece and the mic .
+Change in output: 1
+
+Removed words: i product motorola because it allot clearer on the mic
+Change in output: 0
+
+Removed words: i really like this product over the because it is allot clearer on ear piece and the mic .
+Change in output: 1
+
+Removed words: really like this over the motorola it is on ear and the
+Change in output: 0
+
+Removed words: i really like this product over because it is allot clearer on the ear piece and the mic .
+Change in output: 1
+
+Removed words: like this over the it allot clearer and
+Change in output: 0
+```
+
+Question: "Based on the above set, what are the top three most important words driving the output?"
+
+Instructions: "
+
+1. Analyze the word in question. Rate the importance of the word in determining the output on a scale of 0-100, considering both positive and negative correlations. Ensure to give equal emphasis to both positive and negative correlations and avoid focusing only on absolute values.
+
+2. After analyzing the word, position it in a running rank compared to the words already analyzed. For instance, after analyzing word 'B', determine its relative importance compared to word 'A' and position it accordingly in the rank (e.g., BA or AB). Continue this process until all words are ranked.
+
+After explaining your reasoning, provide your answer as the final rank of the words from most important to least important, in descending order, separated by commas. Only provide the words on the last line. Do not provide any further details on the last line."
+
+
+REPLY:
+The task involves analyzing the importance of words in driving the output of a model. The output changes from 1 to 0 when certain words are removed from the original sentence. 
+
+1. The word 'Motorola' seems to be of high importance. It is present in all the sentences where the output is 1 and removed in all sentences where the output is 0. This suggests a strong positive correlation. Importance: 90
+
+2. The word 'because' also seems to be important. It is present in all sentences where the output is 1 and removed in all sentences where the output is 0. This suggests a strong positive correlation. However, it is less specific than 'Motorola', so it is ranked second. Importance: 85
+
+3. The word 'over' is present in all sentences where the output is 1 and removed in all sentences where the output is 0. This suggests a strong positive correlation. However, it is less specific than 'Motorola' and 'because', so it is ranked third. Importance: 80
+
+4. The word 'allot' is present in all sentences where the output is 1 and removed in all sentences where the output is 0. This suggests a strong positive correlation. However, it is less specific than 'Motorola', 'because', and 'over', so it is ranked fourth. Importance: 75
+
+5. The word 'clearer' is present in all sentences where the output is 1 and removed in all sentences where the output is 0. This suggests a strong positive correlation. However, it is less specific than 'Motorola', 'because', 'over', and 'allot', so it is ranked fifth. Importance: 70
+
+Final ranking: Motorola, because, over, allot, clearer.
