@@ -1,0 +1,46 @@
+20240611_0423_None_TEXT_ANN_yelp_summaryHyperparametersexp_id:	20240611_0423
+data_name:	yelp
+model_name:	text_ann
+epochs:		300
+learning_rate:	0.001
+
+X_train.shape:	720
+X_val.shape:	80
+X_test.shape:	200
+y_train.shape:	(720,)
+
+y_val.shape:	(80,)
+
+y_test.shape:	(200,)
+
+dim_per_layer:	[None]
+activation_per_layer:	[None]
+
+F1-score: 0.7473 | Accuracy: 0.7125 | AUC-ROC: 0.7334
+
+Proportion of ones in val set: 0.575
+Proportion of ones predicted in test set: 0.563
+Proportion of ones in train set: 0.488
+Proportion of ones predicted in train set: 0.489
+
+Architecture:
+OrderedDict([('embeddings', TokenEmbedding(
+  (embedding): Embedding(1721, 8)
+)), ('pos_encoder', PositionalEncoding(
+  (dropout): Dropout(p=0.3, inplace=False)
+)), ('encoder', TransformerEncoder(
+  (layers): ModuleList(
+    (0): TransformerEncoderLayer(
+      (self_attn): MultiheadAttention(
+        (out_proj): NonDynamicallyQuantizableLinear(in_features=8, out_features=8, bias=True)
+      )
+      (linear1): Linear(in_features=8, out_features=32, bias=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+      (linear2): Linear(in_features=32, out_features=8, bias=True)
+      (norm1): LayerNorm((8,), eps=1e-05, elementwise_affine=True)
+      (norm2): LayerNorm((8,), eps=1e-05, elementwise_affine=True)
+      (dropout1): Dropout(p=0.1, inplace=False)
+      (dropout2): Dropout(p=0.1, inplace=False)
+    )
+  )
+)), ('linear', Linear(in_features=8, out_features=2, bias=True)), ('dropout', Dropout(p=0.3, inplace=False))])
