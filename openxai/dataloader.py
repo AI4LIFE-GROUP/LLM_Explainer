@@ -8,14 +8,16 @@ from openxai import dgp_synthetic
 from errno import EEXIST
 import torch.utils.data as data
 from torch.utils.data import DataLoader
-from urllib.request import urlretrieve
 import numpy as np
+from urllib.request import urlretrieve
 import pickle as pkl
-from sentence_transformers import SentenceTransformer
 # from xai_benchmark.dataset.Synthetic import dgp_synthetic
 
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
-from sklearn.feature_extraction.text import TfidfVectorizer
+
+from torchtext.data.utils import get_tokenizer
+from torchtext.vocab import Vocab
+from collections import Counter
 
 
 def download_file(url, filename):
@@ -210,84 +212,199 @@ class TabularDataLoader(data.Dataset):
                 pass
             else:
                 raise
+#
+# class TextDataLoader(data.Dataset):
+#     def __init__(self, path, filename, label, premade_data_name='', dtype=''):
+#
+#         """
+#         Load training dataset
+#         :param path: string with path to training set
+#         :param filename: string with name of file
+#         :param label: string, column name for label
+#         :param dtype: string, type of data to load
+#
+#         :return: tensor with training data
+#         """
+#         if not dtype in ['train', 'val', 'test']:
+#             raise NotImplementedError('The current version of DataLoader class only provides the following datatypes: {train, val, test}')
+#
+#         self.path = path
+#
+#         if not os.path.isfile(path + filename):
+#             raise RuntimeError("Dataset not found. You can use download=True to download it")
+#
+#         # load data from pkl
+#         with open(path + premade_data_name + '.pkl', 'rb') as f:
+#             self.input = pkl.load(f)
+#
+#         self.dataset = pd.read_pickle(path + filename)
+#         self.target = label
+#         self.targets = np.array(self.dataset[self.target])
+#
+#         self.dataset = np.array(self.dataset.drop(columns=[self.target]))
+#
+#         val_percent_of_train  = 0.2
+#         n_train               = self.dataset.shape[0]
+#         n_val                 = int(n_train * val_percent_of_train)
+#
+#         if dtype == 'train':
+#             self.dataset = self.dataset[n_val:]
+#             self.targets = self.targets[n_val:]
+#             self.data    = self.input[n_val:]
+#
+#         elif dtype == 'val':
+#             self.dataset = self.dataset[0:n_val]
+#             self.targets = self.targets[0:n_val]
+#             self.data    = self.input[0:n_val]
+#         else:
+#             self.data = self.input
+#
+#         self.sentences = self.dataset
+#
+#         self.tokenizer = get_tokenizer('basic_english')
+#         self.word_counter = Counter()
+#         for (line, label) in zip(self.dataset, self.targets):
+#             self.word_counter.update(self.tokenizer(line[0]))
+#         self.vocab = Vocab(self.word_counter, min_freq=10)
+#
+#         self.num_class = len(set(self.targets))
+#
+#     def __len__(self):
+#         return len(self.dataset)
+#
+#     def __getitem__(self, idx):
+#
+#         # select correct row with idx
+#         if isinstance(idx, torch.Tensor):
+#             idx = idx.tolist()
+#         batch = [(self.sentences[idx], self.targets[idx])]
+#         labels = torch.tensor([label for _, label in batch])
+#         text_list = [self.tokenizer(line[0]) for line, _ in batch]
+#
+#         # flatten tokens across the whole batch
+#         text = torch.tensor([self.vocab[t] for tokens in text_list for t in tokens])
+#         tokenized_list = [torch.tensor([self.vocab[t] for t in tokens]) for tokens in text_list]
+#         # the offset of each example
+#         offsets = torch.tensor(
+#             [0] + [len(tokens) for tokens in text_list][:-1]
+#         ).cumsum(dim=0)
+#
+#         return (labels, text, offsets, tokenized_list)
+#
+#         # return (self.data[idx], self.sentences[idx], self.targets.values[idx])
+#
+#     def get_vocab_size(self):
+#         return len(self.vocab)
+#
+#     def get_vocab(self):
+#         return self.vocab
+#
+#     def get_tokenizer(self):
+#         return self.tokenizer
+#
+#     def get_number_of_features(self):
+#         return self.data.shape[1]
+#
+#     def get_number_of_instances(self):
+#         return self.data.shape[0]
+#
+#     def mkdir_p(self, mypath):
+#         """Creates a directory. equivalent to using mkdir -p on the command line"""
+#         try:
+#             os.makedirs(mypath)
+#         except OSError as exc:  # Python >2.5
+#             if exc.errno == EEXIST and os.path.isdir(mypath):
+#                 pass
+#             else:
+#                 raise
 
-class TextDataLoader(data.Dataset):
-    def __init__(self, path, filename, label, dtype=''):
 
-        """
-        Load training dataset
-        :param path: string with path to training set
-        :param filename: string with name of file
-        :param label: string, column name for label
-        :param dtype: string, type of data to load
+def get_text_dataset(dtype, path, filename, label):
+    """
+    Load training dataset
+    :param path: string with path to training set
+    :param filename: string with name of file
+    :param label: string, column name for label
+    :param dtype: string, type of data to load
 
-        :return: tensor with training data
-        """
-        if not dtype in ['train', 'val', 'test']:
-            raise NotImplementedError('The current version of DataLoader class only provides the following datatypes: {train, val, test}')
+    :return: tensor with training data
+    """
+    if not dtype in ['train', 'val', 'test']:
+        raise NotImplementedError('The current version of DataLoader class only provides the following datatypes: {train, val, test}')
 
-        self.path = path
+    if not os.path.isfile(path + filename):
+        raise RuntimeError("Dataset not found. You can use download=True to download it")
 
-        if not os.path.isfile(path + filename):
-            raise RuntimeError("Dataset not found. You can use download=True to download it")
+    dataset = pd.read_pickle(path + filename)
+    target = label
+    targets = np.array(dataset[target])
 
-        # load premade embeddings from pkl
-        if dtype == 'train' or dtype == 'val':
-            with open(path + 'beauty-train-embeddings.pkl', 'rb') as f:
-                self.embeddings = pkl.load(f)
-        else:
-            with open(path + 'beauty-test-embeddings.pkl', 'rb') as f:
-                self.embeddings = pkl.load(f)
+    sentences = np.array(dataset.drop(columns=[target]))
 
-        self.dataset = pd.read_pickle(path + filename)
-        self.target = label
-        self.targets = self.dataset[self.target]
+    val_percent_of_train = 0.1
+    n_train = dataset.shape[0]
+    n_val = int(n_train * val_percent_of_train)
 
-        self.dataset = self.dataset.drop(columns=[self.target])
+    if dtype == 'train':
+        sentences = sentences[n_val:]
+        targets = targets[n_val:]
+    elif dtype == 'val':
+        sentences = sentences[0:n_val]
+        targets = targets[0:n_val]
 
-        val_percent_of_train  = 0.2
-        n_train               = self.dataset.shape[0]
-        n_val                 = int(n_train * val_percent_of_train)
+    return sentences, targets
 
-        if dtype == 'train':
-            self.dataset = self.dataset[n_val:]
-            self.targets = self.targets[n_val:]
-            self.data    = self.embeddings[n_val:]
-        elif dtype == 'val':
-            self.dataset = self.dataset[0:n_val]
-            self.targets = self.targets[0:n_val]
-            self.data    = self.embeddings[0:n_val]
-        else:
-            self.data = self.embeddings
+def get_tokenizer_and_vocab(X_train, y_train):
+    tokenizer = get_tokenizer('basic_english')
+    word_counter = Counter()
+    for (line, label) in zip(X_train, y_train):
+        word_counter.update(tokenizer(line[0]))
+    voc = Vocab(word_counter, min_freq=1)
 
-        self.sentences = self.dataset['text'].values  # convert from dataframe column to list
+    print('Vocabulary size:', len(voc))
+    return tokenizer, voc
 
-    def __len__(self):
-        return len(self.dataset)
 
-    def __getitem__(self, idx):
+# def collate_batch(batch, voc, tokenizer):
+#     labels = torch.tensor([label for _, label in batch])
+#     text_list = [tokenizer(line) for line, _ in batch]
+#
+#     # flatten tokens across the whole batch using indexing for the vocab
+#     text = torch.tensor([voc[t] for tokens in text_list for t in tokens if t in voc.stoi])
+#     tokenized_list = [torch.tensor([voc[t] for t in tokens if t in voc.stoi]) for tokens in text_list]
+#     # the offset of each example
+#     offsets = torch.tensor(
+#         [0] + [len(tokens) for tokens in text_list][:-1]
+#     ).cumsum(dim=0)
+#
+#     return labels, text, offsets, tokenized_list
 
-        # select correct row with idx
-        if isinstance(idx, torch.Tensor):
-            idx = idx.tolist()
+# def collate_batch(batch, tokenizer, voc):
+#     labels = torch.tensor([label for _, label in batch])
+#     text_list = [tokenizer(line[0]) for line, _ in batch]
+#
+#     # flatten tokens across the whole batch
+#     text = torch.tensor([voc[t] for tokens in text_list for t in tokens])
+#     tokenized_list = [torch.tensor([voc[t] for t in tokens]) for tokens in text_list]
+#     # the offset of each example
+#     offsets = torch.tensor(
+#         [0] + [len(tokens) for tokens in text_list][:-1]
+#     ).cumsum(dim=0)
+#
+#     return labels, text, offsets, tokenized_list
 
-        return (self.data[idx], self.sentences[idx], self.targets.values[idx])
+def collate_batch(batch, tokenizer, voc):
+    labels = torch.tensor([label for _, label in batch])
+    text_list = [tokenizer(line[0]) for line, _ in batch]
+    #pad the text_list to have the same length
+    max_len = max([len(tokens) for tokens in text_list])
+    for tokens in text_list:
+        while len(tokens) < max_len:
+            tokens.append('<pad>')
 
-    def get_number_of_features(self):
-        return self.data.shape[1]
+    inputs = torch.stack([torch.tensor([voc[t] for t in tokens]) for tokens in text_list])
 
-    def get_number_of_instances(self):
-        return self.data.shape[0]
-
-    def mkdir_p(self, mypath):
-        """Creates a directory. equivalent to using mkdir -p on the command line"""
-        try:
-            os.makedirs(mypath)
-        except OSError as exc:  # Python >2.5
-            if exc.errno == EEXIST and os.path.isdir(mypath):
-                pass
-            else:
-                raise
+    return labels, inputs
 
 
 def return_loaders(data_name, download=False, batch_size=32, transform=None, scaler='minmax', gauss_params=None):
@@ -305,6 +422,9 @@ def return_loaders(data_name, download=False, batch_size=32, transform=None, sca
             'student': ('student', transform, 'decision'),
             'blood': ('blood', transform, 'C'),
             'beauty': ('beauty', transform, 'sentiment'),
+            'amazon_1000': ('amazon_1000', transform, 'sentiment'),
+            'imdb': ('imdb', transform, 'sentiment'),
+            'yelp': ('yelp', transform, 'sentiment'),
             }
 
     urls = {
@@ -324,15 +444,45 @@ def return_loaders(data_name, download=False, batch_size=32, transform=None, sca
         prefix = './data/' + dict[data_name][0] + '/'
         file_train = 'beauty-train.pkl'
         file_test = 'beauty-test.pkl'
+    elif dict[data_name][0] == 'amazon_1000':
+        prefix = './data/' + dict[data_name][0] + '/'
+        file_train = 'amazon_1000-train.pkl'
+        file_test = 'amazon_1000-test.pkl'
+    elif dict[data_name][0] == 'imdb':
+        prefix = './data/' + dict[data_name][0] + '/'
+        file_train = 'imdb-train.pkl'
+        file_test = 'imdb-test.pkl'
+    elif dict[data_name][0] == 'yelp':
+        prefix = './data/' + dict[data_name][0] + '/'
+        file_train = 'yelp-train.pkl'
+        file_test = 'yelp-test.pkl'
     else:
         prefix = './data/' + dict[data_name][0] + '/'
         file_train = data_name + '-train.csv'
         file_test = data_name + '-test.csv'
 
     if data_name == 'beauty':
-        dataset_train = TextDataLoader(path=prefix, filename=file_train, label=dict[data_name][2], dtype='train')
-        dataset_val = TextDataLoader(path=prefix, filename=file_train, label=dict[data_name][2], dtype='val')
-        dataset_test = TextDataLoader(path=prefix, filename=file_test, label=dict[data_name][2], dtype='test')
+        # dataset_train = TextDataLoader(path=prefix, filename=file_train, label=dict[data_name][2], dtype='train', premade_data_name='beauty-train-embeddings')
+        # dataset_val = TextDataLoader(path=prefix, filename=file_train, label=dict[data_name][2], dtype='val', premade_data_name='beauty-train-embeddings')
+        # dataset_test = TextDataLoader(path=prefix, filename=file_test, label=dict[data_name][2], dtype='test', premade_data_name='beauty-test-embeddings')
+        #
+        # trainloader = DataLoader(dataset_train, batch_size=batch_size, shuffle=True)
+        # valloader = DataLoader(dataset_val, batch_size=batch_size, shuffle=False)
+        # testloader = DataLoader(dataset_test, batch_size=batch_size, shuffle=False)
+        pass
+    elif data_name == 'amazon_1000' or data_name == 'imdb' or data_name == 'yelp':
+        X_train, y_train = get_text_dataset(dtype='train', path=prefix, filename=file_train, label=dict[data_name][2])
+        X_val, y_val = get_text_dataset(dtype='val', path=prefix, filename=file_train, label=dict[data_name][2])
+        X_test, y_test = get_text_dataset(dtype='test', path=prefix, filename=file_test, label=dict[data_name][2])
+
+        tokenizer, voc = get_tokenizer_and_vocab(X_train, y_train)
+
+        trainloader = DataLoader(list(zip(X_train, y_train)), batch_size=batch_size, shuffle=True,
+                                 collate_fn=lambda batch: collate_batch(batch, tokenizer, voc))
+        valloader = DataLoader(list(zip(X_val, y_val)), batch_size=batch_size, shuffle=False,
+                               collate_fn=lambda batch: collate_batch(batch, tokenizer, voc))
+        testloader = DataLoader(list(zip(X_test, y_test)), batch_size=batch_size, shuffle=False,
+                                collate_fn=lambda batch: collate_batch(batch, tokenizer, voc))
     else:
         dataset_train = TabularDataLoader(path=prefix, filename=file_train, label=dict[data_name][2], scale=scaler,
                                           gauss_params=gauss_params, download=download,
@@ -346,9 +496,10 @@ def return_loaders(data_name, download=False, batch_size=32, transform=None, sca
                                          gauss_params=gauss_params, download=download,
                                          file_url=urls.get(file_test[:-4], None), dtype='test')
 
-    trainloader = DataLoader(dataset_train, batch_size=batch_size, shuffle=True)
-    valloader = DataLoader(dataset_val, batch_size=batch_size, shuffle=False)
-    testloader = DataLoader(dataset_test, batch_size=batch_size, shuffle=False)
+
+        trainloader = DataLoader(dataset_train, batch_size=batch_size, shuffle=True)
+        valloader = DataLoader(dataset_val, batch_size=batch_size, shuffle=False)
+        testloader = DataLoader(dataset_test, batch_size=batch_size, shuffle=False)
 
     return trainloader, valloader, testloader
 
