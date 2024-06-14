@@ -25,7 +25,7 @@ from utils import _load_config, SaveExperimentInfo, loadOpenAPIKeyFromFile
 from utils import get_k_words, get_model_names, get_model_architecture
 
 # XAI Imports
-from openxai.dataloader import return_loaders, get_feature_details
+from openxai.dataloader import return_loaders, get_feature_details, get_tokenizer_and_vocab
 from openxai.LoadModel import DefineModel
 
 # LLM Imports
@@ -50,7 +50,7 @@ class Pipeline:
         # Load config/prompts files
         self.config  = _load_config('LLM_pipeline_config.json') if config is None else config
         self.prompts = _load_config('prompts.json') if prompts is None else prompts
-        self.modality = 'text' if self.config['data_name'] in ['beauty'] else 'tabular'
+        self.modality = 'text' if self.config['data_name'] in ['beauty', 'amazon_1000', 'yelp', 'imdb'] else 'tabular'
 
         if do_setup:
             self.load_dataset_and_model()
@@ -73,28 +73,48 @@ class Pipeline:
         loader_train, loader_val, loader_test = return_loaders(data_name=self.data_name, download=download_data,
                                                                scaler=self.data_scaler)
 
-        self.X_train, self.y_train = loader_train.dataset.data, loader_train.dataset.targets.to_numpy()
-        self.X_val, self.y_val     = loader_val.dataset.data, loader_val.dataset.targets.to_numpy()
-        self.X_test, self.y_test   = loader_test.dataset.data, loader_test.dataset.targets.to_numpy()
 
         if self.modality == 'text':
-            self.X_train_sentences = loader_train.dataset.sentences
-            self.X_val_sentences = loader_val.dataset.sentences
-            self.X_test_sentences = loader_test.dataset.sentences
+            self.X_train = [data[0] for data in loader_train.dataset]
+            self.y_train = np.array([data[1] for data in loader_train.dataset])
+            self.X_val   = [data[0] for data in loader_val.dataset]
+            self.y_val   = np.array([data[1] for data in loader_val.dataset])
+            self.X_test  = [data[0] for data in loader_test.dataset]
+            self.y_test  = np.array([data[1] for data in loader_test.dataset])
 
-        self.num_features          = self.X_train.shape[1]
+            self.tokenizer, self.voc = get_tokenizer_and_vocab(self.X_train, self.y_train)
+            self.num_features        = None  # Not needed for text data
 
-        # Load model
-        input_size                                          = loader_train.dataset.get_number_of_features()
-        dim_per_layer_per_MLP, activation_per_layer_per_MLP = get_model_architecture(self.model_name)
-        self.model                                          = DefineModel(self.model_name, input_size,
-                                                                          dim_per_layer_per_MLP,
-                                                                          activation_per_layer_per_MLP)
+            self.model = DefineModel(self.model_name, vocab_size=len(self.voc))
+        else:
+            self.X_train, self.y_train = loader_train.dataset.data, loader_train.dataset.targets.to_numpy()
+            self.X_val, self.y_val     = loader_val.dataset.data, loader_val.dataset.targets.to_numpy()
+            self.X_test, self.y_test   = loader_test.dataset.data, loader_test.dataset.targets.to_numpy()
+
+            self.num_features          = self.X_train.shape[1]
+
+            # Load model
+            input_size                                          = loader_train.dataset.get_number_of_features()
+            dim_per_layer_per_MLP, activation_per_layer_per_MLP = get_model_architecture(self.model_name)
+            self.model                                          = DefineModel(self.model_name, input_size,
+                                                                              dim_per_layer_per_MLP,
+                                                                              activation_per_layer_per_MLP)
         self.model.load_state_dict(torch.load(self.model_dir + self.model_file_name))
         self.model.eval()
 
-        # Store test predictions
-        preds = self.model.predict(torch.tensor(self.X_test).float())
+        if self.modality == 'text':
+            preds = []
+            for i, input_tuple in enumerate(loader_test):
+                (labels, inputs) = input_tuple
+                with torch.set_grad_enabled(False):
+                    pred = self.model(inputs)
+                    preds.append(pred)
+            preds = torch.cat(preds)
+        else:
+            # Store test predictions
+            preds = self.model.predict(torch.tensor(self.X_test).float())
+
+
         if self.config['prompt_params']['use_soft_preds']:
             self.preds = preds[:, 1]
         else:
@@ -268,53 +288,67 @@ class Pipeline:
         #     gt = self.model.return_ground_truth_importance().detach().numpy()
         #     gt_idx = np.argsort(-np.abs(gt))
         #     gt_letters = alphabet[list(gt_idx)]
-        for eval_idx in range(self.eval_min_idx, self.eval_max_idx):  # loop each test sample
+
+        # needed for text because there's only so many n_shot perturbations we can make off of a short sentence
+        num_valid_test_points = 0
+        min_num_tokens_needed = int(np.log2(self.n_shot))  # need at least log2(n_shot) tokens (combination of 'words') to make n_shot perturbations
+        eval_idx = self.eval_min_idx
+        # for eval_idx in range(self.eval_min_idx, self.eval_max_idx):  # loop each test sample
+        while num_valid_test_points < self.eval_max_idx - self.eval_min_idx:
             print(eval_idx, len(LLM_topks))
 
-            print("Original Pred:", pred)
+            # print("Original Pred:", pred)
             if self.modality == 'text':
+                tokenized_sentence = self.tokenizer(self.X_test[eval_idx][0])
+                num_tokens = len(tokenized_sentence)
+                if num_tokens < min_num_tokens_needed:
+                    eval_idx += 1
+                    print(f'Skipping {eval_idx} because it has too few tokens ({num_tokens})')
+                    print(f'Need at least {min_num_tokens_needed} tokens')
+                    continue
                 self.prompt = TextClassifierPrompt(prompt_dict=self.prompts[prompt_ID])
-                prompt_text = self.prompt.create_prompt(self.X_test_sentences[eval_idx], self.X_test[eval_idx],
-                                                        self.model, n_shot)
+
+                prompt_text = self.prompt.create_prompt(self.X_test[eval_idx], self.model, n_shot, self.tokenizer, self.voc)
                 self.reply_parse_strategy = ''
             else:
 
                 # Get ICL samples (here, as it may depend on eval_idx)
                 X_ICL, y_ICL, pred, exp_x_test, exp_exps, exp_y_test = self.get_icl_samples(eval_idx, use_eval_as_seed)
+                num_valid_test_points += 1 # this is always fine, we only need this for text
 
-            if self.config['prompt_params']['prompt_ID'] in ['pe1', 'pe2', 'pe1-topk', 'pe2-topk', 'predict_then_explain']:
-                pred = None
-            elif self.delta_format:
-                X_ICL -= self.X_test[eval_idx]
-                y_ICL -= pred
-            # generate permutation of length n_features
-            # X_ICL = X_ICL[:, perm]
+                if self.config['prompt_params']['prompt_ID'] in ['pe1', 'pe2', 'pe1-topk', 'pe2-topk', 'predict_then_explain']:
+                    pred = None
+                elif self.delta_format:
+                    X_ICL -= self.X_test[eval_idx]
+                    y_ICL -= pred
+                # generate permutation of length n_features
+                # X_ICL = X_ICL[:, perm]
 
-                prompt_outputs = self.prompt.create_prompt(X_train=X_ICL, y_train=y_ICL, x=self.X_test[eval_idx],
-                                                           post_text=self.post_text, x_test=exp_x_test, explanations=exp_exps,
-                                                           y_test=exp_y_test, pre_text=self.pre_text, y=pred, mid_text=self.mid_text)
-                if self.hide_last_pred:
-                    prompt_text, last_y = prompt_outputs
-                    hidden_ys.append(last_y)
-                else:
-                    prompt_text = prompt_outputs
+                    prompt_outputs = self.prompt.create_prompt(X_train=X_ICL, y_train=y_ICL, x=self.X_test[eval_idx],
+                                                               post_text=self.post_text, x_test=exp_x_test, explanations=exp_exps,
+                                                               y_test=exp_y_test, pre_text=self.pre_text, y=pred, mid_text=self.mid_text)
+                    if self.hide_last_pred:
+                        prompt_text, last_y = prompt_outputs
+                        hidden_ys.append(last_y)
+                    else:
+                        prompt_text = prompt_outputs
 
-            print("PROMPT:")
-            prompt_text = prompt_text.lstrip('\n').rstrip('\n')
-            prompt_text = prompt_text + '\n\nAnswer:' if 'llama' in LLM else prompt_text
-            print(prompt_text)
+                print("PROMPT:")
+                prompt_text = prompt_text.lstrip('\n').rstrip('\n')
+                prompt_text = prompt_text + '\n\nAnswer:' if 'llama' in LLM else prompt_text
+                print(prompt_text)
 
             # Query LLM
             if 'gpt' in LLM:
                 output = RobustQueryGPT(prompt_text, LLM, api_key, temperature, return_tokens=True)
                 reply, message, prompt_tokens, completion_tokens = output
                 # Calculate cost
-                tokens[eval_idx - self.eval_min_idx] = [prompt_tokens, completion_tokens]
+                tokens[num_valid_test_points] = [prompt_tokens, completion_tokens]
                 input_cost, output_cost = api_costs[LLM]
                 input_cost = api_costs[LLM][0] * prompt_tokens/1000
                 output_cost = api_costs[LLM][1] * completion_tokens/1000
                 total_cost = input_cost + output_cost
-                experiment_costs[eval_idx - self.eval_min_idx] = [input_cost, output_cost, total_cost]
+                experiment_costs[num_valid_test_points] = [input_cost, output_cost, total_cost]
             elif 'llama' in LLM or 'mixtral' in LLM:
                 # message = QueryHuggingFace(prompt_text, LLM, api_key)
                 reply = message['generated_text']
@@ -337,6 +371,9 @@ class Pipeline:
             # Save query info
             SaveLLMQueryInfo(folder_name_exp_id, LLM, self.model_name, self.data_name, temperature,
                              self.n_shot, eval_idx, self.k, message, prompt_text, reply, self.sampling_scheme)
+
+            eval_idx += 1
+            num_valid_test_points += 1
 
         SaveExperimentInfo(self.config, folder_name_exp_id, self.n_shot, LLM, self.model_name, self.data_name, LLM_topks,
                            self.eval_min_idx, self.eval_max_idx, hidden_ys=hidden_ys)
