@@ -73,7 +73,7 @@ class LIME(Explainer):
             return torch.FloatTensor(attribution_scores[1]), all_perturbations
         elif self.mode == 'text':
             attribution_scores = []
-            for i in tqdm(range(all_data.shape[0]), disable=disable_tqdm):
+            for i in tqdm(range(len(all_data)), disable=disable_tqdm):  # was range(all_data.shape[0])
                 text = all_data[i]
                 exp = self.explainer.explain_instance(text, self.model, num_samples=self.n_samples)
                 attribution_scores.append(exp)
