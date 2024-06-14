@@ -44,7 +44,7 @@ def get_model_architecture(model_name):
     return dim_per_layer_per_MLP[model_name], activation_per_layer_per_MLP[model_name]
 
 def get_model_names(model_name, dataset_name, base_model_dir):
-    model_names = ['lr', 'ann_s', 'ann_m', 'ann_l', 'ann_xl']
+    model_names = ['lr', 'ann_s', 'ann_m', 'ann_l', 'ann_xl', 'text_ann']
     model_dirs  = [base_model_dir + model_name.upper() + '/' for model_name in model_names]
 
     model_dirs = dict(zip(model_names, model_dirs))
@@ -55,28 +55,32 @@ def get_model_names(model_name, dataset_name, base_model_dir):
             '20230629_0056_16_2__compas_ann_s_0.001_auc_roc_0.83.pt',
             '20230629_0056_32_16_2__compas_ann_m_0.001_auc_roc_0.83.pt',
             '20230629_0057_64_32_16_2__compas_ann_l_0.001_auc_roc_0.83.pt',
-            '20230629_0057_256_128_64_32_16_2__compas_ann_xl_0.001_auc_roc_0.82.pt']
+            '20230629_0057_256_128_64_32_16_2__compas_ann_xl_0.001_auc_roc_0.82.pt',
+            'none_text_ann']
 
         credit_model_names = [
             '20230629_0101_2__credit_lr_0.001_auc_roc_0.81.pt',
             '20230629_0105_16_2__credit_ann_s_0.001_auc_roc_0.81.pt',
             '20230629_0109_32_16_2__credit_ann_m_0.001_auc_roc_0.81.pt',
             '20230629_0111_64_32_16_2__credit_ann_l_0.001_auc_roc_0.81.pt',
-            '20230629_0113_256_128_64_32_16_2__credit_ann_xl_0.001_auc_roc_0.81.pt']
+            '20230629_0113_256_128_64_32_16_2__credit_ann_xl_0.001_auc_roc_0.81.pt',
+            'none_text_ann']
 
         adult_model_names = [
             '20230629_0039_2__adult_lr_0.001_auc_roc_0.89.pt',
             '20230629_0041_16_2__adult_ann_s_0.001_auc_roc_0.90.pt',
             '20230629_0044_32_16_2__adult_ann_m_0.001_auc_roc_0.90.pt',
             '20230629_0048_64_32_16_2__adult_ann_l_0.001_auc_roc_0.90.pt',
-            '20230629_0051_256_128_64_32_16_2__adult_ann_xl_0.001_auc_roc_0.90.pt']
+            '20230629_0051_256_128_64_32_16_2__adult_ann_xl_0.001_auc_roc_0.90.pt',
+            'none_text_ann']
 
         blood_model_names = [
             '20230907_1208_2__blood_lr_0.001_auc_roc_0.66.pt',
             '20230907_1208_16_2__blood_ann_s_0.001_auc_roc_0.73.pt',
             '20230907_1208_32_16_2__blood_ann_m_0.001_auc_roc_0.74.pt',
             '20230907_1208_64_32_16_2__blood_ann_l_0.001_auc_roc_0.75.pt',
-            '20230907_1208_256_128_64_32_16_2__blood_ann_xl_0.001_auc_roc_0.76.pt']
+            '20230907_1208_256_128_64_32_16_2__blood_ann_xl_0.001_auc_roc_0.76.pt',
+            'none_text_ann']
 
         model_file_names_data = {
             'compas': dict(zip(model_names, compas_model_names)),
@@ -100,9 +104,31 @@ def get_model_names(model_name, dataset_name, base_model_dir):
                               'none_ann_s',
                               'none_ann_m',
                               '20240328_1159_64_32_16_2__beauty_ann_l_0.001_auc_roc_0.94.pt',
-                              'none_ann_xl']
+                              'none_ann_xl',
+                              'none_text_ann']
+        amazon_1000_model_names = ['none_lr',
+                                   'none_ann_s',
+                                   'none_ann_m',
+                                   'none_ann_l',
+                                   'none_ann_xl',
+                                   '20240611_0417_None__amazon_1000_text_ann_0.001_auc_roc_0.85.pt']
+        yelp_model_names = ['none_lr',
+                            'none_ann_s',
+                            'none_ann_m',
+                            'none_ann_l',
+                            'none_ann_xl',
+                            '20240611_0423_None__yelp_text_ann_0.001_auc_roc_0.73.pt']
+        imdb_model_names = ['none_lr',
+                            'none_ann_s',
+                            'none_ann_m',
+                            'none_ann_l',
+                            'none_ann_xl',
+                            '20240613_0044_None__imdb_text_ann_0.001_auc_roc_0.81.pt']
         model_file_names_data = {
-            'beauty': dict(zip(model_names, beauty_model_names))
+            'beauty': dict(zip(model_names, beauty_model_names)),
+            'amazon_1000': dict(zip(model_names, amazon_1000_model_names)),
+            'yelp': dict(zip(model_names, yelp_model_names)),
+            'imdb': dict(zip(model_names, imdb_model_names))
         }
     else:
         raise NotImplementedError(f'Not implemented for {base_model_dir}')

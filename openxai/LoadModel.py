@@ -5,19 +5,24 @@ import requests
 # models
 #import openxai as model_ann
 import openxai.ML_Models.ANN.MLP as model_MLP
+import openxai.ML_Models.ANN.Text_MLP as model_MLP_Text
 from openxai.ML_Models.LR.model import LogisticRegression
+
 # (Train & Test) Loaders
 import openxai.dataloader as loaders
 
 ### Get Dataset and Model
 
-def DefineModel(model_name, input_size, dim_per_layer=None, activation_per_layer=None):
-    if 'ann' in model_name:
-        dim_per_layer = [input_size] + dim_per_layer
-        model         = model_MLP.MLP(dim_per_layer, activation_per_layer)
-    elif model_name == 'lr':
-        dim_per_layer = [input_size] + dim_per_layer
-        model         = LogisticRegression(dim_per_layer[0], dim_per_layer[1])
+def DefineModel(model_name, input_size=None, dim_per_layer=None, activation_per_layer=None, vocab_size=None):
+    if 'text_ann' in model_name:
+        model = model_MLP_Text.Text_MLP(vocab_size)
+    else:
+        if 'ann' in model_name:
+            dim_per_layer = [input_size] + dim_per_layer
+            model         = model_MLP.MLP(dim_per_layer, activation_per_layer)
+        elif model_name == 'lr':
+            dim_per_layer = [input_size] + dim_per_layer
+            model         = LogisticRegression(dim_per_layer[0], dim_per_layer[1])
     return model
 
 def LoadModel(data_name: str, ml_model, pretrained: bool = True):
