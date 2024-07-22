@@ -199,10 +199,12 @@ If you have questions/suggestions, please feel free to create GitHub issues.
 
 **Please consider citing if you find our codebase useful:**
 
-    @misc{kroeger2023large,
-    title={Are Large Language Models Post Hoc Explainers?}, 
-    author={Nicholas Kroeger and Dan Ley and Satyapriya Krishna and Chirag Agarwal and Himabindu Lakkaraju},
-    year={2023},
-    eprint={2310.05797},
-    archivePrefix={arXiv},
-    primaryClass={cs.CL}
+   @misc{kroeger2024incontext,
+      title={In-Context Explainers: Harnessing LLMs for Explaining Black Box Models}, 
+      author={Nicholas Kroeger and Dan Ley and Satyapriya Krishna and Chirag Agarwal and Himabindu Lakkaraju},
+      year={2024},
+      eprint={2310.05797},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2310.05797}, 
+}
