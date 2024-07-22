@@ -198,7 +198,7 @@ python3 LLM_pipeline_wrapper_experiments.py
 If you have questions/suggestions, please feel free to create GitHub issues.
 
 **Please consider citing if you find our codebase useful:**
-
+```
    @misc{kroeger2024incontext,
       title={In-Context Explainers: Harnessing LLMs for Explaining Black Box Models}, 
       author={Nicholas Kroeger and Dan Ley and Satyapriya Krishna and Chirag Agarwal and Himabindu Lakkaraju},
@@ -208,3 +208,4 @@ If you have questions/suggestions, please feel free to create GitHub issues.
       primaryClass={cs.CL},
       url={https://arxiv.org/abs/2310.05797}, 
 }
+```
